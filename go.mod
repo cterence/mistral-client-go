@@ -1,4 +1,4 @@
-module github.com/cterence/mistral-client-golang
+module github.com/cterence/mistral-client-go
 
 go 1.23
 

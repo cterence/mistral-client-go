@@ -1,0 +1,67 @@
+name: sync-upstream-spec
+
+on:
+  schedule:
+    - cron: "0 6 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: sync-upstream-spec
+  cancel-in-progress: true
+
+jobs:
+  regenerate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: DeterminateSystems/nix-installer-action@v16
+
+      - uses: DeterminateSystems/magic-nix-cache-action@v9
+
+      - name: Check upstream OpenAPI spec for changes
+        id: spec
+        run: |
+          curl -sL --fail https://raw.githubusercontent.com/mistralai/platform-docs-public/main/openapi.yaml -o openapi.new.yaml
+          if cmp -s openapi.new.yaml openapi.yaml; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          else
+            mv openapi.new.yaml openapi.yaml
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Regenerate SDK
+        if: steps.spec.outputs.changed == 'true'
+        run: nix develop -c make generate
+
+      - name: Test
+        id: test
+        if: steps.spec.outputs.changed == 'true'
+        run: |
+          nix develop -c make test
+          echo "live=$([ -n "$MISTRAL_API_KEY" ] && echo ran || echo skipped)" >> "$GITHUB_OUTPUT"
+        env:
+          MISTRAL_API_KEY: ${{ secrets.MISTRAL_API_KEY }}
+
+      - name: Open pull request
+        if: steps.spec.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          LIVE_TESTS: ${{ steps.test.outputs.live }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          BRANCH=sync/upstream-openapi
+          git checkout -B "$BRANCH"
+          git add -A
+          git commit -m "chore: sync SDK from upstream openapi.yaml"
+          git push --force origin "$BRANCH"
+          if ! gh pr view "$BRANCH" --json url -q .url > /dev/null 2>&1; then
+            gh pr create --head "$BRANCH" --title "chore: sync SDK from upstream openapi.yaml" \
+              --body "Regenerated from the latest mistralai/platform-docs-public spec. Tests: go test ./... (live streaming test $LIVE_TESTS)."
+          fi
