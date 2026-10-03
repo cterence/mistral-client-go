@@ -1,0 +1,385 @@
+# OutputContentChunks
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**Type** | Pointer to **string** |  | [optional] [default to "text"]
+**Text** | **string** |  | 
+**ImageUrl** | [**ImageUrl**](ImageUrl.md) |  | 
+**Tool** | [**Tool1**](Tool1.md) |  | 
+**FileId** | **string** |  | 
+**FileName** | Pointer to **string** |  | [optional] 
+**FileType** | Pointer to **string** |  | [optional] 
+**DocumentUrl** | **string** |  | 
+**DocumentName** | Pointer to **string** | The filename of the document | [optional] 
+**Thinking** | [**[]ThinkingInner**](ThinkingInner.md) |  | 
+**Closed** | Pointer to **bool** | Whether the thinking chunk is closed or not. Currently only used for prefixing. | [optional] [default to true]
+**Title** | **string** |  | 
+**Url** | Pointer to **string** |  | [optional] 
+**Favicon** | Pointer to **string** |  | [optional] 
+**Description** | Pointer to **string** |  | [optional] 
+
+## Methods
+
+### NewOutputContentChunks
+
+`func NewOutputContentChunks(text string, imageUrl ImageUrl, tool Tool1, fileId string, documentUrl string, thinking []ThinkingInner, title string, ) *OutputContentChunks`
+
+NewOutputContentChunks instantiates a new OutputContentChunks object
+This constructor will assign default values to properties that have it defined,
+and makes sure properties required by API are set, but the set of arguments
+will change when the set of required properties is changed
+
+### NewOutputContentChunksWithDefaults
+
+`func NewOutputContentChunksWithDefaults() *OutputContentChunks`
+
+NewOutputContentChunksWithDefaults instantiates a new OutputContentChunks object
+This constructor will only assign default values to properties that have it defined,
+but it doesn't guarantee that properties required by API are set
+
+### GetType
+
+`func (o *OutputContentChunks) GetType() string`
+
+GetType returns the Type field if non-nil, zero value otherwise.
+
+### GetTypeOk
+
+`func (o *OutputContentChunks) GetTypeOk() (*string, bool)`
+
+GetTypeOk returns a tuple with the Type field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetType
+
+`func (o *OutputContentChunks) SetType(v string)`
+
+SetType sets Type field to given value.
+
+### HasType
+
+`func (o *OutputContentChunks) HasType() bool`
+
+HasType returns a boolean if a field has been set.
+
+### GetText
+
+`func (o *OutputContentChunks) GetText() string`
+
+GetText returns the Text field if non-nil, zero value otherwise.
+
+### GetTextOk
+
+`func (o *OutputContentChunks) GetTextOk() (*string, bool)`
+
+GetTextOk returns a tuple with the Text field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetText
+
+`func (o *OutputContentChunks) SetText(v string)`
+
+SetText sets Text field to given value.
+
+
+### GetImageUrl
+
+`func (o *OutputContentChunks) GetImageUrl() ImageUrl`
+
+GetImageUrl returns the ImageUrl field if non-nil, zero value otherwise.
+
+### GetImageUrlOk
+
+`func (o *OutputContentChunks) GetImageUrlOk() (*ImageUrl, bool)`
+
+GetImageUrlOk returns a tuple with the ImageUrl field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetImageUrl
+
+`func (o *OutputContentChunks) SetImageUrl(v ImageUrl)`
+
+SetImageUrl sets ImageUrl field to given value.
+
+
+### GetTool
+
+`func (o *OutputContentChunks) GetTool() Tool1`
+
+GetTool returns the Tool field if non-nil, zero value otherwise.
+
+### GetToolOk
+
+`func (o *OutputContentChunks) GetToolOk() (*Tool1, bool)`
+
+GetToolOk returns a tuple with the Tool field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetTool
+
+`func (o *OutputContentChunks) SetTool(v Tool1)`
+
+SetTool sets Tool field to given value.
+
+
+### GetFileId
+
+`func (o *OutputContentChunks) GetFileId() string`
+
+GetFileId returns the FileId field if non-nil, zero value otherwise.
+
+### GetFileIdOk
+
+`func (o *OutputContentChunks) GetFileIdOk() (*string, bool)`
+
+GetFileIdOk returns a tuple with the FileId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetFileId
+
+`func (o *OutputContentChunks) SetFileId(v string)`
+
+SetFileId sets FileId field to given value.
+
+
+### GetFileName
+
+`func (o *OutputContentChunks) GetFileName() string`
+
+GetFileName returns the FileName field if non-nil, zero value otherwise.
+
+### GetFileNameOk
+
+`func (o *OutputContentChunks) GetFileNameOk() (*string, bool)`
+
+GetFileNameOk returns a tuple with the FileName field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetFileName
+
+`func (o *OutputContentChunks) SetFileName(v string)`
+
+SetFileName sets FileName field to given value.
+
+### HasFileName
+
+`func (o *OutputContentChunks) HasFileName() bool`
+
+HasFileName returns a boolean if a field has been set.
+
+### GetFileType
+
+`func (o *OutputContentChunks) GetFileType() string`
+
+GetFileType returns the FileType field if non-nil, zero value otherwise.
+
+### GetFileTypeOk
+
+`func (o *OutputContentChunks) GetFileTypeOk() (*string, bool)`
+
+GetFileTypeOk returns a tuple with the FileType field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetFileType
+
+`func (o *OutputContentChunks) SetFileType(v string)`
+
+SetFileType sets FileType field to given value.
+
+### HasFileType
+
+`func (o *OutputContentChunks) HasFileType() bool`
+
+HasFileType returns a boolean if a field has been set.
+
+### GetDocumentUrl
+
+`func (o *OutputContentChunks) GetDocumentUrl() string`
+
+GetDocumentUrl returns the DocumentUrl field if non-nil, zero value otherwise.
+
+### GetDocumentUrlOk
+
+`func (o *OutputContentChunks) GetDocumentUrlOk() (*string, bool)`
+
+GetDocumentUrlOk returns a tuple with the DocumentUrl field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDocumentUrl
+
+`func (o *OutputContentChunks) SetDocumentUrl(v string)`
+
+SetDocumentUrl sets DocumentUrl field to given value.
+
+
+### GetDocumentName
+
+`func (o *OutputContentChunks) GetDocumentName() string`
+
+GetDocumentName returns the DocumentName field if non-nil, zero value otherwise.
+
+### GetDocumentNameOk
+
+`func (o *OutputContentChunks) GetDocumentNameOk() (*string, bool)`
+
+GetDocumentNameOk returns a tuple with the DocumentName field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDocumentName
+
+`func (o *OutputContentChunks) SetDocumentName(v string)`
+
+SetDocumentName sets DocumentName field to given value.
+
+### HasDocumentName
+
+`func (o *OutputContentChunks) HasDocumentName() bool`
+
+HasDocumentName returns a boolean if a field has been set.
+
+### GetThinking
+
+`func (o *OutputContentChunks) GetThinking() []ThinkingInner`
+
+GetThinking returns the Thinking field if non-nil, zero value otherwise.
+
+### GetThinkingOk
+
+`func (o *OutputContentChunks) GetThinkingOk() (*[]ThinkingInner, bool)`
+
+GetThinkingOk returns a tuple with the Thinking field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetThinking
+
+`func (o *OutputContentChunks) SetThinking(v []ThinkingInner)`
+
+SetThinking sets Thinking field to given value.
+
+
+### GetClosed
+
+`func (o *OutputContentChunks) GetClosed() bool`
+
+GetClosed returns the Closed field if non-nil, zero value otherwise.
+
+### GetClosedOk
+
+`func (o *OutputContentChunks) GetClosedOk() (*bool, bool)`
+
+GetClosedOk returns a tuple with the Closed field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetClosed
+
+`func (o *OutputContentChunks) SetClosed(v bool)`
+
+SetClosed sets Closed field to given value.
+
+### HasClosed
+
+`func (o *OutputContentChunks) HasClosed() bool`
+
+HasClosed returns a boolean if a field has been set.
+
+### GetTitle
+
+`func (o *OutputContentChunks) GetTitle() string`
+
+GetTitle returns the Title field if non-nil, zero value otherwise.
+
+### GetTitleOk
+
+`func (o *OutputContentChunks) GetTitleOk() (*string, bool)`
+
+GetTitleOk returns a tuple with the Title field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetTitle
+
+`func (o *OutputContentChunks) SetTitle(v string)`
+
+SetTitle sets Title field to given value.
+
+
+### GetUrl
+
+`func (o *OutputContentChunks) GetUrl() string`
+
+GetUrl returns the Url field if non-nil, zero value otherwise.
+
+### GetUrlOk
+
+`func (o *OutputContentChunks) GetUrlOk() (*string, bool)`
+
+GetUrlOk returns a tuple with the Url field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetUrl
+
+`func (o *OutputContentChunks) SetUrl(v string)`
+
+SetUrl sets Url field to given value.
+
+### HasUrl
+
+`func (o *OutputContentChunks) HasUrl() bool`
+
+HasUrl returns a boolean if a field has been set.
+
+### GetFavicon
+
+`func (o *OutputContentChunks) GetFavicon() string`
+
+GetFavicon returns the Favicon field if non-nil, zero value otherwise.
+
+### GetFaviconOk
+
+`func (o *OutputContentChunks) GetFaviconOk() (*string, bool)`
+
+GetFaviconOk returns a tuple with the Favicon field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetFavicon
+
+`func (o *OutputContentChunks) SetFavicon(v string)`
+
+SetFavicon sets Favicon field to given value.
+
+### HasFavicon
+
+`func (o *OutputContentChunks) HasFavicon() bool`
+
+HasFavicon returns a boolean if a field has been set.
+
+### GetDescription
+
+`func (o *OutputContentChunks) GetDescription() string`
+
+GetDescription returns the Description field if non-nil, zero value otherwise.
+
+### GetDescriptionOk
+
+`func (o *OutputContentChunks) GetDescriptionOk() (*string, bool)`
+
+GetDescriptionOk returns a tuple with the Description field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDescription
+
+`func (o *OutputContentChunks) SetDescription(v string)`
+
+SetDescription sets Description field to given value.
+
+### HasDescription
+
+`func (o *OutputContentChunks) HasDescription() bool`
+
+HasDescription returns a boolean if a field has been set.
+
+
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
