@@ -1,0 +1,379 @@
+# ResponseV1ConversationsListInner
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**Instructions** | Pointer to **string** | Instruction prompt the model will follow during the conversation. | [optional] 
+**Tools** | Pointer to [**[]ToolsInner**](ToolsInner.md) | List of tools which are available to the model during the conversation. | [optional] 
+**CompletionArgs** | Pointer to [**CompletionArgs**](CompletionArgs.md) | Completion arguments that will be used to generate assistant responses. Can be overridden at each message request. | [optional] 
+**Guardrails** | Pointer to [**[]GuardrailConfig**](GuardrailConfig.md) |  | [optional] 
+**Name** | Pointer to **string** | Name given to the conversation. | [optional] 
+**Description** | Pointer to **string** | Description of the what the conversation is about. | [optional] 
+**Metadata** | Pointer to **map[string]interface{}** | Custom metadata for the conversation. | [optional] 
+**Object** | Pointer to **string** |  | [optional] [default to "conversation"]
+**Id** | **string** |  | 
+**CreatedAt** | **time.Time** |  | 
+**UpdatedAt** | **time.Time** |  | 
+**Model** | **string** |  | 
+**AgentId** | **string** |  | 
+**AgentVersion** | Pointer to [**NullableAgentVersion1**](AgentVersion1.md) |  | [optional] 
+
+## Methods
+
+### NewResponseV1ConversationsListInner
+
+`func NewResponseV1ConversationsListInner(id string, createdAt time.Time, updatedAt time.Time, model string, agentId string, ) *ResponseV1ConversationsListInner`
+
+NewResponseV1ConversationsListInner instantiates a new ResponseV1ConversationsListInner object
+This constructor will assign default values to properties that have it defined,
+and makes sure properties required by API are set, but the set of arguments
+will change when the set of required properties is changed
+
+### NewResponseV1ConversationsListInnerWithDefaults
+
+`func NewResponseV1ConversationsListInnerWithDefaults() *ResponseV1ConversationsListInner`
+
+NewResponseV1ConversationsListInnerWithDefaults instantiates a new ResponseV1ConversationsListInner object
+This constructor will only assign default values to properties that have it defined,
+but it doesn't guarantee that properties required by API are set
+
+### GetInstructions
+
+`func (o *ResponseV1ConversationsListInner) GetInstructions() string`
+
+GetInstructions returns the Instructions field if non-nil, zero value otherwise.
+
+### GetInstructionsOk
+
+`func (o *ResponseV1ConversationsListInner) GetInstructionsOk() (*string, bool)`
+
+GetInstructionsOk returns a tuple with the Instructions field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetInstructions
+
+`func (o *ResponseV1ConversationsListInner) SetInstructions(v string)`
+
+SetInstructions sets Instructions field to given value.
+
+### HasInstructions
+
+`func (o *ResponseV1ConversationsListInner) HasInstructions() bool`
+
+HasInstructions returns a boolean if a field has been set.
+
+### GetTools
+
+`func (o *ResponseV1ConversationsListInner) GetTools() []ToolsInner`
+
+GetTools returns the Tools field if non-nil, zero value otherwise.
+
+### GetToolsOk
+
+`func (o *ResponseV1ConversationsListInner) GetToolsOk() (*[]ToolsInner, bool)`
+
+GetToolsOk returns a tuple with the Tools field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetTools
+
+`func (o *ResponseV1ConversationsListInner) SetTools(v []ToolsInner)`
+
+SetTools sets Tools field to given value.
+
+### HasTools
+
+`func (o *ResponseV1ConversationsListInner) HasTools() bool`
+
+HasTools returns a boolean if a field has been set.
+
+### GetCompletionArgs
+
+`func (o *ResponseV1ConversationsListInner) GetCompletionArgs() CompletionArgs`
+
+GetCompletionArgs returns the CompletionArgs field if non-nil, zero value otherwise.
+
+### GetCompletionArgsOk
+
+`func (o *ResponseV1ConversationsListInner) GetCompletionArgsOk() (*CompletionArgs, bool)`
+
+GetCompletionArgsOk returns a tuple with the CompletionArgs field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCompletionArgs
+
+`func (o *ResponseV1ConversationsListInner) SetCompletionArgs(v CompletionArgs)`
+
+SetCompletionArgs sets CompletionArgs field to given value.
+
+### HasCompletionArgs
+
+`func (o *ResponseV1ConversationsListInner) HasCompletionArgs() bool`
+
+HasCompletionArgs returns a boolean if a field has been set.
+
+### GetGuardrails
+
+`func (o *ResponseV1ConversationsListInner) GetGuardrails() []GuardrailConfig`
+
+GetGuardrails returns the Guardrails field if non-nil, zero value otherwise.
+
+### GetGuardrailsOk
+
+`func (o *ResponseV1ConversationsListInner) GetGuardrailsOk() (*[]GuardrailConfig, bool)`
+
+GetGuardrailsOk returns a tuple with the Guardrails field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetGuardrails
+
+`func (o *ResponseV1ConversationsListInner) SetGuardrails(v []GuardrailConfig)`
+
+SetGuardrails sets Guardrails field to given value.
+
+### HasGuardrails
+
+`func (o *ResponseV1ConversationsListInner) HasGuardrails() bool`
+
+HasGuardrails returns a boolean if a field has been set.
+
+### GetName
+
+`func (o *ResponseV1ConversationsListInner) GetName() string`
+
+GetName returns the Name field if non-nil, zero value otherwise.
+
+### GetNameOk
+
+`func (o *ResponseV1ConversationsListInner) GetNameOk() (*string, bool)`
+
+GetNameOk returns a tuple with the Name field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetName
+
+`func (o *ResponseV1ConversationsListInner) SetName(v string)`
+
+SetName sets Name field to given value.
+
+### HasName
+
+`func (o *ResponseV1ConversationsListInner) HasName() bool`
+
+HasName returns a boolean if a field has been set.
+
+### GetDescription
+
+`func (o *ResponseV1ConversationsListInner) GetDescription() string`
+
+GetDescription returns the Description field if non-nil, zero value otherwise.
+
+### GetDescriptionOk
+
+`func (o *ResponseV1ConversationsListInner) GetDescriptionOk() (*string, bool)`
+
+GetDescriptionOk returns a tuple with the Description field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDescription
+
+`func (o *ResponseV1ConversationsListInner) SetDescription(v string)`
+
+SetDescription sets Description field to given value.
+
+### HasDescription
+
+`func (o *ResponseV1ConversationsListInner) HasDescription() bool`
+
+HasDescription returns a boolean if a field has been set.
+
+### GetMetadata
+
+`func (o *ResponseV1ConversationsListInner) GetMetadata() map[string]interface{}`
+
+GetMetadata returns the Metadata field if non-nil, zero value otherwise.
+
+### GetMetadataOk
+
+`func (o *ResponseV1ConversationsListInner) GetMetadataOk() (*map[string]interface{}, bool)`
+
+GetMetadataOk returns a tuple with the Metadata field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetMetadata
+
+`func (o *ResponseV1ConversationsListInner) SetMetadata(v map[string]interface{})`
+
+SetMetadata sets Metadata field to given value.
+
+### HasMetadata
+
+`func (o *ResponseV1ConversationsListInner) HasMetadata() bool`
+
+HasMetadata returns a boolean if a field has been set.
+
+### GetObject
+
+`func (o *ResponseV1ConversationsListInner) GetObject() string`
+
+GetObject returns the Object field if non-nil, zero value otherwise.
+
+### GetObjectOk
+
+`func (o *ResponseV1ConversationsListInner) GetObjectOk() (*string, bool)`
+
+GetObjectOk returns a tuple with the Object field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetObject
+
+`func (o *ResponseV1ConversationsListInner) SetObject(v string)`
+
+SetObject sets Object field to given value.
+
+### HasObject
+
+`func (o *ResponseV1ConversationsListInner) HasObject() bool`
+
+HasObject returns a boolean if a field has been set.
+
+### GetId
+
+`func (o *ResponseV1ConversationsListInner) GetId() string`
+
+GetId returns the Id field if non-nil, zero value otherwise.
+
+### GetIdOk
+
+`func (o *ResponseV1ConversationsListInner) GetIdOk() (*string, bool)`
+
+GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetId
+
+`func (o *ResponseV1ConversationsListInner) SetId(v string)`
+
+SetId sets Id field to given value.
+
+
+### GetCreatedAt
+
+`func (o *ResponseV1ConversationsListInner) GetCreatedAt() time.Time`
+
+GetCreatedAt returns the CreatedAt field if non-nil, zero value otherwise.
+
+### GetCreatedAtOk
+
+`func (o *ResponseV1ConversationsListInner) GetCreatedAtOk() (*time.Time, bool)`
+
+GetCreatedAtOk returns a tuple with the CreatedAt field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCreatedAt
+
+`func (o *ResponseV1ConversationsListInner) SetCreatedAt(v time.Time)`
+
+SetCreatedAt sets CreatedAt field to given value.
+
+
+### GetUpdatedAt
+
+`func (o *ResponseV1ConversationsListInner) GetUpdatedAt() time.Time`
+
+GetUpdatedAt returns the UpdatedAt field if non-nil, zero value otherwise.
+
+### GetUpdatedAtOk
+
+`func (o *ResponseV1ConversationsListInner) GetUpdatedAtOk() (*time.Time, bool)`
+
+GetUpdatedAtOk returns a tuple with the UpdatedAt field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetUpdatedAt
+
+`func (o *ResponseV1ConversationsListInner) SetUpdatedAt(v time.Time)`
+
+SetUpdatedAt sets UpdatedAt field to given value.
+
+
+### GetModel
+
+`func (o *ResponseV1ConversationsListInner) GetModel() string`
+
+GetModel returns the Model field if non-nil, zero value otherwise.
+
+### GetModelOk
+
+`func (o *ResponseV1ConversationsListInner) GetModelOk() (*string, bool)`
+
+GetModelOk returns a tuple with the Model field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetModel
+
+`func (o *ResponseV1ConversationsListInner) SetModel(v string)`
+
+SetModel sets Model field to given value.
+
+
+### GetAgentId
+
+`func (o *ResponseV1ConversationsListInner) GetAgentId() string`
+
+GetAgentId returns the AgentId field if non-nil, zero value otherwise.
+
+### GetAgentIdOk
+
+`func (o *ResponseV1ConversationsListInner) GetAgentIdOk() (*string, bool)`
+
+GetAgentIdOk returns a tuple with the AgentId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAgentId
+
+`func (o *ResponseV1ConversationsListInner) SetAgentId(v string)`
+
+SetAgentId sets AgentId field to given value.
+
+
+### GetAgentVersion
+
+`func (o *ResponseV1ConversationsListInner) GetAgentVersion() AgentVersion1`
+
+GetAgentVersion returns the AgentVersion field if non-nil, zero value otherwise.
+
+### GetAgentVersionOk
+
+`func (o *ResponseV1ConversationsListInner) GetAgentVersionOk() (*AgentVersion1, bool)`
+
+GetAgentVersionOk returns a tuple with the AgentVersion field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAgentVersion
+
+`func (o *ResponseV1ConversationsListInner) SetAgentVersion(v AgentVersion1)`
+
+SetAgentVersion sets AgentVersion field to given value.
+
+### HasAgentVersion
+
+`func (o *ResponseV1ConversationsListInner) HasAgentVersion() bool`
+
+HasAgentVersion returns a boolean if a field has been set.
+
+### SetAgentVersionNil
+
+`func (o *ResponseV1ConversationsListInner) SetAgentVersionNil(b bool)`
+
+ SetAgentVersionNil sets the value for AgentVersion to be an explicit nil
+
+### UnsetAgentVersion
+`func (o *ResponseV1ConversationsListInner) UnsetAgentVersion()`
+
+UnsetAgentVersion ensures that no value is present for AgentVersion, not even an explicit nil
+
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+

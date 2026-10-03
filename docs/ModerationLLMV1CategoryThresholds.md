@@ -1,0 +1,354 @@
+# ModerationLLMV1CategoryThresholds
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**Sexual** | Pointer to **NullableFloat32** |  | [optional] 
+**HateAndDiscrimination** | Pointer to **NullableFloat32** |  | [optional] 
+**ViolenceAndThreats** | Pointer to **NullableFloat32** |  | [optional] 
+**DangerousAndCriminalContent** | Pointer to **NullableFloat32** |  | [optional] 
+**Selfharm** | Pointer to **NullableFloat32** |  | [optional] 
+**Health** | Pointer to **NullableFloat32** |  | [optional] 
+**Financial** | Pointer to **NullableFloat32** |  | [optional] 
+**Law** | Pointer to **NullableFloat32** |  | [optional] 
+**Pii** | Pointer to **NullableFloat32** |  | [optional] 
+
+## Methods
+
+### NewModerationLLMV1CategoryThresholds
+
+`func NewModerationLLMV1CategoryThresholds() *ModerationLLMV1CategoryThresholds`
+
+NewModerationLLMV1CategoryThresholds instantiates a new ModerationLLMV1CategoryThresholds object
+This constructor will assign default values to properties that have it defined,
+and makes sure properties required by API are set, but the set of arguments
+will change when the set of required properties is changed
+
+### NewModerationLLMV1CategoryThresholdsWithDefaults
+
+`func NewModerationLLMV1CategoryThresholdsWithDefaults() *ModerationLLMV1CategoryThresholds`
+
+NewModerationLLMV1CategoryThresholdsWithDefaults instantiates a new ModerationLLMV1CategoryThresholds object
+This constructor will only assign default values to properties that have it defined,
+but it doesn't guarantee that properties required by API are set
+
+### GetSexual
+
+`func (o *ModerationLLMV1CategoryThresholds) GetSexual() float32`
+
+GetSexual returns the Sexual field if non-nil, zero value otherwise.
+
+### GetSexualOk
+
+`func (o *ModerationLLMV1CategoryThresholds) GetSexualOk() (*float32, bool)`
+
+GetSexualOk returns a tuple with the Sexual field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSexual
+
+`func (o *ModerationLLMV1CategoryThresholds) SetSexual(v float32)`
+
+SetSexual sets Sexual field to given value.
+
+### HasSexual
+
+`func (o *ModerationLLMV1CategoryThresholds) HasSexual() bool`
+
+HasSexual returns a boolean if a field has been set.
+
+### SetSexualNil
+
+`func (o *ModerationLLMV1CategoryThresholds) SetSexualNil(b bool)`
+
+ SetSexualNil sets the value for Sexual to be an explicit nil
+
+### UnsetSexual
+`func (o *ModerationLLMV1CategoryThresholds) UnsetSexual()`
+
+UnsetSexual ensures that no value is present for Sexual, not even an explicit nil
+### GetHateAndDiscrimination
+
+`func (o *ModerationLLMV1CategoryThresholds) GetHateAndDiscrimination() float32`
+
+GetHateAndDiscrimination returns the HateAndDiscrimination field if non-nil, zero value otherwise.
+
+### GetHateAndDiscriminationOk
+
+`func (o *ModerationLLMV1CategoryThresholds) GetHateAndDiscriminationOk() (*float32, bool)`
+
+GetHateAndDiscriminationOk returns a tuple with the HateAndDiscrimination field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetHateAndDiscrimination
+
+`func (o *ModerationLLMV1CategoryThresholds) SetHateAndDiscrimination(v float32)`
+
+SetHateAndDiscrimination sets HateAndDiscrimination field to given value.
+
+### HasHateAndDiscrimination
+
+`func (o *ModerationLLMV1CategoryThresholds) HasHateAndDiscrimination() bool`
+
+HasHateAndDiscrimination returns a boolean if a field has been set.
+
+### SetHateAndDiscriminationNil
+
+`func (o *ModerationLLMV1CategoryThresholds) SetHateAndDiscriminationNil(b bool)`
+
+ SetHateAndDiscriminationNil sets the value for HateAndDiscrimination to be an explicit nil
+
+### UnsetHateAndDiscrimination
+`func (o *ModerationLLMV1CategoryThresholds) UnsetHateAndDiscrimination()`
+
+UnsetHateAndDiscrimination ensures that no value is present for HateAndDiscrimination, not even an explicit nil
+### GetViolenceAndThreats
+
+`func (o *ModerationLLMV1CategoryThresholds) GetViolenceAndThreats() float32`
+
+GetViolenceAndThreats returns the ViolenceAndThreats field if non-nil, zero value otherwise.
+
+### GetViolenceAndThreatsOk
+
+`func (o *ModerationLLMV1CategoryThresholds) GetViolenceAndThreatsOk() (*float32, bool)`
+
+GetViolenceAndThreatsOk returns a tuple with the ViolenceAndThreats field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetViolenceAndThreats
+
+`func (o *ModerationLLMV1CategoryThresholds) SetViolenceAndThreats(v float32)`
+
+SetViolenceAndThreats sets ViolenceAndThreats field to given value.
+
+### HasViolenceAndThreats
+
+`func (o *ModerationLLMV1CategoryThresholds) HasViolenceAndThreats() bool`
+
+HasViolenceAndThreats returns a boolean if a field has been set.
+
+### SetViolenceAndThreatsNil
+
+`func (o *ModerationLLMV1CategoryThresholds) SetViolenceAndThreatsNil(b bool)`
+
+ SetViolenceAndThreatsNil sets the value for ViolenceAndThreats to be an explicit nil
+
+### UnsetViolenceAndThreats
+`func (o *ModerationLLMV1CategoryThresholds) UnsetViolenceAndThreats()`
+
+UnsetViolenceAndThreats ensures that no value is present for ViolenceAndThreats, not even an explicit nil
+### GetDangerousAndCriminalContent
+
+`func (o *ModerationLLMV1CategoryThresholds) GetDangerousAndCriminalContent() float32`
+
+GetDangerousAndCriminalContent returns the DangerousAndCriminalContent field if non-nil, zero value otherwise.
+
+### GetDangerousAndCriminalContentOk
+
+`func (o *ModerationLLMV1CategoryThresholds) GetDangerousAndCriminalContentOk() (*float32, bool)`
+
+GetDangerousAndCriminalContentOk returns a tuple with the DangerousAndCriminalContent field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDangerousAndCriminalContent
+
+`func (o *ModerationLLMV1CategoryThresholds) SetDangerousAndCriminalContent(v float32)`
+
+SetDangerousAndCriminalContent sets DangerousAndCriminalContent field to given value.
+
+### HasDangerousAndCriminalContent
+
+`func (o *ModerationLLMV1CategoryThresholds) HasDangerousAndCriminalContent() bool`
+
+HasDangerousAndCriminalContent returns a boolean if a field has been set.
+
+### SetDangerousAndCriminalContentNil
+
+`func (o *ModerationLLMV1CategoryThresholds) SetDangerousAndCriminalContentNil(b bool)`
+
+ SetDangerousAndCriminalContentNil sets the value for DangerousAndCriminalContent to be an explicit nil
+
+### UnsetDangerousAndCriminalContent
+`func (o *ModerationLLMV1CategoryThresholds) UnsetDangerousAndCriminalContent()`
+
+UnsetDangerousAndCriminalContent ensures that no value is present for DangerousAndCriminalContent, not even an explicit nil
+### GetSelfharm
+
+`func (o *ModerationLLMV1CategoryThresholds) GetSelfharm() float32`
+
+GetSelfharm returns the Selfharm field if non-nil, zero value otherwise.
+
+### GetSelfharmOk
+
+`func (o *ModerationLLMV1CategoryThresholds) GetSelfharmOk() (*float32, bool)`
+
+GetSelfharmOk returns a tuple with the Selfharm field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSelfharm
+
+`func (o *ModerationLLMV1CategoryThresholds) SetSelfharm(v float32)`
+
+SetSelfharm sets Selfharm field to given value.
+
+### HasSelfharm
+
+`func (o *ModerationLLMV1CategoryThresholds) HasSelfharm() bool`
+
+HasSelfharm returns a boolean if a field has been set.
+
+### SetSelfharmNil
+
+`func (o *ModerationLLMV1CategoryThresholds) SetSelfharmNil(b bool)`
+
+ SetSelfharmNil sets the value for Selfharm to be an explicit nil
+
+### UnsetSelfharm
+`func (o *ModerationLLMV1CategoryThresholds) UnsetSelfharm()`
+
+UnsetSelfharm ensures that no value is present for Selfharm, not even an explicit nil
+### GetHealth
+
+`func (o *ModerationLLMV1CategoryThresholds) GetHealth() float32`
+
+GetHealth returns the Health field if non-nil, zero value otherwise.
+
+### GetHealthOk
+
+`func (o *ModerationLLMV1CategoryThresholds) GetHealthOk() (*float32, bool)`
+
+GetHealthOk returns a tuple with the Health field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetHealth
+
+`func (o *ModerationLLMV1CategoryThresholds) SetHealth(v float32)`
+
+SetHealth sets Health field to given value.
+
+### HasHealth
+
+`func (o *ModerationLLMV1CategoryThresholds) HasHealth() bool`
+
+HasHealth returns a boolean if a field has been set.
+
+### SetHealthNil
+
+`func (o *ModerationLLMV1CategoryThresholds) SetHealthNil(b bool)`
+
+ SetHealthNil sets the value for Health to be an explicit nil
+
+### UnsetHealth
+`func (o *ModerationLLMV1CategoryThresholds) UnsetHealth()`
+
+UnsetHealth ensures that no value is present for Health, not even an explicit nil
+### GetFinancial
+
+`func (o *ModerationLLMV1CategoryThresholds) GetFinancial() float32`
+
+GetFinancial returns the Financial field if non-nil, zero value otherwise.
+
+### GetFinancialOk
+
+`func (o *ModerationLLMV1CategoryThresholds) GetFinancialOk() (*float32, bool)`
+
+GetFinancialOk returns a tuple with the Financial field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetFinancial
+
+`func (o *ModerationLLMV1CategoryThresholds) SetFinancial(v float32)`
+
+SetFinancial sets Financial field to given value.
+
+### HasFinancial
+
+`func (o *ModerationLLMV1CategoryThresholds) HasFinancial() bool`
+
+HasFinancial returns a boolean if a field has been set.
+
+### SetFinancialNil
+
+`func (o *ModerationLLMV1CategoryThresholds) SetFinancialNil(b bool)`
+
+ SetFinancialNil sets the value for Financial to be an explicit nil
+
+### UnsetFinancial
+`func (o *ModerationLLMV1CategoryThresholds) UnsetFinancial()`
+
+UnsetFinancial ensures that no value is present for Financial, not even an explicit nil
+### GetLaw
+
+`func (o *ModerationLLMV1CategoryThresholds) GetLaw() float32`
+
+GetLaw returns the Law field if non-nil, zero value otherwise.
+
+### GetLawOk
+
+`func (o *ModerationLLMV1CategoryThresholds) GetLawOk() (*float32, bool)`
+
+GetLawOk returns a tuple with the Law field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetLaw
+
+`func (o *ModerationLLMV1CategoryThresholds) SetLaw(v float32)`
+
+SetLaw sets Law field to given value.
+
+### HasLaw
+
+`func (o *ModerationLLMV1CategoryThresholds) HasLaw() bool`
+
+HasLaw returns a boolean if a field has been set.
+
+### SetLawNil
+
+`func (o *ModerationLLMV1CategoryThresholds) SetLawNil(b bool)`
+
+ SetLawNil sets the value for Law to be an explicit nil
+
+### UnsetLaw
+`func (o *ModerationLLMV1CategoryThresholds) UnsetLaw()`
+
+UnsetLaw ensures that no value is present for Law, not even an explicit nil
+### GetPii
+
+`func (o *ModerationLLMV1CategoryThresholds) GetPii() float32`
+
+GetPii returns the Pii field if non-nil, zero value otherwise.
+
+### GetPiiOk
+
+`func (o *ModerationLLMV1CategoryThresholds) GetPiiOk() (*float32, bool)`
+
+GetPiiOk returns a tuple with the Pii field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPii
+
+`func (o *ModerationLLMV1CategoryThresholds) SetPii(v float32)`
+
+SetPii sets Pii field to given value.
+
+### HasPii
+
+`func (o *ModerationLLMV1CategoryThresholds) HasPii() bool`
+
+HasPii returns a boolean if a field has been set.
+
+### SetPiiNil
+
+`func (o *ModerationLLMV1CategoryThresholds) SetPiiNil(b bool)`
+
+ SetPiiNil sets the value for Pii to be an explicit nil
+
+### UnsetPii
+`func (o *ModerationLLMV1CategoryThresholds) UnsetPii()`
+
+UnsetPii ensures that no value is present for Pii, not even an explicit nil
+
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
