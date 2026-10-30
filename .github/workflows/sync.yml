@@ -22,7 +22,7 @@ jobs:
 
       - uses: DeterminateSystems/nix-installer-action@v16
 
-      - uses: DeterminateSystems/magic-nix-cache-action@v9
+      - uses: DeterminateSystems/magic-nix-cache-action@v15
 
       - name: Check upstream OpenAPI spec for changes
         id: spec
