@@ -29,6 +29,8 @@ const (
 	CONNECTORSUPPORTEDLANGUAGE_PT_BR ConnectorSupportedLanguage = "pt-BR"
 	CONNECTORSUPPORTEDLANGUAGE_IT ConnectorSupportedLanguage = "it"
 	CONNECTORSUPPORTEDLANGUAGE_NL ConnectorSupportedLanguage = "nl"
+	CONNECTORSUPPORTEDLANGUAGE_UK ConnectorSupportedLanguage = "uk"
+	CONNECTORSUPPORTEDLANGUAGE_KO ConnectorSupportedLanguage = "ko"
 )
 
 // All allowed values of ConnectorSupportedLanguage enum
@@ -42,6 +44,8 @@ var AllowedConnectorSupportedLanguageEnumValues = []ConnectorSupportedLanguage{
 	"pt-BR",
 	"it",
 	"nl",
+	"uk",
+	"ko",
 }
 
 func (v *ConnectorSupportedLanguage) UnmarshalJSON(src []byte) error {

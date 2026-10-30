@@ -23,6 +23,7 @@ const (
 	FILEPURPOSE_FINE_TUNE FilePurpose = "fine-tune"
 	FILEPURPOSE_BATCH FilePurpose = "batch"
 	FILEPURPOSE_OCR FilePurpose = "ocr"
+	FILEPURPOSE_AGENTIC_SAFETY FilePurpose = "agentic_safety"
 )
 
 // All allowed values of FilePurpose enum
@@ -30,6 +31,7 @@ var AllowedFilePurposeEnumValues = []FilePurpose{
 	"fine-tune",
 	"batch",
 	"ocr",
+	"agentic_safety",
 }
 
 func (v *FilePurpose) UnmarshalJSON(src []byte) error {

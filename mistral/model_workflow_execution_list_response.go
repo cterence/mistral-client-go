@@ -19,7 +19,7 @@ import (
 // checks if the WorkflowExecutionListResponse type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &WorkflowExecutionListResponse{}
 
-// WorkflowExecutionListResponse struct for WorkflowExecutionListResponse
+// WorkflowExecutionListResponse Deprecated: use WorkflowRunListResponse instead. Will be removed in the next major version.
 type WorkflowExecutionListResponse struct {
 	// A list of workflow executions
 	Executions []WorkflowExecutionWithoutResultResponse `json:"executions"`

@@ -22,12 +22,27 @@ func Test_mistral_BetaConnectorsAPIService(t *testing.T) {
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
 
+	t.Run("Test BetaConnectorsAPIService ConnectorActivateForConsumerV1", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		var connectorId string
+		var consumerScope string
+
+		resp, httpRes, err := apiClient.BetaConnectorsAPI.ConnectorActivateForConsumerV1(context.Background(), connectorId, consumerScope).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
 	t.Run("Test BetaConnectorsAPIService ConnectorCallToolV1", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
 
 		var toolName string
-		var connectorIdOrName string
+		var connectorIdOrName openapiclient.ConnectorIdOrName1
 
 		resp, httpRes, err := apiClient.BetaConnectorsAPI.ConnectorCallToolV1(context.Background(), toolName, connectorIdOrName).Execute()
 
@@ -37,41 +52,14 @@ func Test_mistral_BetaConnectorsAPIService(t *testing.T) {
 
 	})
 
-	t.Run("Test BetaConnectorsAPIService ConnectorCreateOrUpdateOrganizationCredentialsV1", func(t *testing.T) {
+	t.Run("Test BetaConnectorsAPIService ConnectorCreateCredentialsV1", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
 
-		var connectorIdOrName string
+		var connectorIdOrName openapiclient.ConnectorIdOrName1
+		var consumerScope string
 
-		resp, httpRes, err := apiClient.BetaConnectorsAPI.ConnectorCreateOrUpdateOrganizationCredentialsV1(context.Background(), connectorIdOrName).Execute()
-
-		require.Nil(t, err)
-		require.NotNil(t, resp)
-		assert.Equal(t, 200, httpRes.StatusCode)
-
-	})
-
-	t.Run("Test BetaConnectorsAPIService ConnectorCreateOrUpdateUserCredentialsV1", func(t *testing.T) {
-
-		t.Skip("skip test")  // remove to run test
-
-		var connectorIdOrName string
-
-		resp, httpRes, err := apiClient.BetaConnectorsAPI.ConnectorCreateOrUpdateUserCredentialsV1(context.Background(), connectorIdOrName).Execute()
-
-		require.Nil(t, err)
-		require.NotNil(t, resp)
-		assert.Equal(t, 200, httpRes.StatusCode)
-
-	})
-
-	t.Run("Test BetaConnectorsAPIService ConnectorCreateOrUpdateWorkspaceCredentialsV1", func(t *testing.T) {
-
-		t.Skip("skip test")  // remove to run test
-
-		var connectorIdOrName string
-
-		resp, httpRes, err := apiClient.BetaConnectorsAPI.ConnectorCreateOrUpdateWorkspaceCredentialsV1(context.Background(), connectorIdOrName).Execute()
+		resp, httpRes, err := apiClient.BetaConnectorsAPI.ConnectorCreateCredentialsV1(context.Background(), connectorIdOrName, consumerScope).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)
@@ -91,14 +79,14 @@ func Test_mistral_BetaConnectorsAPIService(t *testing.T) {
 
 	})
 
-	t.Run("Test BetaConnectorsAPIService ConnectorDeleteOrganizationCredentialsV1", func(t *testing.T) {
+	t.Run("Test BetaConnectorsAPIService ConnectorDeactivateForConsumerV1", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
 
-		var credentialsName string
-		var connectorIdOrName string
+		var connectorId string
+		var consumerScope string
 
-		resp, httpRes, err := apiClient.BetaConnectorsAPI.ConnectorDeleteOrganizationCredentialsV1(context.Background(), credentialsName, connectorIdOrName).Execute()
+		resp, httpRes, err := apiClient.BetaConnectorsAPI.ConnectorDeactivateForConsumerV1(context.Background(), connectorId, consumerScope).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)
@@ -106,14 +94,29 @@ func Test_mistral_BetaConnectorsAPIService(t *testing.T) {
 
 	})
 
-	t.Run("Test BetaConnectorsAPIService ConnectorDeleteUserCredentialsV1", func(t *testing.T) {
+	t.Run("Test BetaConnectorsAPIService ConnectorDeleteAllUserCredentialsV1", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		var connectorIdOrName openapiclient.ConnectorIdOrName1
+
+		resp, httpRes, err := apiClient.BetaConnectorsAPI.ConnectorDeleteAllUserCredentialsV1(context.Background(), connectorIdOrName).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
+	t.Run("Test BetaConnectorsAPIService ConnectorDeleteCredentials", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
 
 		var credentialsName string
-		var connectorIdOrName string
+		var connectorIdOrName openapiclient.ConnectorIdOrName1
+		var consumerScope string
 
-		resp, httpRes, err := apiClient.BetaConnectorsAPI.ConnectorDeleteUserCredentialsV1(context.Background(), credentialsName, connectorIdOrName).Execute()
+		resp, httpRes, err := apiClient.BetaConnectorsAPI.ConnectorDeleteCredentials(context.Background(), credentialsName, connectorIdOrName, consumerScope).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)
@@ -135,26 +138,11 @@ func Test_mistral_BetaConnectorsAPIService(t *testing.T) {
 
 	})
 
-	t.Run("Test BetaConnectorsAPIService ConnectorDeleteWorkspaceCredentialsV1", func(t *testing.T) {
-
-		t.Skip("skip test")  // remove to run test
-
-		var credentialsName string
-		var connectorIdOrName string
-
-		resp, httpRes, err := apiClient.BetaConnectorsAPI.ConnectorDeleteWorkspaceCredentialsV1(context.Background(), credentialsName, connectorIdOrName).Execute()
-
-		require.Nil(t, err)
-		require.NotNil(t, resp)
-		assert.Equal(t, 200, httpRes.StatusCode)
-
-	})
-
 	t.Run("Test BetaConnectorsAPIService ConnectorGetAuthUrlV1", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
 
-		var connectorIdOrName string
+		var connectorIdOrName openapiclient.ConnectorIdOrName
 
 		resp, httpRes, err := apiClient.BetaConnectorsAPI.ConnectorGetAuthUrlV1(context.Background(), connectorIdOrName).Execute()
 
@@ -168,7 +156,7 @@ func Test_mistral_BetaConnectorsAPIService(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
 
-		var connectorIdOrName string
+		var connectorIdOrName openapiclient.ConnectorIdOrName1
 
 		resp, httpRes, err := apiClient.BetaConnectorsAPI.ConnectorGetAuthenticationMethodsV1(context.Background(), connectorIdOrName).Execute()
 
@@ -182,7 +170,7 @@ func Test_mistral_BetaConnectorsAPIService(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
 
-		var connectorIdOrName string
+		var connectorIdOrName openapiclient.ConnectorIdOrName1
 
 		resp, httpRes, err := apiClient.BetaConnectorsAPI.ConnectorGetV1(context.Background(), connectorIdOrName).Execute()
 
@@ -196,7 +184,7 @@ func Test_mistral_BetaConnectorsAPIService(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
 
-		var connectorIdOrName string
+		var connectorIdOrName openapiclient.ConnectorIdOrName1
 
 		resp, httpRes, err := apiClient.BetaConnectorsAPI.ConnectorListOrganizationCredentialsV1(context.Background(), connectorIdOrName).Execute()
 
@@ -210,7 +198,7 @@ func Test_mistral_BetaConnectorsAPIService(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
 
-		var connectorIdOrName string
+		var connectorIdOrName openapiclient.ConnectorIdOrName1
 
 		resp, httpRes, err := apiClient.BetaConnectorsAPI.ConnectorListToolsV1(context.Background(), connectorIdOrName).Execute()
 
@@ -224,7 +212,7 @@ func Test_mistral_BetaConnectorsAPIService(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
 
-		var connectorIdOrName string
+		var connectorIdOrName openapiclient.ConnectorIdOrName1
 
 		resp, httpRes, err := apiClient.BetaConnectorsAPI.ConnectorListUserCredentialsV1(context.Background(), connectorIdOrName).Execute()
 
@@ -250,9 +238,80 @@ func Test_mistral_BetaConnectorsAPIService(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
 
-		var connectorIdOrName string
+		var connectorIdOrName openapiclient.ConnectorIdOrName1
 
 		resp, httpRes, err := apiClient.BetaConnectorsAPI.ConnectorListWorkspaceCredentialsV1(context.Background(), connectorIdOrName).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
+	t.Run("Test BetaConnectorsAPIService ConnectorShareToOrganizationV1", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		var connectorId string
+
+		resp, httpRes, err := apiClient.BetaConnectorsAPI.ConnectorShareToOrganizationV1(context.Background(), connectorId).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
+	t.Run("Test BetaConnectorsAPIService ConnectorShareV1", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		var connectorId string
+
+		resp, httpRes, err := apiClient.BetaConnectorsAPI.ConnectorShareV1(context.Background(), connectorId).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
+	t.Run("Test BetaConnectorsAPIService ConnectorUnshareFromOrganizationV1", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		var connectorId string
+
+		resp, httpRes, err := apiClient.BetaConnectorsAPI.ConnectorUnshareFromOrganizationV1(context.Background(), connectorId).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
+	t.Run("Test BetaConnectorsAPIService ConnectorUnshareV1", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		var connectorId string
+
+		resp, httpRes, err := apiClient.BetaConnectorsAPI.ConnectorUnshareV1(context.Background(), connectorId).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
+	t.Run("Test BetaConnectorsAPIService ConnectorUpdateCredentials", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		var connectorIdOrName openapiclient.ConnectorIdOrName1
+		var consumerScope string
+
+		resp, httpRes, err := apiClient.BetaConnectorsAPI.ConnectorUpdateCredentials(context.Background(), connectorIdOrName, consumerScope).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)

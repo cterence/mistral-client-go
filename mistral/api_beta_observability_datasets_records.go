@@ -36,6 +36,8 @@ func (r ApiDeleteDatasetRecordV1ObservabilityDatasetRecordsDatasetRecordIdDelete
 /*
 DeleteDatasetRecordV1ObservabilityDatasetRecordsDatasetRecordIdDelete Delete a record from a dataset
 
+Delete a record from a dataset
+
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param datasetRecordId
  @return ApiDeleteDatasetRecordV1ObservabilityDatasetRecordsDatasetRecordIdDeleteRequest
@@ -170,11 +172,11 @@ func (a *BetaObservabilityDatasetsRecordsAPIService) DeleteDatasetRecordV1Observ
 type ApiDeleteDatasetRecordsV1ObservabilityDatasetRecordsBulkDeletePostRequest struct {
 	ctx context.Context
 	ApiService *BetaObservabilityDatasetsRecordsAPIService
-	deleteDatasetRecordsInSchema *DeleteDatasetRecordsInSchema
+	deleteDatasetRecordsRequest *DeleteDatasetRecordsRequest
 }
 
-func (r ApiDeleteDatasetRecordsV1ObservabilityDatasetRecordsBulkDeletePostRequest) DeleteDatasetRecordsInSchema(deleteDatasetRecordsInSchema DeleteDatasetRecordsInSchema) ApiDeleteDatasetRecordsV1ObservabilityDatasetRecordsBulkDeletePostRequest {
-	r.deleteDatasetRecordsInSchema = &deleteDatasetRecordsInSchema
+func (r ApiDeleteDatasetRecordsV1ObservabilityDatasetRecordsBulkDeletePostRequest) DeleteDatasetRecordsRequest(deleteDatasetRecordsRequest DeleteDatasetRecordsRequest) ApiDeleteDatasetRecordsV1ObservabilityDatasetRecordsBulkDeletePostRequest {
+	r.deleteDatasetRecordsRequest = &deleteDatasetRecordsRequest
 	return r
 }
 
@@ -184,6 +186,8 @@ func (r ApiDeleteDatasetRecordsV1ObservabilityDatasetRecordsBulkDeletePostReques
 
 /*
 DeleteDatasetRecordsV1ObservabilityDatasetRecordsBulkDeletePost Delete multiple records from datasets
+
+Delete multiple records from datasets
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiDeleteDatasetRecordsV1ObservabilityDatasetRecordsBulkDeletePostRequest
@@ -213,8 +217,8 @@ func (a *BetaObservabilityDatasetsRecordsAPIService) DeleteDatasetRecordsV1Obser
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.deleteDatasetRecordsInSchema == nil {
-		return nil, reportError("deleteDatasetRecordsInSchema is required and must be specified")
+	if r.deleteDatasetRecordsRequest == nil {
+		return nil, reportError("deleteDatasetRecordsRequest is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -235,7 +239,7 @@ func (a *BetaObservabilityDatasetsRecordsAPIService) DeleteDatasetRecordsV1Obser
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.deleteDatasetRecordsInSchema
+	localVarPostBody = r.deleteDatasetRecordsRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
@@ -329,7 +333,9 @@ func (r ApiGetDatasetRecordV1ObservabilityDatasetRecordsDatasetRecordIdGetReques
 }
 
 /*
-GetDatasetRecordV1ObservabilityDatasetRecordsDatasetRecordIdGet Get the content of a given conversation from a dataset
+GetDatasetRecordV1ObservabilityDatasetRecordsDatasetRecordIdGet Get the content of a given dataset record
+
+Get the content of a given dataset record
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param datasetRecordId
@@ -477,11 +483,11 @@ type ApiJudgeDatasetRecordV1ObservabilityDatasetRecordsDatasetRecordIdLiveJudgin
 	ctx context.Context
 	ApiService *BetaObservabilityDatasetsRecordsAPIService
 	datasetRecordId string
-	postDatasetRecordJudgingInSchema *PostDatasetRecordJudgingInSchema
+	judgeDatasetRecordRequest *JudgeDatasetRecordRequest
 }
 
-func (r ApiJudgeDatasetRecordV1ObservabilityDatasetRecordsDatasetRecordIdLiveJudgingPostRequest) PostDatasetRecordJudgingInSchema(postDatasetRecordJudgingInSchema PostDatasetRecordJudgingInSchema) ApiJudgeDatasetRecordV1ObservabilityDatasetRecordsDatasetRecordIdLiveJudgingPostRequest {
-	r.postDatasetRecordJudgingInSchema = &postDatasetRecordJudgingInSchema
+func (r ApiJudgeDatasetRecordV1ObservabilityDatasetRecordsDatasetRecordIdLiveJudgingPostRequest) JudgeDatasetRecordRequest(judgeDatasetRecordRequest JudgeDatasetRecordRequest) ApiJudgeDatasetRecordV1ObservabilityDatasetRecordsDatasetRecordIdLiveJudgingPostRequest {
+	r.judgeDatasetRecordRequest = &judgeDatasetRecordRequest
 	return r
 }
 
@@ -491,6 +497,8 @@ func (r ApiJudgeDatasetRecordV1ObservabilityDatasetRecordsDatasetRecordIdLiveJud
 
 /*
 JudgeDatasetRecordV1ObservabilityDatasetRecordsDatasetRecordIdLiveJudgingPost Run Judge on a dataset record based on the given options
+
+Run Judge on a dataset record based on the given options
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param datasetRecordId
@@ -525,8 +533,8 @@ func (a *BetaObservabilityDatasetsRecordsAPIService) JudgeDatasetRecordV1Observa
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.postDatasetRecordJudgingInSchema == nil {
-		return localVarReturnValue, nil, reportError("postDatasetRecordJudgingInSchema is required and must be specified")
+	if r.judgeDatasetRecordRequest == nil {
+		return localVarReturnValue, nil, reportError("judgeDatasetRecordRequest is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -547,7 +555,7 @@ func (a *BetaObservabilityDatasetsRecordsAPIService) JudgeDatasetRecordV1Observa
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.postDatasetRecordJudgingInSchema
+	localVarPostBody = r.judgeDatasetRecordRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -643,11 +651,11 @@ type ApiUpdateDatasetRecordPayloadV1ObservabilityDatasetRecordsDatasetRecordIdPa
 	ctx context.Context
 	ApiService *BetaObservabilityDatasetsRecordsAPIService
 	datasetRecordId string
-	putDatasetRecordPayloadInSchema *PutDatasetRecordPayloadInSchema
+	updateDatasetRecordPayloadRequest *UpdateDatasetRecordPayloadRequest
 }
 
-func (r ApiUpdateDatasetRecordPayloadV1ObservabilityDatasetRecordsDatasetRecordIdPayloadPutRequest) PutDatasetRecordPayloadInSchema(putDatasetRecordPayloadInSchema PutDatasetRecordPayloadInSchema) ApiUpdateDatasetRecordPayloadV1ObservabilityDatasetRecordsDatasetRecordIdPayloadPutRequest {
-	r.putDatasetRecordPayloadInSchema = &putDatasetRecordPayloadInSchema
+func (r ApiUpdateDatasetRecordPayloadV1ObservabilityDatasetRecordsDatasetRecordIdPayloadPutRequest) UpdateDatasetRecordPayloadRequest(updateDatasetRecordPayloadRequest UpdateDatasetRecordPayloadRequest) ApiUpdateDatasetRecordPayloadV1ObservabilityDatasetRecordsDatasetRecordIdPayloadPutRequest {
+	r.updateDatasetRecordPayloadRequest = &updateDatasetRecordPayloadRequest
 	return r
 }
 
@@ -656,7 +664,9 @@ func (r ApiUpdateDatasetRecordPayloadV1ObservabilityDatasetRecordsDatasetRecordI
 }
 
 /*
-UpdateDatasetRecordPayloadV1ObservabilityDatasetRecordsDatasetRecordIdPayloadPut Update a dataset record conversation payload
+UpdateDatasetRecordPayloadV1ObservabilityDatasetRecordsDatasetRecordIdPayloadPut Update a dataset record payload
+
+Update a dataset record payload
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param datasetRecordId
@@ -689,8 +699,8 @@ func (a *BetaObservabilityDatasetsRecordsAPIService) UpdateDatasetRecordPayloadV
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.putDatasetRecordPayloadInSchema == nil {
-		return nil, reportError("putDatasetRecordPayloadInSchema is required and must be specified")
+	if r.updateDatasetRecordPayloadRequest == nil {
+		return nil, reportError("updateDatasetRecordPayloadRequest is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -711,7 +721,7 @@ func (a *BetaObservabilityDatasetsRecordsAPIService) UpdateDatasetRecordPayloadV
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.putDatasetRecordPayloadInSchema
+	localVarPostBody = r.updateDatasetRecordPayloadRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
@@ -798,11 +808,11 @@ type ApiUpdateDatasetRecordPropertiesV1ObservabilityDatasetRecordsDatasetRecordI
 	ctx context.Context
 	ApiService *BetaObservabilityDatasetsRecordsAPIService
 	datasetRecordId string
-	putDatasetRecordPropertiesInSchema *PutDatasetRecordPropertiesInSchema
+	updateDatasetRecordPropertiesRequest *UpdateDatasetRecordPropertiesRequest
 }
 
-func (r ApiUpdateDatasetRecordPropertiesV1ObservabilityDatasetRecordsDatasetRecordIdPropertiesPutRequest) PutDatasetRecordPropertiesInSchema(putDatasetRecordPropertiesInSchema PutDatasetRecordPropertiesInSchema) ApiUpdateDatasetRecordPropertiesV1ObservabilityDatasetRecordsDatasetRecordIdPropertiesPutRequest {
-	r.putDatasetRecordPropertiesInSchema = &putDatasetRecordPropertiesInSchema
+func (r ApiUpdateDatasetRecordPropertiesV1ObservabilityDatasetRecordsDatasetRecordIdPropertiesPutRequest) UpdateDatasetRecordPropertiesRequest(updateDatasetRecordPropertiesRequest UpdateDatasetRecordPropertiesRequest) ApiUpdateDatasetRecordPropertiesV1ObservabilityDatasetRecordsDatasetRecordIdPropertiesPutRequest {
+	r.updateDatasetRecordPropertiesRequest = &updateDatasetRecordPropertiesRequest
 	return r
 }
 
@@ -811,7 +821,9 @@ func (r ApiUpdateDatasetRecordPropertiesV1ObservabilityDatasetRecordsDatasetReco
 }
 
 /*
-UpdateDatasetRecordPropertiesV1ObservabilityDatasetRecordsDatasetRecordIdPropertiesPut Update conversation properties
+UpdateDatasetRecordPropertiesV1ObservabilityDatasetRecordsDatasetRecordIdPropertiesPut Update dataset record properties
+
+Update dataset record properties
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param datasetRecordId
@@ -844,8 +856,8 @@ func (a *BetaObservabilityDatasetsRecordsAPIService) UpdateDatasetRecordProperti
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.putDatasetRecordPropertiesInSchema == nil {
-		return nil, reportError("putDatasetRecordPropertiesInSchema is required and must be specified")
+	if r.updateDatasetRecordPropertiesRequest == nil {
+		return nil, reportError("updateDatasetRecordPropertiesRequest is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -866,7 +878,7 @@ func (a *BetaObservabilityDatasetsRecordsAPIService) UpdateDatasetRecordProperti
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.putDatasetRecordPropertiesInSchema
+	localVarPostBody = r.updateDatasetRecordPropertiesRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err

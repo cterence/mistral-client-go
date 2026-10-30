@@ -4,24 +4,28 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**ExpectedDurationSeconds** | Pointer to **int32** | The approximated time (in seconds) for the fine-tuning process to complete. | [optional] 
-**Cost** | Pointer to **float32** | The cost of the fine-tuning job. | [optional] 
-**CostCurrency** | Pointer to **string** | The currency used for the fine-tuning job cost. | [optional] 
-**TrainTokensPerStep** | Pointer to **int32** | The number of tokens consumed by one training step. | [optional] 
-**TrainTokens** | Pointer to **int32** | The total number of tokens used during the fine-tuning process. | [optional] 
-**DataTokens** | Pointer to **int32** | The total number of tokens in the training dataset. | [optional] 
-**EstimatedStartTime** | Pointer to **int32** |  | [optional] 
-**Deprecated** | Pointer to **bool** |  | [optional] [default to true]
-**Details** | **string** |  | 
-**Epochs** | Pointer to **float32** | The number of complete passes through the entire training dataset. | [optional] 
-**TrainingSteps** | Pointer to **int32** | The number of training steps to perform. A training step refers to a single update of the model weights during the fine-tuning process. This update is typically calculated using a batch of samples from the training dataset. | [optional] 
-**Object** | Pointer to **string** |  | [optional] [default to "job.metadata"]
+**Id** | **string** |  | 
+**Object** | Pointer to **string** |  | [optional] [default to "model"]
+**Created** | **int32** |  | 
+**OwnedBy** | **string** |  | 
+**WorkspaceId** | **string** |  | 
+**Root** | **string** |  | 
+**RootVersion** | **string** |  | 
+**Archived** | **bool** |  | 
+**Name** | Pointer to **string** |  | [optional] 
+**Description** | Pointer to **string** |  | [optional] 
+**Capabilities** | [**FineTunedModelCapabilities**](FineTunedModelCapabilities.md) |  | 
+**MaxContextLength** | Pointer to **int32** |  | [optional] [default to 32768]
+**Aliases** | Pointer to **[]string** |  | [optional] [default to {}]
+**Job** | Pointer to **string** |  | [optional] 
+**ModelType** | Pointer to **string** |  | [optional] [default to "classifier"]
+**ClassifierTargets** | [**[]ClassifierTargetResult**](ClassifierTargetResult.md) |  | 
 
 ## Methods
 
 ### NewResponse
 
-`func NewResponse(details string, ) *Response`
+`func NewResponse(id string, created int32, ownedBy string, workspaceId string, root string, rootVersion string, archived bool, capabilities FineTunedModelCapabilities, classifierTargets []ClassifierTargetResult, ) *Response`
 
 NewResponse instantiates a new Response object
 This constructor will assign default values to properties that have it defined,
@@ -36,275 +40,25 @@ NewResponseWithDefaults instantiates a new Response object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
-### GetExpectedDurationSeconds
+### GetId
 
-`func (o *Response) GetExpectedDurationSeconds() int32`
+`func (o *Response) GetId() string`
 
-GetExpectedDurationSeconds returns the ExpectedDurationSeconds field if non-nil, zero value otherwise.
+GetId returns the Id field if non-nil, zero value otherwise.
 
-### GetExpectedDurationSecondsOk
+### GetIdOk
 
-`func (o *Response) GetExpectedDurationSecondsOk() (*int32, bool)`
+`func (o *Response) GetIdOk() (*string, bool)`
 
-GetExpectedDurationSecondsOk returns a tuple with the ExpectedDurationSeconds field if it's non-nil, zero value otherwise
+GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetExpectedDurationSeconds
+### SetId
 
-`func (o *Response) SetExpectedDurationSeconds(v int32)`
+`func (o *Response) SetId(v string)`
 
-SetExpectedDurationSeconds sets ExpectedDurationSeconds field to given value.
+SetId sets Id field to given value.
 
-### HasExpectedDurationSeconds
-
-`func (o *Response) HasExpectedDurationSeconds() bool`
-
-HasExpectedDurationSeconds returns a boolean if a field has been set.
-
-### GetCost
-
-`func (o *Response) GetCost() float32`
-
-GetCost returns the Cost field if non-nil, zero value otherwise.
-
-### GetCostOk
-
-`func (o *Response) GetCostOk() (*float32, bool)`
-
-GetCostOk returns a tuple with the Cost field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetCost
-
-`func (o *Response) SetCost(v float32)`
-
-SetCost sets Cost field to given value.
-
-### HasCost
-
-`func (o *Response) HasCost() bool`
-
-HasCost returns a boolean if a field has been set.
-
-### GetCostCurrency
-
-`func (o *Response) GetCostCurrency() string`
-
-GetCostCurrency returns the CostCurrency field if non-nil, zero value otherwise.
-
-### GetCostCurrencyOk
-
-`func (o *Response) GetCostCurrencyOk() (*string, bool)`
-
-GetCostCurrencyOk returns a tuple with the CostCurrency field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetCostCurrency
-
-`func (o *Response) SetCostCurrency(v string)`
-
-SetCostCurrency sets CostCurrency field to given value.
-
-### HasCostCurrency
-
-`func (o *Response) HasCostCurrency() bool`
-
-HasCostCurrency returns a boolean if a field has been set.
-
-### GetTrainTokensPerStep
-
-`func (o *Response) GetTrainTokensPerStep() int32`
-
-GetTrainTokensPerStep returns the TrainTokensPerStep field if non-nil, zero value otherwise.
-
-### GetTrainTokensPerStepOk
-
-`func (o *Response) GetTrainTokensPerStepOk() (*int32, bool)`
-
-GetTrainTokensPerStepOk returns a tuple with the TrainTokensPerStep field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetTrainTokensPerStep
-
-`func (o *Response) SetTrainTokensPerStep(v int32)`
-
-SetTrainTokensPerStep sets TrainTokensPerStep field to given value.
-
-### HasTrainTokensPerStep
-
-`func (o *Response) HasTrainTokensPerStep() bool`
-
-HasTrainTokensPerStep returns a boolean if a field has been set.
-
-### GetTrainTokens
-
-`func (o *Response) GetTrainTokens() int32`
-
-GetTrainTokens returns the TrainTokens field if non-nil, zero value otherwise.
-
-### GetTrainTokensOk
-
-`func (o *Response) GetTrainTokensOk() (*int32, bool)`
-
-GetTrainTokensOk returns a tuple with the TrainTokens field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetTrainTokens
-
-`func (o *Response) SetTrainTokens(v int32)`
-
-SetTrainTokens sets TrainTokens field to given value.
-
-### HasTrainTokens
-
-`func (o *Response) HasTrainTokens() bool`
-
-HasTrainTokens returns a boolean if a field has been set.
-
-### GetDataTokens
-
-`func (o *Response) GetDataTokens() int32`
-
-GetDataTokens returns the DataTokens field if non-nil, zero value otherwise.
-
-### GetDataTokensOk
-
-`func (o *Response) GetDataTokensOk() (*int32, bool)`
-
-GetDataTokensOk returns a tuple with the DataTokens field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetDataTokens
-
-`func (o *Response) SetDataTokens(v int32)`
-
-SetDataTokens sets DataTokens field to given value.
-
-### HasDataTokens
-
-`func (o *Response) HasDataTokens() bool`
-
-HasDataTokens returns a boolean if a field has been set.
-
-### GetEstimatedStartTime
-
-`func (o *Response) GetEstimatedStartTime() int32`
-
-GetEstimatedStartTime returns the EstimatedStartTime field if non-nil, zero value otherwise.
-
-### GetEstimatedStartTimeOk
-
-`func (o *Response) GetEstimatedStartTimeOk() (*int32, bool)`
-
-GetEstimatedStartTimeOk returns a tuple with the EstimatedStartTime field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetEstimatedStartTime
-
-`func (o *Response) SetEstimatedStartTime(v int32)`
-
-SetEstimatedStartTime sets EstimatedStartTime field to given value.
-
-### HasEstimatedStartTime
-
-`func (o *Response) HasEstimatedStartTime() bool`
-
-HasEstimatedStartTime returns a boolean if a field has been set.
-
-### GetDeprecated
-
-`func (o *Response) GetDeprecated() bool`
-
-GetDeprecated returns the Deprecated field if non-nil, zero value otherwise.
-
-### GetDeprecatedOk
-
-`func (o *Response) GetDeprecatedOk() (*bool, bool)`
-
-GetDeprecatedOk returns a tuple with the Deprecated field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetDeprecated
-
-`func (o *Response) SetDeprecated(v bool)`
-
-SetDeprecated sets Deprecated field to given value.
-
-### HasDeprecated
-
-`func (o *Response) HasDeprecated() bool`
-
-HasDeprecated returns a boolean if a field has been set.
-
-### GetDetails
-
-`func (o *Response) GetDetails() string`
-
-GetDetails returns the Details field if non-nil, zero value otherwise.
-
-### GetDetailsOk
-
-`func (o *Response) GetDetailsOk() (*string, bool)`
-
-GetDetailsOk returns a tuple with the Details field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetDetails
-
-`func (o *Response) SetDetails(v string)`
-
-SetDetails sets Details field to given value.
-
-
-### GetEpochs
-
-`func (o *Response) GetEpochs() float32`
-
-GetEpochs returns the Epochs field if non-nil, zero value otherwise.
-
-### GetEpochsOk
-
-`func (o *Response) GetEpochsOk() (*float32, bool)`
-
-GetEpochsOk returns a tuple with the Epochs field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetEpochs
-
-`func (o *Response) SetEpochs(v float32)`
-
-SetEpochs sets Epochs field to given value.
-
-### HasEpochs
-
-`func (o *Response) HasEpochs() bool`
-
-HasEpochs returns a boolean if a field has been set.
-
-### GetTrainingSteps
-
-`func (o *Response) GetTrainingSteps() int32`
-
-GetTrainingSteps returns the TrainingSteps field if non-nil, zero value otherwise.
-
-### GetTrainingStepsOk
-
-`func (o *Response) GetTrainingStepsOk() (*int32, bool)`
-
-GetTrainingStepsOk returns a tuple with the TrainingSteps field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetTrainingSteps
-
-`func (o *Response) SetTrainingSteps(v int32)`
-
-SetTrainingSteps sets TrainingSteps field to given value.
-
-### HasTrainingSteps
-
-`func (o *Response) HasTrainingSteps() bool`
-
-HasTrainingSteps returns a boolean if a field has been set.
 
 ### GetObject
 
@@ -330,6 +84,316 @@ SetObject sets Object field to given value.
 `func (o *Response) HasObject() bool`
 
 HasObject returns a boolean if a field has been set.
+
+### GetCreated
+
+`func (o *Response) GetCreated() int32`
+
+GetCreated returns the Created field if non-nil, zero value otherwise.
+
+### GetCreatedOk
+
+`func (o *Response) GetCreatedOk() (*int32, bool)`
+
+GetCreatedOk returns a tuple with the Created field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCreated
+
+`func (o *Response) SetCreated(v int32)`
+
+SetCreated sets Created field to given value.
+
+
+### GetOwnedBy
+
+`func (o *Response) GetOwnedBy() string`
+
+GetOwnedBy returns the OwnedBy field if non-nil, zero value otherwise.
+
+### GetOwnedByOk
+
+`func (o *Response) GetOwnedByOk() (*string, bool)`
+
+GetOwnedByOk returns a tuple with the OwnedBy field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetOwnedBy
+
+`func (o *Response) SetOwnedBy(v string)`
+
+SetOwnedBy sets OwnedBy field to given value.
+
+
+### GetWorkspaceId
+
+`func (o *Response) GetWorkspaceId() string`
+
+GetWorkspaceId returns the WorkspaceId field if non-nil, zero value otherwise.
+
+### GetWorkspaceIdOk
+
+`func (o *Response) GetWorkspaceIdOk() (*string, bool)`
+
+GetWorkspaceIdOk returns a tuple with the WorkspaceId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetWorkspaceId
+
+`func (o *Response) SetWorkspaceId(v string)`
+
+SetWorkspaceId sets WorkspaceId field to given value.
+
+
+### GetRoot
+
+`func (o *Response) GetRoot() string`
+
+GetRoot returns the Root field if non-nil, zero value otherwise.
+
+### GetRootOk
+
+`func (o *Response) GetRootOk() (*string, bool)`
+
+GetRootOk returns a tuple with the Root field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetRoot
+
+`func (o *Response) SetRoot(v string)`
+
+SetRoot sets Root field to given value.
+
+
+### GetRootVersion
+
+`func (o *Response) GetRootVersion() string`
+
+GetRootVersion returns the RootVersion field if non-nil, zero value otherwise.
+
+### GetRootVersionOk
+
+`func (o *Response) GetRootVersionOk() (*string, bool)`
+
+GetRootVersionOk returns a tuple with the RootVersion field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetRootVersion
+
+`func (o *Response) SetRootVersion(v string)`
+
+SetRootVersion sets RootVersion field to given value.
+
+
+### GetArchived
+
+`func (o *Response) GetArchived() bool`
+
+GetArchived returns the Archived field if non-nil, zero value otherwise.
+
+### GetArchivedOk
+
+`func (o *Response) GetArchivedOk() (*bool, bool)`
+
+GetArchivedOk returns a tuple with the Archived field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetArchived
+
+`func (o *Response) SetArchived(v bool)`
+
+SetArchived sets Archived field to given value.
+
+
+### GetName
+
+`func (o *Response) GetName() string`
+
+GetName returns the Name field if non-nil, zero value otherwise.
+
+### GetNameOk
+
+`func (o *Response) GetNameOk() (*string, bool)`
+
+GetNameOk returns a tuple with the Name field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetName
+
+`func (o *Response) SetName(v string)`
+
+SetName sets Name field to given value.
+
+### HasName
+
+`func (o *Response) HasName() bool`
+
+HasName returns a boolean if a field has been set.
+
+### GetDescription
+
+`func (o *Response) GetDescription() string`
+
+GetDescription returns the Description field if non-nil, zero value otherwise.
+
+### GetDescriptionOk
+
+`func (o *Response) GetDescriptionOk() (*string, bool)`
+
+GetDescriptionOk returns a tuple with the Description field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDescription
+
+`func (o *Response) SetDescription(v string)`
+
+SetDescription sets Description field to given value.
+
+### HasDescription
+
+`func (o *Response) HasDescription() bool`
+
+HasDescription returns a boolean if a field has been set.
+
+### GetCapabilities
+
+`func (o *Response) GetCapabilities() FineTunedModelCapabilities`
+
+GetCapabilities returns the Capabilities field if non-nil, zero value otherwise.
+
+### GetCapabilitiesOk
+
+`func (o *Response) GetCapabilitiesOk() (*FineTunedModelCapabilities, bool)`
+
+GetCapabilitiesOk returns a tuple with the Capabilities field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCapabilities
+
+`func (o *Response) SetCapabilities(v FineTunedModelCapabilities)`
+
+SetCapabilities sets Capabilities field to given value.
+
+
+### GetMaxContextLength
+
+`func (o *Response) GetMaxContextLength() int32`
+
+GetMaxContextLength returns the MaxContextLength field if non-nil, zero value otherwise.
+
+### GetMaxContextLengthOk
+
+`func (o *Response) GetMaxContextLengthOk() (*int32, bool)`
+
+GetMaxContextLengthOk returns a tuple with the MaxContextLength field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetMaxContextLength
+
+`func (o *Response) SetMaxContextLength(v int32)`
+
+SetMaxContextLength sets MaxContextLength field to given value.
+
+### HasMaxContextLength
+
+`func (o *Response) HasMaxContextLength() bool`
+
+HasMaxContextLength returns a boolean if a field has been set.
+
+### GetAliases
+
+`func (o *Response) GetAliases() []string`
+
+GetAliases returns the Aliases field if non-nil, zero value otherwise.
+
+### GetAliasesOk
+
+`func (o *Response) GetAliasesOk() (*[]string, bool)`
+
+GetAliasesOk returns a tuple with the Aliases field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAliases
+
+`func (o *Response) SetAliases(v []string)`
+
+SetAliases sets Aliases field to given value.
+
+### HasAliases
+
+`func (o *Response) HasAliases() bool`
+
+HasAliases returns a boolean if a field has been set.
+
+### GetJob
+
+`func (o *Response) GetJob() string`
+
+GetJob returns the Job field if non-nil, zero value otherwise.
+
+### GetJobOk
+
+`func (o *Response) GetJobOk() (*string, bool)`
+
+GetJobOk returns a tuple with the Job field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetJob
+
+`func (o *Response) SetJob(v string)`
+
+SetJob sets Job field to given value.
+
+### HasJob
+
+`func (o *Response) HasJob() bool`
+
+HasJob returns a boolean if a field has been set.
+
+### GetModelType
+
+`func (o *Response) GetModelType() string`
+
+GetModelType returns the ModelType field if non-nil, zero value otherwise.
+
+### GetModelTypeOk
+
+`func (o *Response) GetModelTypeOk() (*string, bool)`
+
+GetModelTypeOk returns a tuple with the ModelType field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetModelType
+
+`func (o *Response) SetModelType(v string)`
+
+SetModelType sets ModelType field to given value.
+
+### HasModelType
+
+`func (o *Response) HasModelType() bool`
+
+HasModelType returns a boolean if a field has been set.
+
+### GetClassifierTargets
+
+`func (o *Response) GetClassifierTargets() []ClassifierTargetResult`
+
+GetClassifierTargets returns the ClassifierTargets field if non-nil, zero value otherwise.
+
+### GetClassifierTargetsOk
+
+`func (o *Response) GetClassifierTargetsOk() (*[]ClassifierTargetResult, bool)`
+
+GetClassifierTargetsOk returns a tuple with the ClassifierTargets field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetClassifierTargets
+
+`func (o *Response) SetClassifierTargets(v []ClassifierTargetResult)`
+
+SetClassifierTargets sets ClassifierTargets field to given value.
+
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

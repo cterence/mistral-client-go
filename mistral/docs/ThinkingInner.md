@@ -11,13 +11,13 @@ Name | Type | Description | Notes
 **Url** | Pointer to **string** |  | [optional] 
 **Favicon** | Pointer to **string** |  | [optional] 
 **Description** | Pointer to **string** |  | [optional] 
-**ReferenceIds** | **[]int32** |  | 
+**ReferenceIds** | [**[]ReferenceIdsInner**](ReferenceIdsInner.md) |  | 
 
 ## Methods
 
 ### NewThinkingInner
 
-`func NewThinkingInner(text string, tool Tool1, title string, referenceIds []int32, ) *ThinkingInner`
+`func NewThinkingInner(text string, tool Tool1, title string, referenceIds []ReferenceIdsInner, ) *ThinkingInner`
 
 NewThinkingInner instantiates a new ThinkingInner object
 This constructor will assign default values to properties that have it defined,
@@ -194,20 +194,20 @@ HasDescription returns a boolean if a field has been set.
 
 ### GetReferenceIds
 
-`func (o *ThinkingInner) GetReferenceIds() []int32`
+`func (o *ThinkingInner) GetReferenceIds() []ReferenceIdsInner`
 
 GetReferenceIds returns the ReferenceIds field if non-nil, zero value otherwise.
 
 ### GetReferenceIdsOk
 
-`func (o *ThinkingInner) GetReferenceIdsOk() (*[]int32, bool)`
+`func (o *ThinkingInner) GetReferenceIdsOk() (*[]ReferenceIdsInner, bool)`
 
 GetReferenceIdsOk returns a tuple with the ReferenceIds field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetReferenceIds
 
-`func (o *ThinkingInner) SetReferenceIds(v []int32)`
+`func (o *ThinkingInner) SetReferenceIds(v []ReferenceIdsInner)`
 
 SetReferenceIds sets ReferenceIds field to given value.
 

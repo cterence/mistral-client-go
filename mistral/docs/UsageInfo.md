@@ -8,9 +8,7 @@ Name | Type | Description | Notes
 **CompletionTokens** | **int32** |  | [default to 0]
 **TotalTokens** | **int32** |  | [default to 0]
 **PromptAudioSeconds** | Pointer to **NullableInt32** |  | [optional] 
-**NumCachedTokens** | Pointer to **NullableInt32** |  | [optional] 
-**PromptTokensDetails** | Pointer to [**NullablePromptTokensDetails**](PromptTokensDetails.md) |  | [optional] 
-**PromptTokenDetails** | Pointer to [**NullablePromptTokensDetails**](PromptTokensDetails.md) |  | [optional] 
+**ServiceTier** | Pointer to **NullableString** | The service tier at which the request was processed: standard or priority. | [optional] 
 
 ## Methods
 
@@ -126,111 +124,41 @@ HasPromptAudioSeconds returns a boolean if a field has been set.
 `func (o *UsageInfo) UnsetPromptAudioSeconds()`
 
 UnsetPromptAudioSeconds ensures that no value is present for PromptAudioSeconds, not even an explicit nil
-### GetNumCachedTokens
+### GetServiceTier
 
-`func (o *UsageInfo) GetNumCachedTokens() int32`
+`func (o *UsageInfo) GetServiceTier() string`
 
-GetNumCachedTokens returns the NumCachedTokens field if non-nil, zero value otherwise.
+GetServiceTier returns the ServiceTier field if non-nil, zero value otherwise.
 
-### GetNumCachedTokensOk
+### GetServiceTierOk
 
-`func (o *UsageInfo) GetNumCachedTokensOk() (*int32, bool)`
+`func (o *UsageInfo) GetServiceTierOk() (*string, bool)`
 
-GetNumCachedTokensOk returns a tuple with the NumCachedTokens field if it's non-nil, zero value otherwise
+GetServiceTierOk returns a tuple with the ServiceTier field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetNumCachedTokens
+### SetServiceTier
 
-`func (o *UsageInfo) SetNumCachedTokens(v int32)`
+`func (o *UsageInfo) SetServiceTier(v string)`
 
-SetNumCachedTokens sets NumCachedTokens field to given value.
+SetServiceTier sets ServiceTier field to given value.
 
-### HasNumCachedTokens
+### HasServiceTier
 
-`func (o *UsageInfo) HasNumCachedTokens() bool`
+`func (o *UsageInfo) HasServiceTier() bool`
 
-HasNumCachedTokens returns a boolean if a field has been set.
+HasServiceTier returns a boolean if a field has been set.
 
-### SetNumCachedTokensNil
+### SetServiceTierNil
 
-`func (o *UsageInfo) SetNumCachedTokensNil(b bool)`
+`func (o *UsageInfo) SetServiceTierNil(b bool)`
 
- SetNumCachedTokensNil sets the value for NumCachedTokens to be an explicit nil
+ SetServiceTierNil sets the value for ServiceTier to be an explicit nil
 
-### UnsetNumCachedTokens
-`func (o *UsageInfo) UnsetNumCachedTokens()`
+### UnsetServiceTier
+`func (o *UsageInfo) UnsetServiceTier()`
 
-UnsetNumCachedTokens ensures that no value is present for NumCachedTokens, not even an explicit nil
-### GetPromptTokensDetails
-
-`func (o *UsageInfo) GetPromptTokensDetails() PromptTokensDetails`
-
-GetPromptTokensDetails returns the PromptTokensDetails field if non-nil, zero value otherwise.
-
-### GetPromptTokensDetailsOk
-
-`func (o *UsageInfo) GetPromptTokensDetailsOk() (*PromptTokensDetails, bool)`
-
-GetPromptTokensDetailsOk returns a tuple with the PromptTokensDetails field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetPromptTokensDetails
-
-`func (o *UsageInfo) SetPromptTokensDetails(v PromptTokensDetails)`
-
-SetPromptTokensDetails sets PromptTokensDetails field to given value.
-
-### HasPromptTokensDetails
-
-`func (o *UsageInfo) HasPromptTokensDetails() bool`
-
-HasPromptTokensDetails returns a boolean if a field has been set.
-
-### SetPromptTokensDetailsNil
-
-`func (o *UsageInfo) SetPromptTokensDetailsNil(b bool)`
-
- SetPromptTokensDetailsNil sets the value for PromptTokensDetails to be an explicit nil
-
-### UnsetPromptTokensDetails
-`func (o *UsageInfo) UnsetPromptTokensDetails()`
-
-UnsetPromptTokensDetails ensures that no value is present for PromptTokensDetails, not even an explicit nil
-### GetPromptTokenDetails
-
-`func (o *UsageInfo) GetPromptTokenDetails() PromptTokensDetails`
-
-GetPromptTokenDetails returns the PromptTokenDetails field if non-nil, zero value otherwise.
-
-### GetPromptTokenDetailsOk
-
-`func (o *UsageInfo) GetPromptTokenDetailsOk() (*PromptTokensDetails, bool)`
-
-GetPromptTokenDetailsOk returns a tuple with the PromptTokenDetails field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetPromptTokenDetails
-
-`func (o *UsageInfo) SetPromptTokenDetails(v PromptTokensDetails)`
-
-SetPromptTokenDetails sets PromptTokenDetails field to given value.
-
-### HasPromptTokenDetails
-
-`func (o *UsageInfo) HasPromptTokenDetails() bool`
-
-HasPromptTokenDetails returns a boolean if a field has been set.
-
-### SetPromptTokenDetailsNil
-
-`func (o *UsageInfo) SetPromptTokenDetailsNil(b bool)`
-
- SetPromptTokenDetailsNil sets the value for PromptTokenDetails to be an explicit nil
-
-### UnsetPromptTokenDetails
-`func (o *UsageInfo) UnsetPromptTokenDetails()`
-
-UnsetPromptTokenDetails ensures that no value is present for PromptTokenDetails, not even an explicit nil
+UnsetServiceTier ensures that no value is present for ServiceTier, not even an explicit nil
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

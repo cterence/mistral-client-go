@@ -11,16 +11,20 @@ Name | Type | Description | Notes
 **Age** | Pointer to **NullableInt32** |  | [optional] 
 **Tags** | Pointer to **[]string** |  | [optional] 
 **Color** | Pointer to **NullableString** |  | [optional] 
+**Description** | Pointer to **NullableString** |  | [optional] 
 **RetentionNotice** | Pointer to **int32** |  | [optional] [default to 30]
 **Id** | **string** |  | 
 **CreatedAt** | **time.Time** |  | 
 **UserId** | **NullableString** |  | 
+**TrimmedSeconds** | Pointer to **NullableFloat32** |  | [optional] 
+**Kind** | Pointer to [**VoiceKind**](VoiceKind.md) | Cloning technology behind the voice: ivc for instant cloning, pvc for professional cloning. | [optional] [default to VOICEKIND_IVC]
+**Type** | **string** |  | [readonly] 
 
 ## Methods
 
 ### NewVoiceResponse
 
-`func NewVoiceResponse(name string, id string, createdAt time.Time, userId NullableString, ) *VoiceResponse`
+`func NewVoiceResponse(name string, id string, createdAt time.Time, userId NullableString, type_ string, ) *VoiceResponse`
 
 NewVoiceResponse instantiates a new VoiceResponse object
 This constructor will assign default values to properties that have it defined,
@@ -255,6 +259,41 @@ HasColor returns a boolean if a field has been set.
 `func (o *VoiceResponse) UnsetColor()`
 
 UnsetColor ensures that no value is present for Color, not even an explicit nil
+### GetDescription
+
+`func (o *VoiceResponse) GetDescription() string`
+
+GetDescription returns the Description field if non-nil, zero value otherwise.
+
+### GetDescriptionOk
+
+`func (o *VoiceResponse) GetDescriptionOk() (*string, bool)`
+
+GetDescriptionOk returns a tuple with the Description field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDescription
+
+`func (o *VoiceResponse) SetDescription(v string)`
+
+SetDescription sets Description field to given value.
+
+### HasDescription
+
+`func (o *VoiceResponse) HasDescription() bool`
+
+HasDescription returns a boolean if a field has been set.
+
+### SetDescriptionNil
+
+`func (o *VoiceResponse) SetDescriptionNil(b bool)`
+
+ SetDescriptionNil sets the value for Description to be an explicit nil
+
+### UnsetDescription
+`func (o *VoiceResponse) UnsetDescription()`
+
+UnsetDescription ensures that no value is present for Description, not even an explicit nil
 ### GetRetentionNotice
 
 `func (o *VoiceResponse) GetRetentionNotice() int32`
@@ -350,6 +389,86 @@ SetUserId sets UserId field to given value.
 `func (o *VoiceResponse) UnsetUserId()`
 
 UnsetUserId ensures that no value is present for UserId, not even an explicit nil
+### GetTrimmedSeconds
+
+`func (o *VoiceResponse) GetTrimmedSeconds() float32`
+
+GetTrimmedSeconds returns the TrimmedSeconds field if non-nil, zero value otherwise.
+
+### GetTrimmedSecondsOk
+
+`func (o *VoiceResponse) GetTrimmedSecondsOk() (*float32, bool)`
+
+GetTrimmedSecondsOk returns a tuple with the TrimmedSeconds field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetTrimmedSeconds
+
+`func (o *VoiceResponse) SetTrimmedSeconds(v float32)`
+
+SetTrimmedSeconds sets TrimmedSeconds field to given value.
+
+### HasTrimmedSeconds
+
+`func (o *VoiceResponse) HasTrimmedSeconds() bool`
+
+HasTrimmedSeconds returns a boolean if a field has been set.
+
+### SetTrimmedSecondsNil
+
+`func (o *VoiceResponse) SetTrimmedSecondsNil(b bool)`
+
+ SetTrimmedSecondsNil sets the value for TrimmedSeconds to be an explicit nil
+
+### UnsetTrimmedSeconds
+`func (o *VoiceResponse) UnsetTrimmedSeconds()`
+
+UnsetTrimmedSeconds ensures that no value is present for TrimmedSeconds, not even an explicit nil
+### GetKind
+
+`func (o *VoiceResponse) GetKind() VoiceKind`
+
+GetKind returns the Kind field if non-nil, zero value otherwise.
+
+### GetKindOk
+
+`func (o *VoiceResponse) GetKindOk() (*VoiceKind, bool)`
+
+GetKindOk returns a tuple with the Kind field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetKind
+
+`func (o *VoiceResponse) SetKind(v VoiceKind)`
+
+SetKind sets Kind field to given value.
+
+### HasKind
+
+`func (o *VoiceResponse) HasKind() bool`
+
+HasKind returns a boolean if a field has been set.
+
+### GetType
+
+`func (o *VoiceResponse) GetType() string`
+
+GetType returns the Type field if non-nil, zero value otherwise.
+
+### GetTypeOk
+
+`func (o *VoiceResponse) GetTypeOk() (*string, bool)`
+
+GetTypeOk returns a tuple with the Type field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetType
+
+`func (o *VoiceResponse) SetType(v string)`
+
+SetType sets Type field to given value.
+
+
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

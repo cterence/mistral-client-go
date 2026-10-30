@@ -393,7 +393,7 @@ import (
 func main() {
 	page := int32(56) // int32 |  (optional) (default to 0)
 	pageSize := int32(56) // int32 |  (optional) (default to 100)
-	metadata := TODO // AnyOfmapnull |  (optional)
+	metadata := TODO // AnyOfmapAnyType |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -420,7 +420,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **page** | **int32** |  | [default to 0]
  **pageSize** | **int32** |  | [default to 100]
- **metadata** | [**AnyOfmapnull**](AnyOfmapnull.md) |  | 
+ **metadata** | [**AnyOfmapAnyType**](AnyOfmapAnyType.md) |  | 
 
 ### Return type
 

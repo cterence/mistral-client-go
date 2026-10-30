@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **BottomRightX** | **int32** |  | 
 **BottomRightY** | **int32** |  | 
 **Content** | **string** | Text/markdown/html content of this block | 
+**ConfidenceScores** | Pointer to [**NullableOCRBlockConfidenceScores**](OCRBlockConfidenceScores.md) | Confidence scores for this block. Populated when confidence_scores_granularity is set to &#39;block&#39;. | [optional] 
 **Type** | Pointer to **string** |  | [optional] [default to "aside_text"]
 
 ## Methods
@@ -130,6 +131,41 @@ and a boolean to check if the value has been set.
 SetContent sets Content field to given value.
 
 
+### GetConfidenceScores
+
+`func (o *OCRAsideTextBlock) GetConfidenceScores() OCRBlockConfidenceScores`
+
+GetConfidenceScores returns the ConfidenceScores field if non-nil, zero value otherwise.
+
+### GetConfidenceScoresOk
+
+`func (o *OCRAsideTextBlock) GetConfidenceScoresOk() (*OCRBlockConfidenceScores, bool)`
+
+GetConfidenceScoresOk returns a tuple with the ConfidenceScores field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetConfidenceScores
+
+`func (o *OCRAsideTextBlock) SetConfidenceScores(v OCRBlockConfidenceScores)`
+
+SetConfidenceScores sets ConfidenceScores field to given value.
+
+### HasConfidenceScores
+
+`func (o *OCRAsideTextBlock) HasConfidenceScores() bool`
+
+HasConfidenceScores returns a boolean if a field has been set.
+
+### SetConfidenceScoresNil
+
+`func (o *OCRAsideTextBlock) SetConfidenceScoresNil(b bool)`
+
+ SetConfidenceScoresNil sets the value for ConfidenceScores to be an explicit nil
+
+### UnsetConfidenceScores
+`func (o *OCRAsideTextBlock) UnsetConfidenceScores()`
+
+UnsetConfidenceScores ensures that no value is present for ConfidenceScores, not even an explicit nil
 ### GetType
 
 `func (o *OCRAsideTextBlock) GetType() string`

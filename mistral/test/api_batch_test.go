@@ -48,6 +48,20 @@ func Test_mistral_BatchAPIService(t *testing.T) {
 
 	})
 
+	t.Run("Test BatchAPIService JobsApiRoutesBatchDeleteBatchJob", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		var jobId string
+
+		resp, httpRes, err := apiClient.BatchAPI.JobsApiRoutesBatchDeleteBatchJob(context.Background(), jobId).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
 	t.Run("Test BatchAPIService JobsApiRoutesBatchGetBatchJob", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test

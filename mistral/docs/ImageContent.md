@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Type** | **string** |  | 
+**Type** | Pointer to **string** |  | [optional] [default to "image"]
 **Data** | **string** |  | 
 **MimeType** | **string** |  | 
 **Annotations** | Pointer to [**NullableAnnotations**](Annotations.md) |  | [optional] 
@@ -14,7 +14,7 @@ Name | Type | Description | Notes
 
 ### NewImageContent
 
-`func NewImageContent(type_ string, data string, mimeType string, ) *ImageContent`
+`func NewImageContent(data string, mimeType string, ) *ImageContent`
 
 NewImageContent instantiates a new ImageContent object
 This constructor will assign default values to properties that have it defined,
@@ -48,6 +48,11 @@ and a boolean to check if the value has been set.
 
 SetType sets Type field to given value.
 
+### HasType
+
+`func (o *ImageContent) HasType() bool`
+
+HasType returns a boolean if a field has been set.
 
 ### GetData
 

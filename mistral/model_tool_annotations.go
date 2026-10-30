@@ -24,10 +24,7 @@ type ToolAnnotations struct {
 	DestructiveHint NullableBool `json:"destructiveHint,omitempty"`
 	IdempotentHint NullableBool `json:"idempotentHint,omitempty"`
 	OpenWorldHint NullableBool `json:"openWorldHint,omitempty"`
-	AdditionalProperties map[string]interface{}
 }
-
-type _ToolAnnotations ToolAnnotations
 
 // NewToolAnnotations instantiates a new ToolAnnotations object
 // This constructor will assign default values to properties that have it defined,
@@ -281,37 +278,7 @@ func (o ToolAnnotations) ToMap() (map[string]interface{}, error) {
 	if o.OpenWorldHint.IsSet() {
 		toSerialize["openWorldHint"] = o.OpenWorldHint.Get()
 	}
-
-	for key, value := range o.AdditionalProperties {
-		toSerialize[key] = value
-	}
-
 	return toSerialize, nil
-}
-
-func (o *ToolAnnotations) UnmarshalJSON(data []byte) (err error) {
-	varToolAnnotations := _ToolAnnotations{}
-
-	err = json.Unmarshal(data, &varToolAnnotations)
-
-	if err != nil {
-		return err
-	}
-
-	*o = ToolAnnotations(varToolAnnotations)
-
-	additionalProperties := make(map[string]interface{})
-
-	if err = json.Unmarshal(data, &additionalProperties); err == nil {
-		delete(additionalProperties, "title")
-		delete(additionalProperties, "readOnlyHint")
-		delete(additionalProperties, "destructiveHint")
-		delete(additionalProperties, "idempotentHint")
-		delete(additionalProperties, "openWorldHint")
-		o.AdditionalProperties = additionalProperties
-	}
-
-	return err
 }
 
 type NullableToolAnnotations struct {

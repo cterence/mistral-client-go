@@ -15,6 +15,7 @@ Name | Type | Description | Notes
 **AvailableInChatAssistant** | Pointer to **bool** | Whether the workflow is available in chat assistant | [optional] [default to false]
 **IsTechnical** | Pointer to **bool** | Whether the workflow is technical (e.g. SDK-managed) | [optional] [default to false]
 **Archived** | Pointer to **bool** | Whether the workflow is archived | [optional] [default to false]
+**Tags** | Pointer to **[]string** | Tags for filtering and discovery | [optional] 
 **Active** | **bool** | Whether the workflow is active | 
 
 ## Methods
@@ -300,6 +301,31 @@ SetArchived sets Archived field to given value.
 `func (o *WorkflowWithWorkerStatus) HasArchived() bool`
 
 HasArchived returns a boolean if a field has been set.
+
+### GetTags
+
+`func (o *WorkflowWithWorkerStatus) GetTags() []string`
+
+GetTags returns the Tags field if non-nil, zero value otherwise.
+
+### GetTagsOk
+
+`func (o *WorkflowWithWorkerStatus) GetTagsOk() (*[]string, bool)`
+
+GetTagsOk returns a tuple with the Tags field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetTags
+
+`func (o *WorkflowWithWorkerStatus) SetTags(v []string)`
+
+SetTags sets Tags field to given value.
+
+### HasTags
+
+`func (o *WorkflowWithWorkerStatus) HasTags() bool`
+
+HasTags returns a boolean if a field has been set.
 
 ### GetActive
 

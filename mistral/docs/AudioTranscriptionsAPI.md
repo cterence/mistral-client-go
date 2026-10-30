@@ -15,6 +15,8 @@ Method | HTTP request | Description
 
 Create Transcription
 
+
+
 ### Example
 
 ```go
@@ -96,6 +98,8 @@ Name | Type | Description  | Notes
 > TranscriptionStreamEvents AudioApiV1TranscriptionsPostStream(ctx).Model(model).File(file).FileUrl(fileUrl).FileId(fileId).Language(language).Temperature(temperature).Stream(stream).Diarize(diarize).ContextBias(contextBias).TimestampGranularities(timestampGranularities).Execute()
 
 Create Streaming Transcription (SSE)
+
+
 
 ### Example
 

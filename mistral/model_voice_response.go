@@ -29,10 +29,15 @@ type VoiceResponse struct {
 	Age NullableInt32 `json:"age,omitempty"`
 	Tags []string `json:"tags,omitempty"`
 	Color NullableString `json:"color,omitempty"`
+	Description NullableString `json:"description,omitempty"`
 	RetentionNotice *int32 `json:"retention_notice,omitempty"`
 	Id string `json:"id"`
 	CreatedAt time.Time `json:"created_at"`
 	UserId NullableString `json:"user_id"`
+	TrimmedSeconds NullableFloat32 `json:"trimmed_seconds,omitempty"`
+	// Cloning technology behind the voice: ivc for instant cloning, pvc for professional cloning.
+	Kind *VoiceKind `json:"kind,omitempty"`
+	Type string `json:"type"`
 }
 
 type _VoiceResponse VoiceResponse
@@ -41,7 +46,7 @@ type _VoiceResponse VoiceResponse
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewVoiceResponse(name string, id string, createdAt time.Time, userId NullableString) *VoiceResponse {
+func NewVoiceResponse(name string, id string, createdAt time.Time, userId NullableString, type_ string) *VoiceResponse {
 	this := VoiceResponse{}
 	this.Name = name
 	var retentionNotice int32 = 30
@@ -49,6 +54,9 @@ func NewVoiceResponse(name string, id string, createdAt time.Time, userId Nullab
 	this.Id = id
 	this.CreatedAt = createdAt
 	this.UserId = userId
+	var kind VoiceKind = VOICEKIND_IVC
+	this.Kind = &kind
+	this.Type = type_
 	return &this
 }
 
@@ -59,6 +67,8 @@ func NewVoiceResponseWithDefaults() *VoiceResponse {
 	this := VoiceResponse{}
 	var retentionNotice int32 = 30
 	this.RetentionNotice = &retentionNotice
+	var kind VoiceKind = VOICEKIND_IVC
+	this.Kind = &kind
 	return &this
 }
 
@@ -319,6 +329,48 @@ func (o *VoiceResponse) UnsetColor() {
 	o.Color.Unset()
 }
 
+// GetDescription returns the Description field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *VoiceResponse) GetDescription() string {
+	if o == nil || IsNil(o.Description.Get()) {
+		var ret string
+		return ret
+	}
+	return *o.Description.Get()
+}
+
+// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *VoiceResponse) GetDescriptionOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.Description.Get(), o.Description.IsSet()
+}
+
+// HasDescription returns a boolean if a field has been set.
+func (o *VoiceResponse) HasDescription() bool {
+	if o != nil && o.Description.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetDescription gets a reference to the given NullableString and assigns it to the Description field.
+func (o *VoiceResponse) SetDescription(v string) {
+	o.Description.Set(&v)
+}
+// SetDescriptionNil sets the value for Description to be an explicit nil
+func (o *VoiceResponse) SetDescriptionNil() {
+	o.Description.Set(nil)
+}
+
+// UnsetDescription ensures that no value is present for Description, not even an explicit nil
+func (o *VoiceResponse) UnsetDescription() {
+	o.Description.Unset()
+}
+
 // GetRetentionNotice returns the RetentionNotice field value if set, zero value otherwise.
 func (o *VoiceResponse) GetRetentionNotice() int32 {
 	if o == nil || IsNil(o.RetentionNotice) {
@@ -425,6 +477,104 @@ func (o *VoiceResponse) SetUserId(v string) {
 	o.UserId.Set(&v)
 }
 
+// GetTrimmedSeconds returns the TrimmedSeconds field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *VoiceResponse) GetTrimmedSeconds() float32 {
+	if o == nil || IsNil(o.TrimmedSeconds.Get()) {
+		var ret float32
+		return ret
+	}
+	return *o.TrimmedSeconds.Get()
+}
+
+// GetTrimmedSecondsOk returns a tuple with the TrimmedSeconds field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *VoiceResponse) GetTrimmedSecondsOk() (*float32, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.TrimmedSeconds.Get(), o.TrimmedSeconds.IsSet()
+}
+
+// HasTrimmedSeconds returns a boolean if a field has been set.
+func (o *VoiceResponse) HasTrimmedSeconds() bool {
+	if o != nil && o.TrimmedSeconds.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetTrimmedSeconds gets a reference to the given NullableFloat32 and assigns it to the TrimmedSeconds field.
+func (o *VoiceResponse) SetTrimmedSeconds(v float32) {
+	o.TrimmedSeconds.Set(&v)
+}
+// SetTrimmedSecondsNil sets the value for TrimmedSeconds to be an explicit nil
+func (o *VoiceResponse) SetTrimmedSecondsNil() {
+	o.TrimmedSeconds.Set(nil)
+}
+
+// UnsetTrimmedSeconds ensures that no value is present for TrimmedSeconds, not even an explicit nil
+func (o *VoiceResponse) UnsetTrimmedSeconds() {
+	o.TrimmedSeconds.Unset()
+}
+
+// GetKind returns the Kind field value if set, zero value otherwise.
+func (o *VoiceResponse) GetKind() VoiceKind {
+	if o == nil || IsNil(o.Kind) {
+		var ret VoiceKind
+		return ret
+	}
+	return *o.Kind
+}
+
+// GetKindOk returns a tuple with the Kind field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *VoiceResponse) GetKindOk() (*VoiceKind, bool) {
+	if o == nil || IsNil(o.Kind) {
+		return nil, false
+	}
+	return o.Kind, true
+}
+
+// HasKind returns a boolean if a field has been set.
+func (o *VoiceResponse) HasKind() bool {
+	if o != nil && !IsNil(o.Kind) {
+		return true
+	}
+
+	return false
+}
+
+// SetKind gets a reference to the given VoiceKind and assigns it to the Kind field.
+func (o *VoiceResponse) SetKind(v VoiceKind) {
+	o.Kind = &v
+}
+
+// GetType returns the Type field value
+func (o *VoiceResponse) GetType() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Type
+}
+
+// GetTypeOk returns a tuple with the Type field value
+// and a boolean to check if the value has been set.
+func (o *VoiceResponse) GetTypeOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Type, true
+}
+
+// SetType sets field value
+func (o *VoiceResponse) SetType(v string) {
+	o.Type = v
+}
+
 func (o VoiceResponse) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -454,12 +604,22 @@ func (o VoiceResponse) ToMap() (map[string]interface{}, error) {
 	if o.Color.IsSet() {
 		toSerialize["color"] = o.Color.Get()
 	}
+	if o.Description.IsSet() {
+		toSerialize["description"] = o.Description.Get()
+	}
 	if !IsNil(o.RetentionNotice) {
 		toSerialize["retention_notice"] = o.RetentionNotice
 	}
 	toSerialize["id"] = o.Id
 	toSerialize["created_at"] = o.CreatedAt
 	toSerialize["user_id"] = o.UserId.Get()
+	if o.TrimmedSeconds.IsSet() {
+		toSerialize["trimmed_seconds"] = o.TrimmedSeconds.Get()
+	}
+	if !IsNil(o.Kind) {
+		toSerialize["kind"] = o.Kind
+	}
+	toSerialize["type"] = o.Type
 	return toSerialize, nil
 }
 
@@ -472,6 +632,7 @@ func (o *VoiceResponse) UnmarshalJSON(data []byte) (err error) {
 		"id",
 		"created_at",
 		"user_id",
+		"type",
 	}
 
 	allProperties := make(map[string]interface{})

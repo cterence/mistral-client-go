@@ -22,8 +22,12 @@ var _ MappedNullable = &AuthenticationConfiguration{}
 // AuthenticationConfiguration struct for AuthenticationConfiguration
 type AuthenticationConfiguration struct {
 	Name string `json:"name"`
-	AuthenticationType OutboundAuthenticationType `json:"authentication_type"`
+	Title NullableString `json:"title,omitempty"`
+	AuthenticationType AuthenticationType `json:"authentication_type"`
+	Scope ConsumerType `json:"scope"`
+	Status NullableCredentialsStatus `json:"status,omitempty"`
 	IsDefault *bool `json:"is_default,omitempty"`
+	CreatorId NullableString `json:"creator_id,omitempty"`
 }
 
 type _AuthenticationConfiguration AuthenticationConfiguration
@@ -32,10 +36,11 @@ type _AuthenticationConfiguration AuthenticationConfiguration
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewAuthenticationConfiguration(name string, authenticationType OutboundAuthenticationType) *AuthenticationConfiguration {
+func NewAuthenticationConfiguration(name string, authenticationType AuthenticationType, scope ConsumerType) *AuthenticationConfiguration {
 	this := AuthenticationConfiguration{}
 	this.Name = name
 	this.AuthenticationType = authenticationType
+	this.Scope = scope
 	var isDefault bool = false
 	this.IsDefault = &isDefault
 	return &this
@@ -75,10 +80,52 @@ func (o *AuthenticationConfiguration) SetName(v string) {
 	o.Name = v
 }
 
-// GetAuthenticationType returns the AuthenticationType field value
-func (o *AuthenticationConfiguration) GetAuthenticationType() OutboundAuthenticationType {
+// GetTitle returns the Title field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *AuthenticationConfiguration) GetTitle() string {
+	if o == nil || IsNil(o.Title.Get()) {
+		var ret string
+		return ret
+	}
+	return *o.Title.Get()
+}
+
+// GetTitleOk returns a tuple with the Title field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *AuthenticationConfiguration) GetTitleOk() (*string, bool) {
 	if o == nil {
-		var ret OutboundAuthenticationType
+		return nil, false
+	}
+	return o.Title.Get(), o.Title.IsSet()
+}
+
+// HasTitle returns a boolean if a field has been set.
+func (o *AuthenticationConfiguration) HasTitle() bool {
+	if o != nil && o.Title.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetTitle gets a reference to the given NullableString and assigns it to the Title field.
+func (o *AuthenticationConfiguration) SetTitle(v string) {
+	o.Title.Set(&v)
+}
+// SetTitleNil sets the value for Title to be an explicit nil
+func (o *AuthenticationConfiguration) SetTitleNil() {
+	o.Title.Set(nil)
+}
+
+// UnsetTitle ensures that no value is present for Title, not even an explicit nil
+func (o *AuthenticationConfiguration) UnsetTitle() {
+	o.Title.Unset()
+}
+
+// GetAuthenticationType returns the AuthenticationType field value
+func (o *AuthenticationConfiguration) GetAuthenticationType() AuthenticationType {
+	if o == nil {
+		var ret AuthenticationType
 		return ret
 	}
 
@@ -87,7 +134,7 @@ func (o *AuthenticationConfiguration) GetAuthenticationType() OutboundAuthentica
 
 // GetAuthenticationTypeOk returns a tuple with the AuthenticationType field value
 // and a boolean to check if the value has been set.
-func (o *AuthenticationConfiguration) GetAuthenticationTypeOk() (*OutboundAuthenticationType, bool) {
+func (o *AuthenticationConfiguration) GetAuthenticationTypeOk() (*AuthenticationType, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -95,8 +142,74 @@ func (o *AuthenticationConfiguration) GetAuthenticationTypeOk() (*OutboundAuthen
 }
 
 // SetAuthenticationType sets field value
-func (o *AuthenticationConfiguration) SetAuthenticationType(v OutboundAuthenticationType) {
+func (o *AuthenticationConfiguration) SetAuthenticationType(v AuthenticationType) {
 	o.AuthenticationType = v
+}
+
+// GetScope returns the Scope field value
+func (o *AuthenticationConfiguration) GetScope() ConsumerType {
+	if o == nil {
+		var ret ConsumerType
+		return ret
+	}
+
+	return o.Scope
+}
+
+// GetScopeOk returns a tuple with the Scope field value
+// and a boolean to check if the value has been set.
+func (o *AuthenticationConfiguration) GetScopeOk() (*ConsumerType, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Scope, true
+}
+
+// SetScope sets field value
+func (o *AuthenticationConfiguration) SetScope(v ConsumerType) {
+	o.Scope = v
+}
+
+// GetStatus returns the Status field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *AuthenticationConfiguration) GetStatus() CredentialsStatus {
+	if o == nil || IsNil(o.Status.Get()) {
+		var ret CredentialsStatus
+		return ret
+	}
+	return *o.Status.Get()
+}
+
+// GetStatusOk returns a tuple with the Status field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *AuthenticationConfiguration) GetStatusOk() (*CredentialsStatus, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.Status.Get(), o.Status.IsSet()
+}
+
+// HasStatus returns a boolean if a field has been set.
+func (o *AuthenticationConfiguration) HasStatus() bool {
+	if o != nil && o.Status.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetStatus gets a reference to the given NullableCredentialsStatus and assigns it to the Status field.
+func (o *AuthenticationConfiguration) SetStatus(v CredentialsStatus) {
+	o.Status.Set(&v)
+}
+// SetStatusNil sets the value for Status to be an explicit nil
+func (o *AuthenticationConfiguration) SetStatusNil() {
+	o.Status.Set(nil)
+}
+
+// UnsetStatus ensures that no value is present for Status, not even an explicit nil
+func (o *AuthenticationConfiguration) UnsetStatus() {
+	o.Status.Unset()
 }
 
 // GetIsDefault returns the IsDefault field value if set, zero value otherwise.
@@ -131,6 +244,48 @@ func (o *AuthenticationConfiguration) SetIsDefault(v bool) {
 	o.IsDefault = &v
 }
 
+// GetCreatorId returns the CreatorId field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *AuthenticationConfiguration) GetCreatorId() string {
+	if o == nil || IsNil(o.CreatorId.Get()) {
+		var ret string
+		return ret
+	}
+	return *o.CreatorId.Get()
+}
+
+// GetCreatorIdOk returns a tuple with the CreatorId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *AuthenticationConfiguration) GetCreatorIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.CreatorId.Get(), o.CreatorId.IsSet()
+}
+
+// HasCreatorId returns a boolean if a field has been set.
+func (o *AuthenticationConfiguration) HasCreatorId() bool {
+	if o != nil && o.CreatorId.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetCreatorId gets a reference to the given NullableString and assigns it to the CreatorId field.
+func (o *AuthenticationConfiguration) SetCreatorId(v string) {
+	o.CreatorId.Set(&v)
+}
+// SetCreatorIdNil sets the value for CreatorId to be an explicit nil
+func (o *AuthenticationConfiguration) SetCreatorIdNil() {
+	o.CreatorId.Set(nil)
+}
+
+// UnsetCreatorId ensures that no value is present for CreatorId, not even an explicit nil
+func (o *AuthenticationConfiguration) UnsetCreatorId() {
+	o.CreatorId.Unset()
+}
+
 func (o AuthenticationConfiguration) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -142,9 +297,19 @@ func (o AuthenticationConfiguration) MarshalJSON() ([]byte, error) {
 func (o AuthenticationConfiguration) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["name"] = o.Name
+	if o.Title.IsSet() {
+		toSerialize["title"] = o.Title.Get()
+	}
 	toSerialize["authentication_type"] = o.AuthenticationType
+	toSerialize["scope"] = o.Scope
+	if o.Status.IsSet() {
+		toSerialize["status"] = o.Status.Get()
+	}
 	if !IsNil(o.IsDefault) {
 		toSerialize["is_default"] = o.IsDefault
+	}
+	if o.CreatorId.IsSet() {
+		toSerialize["creator_id"] = o.CreatorId.Get()
 	}
 	return toSerialize, nil
 }
@@ -156,6 +321,7 @@ func (o *AuthenticationConfiguration) UnmarshalJSON(data []byte) (err error) {
 	requiredProperties := []string{
 		"name",
 		"authentication_type",
+		"scope",
 	}
 
 	allProperties := make(map[string]interface{})

@@ -25,6 +25,11 @@ type Stop struct {
 // Unmarshal JSON data into any of the pointers in the struct
 func (dst *Stop) UnmarshalJSON(data []byte) error {
 	var err error
+	// this object is nullable so check if the payload is null or empty string
+	if string(data) == "" || string(data) == "{}" {
+		return nil
+	}
+
 	// try to unmarshal JSON data into ArrayOfString
 	err = json.Unmarshal(data, &dst.ArrayOfString);
 	if err == nil {

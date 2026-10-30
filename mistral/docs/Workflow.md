@@ -15,6 +15,7 @@ Name | Type | Description | Notes
 **AvailableInChatAssistant** | Pointer to **bool** | Whether the workflow is available in chat assistant | [optional] [default to false]
 **IsTechnical** | Pointer to **bool** | Whether the workflow is technical (e.g. SDK-managed) | [optional] [default to false]
 **Archived** | Pointer to **bool** | Whether the workflow is archived | [optional] [default to false]
+**Tags** | Pointer to **[]string** | Tags for filtering and discovery | [optional] 
 
 ## Methods
 
@@ -299,6 +300,31 @@ SetArchived sets Archived field to given value.
 `func (o *Workflow) HasArchived() bool`
 
 HasArchived returns a boolean if a field has been set.
+
+### GetTags
+
+`func (o *Workflow) GetTags() []string`
+
+GetTags returns the Tags field if non-nil, zero value otherwise.
+
+### GetTagsOk
+
+`func (o *Workflow) GetTagsOk() (*[]string, bool)`
+
+GetTagsOk returns a tuple with the Tags field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetTags
+
+`func (o *Workflow) SetTags(v []string)`
+
+SetTags sets Tags field to given value.
+
+### HasTags
+
+`func (o *Workflow) HasTags() bool`
+
+HasTags returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

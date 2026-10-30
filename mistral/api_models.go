@@ -29,7 +29,7 @@ type ApiDeleteModelV1ModelsModelIdDeleteRequest struct {
 	modelId string
 }
 
-func (r ApiDeleteModelV1ModelsModelIdDeleteRequest) Execute() (*DeleteModelOut, *http.Response, error) {
+func (r ApiDeleteModelV1ModelsModelIdDeleteRequest) Execute() (*DeleteModelResponse, *http.Response, error) {
 	return r.ApiService.DeleteModelV1ModelsModelIdDeleteExecute(r)
 }
 
@@ -51,13 +51,13 @@ func (a *ModelsAPIService) DeleteModelV1ModelsModelIdDelete(ctx context.Context,
 }
 
 // Execute executes the request
-//  @return DeleteModelOut
-func (a *ModelsAPIService) DeleteModelV1ModelsModelIdDeleteExecute(r ApiDeleteModelV1ModelsModelIdDeleteRequest) (*DeleteModelOut, *http.Response, error) {
+//  @return DeleteModelResponse
+func (a *ModelsAPIService) DeleteModelV1ModelsModelIdDeleteExecute(r ApiDeleteModelV1ModelsModelIdDeleteRequest) (*DeleteModelResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodDelete
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *DeleteModelOut
+		localVarReturnValue  *DeleteModelResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ModelsAPIService.DeleteModelV1ModelsModelIdDelete")
@@ -142,7 +142,7 @@ type ApiJobsApiRoutesFineTuningArchiveFineTunedModelRequest struct {
 	modelId string
 }
 
-func (r ApiJobsApiRoutesFineTuningArchiveFineTunedModelRequest) Execute() (*ArchiveFTModelOut, *http.Response, error) {
+func (r ApiJobsApiRoutesFineTuningArchiveFineTunedModelRequest) Execute() (*ArchiveModelResponse, *http.Response, error) {
 	return r.ApiService.JobsApiRoutesFineTuningArchiveFineTunedModelExecute(r)
 }
 
@@ -164,13 +164,13 @@ func (a *ModelsAPIService) JobsApiRoutesFineTuningArchiveFineTunedModel(ctx cont
 }
 
 // Execute executes the request
-//  @return ArchiveFTModelOut
-func (a *ModelsAPIService) JobsApiRoutesFineTuningArchiveFineTunedModelExecute(r ApiJobsApiRoutesFineTuningArchiveFineTunedModelRequest) (*ArchiveFTModelOut, *http.Response, error) {
+//  @return ArchiveModelResponse
+func (a *ModelsAPIService) JobsApiRoutesFineTuningArchiveFineTunedModelExecute(r ApiJobsApiRoutesFineTuningArchiveFineTunedModelRequest) (*ArchiveModelResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *ArchiveFTModelOut
+		localVarReturnValue  *ArchiveModelResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ModelsAPIService.JobsApiRoutesFineTuningArchiveFineTunedModel")
@@ -245,7 +245,7 @@ type ApiJobsApiRoutesFineTuningUnarchiveFineTunedModelRequest struct {
 	modelId string
 }
 
-func (r ApiJobsApiRoutesFineTuningUnarchiveFineTunedModelRequest) Execute() (*UnarchiveFTModelOut, *http.Response, error) {
+func (r ApiJobsApiRoutesFineTuningUnarchiveFineTunedModelRequest) Execute() (*UnarchiveModelResponse, *http.Response, error) {
 	return r.ApiService.JobsApiRoutesFineTuningUnarchiveFineTunedModelExecute(r)
 }
 
@@ -267,13 +267,13 @@ func (a *ModelsAPIService) JobsApiRoutesFineTuningUnarchiveFineTunedModel(ctx co
 }
 
 // Execute executes the request
-//  @return UnarchiveFTModelOut
-func (a *ModelsAPIService) JobsApiRoutesFineTuningUnarchiveFineTunedModelExecute(r ApiJobsApiRoutesFineTuningUnarchiveFineTunedModelRequest) (*UnarchiveFTModelOut, *http.Response, error) {
+//  @return UnarchiveModelResponse
+func (a *ModelsAPIService) JobsApiRoutesFineTuningUnarchiveFineTunedModelExecute(r ApiJobsApiRoutesFineTuningUnarchiveFineTunedModelRequest) (*UnarchiveModelResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodDelete
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *UnarchiveFTModelOut
+		localVarReturnValue  *UnarchiveModelResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ModelsAPIService.JobsApiRoutesFineTuningUnarchiveFineTunedModel")
@@ -346,15 +346,15 @@ type ApiJobsApiRoutesFineTuningUpdateFineTunedModelRequest struct {
 	ctx context.Context
 	ApiService *ModelsAPIService
 	modelId string
-	updateFTModelIn *UpdateFTModelIn
+	updateModelRequest *UpdateModelRequest
 }
 
-func (r ApiJobsApiRoutesFineTuningUpdateFineTunedModelRequest) UpdateFTModelIn(updateFTModelIn UpdateFTModelIn) ApiJobsApiRoutesFineTuningUpdateFineTunedModelRequest {
-	r.updateFTModelIn = &updateFTModelIn
+func (r ApiJobsApiRoutesFineTuningUpdateFineTunedModelRequest) UpdateModelRequest(updateModelRequest UpdateModelRequest) ApiJobsApiRoutesFineTuningUpdateFineTunedModelRequest {
+	r.updateModelRequest = &updateModelRequest
 	return r
 }
 
-func (r ApiJobsApiRoutesFineTuningUpdateFineTunedModelRequest) Execute() (*Response2, *http.Response, error) {
+func (r ApiJobsApiRoutesFineTuningUpdateFineTunedModelRequest) Execute() (*Response, *http.Response, error) {
 	return r.ApiService.JobsApiRoutesFineTuningUpdateFineTunedModelExecute(r)
 }
 
@@ -376,13 +376,13 @@ func (a *ModelsAPIService) JobsApiRoutesFineTuningUpdateFineTunedModel(ctx conte
 }
 
 // Execute executes the request
-//  @return Response2
-func (a *ModelsAPIService) JobsApiRoutesFineTuningUpdateFineTunedModelExecute(r ApiJobsApiRoutesFineTuningUpdateFineTunedModelRequest) (*Response2, *http.Response, error) {
+//  @return Response
+func (a *ModelsAPIService) JobsApiRoutesFineTuningUpdateFineTunedModelExecute(r ApiJobsApiRoutesFineTuningUpdateFineTunedModelRequest) (*Response, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPatch
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *Response2
+		localVarReturnValue  *Response
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ModelsAPIService.JobsApiRoutesFineTuningUpdateFineTunedModel")
@@ -396,8 +396,8 @@ func (a *ModelsAPIService) JobsApiRoutesFineTuningUpdateFineTunedModelExecute(r 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.updateFTModelIn == nil {
-		return localVarReturnValue, nil, reportError("updateFTModelIn is required and must be specified")
+	if r.updateModelRequest == nil {
+		return localVarReturnValue, nil, reportError("updateModelRequest is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -418,7 +418,7 @@ func (a *ModelsAPIService) JobsApiRoutesFineTuningUpdateFineTunedModelExecute(r 
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.updateFTModelIn
+	localVarPostBody = r.updateModelRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err

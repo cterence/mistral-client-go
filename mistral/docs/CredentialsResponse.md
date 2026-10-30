@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Credentials** | [**[]AuthenticationConfiguration**](AuthenticationConfiguration.md) |  | 
-**ConnectorPresetCredentialsForAuth** | Pointer to [**[]OutboundAuthenticationType**](OutboundAuthenticationType.md) |  | [optional] [default to {}]
+**ConnectorPresetCredentialsForAuth** | Pointer to [**[]AuthenticationType**](AuthenticationType.md) |  | [optional] [default to {}]
 
 ## Methods
 
@@ -48,20 +48,20 @@ SetCredentials sets Credentials field to given value.
 
 ### GetConnectorPresetCredentialsForAuth
 
-`func (o *CredentialsResponse) GetConnectorPresetCredentialsForAuth() []OutboundAuthenticationType`
+`func (o *CredentialsResponse) GetConnectorPresetCredentialsForAuth() []AuthenticationType`
 
 GetConnectorPresetCredentialsForAuth returns the ConnectorPresetCredentialsForAuth field if non-nil, zero value otherwise.
 
 ### GetConnectorPresetCredentialsForAuthOk
 
-`func (o *CredentialsResponse) GetConnectorPresetCredentialsForAuthOk() (*[]OutboundAuthenticationType, bool)`
+`func (o *CredentialsResponse) GetConnectorPresetCredentialsForAuthOk() (*[]AuthenticationType, bool)`
 
 GetConnectorPresetCredentialsForAuthOk returns a tuple with the ConnectorPresetCredentialsForAuth field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetConnectorPresetCredentialsForAuth
 
-`func (o *CredentialsResponse) SetConnectorPresetCredentialsForAuth(v []OutboundAuthenticationType)`
+`func (o *CredentialsResponse) SetConnectorPresetCredentialsForAuth(v []AuthenticationType)`
 
 SetConnectorPresetCredentialsForAuth sets ConnectorPresetCredentialsForAuth field to given value.
 

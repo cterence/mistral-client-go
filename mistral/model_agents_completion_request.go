@@ -12,7 +12,6 @@ package mistral
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -25,32 +24,41 @@ type AgentsCompletionRequest struct {
 	MaxTokens NullableInt32 `json:"max_tokens,omitempty"`
 	// Whether to stream back partial progress. If set, tokens will be sent as data-only server-side events as they become available, with the stream terminated by a data: [DONE] message. Otherwise, the server will hold the request open until the timeout or until completion, with the response containing the full result as JSON.
 	Stream *bool `json:"stream,omitempty"`
-	Stop *Stop `json:"stop,omitempty"`
+	Stop NullableStop `json:"stop,omitempty"`
 	// The seed to use for random sampling. If set, different calls will generate deterministic results.
 	RandomSeed NullableInt32 `json:"random_seed,omitempty"`
 	Metadata map[string]interface{} `json:"metadata,omitempty"`
 	// The prompt(s) to generate completions for, encoded as a list of dict with role and content.
 	Messages []MessagesInner `json:"messages"`
 	ResponseFormat *ResponseFormat `json:"response_format,omitempty"`
-	Tools []Tool `json:"tools,omitempty"`
+	Tools []ChatCompletionRequestToolsInner `json:"tools,omitempty"`
 	ToolChoice *ToolChoice `json:"tool_choice,omitempty"`
 	// The `presence_penalty` determines how much the model penalizes the repetition of words or phrases. A higher presence penalty encourages the model to use a wider variety of words and phrases, making the output more diverse and creative.
-	PresencePenalty *float32 `json:"presence_penalty,omitempty"`
+	PresencePenalty NullableFloat32 `json:"presence_penalty,omitempty"`
 	// The `frequency_penalty` penalizes the repetition of words based on their frequency in the generated text. A higher frequency penalty discourages the model from repeating words that have already appeared frequently in the output, promoting diversity and reducing repetition.
-	FrequencyPenalty *float32 `json:"frequency_penalty,omitempty"`
+	FrequencyPenalty NullableFloat32 `json:"frequency_penalty,omitempty"`
+	MinTokens NullableInt32 `json:"min_tokens,omitempty"`
+	RepetitionPenalty NullableFloat32 `json:"repetition_penalty,omitempty"`
+	TopK NullableInt32 `json:"top_k,omitempty"`
+	Logprobs NullableBool `json:"logprobs,omitempty"`
+	TopLogprobs NullableInt32 `json:"top_logprobs,omitempty"`
+	PromptLogprobs NullableBool `json:"prompt_logprobs,omitempty"`
+	TopPromptLogprobs NullableInt32 `json:"top_prompt_logprobs,omitempty"`
 	// Number of completions to return for each request, input tokens are only billed once.
 	N NullableInt32 `json:"n,omitempty"`
 	// Enable users to specify expected results, optimizing response times by leveraging known or predictable content. This approach is especially effective for updating text documents or code files with minimal changes, reducing latency while maintaining high-quality results.
 	Prediction *Prediction `json:"prediction,omitempty"`
 	ParallelToolCalls *bool `json:"parallel_tool_calls,omitempty"`
-	// Allows toggling between the reasoning mode and no system prompt. When set to `reasoning` the system prompt for reasoning models will be used. **Deprecated for reasoning models - use `reasoning_effort` parameter instead.**
+	ReasoningEffort NullableReasoningEffort `json:"reasoning_effort,omitempty"`
+	// Allows toggling between the reasoning mode and no system prompt. When set to `reasoning` the system prompt for reasoning models will be used.
 	PromptMode NullableMistralPromptMode `json:"prompt_mode,omitempty"`
-	// Controls the reasoning effort level for reasoning models. \"high\" enables comprehensive reasoning traces, \"none\" disables reasoning effort.
-	ReasoningEffort *string `json:"reasoning_effort,omitempty"`
-	// A cache key to enable prompt caching. When provided, the API will attempt to reuse previously computed tokens for requests sharing the same prefix (e.g. multi-turn conversations or requests with a similar system prompt). Cached tokens are billed at 10% of the standard input token price.
+	Guardrails []GuardrailConfig `json:"guardrails,omitempty"`
 	PromptCacheKey NullableString `json:"prompt_cache_key,omitempty"`
+	// Determines whether to serve the request using priority or standard capacity.
+	ServiceTier NullableRequestedServiceTier `json:"service_tier,omitempty"`
 	// The ID of the agent to use for this completion.
 	AgentId string `json:"agent_id"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _AgentsCompletionRequest AgentsCompletionRequest
@@ -68,10 +76,6 @@ func NewAgentsCompletionRequest(messages []MessagesInner, agentId string) *Agent
 	auto := TOOLCHOICEENUM_AUTO
 	toolChoice.ToolChoiceEnum = &auto
 	this.ToolChoice = &toolChoice
-	var presencePenalty float32 = 0.0
-	this.PresencePenalty = &presencePenalty
-	var frequencyPenalty float32 = 0.0
-	this.FrequencyPenalty = &frequencyPenalty
 	var parallelToolCalls bool = true
 	this.ParallelToolCalls = &parallelToolCalls
 	this.AgentId = agentId
@@ -89,10 +93,6 @@ func NewAgentsCompletionRequestWithDefaults() *AgentsCompletionRequest {
 	auto := TOOLCHOICEENUM_AUTO
 	toolChoice.ToolChoiceEnum = &auto
 	this.ToolChoice = &toolChoice
-	var presencePenalty float32 = 0.0
-	this.PresencePenalty = &presencePenalty
-	var frequencyPenalty float32 = 0.0
-	this.FrequencyPenalty = &frequencyPenalty
 	var parallelToolCalls bool = true
 	this.ParallelToolCalls = &parallelToolCalls
 	return &this
@@ -172,36 +172,46 @@ func (o *AgentsCompletionRequest) SetStream(v bool) {
 	o.Stream = &v
 }
 
-// GetStop returns the Stop field value if set, zero value otherwise.
+// GetStop returns the Stop field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *AgentsCompletionRequest) GetStop() Stop {
-	if o == nil || IsNil(o.Stop) {
+	if o == nil || IsNil(o.Stop.Get()) {
 		var ret Stop
 		return ret
 	}
-	return *o.Stop
+	return *o.Stop.Get()
 }
 
 // GetStopOk returns a tuple with the Stop field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *AgentsCompletionRequest) GetStopOk() (*Stop, bool) {
-	if o == nil || IsNil(o.Stop) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Stop, true
+	return o.Stop.Get(), o.Stop.IsSet()
 }
 
 // HasStop returns a boolean if a field has been set.
 func (o *AgentsCompletionRequest) HasStop() bool {
-	if o != nil && !IsNil(o.Stop) {
+	if o != nil && o.Stop.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetStop gets a reference to the given Stop and assigns it to the Stop field.
+// SetStop gets a reference to the given NullableStop and assigns it to the Stop field.
 func (o *AgentsCompletionRequest) SetStop(v Stop) {
-	o.Stop = &v
+	o.Stop.Set(&v)
+}
+// SetStopNil sets the value for Stop to be an explicit nil
+func (o *AgentsCompletionRequest) SetStopNil() {
+	o.Stop.Set(nil)
+}
+
+// UnsetStop ensures that no value is present for Stop, not even an explicit nil
+func (o *AgentsCompletionRequest) UnsetStop() {
+	o.Stop.Unset()
 }
 
 // GetRandomSeed returns the RandomSeed field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -336,9 +346,9 @@ func (o *AgentsCompletionRequest) SetResponseFormat(v ResponseFormat) {
 }
 
 // GetTools returns the Tools field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *AgentsCompletionRequest) GetTools() []Tool {
+func (o *AgentsCompletionRequest) GetTools() []ChatCompletionRequestToolsInner {
 	if o == nil {
-		var ret []Tool
+		var ret []ChatCompletionRequestToolsInner
 		return ret
 	}
 	return o.Tools
@@ -347,7 +357,7 @@ func (o *AgentsCompletionRequest) GetTools() []Tool {
 // GetToolsOk returns a tuple with the Tools field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *AgentsCompletionRequest) GetToolsOk() ([]Tool, bool) {
+func (o *AgentsCompletionRequest) GetToolsOk() ([]ChatCompletionRequestToolsInner, bool) {
 	if o == nil || IsNil(o.Tools) {
 		return nil, false
 	}
@@ -363,8 +373,8 @@ func (o *AgentsCompletionRequest) HasTools() bool {
 	return false
 }
 
-// SetTools gets a reference to the given []Tool and assigns it to the Tools field.
-func (o *AgentsCompletionRequest) SetTools(v []Tool) {
+// SetTools gets a reference to the given []ChatCompletionRequestToolsInner and assigns it to the Tools field.
+func (o *AgentsCompletionRequest) SetTools(v []ChatCompletionRequestToolsInner) {
 	o.Tools = v
 }
 
@@ -400,68 +410,382 @@ func (o *AgentsCompletionRequest) SetToolChoice(v ToolChoice) {
 	o.ToolChoice = &v
 }
 
-// GetPresencePenalty returns the PresencePenalty field value if set, zero value otherwise.
+// GetPresencePenalty returns the PresencePenalty field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *AgentsCompletionRequest) GetPresencePenalty() float32 {
-	if o == nil || IsNil(o.PresencePenalty) {
+	if o == nil || IsNil(o.PresencePenalty.Get()) {
 		var ret float32
 		return ret
 	}
-	return *o.PresencePenalty
+	return *o.PresencePenalty.Get()
 }
 
 // GetPresencePenaltyOk returns a tuple with the PresencePenalty field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *AgentsCompletionRequest) GetPresencePenaltyOk() (*float32, bool) {
-	if o == nil || IsNil(o.PresencePenalty) {
+	if o == nil {
 		return nil, false
 	}
-	return o.PresencePenalty, true
+	return o.PresencePenalty.Get(), o.PresencePenalty.IsSet()
 }
 
 // HasPresencePenalty returns a boolean if a field has been set.
 func (o *AgentsCompletionRequest) HasPresencePenalty() bool {
-	if o != nil && !IsNil(o.PresencePenalty) {
+	if o != nil && o.PresencePenalty.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetPresencePenalty gets a reference to the given float32 and assigns it to the PresencePenalty field.
+// SetPresencePenalty gets a reference to the given NullableFloat32 and assigns it to the PresencePenalty field.
 func (o *AgentsCompletionRequest) SetPresencePenalty(v float32) {
-	o.PresencePenalty = &v
+	o.PresencePenalty.Set(&v)
+}
+// SetPresencePenaltyNil sets the value for PresencePenalty to be an explicit nil
+func (o *AgentsCompletionRequest) SetPresencePenaltyNil() {
+	o.PresencePenalty.Set(nil)
 }
 
-// GetFrequencyPenalty returns the FrequencyPenalty field value if set, zero value otherwise.
+// UnsetPresencePenalty ensures that no value is present for PresencePenalty, not even an explicit nil
+func (o *AgentsCompletionRequest) UnsetPresencePenalty() {
+	o.PresencePenalty.Unset()
+}
+
+// GetFrequencyPenalty returns the FrequencyPenalty field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *AgentsCompletionRequest) GetFrequencyPenalty() float32 {
-	if o == nil || IsNil(o.FrequencyPenalty) {
+	if o == nil || IsNil(o.FrequencyPenalty.Get()) {
 		var ret float32
 		return ret
 	}
-	return *o.FrequencyPenalty
+	return *o.FrequencyPenalty.Get()
 }
 
 // GetFrequencyPenaltyOk returns a tuple with the FrequencyPenalty field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *AgentsCompletionRequest) GetFrequencyPenaltyOk() (*float32, bool) {
-	if o == nil || IsNil(o.FrequencyPenalty) {
+	if o == nil {
 		return nil, false
 	}
-	return o.FrequencyPenalty, true
+	return o.FrequencyPenalty.Get(), o.FrequencyPenalty.IsSet()
 }
 
 // HasFrequencyPenalty returns a boolean if a field has been set.
 func (o *AgentsCompletionRequest) HasFrequencyPenalty() bool {
-	if o != nil && !IsNil(o.FrequencyPenalty) {
+	if o != nil && o.FrequencyPenalty.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetFrequencyPenalty gets a reference to the given float32 and assigns it to the FrequencyPenalty field.
+// SetFrequencyPenalty gets a reference to the given NullableFloat32 and assigns it to the FrequencyPenalty field.
 func (o *AgentsCompletionRequest) SetFrequencyPenalty(v float32) {
-	o.FrequencyPenalty = &v
+	o.FrequencyPenalty.Set(&v)
+}
+// SetFrequencyPenaltyNil sets the value for FrequencyPenalty to be an explicit nil
+func (o *AgentsCompletionRequest) SetFrequencyPenaltyNil() {
+	o.FrequencyPenalty.Set(nil)
+}
+
+// UnsetFrequencyPenalty ensures that no value is present for FrequencyPenalty, not even an explicit nil
+func (o *AgentsCompletionRequest) UnsetFrequencyPenalty() {
+	o.FrequencyPenalty.Unset()
+}
+
+// GetMinTokens returns the MinTokens field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *AgentsCompletionRequest) GetMinTokens() int32 {
+	if o == nil || IsNil(o.MinTokens.Get()) {
+		var ret int32
+		return ret
+	}
+	return *o.MinTokens.Get()
+}
+
+// GetMinTokensOk returns a tuple with the MinTokens field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *AgentsCompletionRequest) GetMinTokensOk() (*int32, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.MinTokens.Get(), o.MinTokens.IsSet()
+}
+
+// HasMinTokens returns a boolean if a field has been set.
+func (o *AgentsCompletionRequest) HasMinTokens() bool {
+	if o != nil && o.MinTokens.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetMinTokens gets a reference to the given NullableInt32 and assigns it to the MinTokens field.
+func (o *AgentsCompletionRequest) SetMinTokens(v int32) {
+	o.MinTokens.Set(&v)
+}
+// SetMinTokensNil sets the value for MinTokens to be an explicit nil
+func (o *AgentsCompletionRequest) SetMinTokensNil() {
+	o.MinTokens.Set(nil)
+}
+
+// UnsetMinTokens ensures that no value is present for MinTokens, not even an explicit nil
+func (o *AgentsCompletionRequest) UnsetMinTokens() {
+	o.MinTokens.Unset()
+}
+
+// GetRepetitionPenalty returns the RepetitionPenalty field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *AgentsCompletionRequest) GetRepetitionPenalty() float32 {
+	if o == nil || IsNil(o.RepetitionPenalty.Get()) {
+		var ret float32
+		return ret
+	}
+	return *o.RepetitionPenalty.Get()
+}
+
+// GetRepetitionPenaltyOk returns a tuple with the RepetitionPenalty field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *AgentsCompletionRequest) GetRepetitionPenaltyOk() (*float32, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.RepetitionPenalty.Get(), o.RepetitionPenalty.IsSet()
+}
+
+// HasRepetitionPenalty returns a boolean if a field has been set.
+func (o *AgentsCompletionRequest) HasRepetitionPenalty() bool {
+	if o != nil && o.RepetitionPenalty.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetRepetitionPenalty gets a reference to the given NullableFloat32 and assigns it to the RepetitionPenalty field.
+func (o *AgentsCompletionRequest) SetRepetitionPenalty(v float32) {
+	o.RepetitionPenalty.Set(&v)
+}
+// SetRepetitionPenaltyNil sets the value for RepetitionPenalty to be an explicit nil
+func (o *AgentsCompletionRequest) SetRepetitionPenaltyNil() {
+	o.RepetitionPenalty.Set(nil)
+}
+
+// UnsetRepetitionPenalty ensures that no value is present for RepetitionPenalty, not even an explicit nil
+func (o *AgentsCompletionRequest) UnsetRepetitionPenalty() {
+	o.RepetitionPenalty.Unset()
+}
+
+// GetTopK returns the TopK field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *AgentsCompletionRequest) GetTopK() int32 {
+	if o == nil || IsNil(o.TopK.Get()) {
+		var ret int32
+		return ret
+	}
+	return *o.TopK.Get()
+}
+
+// GetTopKOk returns a tuple with the TopK field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *AgentsCompletionRequest) GetTopKOk() (*int32, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.TopK.Get(), o.TopK.IsSet()
+}
+
+// HasTopK returns a boolean if a field has been set.
+func (o *AgentsCompletionRequest) HasTopK() bool {
+	if o != nil && o.TopK.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetTopK gets a reference to the given NullableInt32 and assigns it to the TopK field.
+func (o *AgentsCompletionRequest) SetTopK(v int32) {
+	o.TopK.Set(&v)
+}
+// SetTopKNil sets the value for TopK to be an explicit nil
+func (o *AgentsCompletionRequest) SetTopKNil() {
+	o.TopK.Set(nil)
+}
+
+// UnsetTopK ensures that no value is present for TopK, not even an explicit nil
+func (o *AgentsCompletionRequest) UnsetTopK() {
+	o.TopK.Unset()
+}
+
+// GetLogprobs returns the Logprobs field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *AgentsCompletionRequest) GetLogprobs() bool {
+	if o == nil || IsNil(o.Logprobs.Get()) {
+		var ret bool
+		return ret
+	}
+	return *o.Logprobs.Get()
+}
+
+// GetLogprobsOk returns a tuple with the Logprobs field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *AgentsCompletionRequest) GetLogprobsOk() (*bool, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.Logprobs.Get(), o.Logprobs.IsSet()
+}
+
+// HasLogprobs returns a boolean if a field has been set.
+func (o *AgentsCompletionRequest) HasLogprobs() bool {
+	if o != nil && o.Logprobs.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetLogprobs gets a reference to the given NullableBool and assigns it to the Logprobs field.
+func (o *AgentsCompletionRequest) SetLogprobs(v bool) {
+	o.Logprobs.Set(&v)
+}
+// SetLogprobsNil sets the value for Logprobs to be an explicit nil
+func (o *AgentsCompletionRequest) SetLogprobsNil() {
+	o.Logprobs.Set(nil)
+}
+
+// UnsetLogprobs ensures that no value is present for Logprobs, not even an explicit nil
+func (o *AgentsCompletionRequest) UnsetLogprobs() {
+	o.Logprobs.Unset()
+}
+
+// GetTopLogprobs returns the TopLogprobs field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *AgentsCompletionRequest) GetTopLogprobs() int32 {
+	if o == nil || IsNil(o.TopLogprobs.Get()) {
+		var ret int32
+		return ret
+	}
+	return *o.TopLogprobs.Get()
+}
+
+// GetTopLogprobsOk returns a tuple with the TopLogprobs field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *AgentsCompletionRequest) GetTopLogprobsOk() (*int32, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.TopLogprobs.Get(), o.TopLogprobs.IsSet()
+}
+
+// HasTopLogprobs returns a boolean if a field has been set.
+func (o *AgentsCompletionRequest) HasTopLogprobs() bool {
+	if o != nil && o.TopLogprobs.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetTopLogprobs gets a reference to the given NullableInt32 and assigns it to the TopLogprobs field.
+func (o *AgentsCompletionRequest) SetTopLogprobs(v int32) {
+	o.TopLogprobs.Set(&v)
+}
+// SetTopLogprobsNil sets the value for TopLogprobs to be an explicit nil
+func (o *AgentsCompletionRequest) SetTopLogprobsNil() {
+	o.TopLogprobs.Set(nil)
+}
+
+// UnsetTopLogprobs ensures that no value is present for TopLogprobs, not even an explicit nil
+func (o *AgentsCompletionRequest) UnsetTopLogprobs() {
+	o.TopLogprobs.Unset()
+}
+
+// GetPromptLogprobs returns the PromptLogprobs field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *AgentsCompletionRequest) GetPromptLogprobs() bool {
+	if o == nil || IsNil(o.PromptLogprobs.Get()) {
+		var ret bool
+		return ret
+	}
+	return *o.PromptLogprobs.Get()
+}
+
+// GetPromptLogprobsOk returns a tuple with the PromptLogprobs field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *AgentsCompletionRequest) GetPromptLogprobsOk() (*bool, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.PromptLogprobs.Get(), o.PromptLogprobs.IsSet()
+}
+
+// HasPromptLogprobs returns a boolean if a field has been set.
+func (o *AgentsCompletionRequest) HasPromptLogprobs() bool {
+	if o != nil && o.PromptLogprobs.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetPromptLogprobs gets a reference to the given NullableBool and assigns it to the PromptLogprobs field.
+func (o *AgentsCompletionRequest) SetPromptLogprobs(v bool) {
+	o.PromptLogprobs.Set(&v)
+}
+// SetPromptLogprobsNil sets the value for PromptLogprobs to be an explicit nil
+func (o *AgentsCompletionRequest) SetPromptLogprobsNil() {
+	o.PromptLogprobs.Set(nil)
+}
+
+// UnsetPromptLogprobs ensures that no value is present for PromptLogprobs, not even an explicit nil
+func (o *AgentsCompletionRequest) UnsetPromptLogprobs() {
+	o.PromptLogprobs.Unset()
+}
+
+// GetTopPromptLogprobs returns the TopPromptLogprobs field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *AgentsCompletionRequest) GetTopPromptLogprobs() int32 {
+	if o == nil || IsNil(o.TopPromptLogprobs.Get()) {
+		var ret int32
+		return ret
+	}
+	return *o.TopPromptLogprobs.Get()
+}
+
+// GetTopPromptLogprobsOk returns a tuple with the TopPromptLogprobs field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *AgentsCompletionRequest) GetTopPromptLogprobsOk() (*int32, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.TopPromptLogprobs.Get(), o.TopPromptLogprobs.IsSet()
+}
+
+// HasTopPromptLogprobs returns a boolean if a field has been set.
+func (o *AgentsCompletionRequest) HasTopPromptLogprobs() bool {
+	if o != nil && o.TopPromptLogprobs.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetTopPromptLogprobs gets a reference to the given NullableInt32 and assigns it to the TopPromptLogprobs field.
+func (o *AgentsCompletionRequest) SetTopPromptLogprobs(v int32) {
+	o.TopPromptLogprobs.Set(&v)
+}
+// SetTopPromptLogprobsNil sets the value for TopPromptLogprobs to be an explicit nil
+func (o *AgentsCompletionRequest) SetTopPromptLogprobsNil() {
+	o.TopPromptLogprobs.Set(nil)
+}
+
+// UnsetTopPromptLogprobs ensures that no value is present for TopPromptLogprobs, not even an explicit nil
+func (o *AgentsCompletionRequest) UnsetTopPromptLogprobs() {
+	o.TopPromptLogprobs.Unset()
 }
 
 // GetN returns the N field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -570,6 +894,48 @@ func (o *AgentsCompletionRequest) SetParallelToolCalls(v bool) {
 	o.ParallelToolCalls = &v
 }
 
+// GetReasoningEffort returns the ReasoningEffort field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *AgentsCompletionRequest) GetReasoningEffort() ReasoningEffort {
+	if o == nil || IsNil(o.ReasoningEffort.Get()) {
+		var ret ReasoningEffort
+		return ret
+	}
+	return *o.ReasoningEffort.Get()
+}
+
+// GetReasoningEffortOk returns a tuple with the ReasoningEffort field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *AgentsCompletionRequest) GetReasoningEffortOk() (*ReasoningEffort, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.ReasoningEffort.Get(), o.ReasoningEffort.IsSet()
+}
+
+// HasReasoningEffort returns a boolean if a field has been set.
+func (o *AgentsCompletionRequest) HasReasoningEffort() bool {
+	if o != nil && o.ReasoningEffort.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetReasoningEffort gets a reference to the given NullableReasoningEffort and assigns it to the ReasoningEffort field.
+func (o *AgentsCompletionRequest) SetReasoningEffort(v ReasoningEffort) {
+	o.ReasoningEffort.Set(&v)
+}
+// SetReasoningEffortNil sets the value for ReasoningEffort to be an explicit nil
+func (o *AgentsCompletionRequest) SetReasoningEffortNil() {
+	o.ReasoningEffort.Set(nil)
+}
+
+// UnsetReasoningEffort ensures that no value is present for ReasoningEffort, not even an explicit nil
+func (o *AgentsCompletionRequest) UnsetReasoningEffort() {
+	o.ReasoningEffort.Unset()
+}
+
 // GetPromptMode returns the PromptMode field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *AgentsCompletionRequest) GetPromptMode() MistralPromptMode {
 	if o == nil || IsNil(o.PromptMode.Get()) {
@@ -612,36 +978,37 @@ func (o *AgentsCompletionRequest) UnsetPromptMode() {
 	o.PromptMode.Unset()
 }
 
-// GetReasoningEffort returns the ReasoningEffort field value if set, zero value otherwise.
-func (o *AgentsCompletionRequest) GetReasoningEffort() string {
-	if o == nil || IsNil(o.ReasoningEffort) {
-		var ret string
+// GetGuardrails returns the Guardrails field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *AgentsCompletionRequest) GetGuardrails() []GuardrailConfig {
+	if o == nil {
+		var ret []GuardrailConfig
 		return ret
 	}
-	return *o.ReasoningEffort
+	return o.Guardrails
 }
 
-// GetReasoningEffortOk returns a tuple with the ReasoningEffort field value if set, nil otherwise
+// GetGuardrailsOk returns a tuple with the Guardrails field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AgentsCompletionRequest) GetReasoningEffortOk() (*string, bool) {
-	if o == nil || IsNil(o.ReasoningEffort) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *AgentsCompletionRequest) GetGuardrailsOk() ([]GuardrailConfig, bool) {
+	if o == nil || IsNil(o.Guardrails) {
 		return nil, false
 	}
-	return o.ReasoningEffort, true
+	return o.Guardrails, true
 }
 
-// HasReasoningEffort returns a boolean if a field has been set.
-func (o *AgentsCompletionRequest) HasReasoningEffort() bool {
-	if o != nil && !IsNil(o.ReasoningEffort) {
+// HasGuardrails returns a boolean if a field has been set.
+func (o *AgentsCompletionRequest) HasGuardrails() bool {
+	if o != nil && !IsNil(o.Guardrails) {
 		return true
 	}
 
 	return false
 }
 
-// SetReasoningEffort gets a reference to the given string and assigns it to the ReasoningEffort field.
-func (o *AgentsCompletionRequest) SetReasoningEffort(v string) {
-	o.ReasoningEffort = &v
+// SetGuardrails gets a reference to the given []GuardrailConfig and assigns it to the Guardrails field.
+func (o *AgentsCompletionRequest) SetGuardrails(v []GuardrailConfig) {
+	o.Guardrails = v
 }
 
 // GetPromptCacheKey returns the PromptCacheKey field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -686,6 +1053,48 @@ func (o *AgentsCompletionRequest) UnsetPromptCacheKey() {
 	o.PromptCacheKey.Unset()
 }
 
+// GetServiceTier returns the ServiceTier field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *AgentsCompletionRequest) GetServiceTier() RequestedServiceTier {
+	if o == nil || IsNil(o.ServiceTier.Get()) {
+		var ret RequestedServiceTier
+		return ret
+	}
+	return *o.ServiceTier.Get()
+}
+
+// GetServiceTierOk returns a tuple with the ServiceTier field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *AgentsCompletionRequest) GetServiceTierOk() (*RequestedServiceTier, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.ServiceTier.Get(), o.ServiceTier.IsSet()
+}
+
+// HasServiceTier returns a boolean if a field has been set.
+func (o *AgentsCompletionRequest) HasServiceTier() bool {
+	if o != nil && o.ServiceTier.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetServiceTier gets a reference to the given NullableRequestedServiceTier and assigns it to the ServiceTier field.
+func (o *AgentsCompletionRequest) SetServiceTier(v RequestedServiceTier) {
+	o.ServiceTier.Set(&v)
+}
+// SetServiceTierNil sets the value for ServiceTier to be an explicit nil
+func (o *AgentsCompletionRequest) SetServiceTierNil() {
+	o.ServiceTier.Set(nil)
+}
+
+// UnsetServiceTier ensures that no value is present for ServiceTier, not even an explicit nil
+func (o *AgentsCompletionRequest) UnsetServiceTier() {
+	o.ServiceTier.Unset()
+}
+
 // GetAgentId returns the AgentId field value
 func (o *AgentsCompletionRequest) GetAgentId() string {
 	if o == nil {
@@ -726,8 +1135,8 @@ func (o AgentsCompletionRequest) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Stream) {
 		toSerialize["stream"] = o.Stream
 	}
-	if !IsNil(o.Stop) {
-		toSerialize["stop"] = o.Stop
+	if o.Stop.IsSet() {
+		toSerialize["stop"] = o.Stop.Get()
 	}
 	if o.RandomSeed.IsSet() {
 		toSerialize["random_seed"] = o.RandomSeed.Get()
@@ -745,11 +1154,32 @@ func (o AgentsCompletionRequest) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.ToolChoice) {
 		toSerialize["tool_choice"] = o.ToolChoice
 	}
-	if !IsNil(o.PresencePenalty) {
-		toSerialize["presence_penalty"] = o.PresencePenalty
+	if o.PresencePenalty.IsSet() {
+		toSerialize["presence_penalty"] = o.PresencePenalty.Get()
 	}
-	if !IsNil(o.FrequencyPenalty) {
-		toSerialize["frequency_penalty"] = o.FrequencyPenalty
+	if o.FrequencyPenalty.IsSet() {
+		toSerialize["frequency_penalty"] = o.FrequencyPenalty.Get()
+	}
+	if o.MinTokens.IsSet() {
+		toSerialize["min_tokens"] = o.MinTokens.Get()
+	}
+	if o.RepetitionPenalty.IsSet() {
+		toSerialize["repetition_penalty"] = o.RepetitionPenalty.Get()
+	}
+	if o.TopK.IsSet() {
+		toSerialize["top_k"] = o.TopK.Get()
+	}
+	if o.Logprobs.IsSet() {
+		toSerialize["logprobs"] = o.Logprobs.Get()
+	}
+	if o.TopLogprobs.IsSet() {
+		toSerialize["top_logprobs"] = o.TopLogprobs.Get()
+	}
+	if o.PromptLogprobs.IsSet() {
+		toSerialize["prompt_logprobs"] = o.PromptLogprobs.Get()
+	}
+	if o.TopPromptLogprobs.IsSet() {
+		toSerialize["top_prompt_logprobs"] = o.TopPromptLogprobs.Get()
 	}
 	if o.N.IsSet() {
 		toSerialize["n"] = o.N.Get()
@@ -760,16 +1190,27 @@ func (o AgentsCompletionRequest) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.ParallelToolCalls) {
 		toSerialize["parallel_tool_calls"] = o.ParallelToolCalls
 	}
+	if o.ReasoningEffort.IsSet() {
+		toSerialize["reasoning_effort"] = o.ReasoningEffort.Get()
+	}
 	if o.PromptMode.IsSet() {
 		toSerialize["prompt_mode"] = o.PromptMode.Get()
 	}
-	if !IsNil(o.ReasoningEffort) {
-		toSerialize["reasoning_effort"] = o.ReasoningEffort
+	if o.Guardrails != nil {
+		toSerialize["guardrails"] = o.Guardrails
 	}
 	if o.PromptCacheKey.IsSet() {
 		toSerialize["prompt_cache_key"] = o.PromptCacheKey.Get()
 	}
+	if o.ServiceTier.IsSet() {
+		toSerialize["service_tier"] = o.ServiceTier.Get()
+	}
 	toSerialize["agent_id"] = o.AgentId
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -798,14 +1239,46 @@ func (o *AgentsCompletionRequest) UnmarshalJSON(data []byte) (err error) {
 
 	varAgentsCompletionRequest := _AgentsCompletionRequest{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	err = decoder.Decode(&varAgentsCompletionRequest)
+	err = json.Unmarshal(data, &varAgentsCompletionRequest)
 
 	if err != nil {
 		return err
 	}
 
 	*o = AgentsCompletionRequest(varAgentsCompletionRequest)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "max_tokens")
+		delete(additionalProperties, "stream")
+		delete(additionalProperties, "stop")
+		delete(additionalProperties, "random_seed")
+		delete(additionalProperties, "metadata")
+		delete(additionalProperties, "messages")
+		delete(additionalProperties, "response_format")
+		delete(additionalProperties, "tools")
+		delete(additionalProperties, "tool_choice")
+		delete(additionalProperties, "presence_penalty")
+		delete(additionalProperties, "frequency_penalty")
+		delete(additionalProperties, "min_tokens")
+		delete(additionalProperties, "repetition_penalty")
+		delete(additionalProperties, "top_k")
+		delete(additionalProperties, "logprobs")
+		delete(additionalProperties, "top_logprobs")
+		delete(additionalProperties, "prompt_logprobs")
+		delete(additionalProperties, "top_prompt_logprobs")
+		delete(additionalProperties, "n")
+		delete(additionalProperties, "prediction")
+		delete(additionalProperties, "parallel_tool_calls")
+		delete(additionalProperties, "reasoning_effort")
+		delete(additionalProperties, "prompt_mode")
+		delete(additionalProperties, "guardrails")
+		delete(additionalProperties, "prompt_cache_key")
+		delete(additionalProperties, "service_tier")
+		delete(additionalProperties, "agent_id")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

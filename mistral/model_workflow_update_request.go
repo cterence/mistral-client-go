@@ -25,6 +25,8 @@ type WorkflowUpdateRequest struct {
 	Description NullableString `json:"description,omitempty"`
 	// Whether to make the workflow available in the chat assistant
 	AvailableInChatAssistant NullableBool `json:"available_in_chat_assistant,omitempty"`
+	// New tags. Replaces the existing tag list.
+	Tags []string `json:"tags,omitempty"`
 }
 
 // NewWorkflowUpdateRequest instantiates a new WorkflowUpdateRequest object
@@ -170,6 +172,39 @@ func (o *WorkflowUpdateRequest) UnsetAvailableInChatAssistant() {
 	o.AvailableInChatAssistant.Unset()
 }
 
+// GetTags returns the Tags field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *WorkflowUpdateRequest) GetTags() []string {
+	if o == nil {
+		var ret []string
+		return ret
+	}
+	return o.Tags
+}
+
+// GetTagsOk returns a tuple with the Tags field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *WorkflowUpdateRequest) GetTagsOk() ([]string, bool) {
+	if o == nil || IsNil(o.Tags) {
+		return nil, false
+	}
+	return o.Tags, true
+}
+
+// HasTags returns a boolean if a field has been set.
+func (o *WorkflowUpdateRequest) HasTags() bool {
+	if o != nil && !IsNil(o.Tags) {
+		return true
+	}
+
+	return false
+}
+
+// SetTags gets a reference to the given []string and assigns it to the Tags field.
+func (o *WorkflowUpdateRequest) SetTags(v []string) {
+	o.Tags = v
+}
+
 func (o WorkflowUpdateRequest) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -188,6 +223,9 @@ func (o WorkflowUpdateRequest) ToMap() (map[string]interface{}, error) {
 	}
 	if o.AvailableInChatAssistant.IsSet() {
 		toSerialize["available_in_chat_assistant"] = o.AvailableInChatAssistant.Get()
+	}
+	if o.Tags != nil {
+		toSerialize["tags"] = o.Tags
 	}
 	return toSerialize, nil
 }

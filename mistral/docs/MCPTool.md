@@ -8,11 +8,11 @@ Name | Type | Description | Notes
 **Title** | Pointer to **NullableString** |  | [optional] 
 **Description** | Pointer to **NullableString** |  | [optional] 
 **InputSchema** | **map[string]interface{}** |  | 
-**OutputSchema** | Pointer to **map[string]interface{}** |  | [optional] 
+**Execution** | Pointer to [**NullableToolExecution**](ToolExecution.md) |  | [optional] 
+**OutputSchema** | Pointer to **map[string]interface{}** | Output JSON schema of the query&#39;s model | [optional] 
 **Icons** | Pointer to [**[]MCPServerIcon**](MCPServerIcon.md) |  | [optional] 
 **Annotations** | Pointer to [**NullableToolAnnotations**](ToolAnnotations.md) |  | [optional] 
 **Meta** | Pointer to [**NullableMCPToolMeta**](MCPToolMeta.md) |  | [optional] 
-**Execution** | Pointer to [**NullableToolExecution**](ToolExecution.md) |  | [optional] 
 
 ## Methods
 
@@ -143,6 +143,41 @@ and a boolean to check if the value has been set.
 SetInputSchema sets InputSchema field to given value.
 
 
+### GetExecution
+
+`func (o *MCPTool) GetExecution() ToolExecution`
+
+GetExecution returns the Execution field if non-nil, zero value otherwise.
+
+### GetExecutionOk
+
+`func (o *MCPTool) GetExecutionOk() (*ToolExecution, bool)`
+
+GetExecutionOk returns a tuple with the Execution field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetExecution
+
+`func (o *MCPTool) SetExecution(v ToolExecution)`
+
+SetExecution sets Execution field to given value.
+
+### HasExecution
+
+`func (o *MCPTool) HasExecution() bool`
+
+HasExecution returns a boolean if a field has been set.
+
+### SetExecutionNil
+
+`func (o *MCPTool) SetExecutionNil(b bool)`
+
+ SetExecutionNil sets the value for Execution to be an explicit nil
+
+### UnsetExecution
+`func (o *MCPTool) UnsetExecution()`
+
+UnsetExecution ensures that no value is present for Execution, not even an explicit nil
 ### GetOutputSchema
 
 `func (o *MCPTool) GetOutputSchema() map[string]interface{}`
@@ -283,41 +318,6 @@ HasMeta returns a boolean if a field has been set.
 `func (o *MCPTool) UnsetMeta()`
 
 UnsetMeta ensures that no value is present for Meta, not even an explicit nil
-### GetExecution
-
-`func (o *MCPTool) GetExecution() ToolExecution`
-
-GetExecution returns the Execution field if non-nil, zero value otherwise.
-
-### GetExecutionOk
-
-`func (o *MCPTool) GetExecutionOk() (*ToolExecution, bool)`
-
-GetExecutionOk returns a tuple with the Execution field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetExecution
-
-`func (o *MCPTool) SetExecution(v ToolExecution)`
-
-SetExecution sets Execution field to given value.
-
-### HasExecution
-
-`func (o *MCPTool) HasExecution() bool`
-
-HasExecution returns a boolean if a field has been set.
-
-### SetExecutionNil
-
-`func (o *MCPTool) SetExecutionNil(b bool)`
-
- SetExecutionNil sets the value for Execution to be an explicit nil
-
-### UnsetExecution
-`func (o *MCPTool) UnsetExecution()`
-
-UnsetExecution ensures that no value is present for Execution, not even an explicit nil
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

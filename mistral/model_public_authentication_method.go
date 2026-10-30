@@ -21,8 +21,13 @@ var _ MappedNullable = &PublicAuthenticationMethod{}
 
 // PublicAuthenticationMethod Public view of an authentication method, without secrets.
 type PublicAuthenticationMethod struct {
-	MethodType OutboundAuthenticationType `json:"method_type"`
+	MethodType AuthenticationType `json:"method_type"`
 	Headers []ConnectorAuthenticationHeader `json:"headers,omitempty"`
+	GlobalHeaders map[string]GlobalHeaderValue `json:"global_headers,omitempty"`
+	HasDefaultCredentials bool `json:"has_default_credentials"`
+	GrantType NullableOAuth2GrantType `json:"grant_type,omitempty"`
+	TokenEndpointAuthMethod NullableOAuth2TokenEndpointAuthMethod `json:"token_endpoint_auth_method,omitempty"`
+	Oauth2ServerMetadata NullableExtendedOAuthServerMetadata `json:"oauth2_server_metadata,omitempty"`
 }
 
 type _PublicAuthenticationMethod PublicAuthenticationMethod
@@ -31,9 +36,10 @@ type _PublicAuthenticationMethod PublicAuthenticationMethod
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewPublicAuthenticationMethod(methodType OutboundAuthenticationType) *PublicAuthenticationMethod {
+func NewPublicAuthenticationMethod(methodType AuthenticationType, hasDefaultCredentials bool) *PublicAuthenticationMethod {
 	this := PublicAuthenticationMethod{}
 	this.MethodType = methodType
+	this.HasDefaultCredentials = hasDefaultCredentials
 	return &this
 }
 
@@ -46,9 +52,9 @@ func NewPublicAuthenticationMethodWithDefaults() *PublicAuthenticationMethod {
 }
 
 // GetMethodType returns the MethodType field value
-func (o *PublicAuthenticationMethod) GetMethodType() OutboundAuthenticationType {
+func (o *PublicAuthenticationMethod) GetMethodType() AuthenticationType {
 	if o == nil {
-		var ret OutboundAuthenticationType
+		var ret AuthenticationType
 		return ret
 	}
 
@@ -57,7 +63,7 @@ func (o *PublicAuthenticationMethod) GetMethodType() OutboundAuthenticationType 
 
 // GetMethodTypeOk returns a tuple with the MethodType field value
 // and a boolean to check if the value has been set.
-func (o *PublicAuthenticationMethod) GetMethodTypeOk() (*OutboundAuthenticationType, bool) {
+func (o *PublicAuthenticationMethod) GetMethodTypeOk() (*AuthenticationType, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -65,7 +71,7 @@ func (o *PublicAuthenticationMethod) GetMethodTypeOk() (*OutboundAuthenticationT
 }
 
 // SetMethodType sets field value
-func (o *PublicAuthenticationMethod) SetMethodType(v OutboundAuthenticationType) {
+func (o *PublicAuthenticationMethod) SetMethodType(v AuthenticationType) {
 	o.MethodType = v
 }
 
@@ -102,6 +108,188 @@ func (o *PublicAuthenticationMethod) SetHeaders(v []ConnectorAuthenticationHeade
 	o.Headers = v
 }
 
+// GetGlobalHeaders returns the GlobalHeaders field value if set, zero value otherwise.
+func (o *PublicAuthenticationMethod) GetGlobalHeaders() map[string]GlobalHeaderValue {
+	if o == nil || IsNil(o.GlobalHeaders) {
+		var ret map[string]GlobalHeaderValue
+		return ret
+	}
+	return o.GlobalHeaders
+}
+
+// GetGlobalHeadersOk returns a tuple with the GlobalHeaders field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PublicAuthenticationMethod) GetGlobalHeadersOk() (map[string]GlobalHeaderValue, bool) {
+	if o == nil || IsNil(o.GlobalHeaders) {
+		return map[string]GlobalHeaderValue{}, false
+	}
+	return o.GlobalHeaders, true
+}
+
+// HasGlobalHeaders returns a boolean if a field has been set.
+func (o *PublicAuthenticationMethod) HasGlobalHeaders() bool {
+	if o != nil && !IsNil(o.GlobalHeaders) {
+		return true
+	}
+
+	return false
+}
+
+// SetGlobalHeaders gets a reference to the given map[string]GlobalHeaderValue and assigns it to the GlobalHeaders field.
+func (o *PublicAuthenticationMethod) SetGlobalHeaders(v map[string]GlobalHeaderValue) {
+	o.GlobalHeaders = v
+}
+
+// GetHasDefaultCredentials returns the HasDefaultCredentials field value
+func (o *PublicAuthenticationMethod) GetHasDefaultCredentials() bool {
+	if o == nil {
+		var ret bool
+		return ret
+	}
+
+	return o.HasDefaultCredentials
+}
+
+// GetHasDefaultCredentialsOk returns a tuple with the HasDefaultCredentials field value
+// and a boolean to check if the value has been set.
+func (o *PublicAuthenticationMethod) GetHasDefaultCredentialsOk() (*bool, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.HasDefaultCredentials, true
+}
+
+// SetHasDefaultCredentials sets field value
+func (o *PublicAuthenticationMethod) SetHasDefaultCredentials(v bool) {
+	o.HasDefaultCredentials = v
+}
+
+// GetGrantType returns the GrantType field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *PublicAuthenticationMethod) GetGrantType() OAuth2GrantType {
+	if o == nil || IsNil(o.GrantType.Get()) {
+		var ret OAuth2GrantType
+		return ret
+	}
+	return *o.GrantType.Get()
+}
+
+// GetGrantTypeOk returns a tuple with the GrantType field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *PublicAuthenticationMethod) GetGrantTypeOk() (*OAuth2GrantType, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.GrantType.Get(), o.GrantType.IsSet()
+}
+
+// HasGrantType returns a boolean if a field has been set.
+func (o *PublicAuthenticationMethod) HasGrantType() bool {
+	if o != nil && o.GrantType.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetGrantType gets a reference to the given NullableOAuth2GrantType and assigns it to the GrantType field.
+func (o *PublicAuthenticationMethod) SetGrantType(v OAuth2GrantType) {
+	o.GrantType.Set(&v)
+}
+// SetGrantTypeNil sets the value for GrantType to be an explicit nil
+func (o *PublicAuthenticationMethod) SetGrantTypeNil() {
+	o.GrantType.Set(nil)
+}
+
+// UnsetGrantType ensures that no value is present for GrantType, not even an explicit nil
+func (o *PublicAuthenticationMethod) UnsetGrantType() {
+	o.GrantType.Unset()
+}
+
+// GetTokenEndpointAuthMethod returns the TokenEndpointAuthMethod field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *PublicAuthenticationMethod) GetTokenEndpointAuthMethod() OAuth2TokenEndpointAuthMethod {
+	if o == nil || IsNil(o.TokenEndpointAuthMethod.Get()) {
+		var ret OAuth2TokenEndpointAuthMethod
+		return ret
+	}
+	return *o.TokenEndpointAuthMethod.Get()
+}
+
+// GetTokenEndpointAuthMethodOk returns a tuple with the TokenEndpointAuthMethod field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *PublicAuthenticationMethod) GetTokenEndpointAuthMethodOk() (*OAuth2TokenEndpointAuthMethod, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.TokenEndpointAuthMethod.Get(), o.TokenEndpointAuthMethod.IsSet()
+}
+
+// HasTokenEndpointAuthMethod returns a boolean if a field has been set.
+func (o *PublicAuthenticationMethod) HasTokenEndpointAuthMethod() bool {
+	if o != nil && o.TokenEndpointAuthMethod.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetTokenEndpointAuthMethod gets a reference to the given NullableOAuth2TokenEndpointAuthMethod and assigns it to the TokenEndpointAuthMethod field.
+func (o *PublicAuthenticationMethod) SetTokenEndpointAuthMethod(v OAuth2TokenEndpointAuthMethod) {
+	o.TokenEndpointAuthMethod.Set(&v)
+}
+// SetTokenEndpointAuthMethodNil sets the value for TokenEndpointAuthMethod to be an explicit nil
+func (o *PublicAuthenticationMethod) SetTokenEndpointAuthMethodNil() {
+	o.TokenEndpointAuthMethod.Set(nil)
+}
+
+// UnsetTokenEndpointAuthMethod ensures that no value is present for TokenEndpointAuthMethod, not even an explicit nil
+func (o *PublicAuthenticationMethod) UnsetTokenEndpointAuthMethod() {
+	o.TokenEndpointAuthMethod.Unset()
+}
+
+// GetOauth2ServerMetadata returns the Oauth2ServerMetadata field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *PublicAuthenticationMethod) GetOauth2ServerMetadata() ExtendedOAuthServerMetadata {
+	if o == nil || IsNil(o.Oauth2ServerMetadata.Get()) {
+		var ret ExtendedOAuthServerMetadata
+		return ret
+	}
+	return *o.Oauth2ServerMetadata.Get()
+}
+
+// GetOauth2ServerMetadataOk returns a tuple with the Oauth2ServerMetadata field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *PublicAuthenticationMethod) GetOauth2ServerMetadataOk() (*ExtendedOAuthServerMetadata, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.Oauth2ServerMetadata.Get(), o.Oauth2ServerMetadata.IsSet()
+}
+
+// HasOauth2ServerMetadata returns a boolean if a field has been set.
+func (o *PublicAuthenticationMethod) HasOauth2ServerMetadata() bool {
+	if o != nil && o.Oauth2ServerMetadata.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetOauth2ServerMetadata gets a reference to the given NullableExtendedOAuthServerMetadata and assigns it to the Oauth2ServerMetadata field.
+func (o *PublicAuthenticationMethod) SetOauth2ServerMetadata(v ExtendedOAuthServerMetadata) {
+	o.Oauth2ServerMetadata.Set(&v)
+}
+// SetOauth2ServerMetadataNil sets the value for Oauth2ServerMetadata to be an explicit nil
+func (o *PublicAuthenticationMethod) SetOauth2ServerMetadataNil() {
+	o.Oauth2ServerMetadata.Set(nil)
+}
+
+// UnsetOauth2ServerMetadata ensures that no value is present for Oauth2ServerMetadata, not even an explicit nil
+func (o *PublicAuthenticationMethod) UnsetOauth2ServerMetadata() {
+	o.Oauth2ServerMetadata.Unset()
+}
+
 func (o PublicAuthenticationMethod) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -116,6 +304,19 @@ func (o PublicAuthenticationMethod) ToMap() (map[string]interface{}, error) {
 	if o.Headers != nil {
 		toSerialize["headers"] = o.Headers
 	}
+	if !IsNil(o.GlobalHeaders) {
+		toSerialize["global_headers"] = o.GlobalHeaders
+	}
+	toSerialize["has_default_credentials"] = o.HasDefaultCredentials
+	if o.GrantType.IsSet() {
+		toSerialize["grant_type"] = o.GrantType.Get()
+	}
+	if o.TokenEndpointAuthMethod.IsSet() {
+		toSerialize["token_endpoint_auth_method"] = o.TokenEndpointAuthMethod.Get()
+	}
+	if o.Oauth2ServerMetadata.IsSet() {
+		toSerialize["oauth2_server_metadata"] = o.Oauth2ServerMetadata.Get()
+	}
 	return toSerialize, nil
 }
 
@@ -125,6 +326,7 @@ func (o *PublicAuthenticationMethod) UnmarshalJSON(data []byte) (err error) {
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
 		"method_type",
+		"has_default_credentials",
 	}
 
 	allProperties := make(map[string]interface{})

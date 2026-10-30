@@ -5,13 +5,13 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Type** | Pointer to **string** |  | [optional] [default to "speech.audio.done"]
-**Usage** | [**UsageInfo**](UsageInfo.md) |  | 
+**Usage** | [**UsageInfo1**](UsageInfo1.md) |  | 
 
 ## Methods
 
 ### NewSpeechStreamDone
 
-`func NewSpeechStreamDone(usage UsageInfo, ) *SpeechStreamDone`
+`func NewSpeechStreamDone(usage UsageInfo1, ) *SpeechStreamDone`
 
 NewSpeechStreamDone instantiates a new SpeechStreamDone object
 This constructor will assign default values to properties that have it defined,
@@ -53,20 +53,20 @@ HasType returns a boolean if a field has been set.
 
 ### GetUsage
 
-`func (o *SpeechStreamDone) GetUsage() UsageInfo`
+`func (o *SpeechStreamDone) GetUsage() UsageInfo1`
 
 GetUsage returns the Usage field if non-nil, zero value otherwise.
 
 ### GetUsageOk
 
-`func (o *SpeechStreamDone) GetUsageOk() (*UsageInfo, bool)`
+`func (o *SpeechStreamDone) GetUsageOk() (*UsageInfo1, bool)`
 
 GetUsageOk returns a tuple with the Usage field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetUsage
 
-`func (o *SpeechStreamDone) SetUsage(v UsageInfo)`
+`func (o *SpeechStreamDone) SetUsage(v UsageInfo1)`
 
 SetUsage sets Usage field to given value.
 

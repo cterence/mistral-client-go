@@ -5,9 +5,9 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Event** | Pointer to **NullableString** | Filter by agent name | [optional] 
-**Data** | Pointer to [**StreamEventSsePayload**](StreamEventSsePayload.md) |  | [optional] 
+**Data** | Pointer to [**StreamV1WorkflowsExecutionsExecutionIdStreamGet200ResponseData**](StreamV1WorkflowsExecutionsExecutionIdStreamGet200ResponseData.md) |  | [optional] 
 **Id** | Pointer to **NullableString** | Filter by agent name | [optional] 
-**Retry** | Pointer to **NullableInt32** | Set before sending audio. Streaming delay updates are rejected after audio starts. | [optional] 
+**Retry** | Pointer to **NullableInt32** | Total usage value for this row. | [optional] 
 
 ## Methods
 
@@ -65,20 +65,20 @@ HasEvent returns a boolean if a field has been set.
 UnsetEvent ensures that no value is present for Event, not even an explicit nil
 ### GetData
 
-`func (o *StreamV1WorkflowsExecutionsExecutionIdStreamGet200Response) GetData() StreamEventSsePayload`
+`func (o *StreamV1WorkflowsExecutionsExecutionIdStreamGet200Response) GetData() StreamV1WorkflowsExecutionsExecutionIdStreamGet200ResponseData`
 
 GetData returns the Data field if non-nil, zero value otherwise.
 
 ### GetDataOk
 
-`func (o *StreamV1WorkflowsExecutionsExecutionIdStreamGet200Response) GetDataOk() (*StreamEventSsePayload, bool)`
+`func (o *StreamV1WorkflowsExecutionsExecutionIdStreamGet200Response) GetDataOk() (*StreamV1WorkflowsExecutionsExecutionIdStreamGet200ResponseData, bool)`
 
 GetDataOk returns a tuple with the Data field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetData
 
-`func (o *StreamV1WorkflowsExecutionsExecutionIdStreamGet200Response) SetData(v StreamEventSsePayload)`
+`func (o *StreamV1WorkflowsExecutionsExecutionIdStreamGet200Response) SetData(v StreamV1WorkflowsExecutionsExecutionIdStreamGet200ResponseData)`
 
 SetData sets Data field to given value.
 

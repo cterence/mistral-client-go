@@ -9,15 +9,15 @@ Name | Type | Description | Notes
 **UpdatedAt** | **time.Time** |  | 
 **DeletedAt** | **NullableTime** |  | 
 **DatasetId** | **string** |  | 
-**Payload** | [**ConversationPayload**](ConversationPayload.md) |  | 
+**Payload** | **map[string]interface{}** | Caller-authored input object stored on a dataset record. | 
 **Properties** | **map[string]interface{}** |  | 
-**Source** | [**ConversationSource**](ConversationSource.md) |  | 
+**Source** | [**DatasetRecordSource**](DatasetRecordSource.md) |  | 
 
 ## Methods
 
 ### NewDatasetRecord
 
-`func NewDatasetRecord(id string, createdAt time.Time, updatedAt time.Time, deletedAt NullableTime, datasetId string, payload ConversationPayload, properties map[string]interface{}, source ConversationSource, ) *DatasetRecord`
+`func NewDatasetRecord(id string, createdAt time.Time, updatedAt time.Time, deletedAt NullableTime, datasetId string, payload map[string]interface{}, properties map[string]interface{}, source DatasetRecordSource, ) *DatasetRecord`
 
 NewDatasetRecord instantiates a new DatasetRecord object
 This constructor will assign default values to properties that have it defined,
@@ -144,20 +144,20 @@ SetDatasetId sets DatasetId field to given value.
 
 ### GetPayload
 
-`func (o *DatasetRecord) GetPayload() ConversationPayload`
+`func (o *DatasetRecord) GetPayload() map[string]interface{}`
 
 GetPayload returns the Payload field if non-nil, zero value otherwise.
 
 ### GetPayloadOk
 
-`func (o *DatasetRecord) GetPayloadOk() (*ConversationPayload, bool)`
+`func (o *DatasetRecord) GetPayloadOk() (*map[string]interface{}, bool)`
 
 GetPayloadOk returns a tuple with the Payload field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetPayload
 
-`func (o *DatasetRecord) SetPayload(v ConversationPayload)`
+`func (o *DatasetRecord) SetPayload(v map[string]interface{})`
 
 SetPayload sets Payload field to given value.
 
@@ -184,20 +184,20 @@ SetProperties sets Properties field to given value.
 
 ### GetSource
 
-`func (o *DatasetRecord) GetSource() ConversationSource`
+`func (o *DatasetRecord) GetSource() DatasetRecordSource`
 
 GetSource returns the Source field if non-nil, zero value otherwise.
 
 ### GetSourceOk
 
-`func (o *DatasetRecord) GetSourceOk() (*ConversationSource, bool)`
+`func (o *DatasetRecord) GetSourceOk() (*DatasetRecordSource, bool)`
 
 GetSourceOk returns a tuple with the Source field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetSource
 
-`func (o *DatasetRecord) SetSource(v ConversationSource)`
+`func (o *DatasetRecord) SetSource(v DatasetRecordSource)`
 
 SetSource sets Source field to given value.
 

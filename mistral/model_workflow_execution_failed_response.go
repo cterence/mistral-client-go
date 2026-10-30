@@ -29,6 +29,14 @@ type WorkflowExecutionFailedResponse struct {
 	RootWorkflowExecId string `json:"root_workflow_exec_id"`
 	// Execution ID of the parent workflow that initiated this execution. If this is a root workflow, this field is not set.
 	ParentWorkflowExecId NullableString `json:"parent_workflow_exec_id"`
+	// Run ID of the execution this run continued from. Non-null for continue-as-new runs.
+	ContinuedRunId NullableString `json:"continued_run_id,omitempty"`
+	// Run ID of the first execution in this workflow chain. Equals workflow_run_id on a fresh start. Continue-as-new, retry and reset runs keep the original value.
+	FirstExecutionRunId NullableString `json:"first_execution_run_id,omitempty"`
+	// Identifies one start of an execution. Shared by its continue-as-new, retry and reset runs, and by every sub-workflow below it. Starting the same execution ID again gives a new value.
+	ChainRunId NullableString `json:"chain_run_id,omitempty"`
+	// Temporal schedule ID that triggered this execution, if any.
+	ScheduleId NullableString `json:"schedule_id,omitempty"`
 	// Execution ID of the workflow that emitted this event.
 	WorkflowExecId string `json:"workflow_exec_id"`
 	// Run ID of the workflow execution. Changes on continue-as-new while workflow_exec_id stays the same.
@@ -169,6 +177,174 @@ func (o *WorkflowExecutionFailedResponse) SetParentWorkflowExecId(v string) {
 	o.ParentWorkflowExecId.Set(&v)
 }
 
+// GetContinuedRunId returns the ContinuedRunId field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *WorkflowExecutionFailedResponse) GetContinuedRunId() string {
+	if o == nil || IsNil(o.ContinuedRunId.Get()) {
+		var ret string
+		return ret
+	}
+	return *o.ContinuedRunId.Get()
+}
+
+// GetContinuedRunIdOk returns a tuple with the ContinuedRunId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *WorkflowExecutionFailedResponse) GetContinuedRunIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.ContinuedRunId.Get(), o.ContinuedRunId.IsSet()
+}
+
+// HasContinuedRunId returns a boolean if a field has been set.
+func (o *WorkflowExecutionFailedResponse) HasContinuedRunId() bool {
+	if o != nil && o.ContinuedRunId.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetContinuedRunId gets a reference to the given NullableString and assigns it to the ContinuedRunId field.
+func (o *WorkflowExecutionFailedResponse) SetContinuedRunId(v string) {
+	o.ContinuedRunId.Set(&v)
+}
+// SetContinuedRunIdNil sets the value for ContinuedRunId to be an explicit nil
+func (o *WorkflowExecutionFailedResponse) SetContinuedRunIdNil() {
+	o.ContinuedRunId.Set(nil)
+}
+
+// UnsetContinuedRunId ensures that no value is present for ContinuedRunId, not even an explicit nil
+func (o *WorkflowExecutionFailedResponse) UnsetContinuedRunId() {
+	o.ContinuedRunId.Unset()
+}
+
+// GetFirstExecutionRunId returns the FirstExecutionRunId field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *WorkflowExecutionFailedResponse) GetFirstExecutionRunId() string {
+	if o == nil || IsNil(o.FirstExecutionRunId.Get()) {
+		var ret string
+		return ret
+	}
+	return *o.FirstExecutionRunId.Get()
+}
+
+// GetFirstExecutionRunIdOk returns a tuple with the FirstExecutionRunId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *WorkflowExecutionFailedResponse) GetFirstExecutionRunIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.FirstExecutionRunId.Get(), o.FirstExecutionRunId.IsSet()
+}
+
+// HasFirstExecutionRunId returns a boolean if a field has been set.
+func (o *WorkflowExecutionFailedResponse) HasFirstExecutionRunId() bool {
+	if o != nil && o.FirstExecutionRunId.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetFirstExecutionRunId gets a reference to the given NullableString and assigns it to the FirstExecutionRunId field.
+func (o *WorkflowExecutionFailedResponse) SetFirstExecutionRunId(v string) {
+	o.FirstExecutionRunId.Set(&v)
+}
+// SetFirstExecutionRunIdNil sets the value for FirstExecutionRunId to be an explicit nil
+func (o *WorkflowExecutionFailedResponse) SetFirstExecutionRunIdNil() {
+	o.FirstExecutionRunId.Set(nil)
+}
+
+// UnsetFirstExecutionRunId ensures that no value is present for FirstExecutionRunId, not even an explicit nil
+func (o *WorkflowExecutionFailedResponse) UnsetFirstExecutionRunId() {
+	o.FirstExecutionRunId.Unset()
+}
+
+// GetChainRunId returns the ChainRunId field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *WorkflowExecutionFailedResponse) GetChainRunId() string {
+	if o == nil || IsNil(o.ChainRunId.Get()) {
+		var ret string
+		return ret
+	}
+	return *o.ChainRunId.Get()
+}
+
+// GetChainRunIdOk returns a tuple with the ChainRunId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *WorkflowExecutionFailedResponse) GetChainRunIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.ChainRunId.Get(), o.ChainRunId.IsSet()
+}
+
+// HasChainRunId returns a boolean if a field has been set.
+func (o *WorkflowExecutionFailedResponse) HasChainRunId() bool {
+	if o != nil && o.ChainRunId.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetChainRunId gets a reference to the given NullableString and assigns it to the ChainRunId field.
+func (o *WorkflowExecutionFailedResponse) SetChainRunId(v string) {
+	o.ChainRunId.Set(&v)
+}
+// SetChainRunIdNil sets the value for ChainRunId to be an explicit nil
+func (o *WorkflowExecutionFailedResponse) SetChainRunIdNil() {
+	o.ChainRunId.Set(nil)
+}
+
+// UnsetChainRunId ensures that no value is present for ChainRunId, not even an explicit nil
+func (o *WorkflowExecutionFailedResponse) UnsetChainRunId() {
+	o.ChainRunId.Unset()
+}
+
+// GetScheduleId returns the ScheduleId field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *WorkflowExecutionFailedResponse) GetScheduleId() string {
+	if o == nil || IsNil(o.ScheduleId.Get()) {
+		var ret string
+		return ret
+	}
+	return *o.ScheduleId.Get()
+}
+
+// GetScheduleIdOk returns a tuple with the ScheduleId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *WorkflowExecutionFailedResponse) GetScheduleIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.ScheduleId.Get(), o.ScheduleId.IsSet()
+}
+
+// HasScheduleId returns a boolean if a field has been set.
+func (o *WorkflowExecutionFailedResponse) HasScheduleId() bool {
+	if o != nil && o.ScheduleId.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetScheduleId gets a reference to the given NullableString and assigns it to the ScheduleId field.
+func (o *WorkflowExecutionFailedResponse) SetScheduleId(v string) {
+	o.ScheduleId.Set(&v)
+}
+// SetScheduleIdNil sets the value for ScheduleId to be an explicit nil
+func (o *WorkflowExecutionFailedResponse) SetScheduleIdNil() {
+	o.ScheduleId.Set(nil)
+}
+
+// UnsetScheduleId ensures that no value is present for ScheduleId, not even an explicit nil
+func (o *WorkflowExecutionFailedResponse) UnsetScheduleId() {
+	o.ScheduleId.Unset()
+}
+
 // GetWorkflowExecId returns the WorkflowExecId field value
 func (o *WorkflowExecutionFailedResponse) GetWorkflowExecId() string {
 	if o == nil {
@@ -303,6 +479,18 @@ func (o WorkflowExecutionFailedResponse) ToMap() (map[string]interface{}, error)
 	toSerialize["event_timestamp"] = o.EventTimestamp
 	toSerialize["root_workflow_exec_id"] = o.RootWorkflowExecId
 	toSerialize["parent_workflow_exec_id"] = o.ParentWorkflowExecId.Get()
+	if o.ContinuedRunId.IsSet() {
+		toSerialize["continued_run_id"] = o.ContinuedRunId.Get()
+	}
+	if o.FirstExecutionRunId.IsSet() {
+		toSerialize["first_execution_run_id"] = o.FirstExecutionRunId.Get()
+	}
+	if o.ChainRunId.IsSet() {
+		toSerialize["chain_run_id"] = o.ChainRunId.Get()
+	}
+	if o.ScheduleId.IsSet() {
+		toSerialize["schedule_id"] = o.ScheduleId.Get()
+	}
 	toSerialize["workflow_exec_id"] = o.WorkflowExecId
 	toSerialize["workflow_run_id"] = o.WorkflowRunId
 	toSerialize["workflow_name"] = o.WorkflowName

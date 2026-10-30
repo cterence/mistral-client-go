@@ -14,6 +14,8 @@ Method | HTTP request | Description
 
 OCR
 
+
+
 ### Example
 
 ```go
@@ -27,7 +29,7 @@ import (
 )
 
 func main() {
-	oCRRequest := *openapiclient.NewOCRRequest("Model_example", *openapiclient.NewDocument("FileId_example", "DocumentUrl_example", *openapiclient.NewImageUrl("Url_example"))) // OCRRequest | 
+	oCRRequest := *openapiclient.NewOCRRequest("Model_example", *openapiclient.NewDocument1("FileId_example", "DocumentUrl_example", *openapiclient.NewImageUrl("Url_example"))) // OCRRequest | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)

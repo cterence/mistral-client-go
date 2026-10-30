@@ -5,7 +5,8 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Type** | **string** | Discriminator indicating this is a raw JSON payload. | [default to "json"]
-**Value** | **interface{}** | The JSON-serializable payload value. | 
+**Value** | **interface{}** | The JSON-serializable payload value. When encrypted, contains base64-encoded data. | 
+**EncodingOptions** | Pointer to [**[]EncodedPayloadOptions**](EncodedPayloadOptions.md) | Encoding options applied to the payload. | [optional] 
 
 ## Methods
 
@@ -76,6 +77,41 @@ SetValue sets Value field to given value.
 `func (o *JSONPayloadResponse) UnsetValue()`
 
 UnsetValue ensures that no value is present for Value, not even an explicit nil
+### GetEncodingOptions
+
+`func (o *JSONPayloadResponse) GetEncodingOptions() []EncodedPayloadOptions`
+
+GetEncodingOptions returns the EncodingOptions field if non-nil, zero value otherwise.
+
+### GetEncodingOptionsOk
+
+`func (o *JSONPayloadResponse) GetEncodingOptionsOk() (*[]EncodedPayloadOptions, bool)`
+
+GetEncodingOptionsOk returns a tuple with the EncodingOptions field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetEncodingOptions
+
+`func (o *JSONPayloadResponse) SetEncodingOptions(v []EncodedPayloadOptions)`
+
+SetEncodingOptions sets EncodingOptions field to given value.
+
+### HasEncodingOptions
+
+`func (o *JSONPayloadResponse) HasEncodingOptions() bool`
+
+HasEncodingOptions returns a boolean if a field has been set.
+
+### SetEncodingOptionsNil
+
+`func (o *JSONPayloadResponse) SetEncodingOptionsNil(b bool)`
+
+ SetEncodingOptionsNil sets the value for EncodingOptions to be an explicit nil
+
+### UnsetEncodingOptions
+`func (o *JSONPayloadResponse) UnsetEncodingOptions()`
+
+UnsetEncodingOptions ensures that no value is present for EncodingOptions, not even an explicit nil
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

@@ -5,13 +5,13 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Key** | **string** | The key of the attribute | 
-**Value** | [**Value1**](Value1.md) |  | 
+**Value** | [**Value4**](Value4.md) |  | 
 
 ## Methods
 
 ### NewTempoTraceAttribute
 
-`func NewTempoTraceAttribute(key string, value Value1, ) *TempoTraceAttribute`
+`func NewTempoTraceAttribute(key string, value Value4, ) *TempoTraceAttribute`
 
 NewTempoTraceAttribute instantiates a new TempoTraceAttribute object
 This constructor will assign default values to properties that have it defined,
@@ -48,20 +48,20 @@ SetKey sets Key field to given value.
 
 ### GetValue
 
-`func (o *TempoTraceAttribute) GetValue() Value1`
+`func (o *TempoTraceAttribute) GetValue() Value4`
 
 GetValue returns the Value field if non-nil, zero value otherwise.
 
 ### GetValueOk
 
-`func (o *TempoTraceAttribute) GetValueOk() (*Value1, bool)`
+`func (o *TempoTraceAttribute) GetValueOk() (*Value4, bool)`
 
 GetValueOk returns a tuple with the Value field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetValue
 
-`func (o *TempoTraceAttribute) SetValue(v Value1)`
+`func (o *TempoTraceAttribute) SetValue(v Value4)`
 
 SetValue sets Value field to given value.
 

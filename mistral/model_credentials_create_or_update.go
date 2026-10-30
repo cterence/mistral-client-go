@@ -19,14 +19,16 @@ import (
 // checks if the CredentialsCreateOrUpdate type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &CredentialsCreateOrUpdate{}
 
-// CredentialsCreateOrUpdate Request to create or update non-OAuth2 credentials for a connector.
+// CredentialsCreateOrUpdate Request to create or update credentials for a connector.
 type CredentialsCreateOrUpdate struct {
 	// Name of the credentials. Use this name to access or modify your credentials.
 	Name string `json:"name"`
+	// Human-readable title for the credentials.
+	Title NullableString `json:"title,omitempty"`
 	// Controls whether this credential is the default for its auth method. On creation: if no credential exists yet for this auth method, the credential is automatically set as default when is_default is true or omitted; setting is_default to false is rejected because a default must exist. If other credentials already exist, setting is_default to true promotes this credential (demoting the previous default); false or omitted creates it as non-default. On update: true promotes this credential, false is rejected if it is currently the default (promote another credential first), omitted leaves the default status unchanged.
 	IsDefault NullableBool `json:"is_default,omitempty"`
-	// The credential data (headers, bearer_token).
-	Credentials NullableConnectionCredentials `json:"credentials,omitempty"`
+	// The credential data (headers, bearer_token, or OAuth2 client credentials).
+	Credentials NullableConnectionCredentialsInput `json:"credentials,omitempty"`
 }
 
 type _CredentialsCreateOrUpdate CredentialsCreateOrUpdate
@@ -73,6 +75,48 @@ func (o *CredentialsCreateOrUpdate) SetName(v string) {
 	o.Name = v
 }
 
+// GetTitle returns the Title field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *CredentialsCreateOrUpdate) GetTitle() string {
+	if o == nil || IsNil(o.Title.Get()) {
+		var ret string
+		return ret
+	}
+	return *o.Title.Get()
+}
+
+// GetTitleOk returns a tuple with the Title field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *CredentialsCreateOrUpdate) GetTitleOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.Title.Get(), o.Title.IsSet()
+}
+
+// HasTitle returns a boolean if a field has been set.
+func (o *CredentialsCreateOrUpdate) HasTitle() bool {
+	if o != nil && o.Title.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetTitle gets a reference to the given NullableString and assigns it to the Title field.
+func (o *CredentialsCreateOrUpdate) SetTitle(v string) {
+	o.Title.Set(&v)
+}
+// SetTitleNil sets the value for Title to be an explicit nil
+func (o *CredentialsCreateOrUpdate) SetTitleNil() {
+	o.Title.Set(nil)
+}
+
+// UnsetTitle ensures that no value is present for Title, not even an explicit nil
+func (o *CredentialsCreateOrUpdate) UnsetTitle() {
+	o.Title.Unset()
+}
+
 // GetIsDefault returns the IsDefault field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *CredentialsCreateOrUpdate) GetIsDefault() bool {
 	if o == nil || IsNil(o.IsDefault.Get()) {
@@ -116,9 +160,9 @@ func (o *CredentialsCreateOrUpdate) UnsetIsDefault() {
 }
 
 // GetCredentials returns the Credentials field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *CredentialsCreateOrUpdate) GetCredentials() ConnectionCredentials {
+func (o *CredentialsCreateOrUpdate) GetCredentials() ConnectionCredentialsInput {
 	if o == nil || IsNil(o.Credentials.Get()) {
-		var ret ConnectionCredentials
+		var ret ConnectionCredentialsInput
 		return ret
 	}
 	return *o.Credentials.Get()
@@ -127,7 +171,7 @@ func (o *CredentialsCreateOrUpdate) GetCredentials() ConnectionCredentials {
 // GetCredentialsOk returns a tuple with the Credentials field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *CredentialsCreateOrUpdate) GetCredentialsOk() (*ConnectionCredentials, bool) {
+func (o *CredentialsCreateOrUpdate) GetCredentialsOk() (*ConnectionCredentialsInput, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -143,8 +187,8 @@ func (o *CredentialsCreateOrUpdate) HasCredentials() bool {
 	return false
 }
 
-// SetCredentials gets a reference to the given NullableConnectionCredentials and assigns it to the Credentials field.
-func (o *CredentialsCreateOrUpdate) SetCredentials(v ConnectionCredentials) {
+// SetCredentials gets a reference to the given NullableConnectionCredentialsInput and assigns it to the Credentials field.
+func (o *CredentialsCreateOrUpdate) SetCredentials(v ConnectionCredentialsInput) {
 	o.Credentials.Set(&v)
 }
 // SetCredentialsNil sets the value for Credentials to be an explicit nil
@@ -168,6 +212,9 @@ func (o CredentialsCreateOrUpdate) MarshalJSON() ([]byte, error) {
 func (o CredentialsCreateOrUpdate) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["name"] = o.Name
+	if o.Title.IsSet() {
+		toSerialize["title"] = o.Title.Get()
+	}
 	if o.IsDefault.IsSet() {
 		toSerialize["is_default"] = o.IsDefault.Get()
 	}

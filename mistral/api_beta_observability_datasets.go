@@ -27,11 +27,11 @@ type ApiCreateDatasetRecordV1ObservabilityDatasetsDatasetIdRecordsPostRequest st
 	ctx context.Context
 	ApiService *BetaObservabilityDatasetsAPIService
 	datasetId string
-	postDatasetRecordInSchema *PostDatasetRecordInSchema
+	createDatasetRecordRequest *CreateDatasetRecordRequest
 }
 
-func (r ApiCreateDatasetRecordV1ObservabilityDatasetsDatasetIdRecordsPostRequest) PostDatasetRecordInSchema(postDatasetRecordInSchema PostDatasetRecordInSchema) ApiCreateDatasetRecordV1ObservabilityDatasetsDatasetIdRecordsPostRequest {
-	r.postDatasetRecordInSchema = &postDatasetRecordInSchema
+func (r ApiCreateDatasetRecordV1ObservabilityDatasetsDatasetIdRecordsPostRequest) CreateDatasetRecordRequest(createDatasetRecordRequest CreateDatasetRecordRequest) ApiCreateDatasetRecordV1ObservabilityDatasetsDatasetIdRecordsPostRequest {
+	r.createDatasetRecordRequest = &createDatasetRecordRequest
 	return r
 }
 
@@ -40,10 +40,12 @@ func (r ApiCreateDatasetRecordV1ObservabilityDatasetsDatasetIdRecordsPostRequest
 }
 
 /*
-CreateDatasetRecordV1ObservabilityDatasetsDatasetIdRecordsPost Add a conversation to the dataset
+CreateDatasetRecordV1ObservabilityDatasetsDatasetIdRecordsPost Add a record to the dataset
+
+Add a record to the dataset
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param datasetId
+ @param datasetId Dataset UUID or workspace-scoped slug. UUID-shaped values are always interpreted as dataset IDs.
  @return ApiCreateDatasetRecordV1ObservabilityDatasetsDatasetIdRecordsPostRequest
 */
 func (a *BetaObservabilityDatasetsAPIService) CreateDatasetRecordV1ObservabilityDatasetsDatasetIdRecordsPost(ctx context.Context, datasetId string) ApiCreateDatasetRecordV1ObservabilityDatasetsDatasetIdRecordsPostRequest {
@@ -75,8 +77,8 @@ func (a *BetaObservabilityDatasetsAPIService) CreateDatasetRecordV1Observability
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.postDatasetRecordInSchema == nil {
-		return localVarReturnValue, nil, reportError("postDatasetRecordInSchema is required and must be specified")
+	if r.createDatasetRecordRequest == nil {
+		return localVarReturnValue, nil, reportError("createDatasetRecordRequest is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -97,7 +99,7 @@ func (a *BetaObservabilityDatasetsAPIService) CreateDatasetRecordV1Observability
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.postDatasetRecordInSchema
+	localVarPostBody = r.createDatasetRecordRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -192,11 +194,11 @@ func (a *BetaObservabilityDatasetsAPIService) CreateDatasetRecordV1Observability
 type ApiCreateDatasetV1ObservabilityDatasetsPostRequest struct {
 	ctx context.Context
 	ApiService *BetaObservabilityDatasetsAPIService
-	postDatasetInSchema *PostDatasetInSchema
+	createDatasetRequest *CreateDatasetRequest
 }
 
-func (r ApiCreateDatasetV1ObservabilityDatasetsPostRequest) PostDatasetInSchema(postDatasetInSchema PostDatasetInSchema) ApiCreateDatasetV1ObservabilityDatasetsPostRequest {
-	r.postDatasetInSchema = &postDatasetInSchema
+func (r ApiCreateDatasetV1ObservabilityDatasetsPostRequest) CreateDatasetRequest(createDatasetRequest CreateDatasetRequest) ApiCreateDatasetV1ObservabilityDatasetsPostRequest {
+	r.createDatasetRequest = &createDatasetRequest
 	return r
 }
 
@@ -206,6 +208,8 @@ func (r ApiCreateDatasetV1ObservabilityDatasetsPostRequest) Execute() (*Dataset,
 
 /*
 CreateDatasetV1ObservabilityDatasetsPost Create a new empty dataset
+
+Create a new empty dataset
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiCreateDatasetV1ObservabilityDatasetsPostRequest
@@ -237,8 +241,8 @@ func (a *BetaObservabilityDatasetsAPIService) CreateDatasetV1ObservabilityDatase
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.postDatasetInSchema == nil {
-		return localVarReturnValue, nil, reportError("postDatasetInSchema is required and must be specified")
+	if r.createDatasetRequest == nil {
+		return localVarReturnValue, nil, reportError("createDatasetRequest is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -259,7 +263,7 @@ func (a *BetaObservabilityDatasetsAPIService) CreateDatasetV1ObservabilityDatase
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.postDatasetInSchema
+	localVarPostBody = r.createDatasetRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -364,8 +368,10 @@ func (r ApiDeleteDatasetV1ObservabilityDatasetsDatasetIdDeleteRequest) Execute()
 /*
 DeleteDatasetV1ObservabilityDatasetsDatasetIdDelete Delete a dataset
 
+Delete a dataset
+
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param datasetId
+ @param datasetId Dataset UUID or workspace-scoped slug. UUID-shaped values are always interpreted as dataset IDs.
  @return ApiDeleteDatasetV1ObservabilityDatasetsDatasetIdDeleteRequest
 */
 func (a *BetaObservabilityDatasetsAPIService) DeleteDatasetV1ObservabilityDatasetsDatasetIdDelete(ctx context.Context, datasetId string) ApiDeleteDatasetV1ObservabilityDatasetsDatasetIdDeleteRequest {
@@ -501,15 +507,17 @@ type ApiExportDatasetToJsonlV1ObservabilityDatasetsDatasetIdExportsToJsonlGetReq
 	datasetId string
 }
 
-func (r ApiExportDatasetToJsonlV1ObservabilityDatasetsDatasetIdExportsToJsonlGetRequest) Execute() (*DatasetExport, *http.Response, error) {
+func (r ApiExportDatasetToJsonlV1ObservabilityDatasetsDatasetIdExportsToJsonlGetRequest) Execute() (*ExportDatasetResponse, *http.Response, error) {
 	return r.ApiService.ExportDatasetToJsonlV1ObservabilityDatasetsDatasetIdExportsToJsonlGetExecute(r)
 }
 
 /*
 ExportDatasetToJsonlV1ObservabilityDatasetsDatasetIdExportsToJsonlGet Export to the Files API and retrieve presigned URL to download the resulting JSONL file
 
+Export to the Files API and retrieve presigned URL to download the resulting JSONL file
+
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param datasetId
+ @param datasetId Dataset UUID or workspace-scoped slug. UUID-shaped values are always interpreted as dataset IDs.
  @return ApiExportDatasetToJsonlV1ObservabilityDatasetsDatasetIdExportsToJsonlGetRequest
 */
 func (a *BetaObservabilityDatasetsAPIService) ExportDatasetToJsonlV1ObservabilityDatasetsDatasetIdExportsToJsonlGet(ctx context.Context, datasetId string) ApiExportDatasetToJsonlV1ObservabilityDatasetsDatasetIdExportsToJsonlGetRequest {
@@ -521,13 +529,13 @@ func (a *BetaObservabilityDatasetsAPIService) ExportDatasetToJsonlV1Observabilit
 }
 
 // Execute executes the request
-//  @return DatasetExport
-func (a *BetaObservabilityDatasetsAPIService) ExportDatasetToJsonlV1ObservabilityDatasetsDatasetIdExportsToJsonlGetExecute(r ApiExportDatasetToJsonlV1ObservabilityDatasetsDatasetIdExportsToJsonlGetRequest) (*DatasetExport, *http.Response, error) {
+//  @return ExportDatasetResponse
+func (a *BetaObservabilityDatasetsAPIService) ExportDatasetToJsonlV1ObservabilityDatasetsDatasetIdExportsToJsonlGetExecute(r ApiExportDatasetToJsonlV1ObservabilityDatasetsDatasetIdExportsToJsonlGetRequest) (*ExportDatasetResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *DatasetExport
+		localVarReturnValue  *ExportDatasetResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BetaObservabilityDatasetsAPIService.ExportDatasetToJsonlV1ObservabilityDatasetsDatasetIdExportsToJsonlGet")
@@ -661,10 +669,12 @@ func (r ApiGetDatasetByIdV1ObservabilityDatasetsDatasetIdGetRequest) Execute() (
 }
 
 /*
-GetDatasetByIdV1ObservabilityDatasetsDatasetIdGet Get dataset by id
+GetDatasetByIdV1ObservabilityDatasetsDatasetIdGet Get dataset by ID or slug
+
+Get dataset by ID or slug
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param datasetId
+ @param datasetId Dataset UUID or workspace-scoped slug. UUID-shaped values are always interpreted as dataset IDs.
  @return ApiGetDatasetByIdV1ObservabilityDatasetsDatasetIdGetRequest
 */
 func (a *BetaObservabilityDatasetsAPIService) GetDatasetByIdV1ObservabilityDatasetsDatasetIdGet(ctx context.Context, datasetId string) ApiGetDatasetByIdV1ObservabilityDatasetsDatasetIdGetRequest {
@@ -819,8 +829,10 @@ func (r ApiGetDatasetImportTaskV1ObservabilityDatasetsDatasetIdTasksTaskIdGetReq
 /*
 GetDatasetImportTaskV1ObservabilityDatasetsDatasetIdTasksTaskIdGet Get status of a dataset import task
 
+Get status of a dataset import task
+
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param datasetId
+ @param datasetId Dataset UUID or workspace-scoped slug. UUID-shaped values are always interpreted as dataset IDs.
  @param taskId
  @return ApiGetDatasetImportTaskV1ObservabilityDatasetsDatasetIdTasksTaskIdGetRequest
 */
@@ -982,15 +994,17 @@ func (r ApiGetDatasetImportTasksV1ObservabilityDatasetsDatasetIdTasksGetRequest)
 	return r
 }
 
-func (r ApiGetDatasetImportTasksV1ObservabilityDatasetsDatasetIdTasksGetRequest) Execute() (*DatasetImportTasks, *http.Response, error) {
+func (r ApiGetDatasetImportTasksV1ObservabilityDatasetsDatasetIdTasksGetRequest) Execute() (*ListDatasetImportTasksResponse, *http.Response, error) {
 	return r.ApiService.GetDatasetImportTasksV1ObservabilityDatasetsDatasetIdTasksGetExecute(r)
 }
 
 /*
 GetDatasetImportTasksV1ObservabilityDatasetsDatasetIdTasksGet List import tasks for the given dataset
 
+List import tasks for the given dataset
+
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param datasetId
+ @param datasetId Dataset UUID or workspace-scoped slug. UUID-shaped values are always interpreted as dataset IDs.
  @return ApiGetDatasetImportTasksV1ObservabilityDatasetsDatasetIdTasksGetRequest
 */
 func (a *BetaObservabilityDatasetsAPIService) GetDatasetImportTasksV1ObservabilityDatasetsDatasetIdTasksGet(ctx context.Context, datasetId string) ApiGetDatasetImportTasksV1ObservabilityDatasetsDatasetIdTasksGetRequest {
@@ -1002,13 +1016,13 @@ func (a *BetaObservabilityDatasetsAPIService) GetDatasetImportTasksV1Observabili
 }
 
 // Execute executes the request
-//  @return DatasetImportTasks
-func (a *BetaObservabilityDatasetsAPIService) GetDatasetImportTasksV1ObservabilityDatasetsDatasetIdTasksGetExecute(r ApiGetDatasetImportTasksV1ObservabilityDatasetsDatasetIdTasksGetRequest) (*DatasetImportTasks, *http.Response, error) {
+//  @return ListDatasetImportTasksResponse
+func (a *BetaObservabilityDatasetsAPIService) GetDatasetImportTasksV1ObservabilityDatasetsDatasetIdTasksGetExecute(r ApiGetDatasetImportTasksV1ObservabilityDatasetsDatasetIdTasksGetRequest) (*ListDatasetImportTasksResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *DatasetImportTasks
+		localVarReturnValue  *ListDatasetImportTasksResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BetaObservabilityDatasetsAPIService.GetDatasetImportTasksV1ObservabilityDatasetsDatasetIdTasksGet")
@@ -1163,15 +1177,17 @@ func (r ApiGetDatasetRecordsV1ObservabilityDatasetsDatasetIdRecordsGetRequest) P
 	return r
 }
 
-func (r ApiGetDatasetRecordsV1ObservabilityDatasetsDatasetIdRecordsGetRequest) Execute() (*DatasetRecords, *http.Response, error) {
+func (r ApiGetDatasetRecordsV1ObservabilityDatasetsDatasetIdRecordsGetRequest) Execute() (*ListDatasetRecordsResponse, *http.Response, error) {
 	return r.ApiService.GetDatasetRecordsV1ObservabilityDatasetsDatasetIdRecordsGetExecute(r)
 }
 
 /*
 GetDatasetRecordsV1ObservabilityDatasetsDatasetIdRecordsGet List existing records in the dataset
 
+List existing records in the dataset
+
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param datasetId
+ @param datasetId Dataset UUID or workspace-scoped slug. UUID-shaped values are always interpreted as dataset IDs.
  @return ApiGetDatasetRecordsV1ObservabilityDatasetsDatasetIdRecordsGetRequest
 */
 func (a *BetaObservabilityDatasetsAPIService) GetDatasetRecordsV1ObservabilityDatasetsDatasetIdRecordsGet(ctx context.Context, datasetId string) ApiGetDatasetRecordsV1ObservabilityDatasetsDatasetIdRecordsGetRequest {
@@ -1183,13 +1199,13 @@ func (a *BetaObservabilityDatasetsAPIService) GetDatasetRecordsV1ObservabilityDa
 }
 
 // Execute executes the request
-//  @return DatasetRecords
-func (a *BetaObservabilityDatasetsAPIService) GetDatasetRecordsV1ObservabilityDatasetsDatasetIdRecordsGetExecute(r ApiGetDatasetRecordsV1ObservabilityDatasetsDatasetIdRecordsGetRequest) (*DatasetRecords, *http.Response, error) {
+//  @return ListDatasetRecordsResponse
+func (a *BetaObservabilityDatasetsAPIService) GetDatasetRecordsV1ObservabilityDatasetsDatasetIdRecordsGetExecute(r ApiGetDatasetRecordsV1ObservabilityDatasetsDatasetIdRecordsGetRequest) (*ListDatasetRecordsResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *DatasetRecords
+		localVarReturnValue  *ListDatasetRecordsResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BetaObservabilityDatasetsAPIService.GetDatasetRecordsV1ObservabilityDatasetsDatasetIdRecordsGet")
@@ -1349,12 +1365,14 @@ func (r ApiGetDatasetsV1ObservabilityDatasetsGetRequest) Q(q string) ApiGetDatas
 	return r
 }
 
-func (r ApiGetDatasetsV1ObservabilityDatasetsGetRequest) Execute() (*DatasetPreviews, *http.Response, error) {
+func (r ApiGetDatasetsV1ObservabilityDatasetsGetRequest) Execute() (*ListDatasetsResponse, *http.Response, error) {
 	return r.ApiService.GetDatasetsV1ObservabilityDatasetsGetExecute(r)
 }
 
 /*
 GetDatasetsV1ObservabilityDatasetsGet List existing datasets
+
+List existing datasets
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiGetDatasetsV1ObservabilityDatasetsGetRequest
@@ -1367,13 +1385,13 @@ func (a *BetaObservabilityDatasetsAPIService) GetDatasetsV1ObservabilityDatasets
 }
 
 // Execute executes the request
-//  @return DatasetPreviews
-func (a *BetaObservabilityDatasetsAPIService) GetDatasetsV1ObservabilityDatasetsGetExecute(r ApiGetDatasetsV1ObservabilityDatasetsGetRequest) (*DatasetPreviews, *http.Response, error) {
+//  @return ListDatasetsResponse
+func (a *BetaObservabilityDatasetsAPIService) GetDatasetsV1ObservabilityDatasetsGetExecute(r ApiGetDatasetsV1ObservabilityDatasetsGetRequest) (*ListDatasetsResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *DatasetPreviews
+		localVarReturnValue  *ListDatasetsResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BetaObservabilityDatasetsAPIService.GetDatasetsV1ObservabilityDatasetsGet")
@@ -1512,181 +1530,15 @@ func (a *BetaObservabilityDatasetsAPIService) GetDatasetsV1ObservabilityDatasets
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiPostDatasetRecordsFromCampaignV1ObservabilityDatasetsDatasetIdImportsFromCampaignPostRequest struct {
-	ctx context.Context
-	ApiService *BetaObservabilityDatasetsAPIService
-	datasetId string
-	postDatasetImportFromCampaignInSchema *PostDatasetImportFromCampaignInSchema
-}
-
-func (r ApiPostDatasetRecordsFromCampaignV1ObservabilityDatasetsDatasetIdImportsFromCampaignPostRequest) PostDatasetImportFromCampaignInSchema(postDatasetImportFromCampaignInSchema PostDatasetImportFromCampaignInSchema) ApiPostDatasetRecordsFromCampaignV1ObservabilityDatasetsDatasetIdImportsFromCampaignPostRequest {
-	r.postDatasetImportFromCampaignInSchema = &postDatasetImportFromCampaignInSchema
-	return r
-}
-
-func (r ApiPostDatasetRecordsFromCampaignV1ObservabilityDatasetsDatasetIdImportsFromCampaignPostRequest) Execute() (*DatasetImportTask, *http.Response, error) {
-	return r.ApiService.PostDatasetRecordsFromCampaignV1ObservabilityDatasetsDatasetIdImportsFromCampaignPostExecute(r)
-}
-
-/*
-PostDatasetRecordsFromCampaignV1ObservabilityDatasetsDatasetIdImportsFromCampaignPost Populate the dataset with a campaign
-
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param datasetId
- @return ApiPostDatasetRecordsFromCampaignV1ObservabilityDatasetsDatasetIdImportsFromCampaignPostRequest
-*/
-func (a *BetaObservabilityDatasetsAPIService) PostDatasetRecordsFromCampaignV1ObservabilityDatasetsDatasetIdImportsFromCampaignPost(ctx context.Context, datasetId string) ApiPostDatasetRecordsFromCampaignV1ObservabilityDatasetsDatasetIdImportsFromCampaignPostRequest {
-	return ApiPostDatasetRecordsFromCampaignV1ObservabilityDatasetsDatasetIdImportsFromCampaignPostRequest{
-		ApiService: a,
-		ctx: ctx,
-		datasetId: datasetId,
-	}
-}
-
-// Execute executes the request
-//  @return DatasetImportTask
-func (a *BetaObservabilityDatasetsAPIService) PostDatasetRecordsFromCampaignV1ObservabilityDatasetsDatasetIdImportsFromCampaignPostExecute(r ApiPostDatasetRecordsFromCampaignV1ObservabilityDatasetsDatasetIdImportsFromCampaignPostRequest) (*DatasetImportTask, *http.Response, error) {
-	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *DatasetImportTask
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BetaObservabilityDatasetsAPIService.PostDatasetRecordsFromCampaignV1ObservabilityDatasetsDatasetIdImportsFromCampaignPost")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/observability/datasets/{dataset_id}/imports/from-campaign"
-	localVarPath = strings.Replace(localVarPath, "{"+"dataset_id"+"}", url.PathEscape(parameterValueToString(r.datasetId, "datasetId")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-	if r.postDatasetImportFromCampaignInSchema == nil {
-		return localVarReturnValue, nil, reportError("postDatasetImportFromCampaignInSchema is required and must be specified")
-	}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	// body params
-	localVarPostBody = r.postDatasetImportFromCampaignInSchema
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		if localVarHTTPResponse.StatusCode == 400 {
-			var v ObservabilityError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 404 {
-			var v ObservabilityError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 408 {
-			var v ObservabilityError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 409 {
-			var v ObservabilityError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 422 {
-			var v ObservabilityError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
 type ApiPostDatasetRecordsFromDatasetV1ObservabilityDatasetsDatasetIdImportsFromDatasetPostRequest struct {
 	ctx context.Context
 	ApiService *BetaObservabilityDatasetsAPIService
 	datasetId string
-	postDatasetImportFromDatasetInSchema *PostDatasetImportFromDatasetInSchema
+	importDatasetFromDatasetRequest *ImportDatasetFromDatasetRequest
 }
 
-func (r ApiPostDatasetRecordsFromDatasetV1ObservabilityDatasetsDatasetIdImportsFromDatasetPostRequest) PostDatasetImportFromDatasetInSchema(postDatasetImportFromDatasetInSchema PostDatasetImportFromDatasetInSchema) ApiPostDatasetRecordsFromDatasetV1ObservabilityDatasetsDatasetIdImportsFromDatasetPostRequest {
-	r.postDatasetImportFromDatasetInSchema = &postDatasetImportFromDatasetInSchema
+func (r ApiPostDatasetRecordsFromDatasetV1ObservabilityDatasetsDatasetIdImportsFromDatasetPostRequest) ImportDatasetFromDatasetRequest(importDatasetFromDatasetRequest ImportDatasetFromDatasetRequest) ApiPostDatasetRecordsFromDatasetV1ObservabilityDatasetsDatasetIdImportsFromDatasetPostRequest {
+	r.importDatasetFromDatasetRequest = &importDatasetFromDatasetRequest
 	return r
 }
 
@@ -1695,10 +1547,12 @@ func (r ApiPostDatasetRecordsFromDatasetV1ObservabilityDatasetsDatasetIdImportsF
 }
 
 /*
-PostDatasetRecordsFromDatasetV1ObservabilityDatasetsDatasetIdImportsFromDatasetPost Populate the dataset with samples from another dataset
+PostDatasetRecordsFromDatasetV1ObservabilityDatasetsDatasetIdImportsFromDatasetPost Populate the dataset with records from another dataset
+
+Populate the dataset with records from another dataset
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param datasetId
+ @param datasetId Dataset UUID or workspace-scoped slug. UUID-shaped values are always interpreted as dataset IDs.
  @return ApiPostDatasetRecordsFromDatasetV1ObservabilityDatasetsDatasetIdImportsFromDatasetPostRequest
 */
 func (a *BetaObservabilityDatasetsAPIService) PostDatasetRecordsFromDatasetV1ObservabilityDatasetsDatasetIdImportsFromDatasetPost(ctx context.Context, datasetId string) ApiPostDatasetRecordsFromDatasetV1ObservabilityDatasetsDatasetIdImportsFromDatasetPostRequest {
@@ -1730,8 +1584,8 @@ func (a *BetaObservabilityDatasetsAPIService) PostDatasetRecordsFromDatasetV1Obs
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.postDatasetImportFromDatasetInSchema == nil {
-		return localVarReturnValue, nil, reportError("postDatasetImportFromDatasetInSchema is required and must be specified")
+	if r.importDatasetFromDatasetRequest == nil {
+		return localVarReturnValue, nil, reportError("importDatasetFromDatasetRequest is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -1752,173 +1606,7 @@ func (a *BetaObservabilityDatasetsAPIService) PostDatasetRecordsFromDatasetV1Obs
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.postDatasetImportFromDatasetInSchema
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		if localVarHTTPResponse.StatusCode == 400 {
-			var v ObservabilityError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 404 {
-			var v ObservabilityError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 408 {
-			var v ObservabilityError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 409 {
-			var v ObservabilityError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 422 {
-			var v ObservabilityError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type ApiPostDatasetRecordsFromExplorerV1ObservabilityDatasetsDatasetIdImportsFromExplorerPostRequest struct {
-	ctx context.Context
-	ApiService *BetaObservabilityDatasetsAPIService
-	datasetId string
-	postDatasetImportFromExplorerInSchema *PostDatasetImportFromExplorerInSchema
-}
-
-func (r ApiPostDatasetRecordsFromExplorerV1ObservabilityDatasetsDatasetIdImportsFromExplorerPostRequest) PostDatasetImportFromExplorerInSchema(postDatasetImportFromExplorerInSchema PostDatasetImportFromExplorerInSchema) ApiPostDatasetRecordsFromExplorerV1ObservabilityDatasetsDatasetIdImportsFromExplorerPostRequest {
-	r.postDatasetImportFromExplorerInSchema = &postDatasetImportFromExplorerInSchema
-	return r
-}
-
-func (r ApiPostDatasetRecordsFromExplorerV1ObservabilityDatasetsDatasetIdImportsFromExplorerPostRequest) Execute() (*DatasetImportTask, *http.Response, error) {
-	return r.ApiService.PostDatasetRecordsFromExplorerV1ObservabilityDatasetsDatasetIdImportsFromExplorerPostExecute(r)
-}
-
-/*
-PostDatasetRecordsFromExplorerV1ObservabilityDatasetsDatasetIdImportsFromExplorerPost Populate the dataset with samples from the explorer
-
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param datasetId
- @return ApiPostDatasetRecordsFromExplorerV1ObservabilityDatasetsDatasetIdImportsFromExplorerPostRequest
-*/
-func (a *BetaObservabilityDatasetsAPIService) PostDatasetRecordsFromExplorerV1ObservabilityDatasetsDatasetIdImportsFromExplorerPost(ctx context.Context, datasetId string) ApiPostDatasetRecordsFromExplorerV1ObservabilityDatasetsDatasetIdImportsFromExplorerPostRequest {
-	return ApiPostDatasetRecordsFromExplorerV1ObservabilityDatasetsDatasetIdImportsFromExplorerPostRequest{
-		ApiService: a,
-		ctx: ctx,
-		datasetId: datasetId,
-	}
-}
-
-// Execute executes the request
-//  @return DatasetImportTask
-func (a *BetaObservabilityDatasetsAPIService) PostDatasetRecordsFromExplorerV1ObservabilityDatasetsDatasetIdImportsFromExplorerPostExecute(r ApiPostDatasetRecordsFromExplorerV1ObservabilityDatasetsDatasetIdImportsFromExplorerPostRequest) (*DatasetImportTask, *http.Response, error) {
-	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *DatasetImportTask
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BetaObservabilityDatasetsAPIService.PostDatasetRecordsFromExplorerV1ObservabilityDatasetsDatasetIdImportsFromExplorerPost")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/observability/datasets/{dataset_id}/imports/from-explorer"
-	localVarPath = strings.Replace(localVarPath, "{"+"dataset_id"+"}", url.PathEscape(parameterValueToString(r.datasetId, "datasetId")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-	if r.postDatasetImportFromExplorerInSchema == nil {
-		return localVarReturnValue, nil, reportError("postDatasetImportFromExplorerInSchema is required and must be specified")
-	}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	// body params
-	localVarPostBody = r.postDatasetImportFromExplorerInSchema
+	localVarPostBody = r.importDatasetFromDatasetRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -2014,11 +1702,11 @@ type ApiPostDatasetRecordsFromFileV1ObservabilityDatasetsDatasetIdImportsFromFil
 	ctx context.Context
 	ApiService *BetaObservabilityDatasetsAPIService
 	datasetId string
-	postDatasetImportFromFileInSchema *PostDatasetImportFromFileInSchema
+	importDatasetFromFileRequest *ImportDatasetFromFileRequest
 }
 
-func (r ApiPostDatasetRecordsFromFileV1ObservabilityDatasetsDatasetIdImportsFromFilePostRequest) PostDatasetImportFromFileInSchema(postDatasetImportFromFileInSchema PostDatasetImportFromFileInSchema) ApiPostDatasetRecordsFromFileV1ObservabilityDatasetsDatasetIdImportsFromFilePostRequest {
-	r.postDatasetImportFromFileInSchema = &postDatasetImportFromFileInSchema
+func (r ApiPostDatasetRecordsFromFileV1ObservabilityDatasetsDatasetIdImportsFromFilePostRequest) ImportDatasetFromFileRequest(importDatasetFromFileRequest ImportDatasetFromFileRequest) ApiPostDatasetRecordsFromFileV1ObservabilityDatasetsDatasetIdImportsFromFilePostRequest {
+	r.importDatasetFromFileRequest = &importDatasetFromFileRequest
 	return r
 }
 
@@ -2027,10 +1715,12 @@ func (r ApiPostDatasetRecordsFromFileV1ObservabilityDatasetsDatasetIdImportsFrom
 }
 
 /*
-PostDatasetRecordsFromFileV1ObservabilityDatasetsDatasetIdImportsFromFilePost Populate the dataset with samples from an uploaded file
+PostDatasetRecordsFromFileV1ObservabilityDatasetsDatasetIdImportsFromFilePost Populate the dataset with records from an uploaded file
+
+Populate the dataset with records from an uploaded file
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param datasetId
+ @param datasetId Dataset UUID or workspace-scoped slug. UUID-shaped values are always interpreted as dataset IDs.
  @return ApiPostDatasetRecordsFromFileV1ObservabilityDatasetsDatasetIdImportsFromFilePostRequest
 */
 func (a *BetaObservabilityDatasetsAPIService) PostDatasetRecordsFromFileV1ObservabilityDatasetsDatasetIdImportsFromFilePost(ctx context.Context, datasetId string) ApiPostDatasetRecordsFromFileV1ObservabilityDatasetsDatasetIdImportsFromFilePostRequest {
@@ -2062,8 +1752,8 @@ func (a *BetaObservabilityDatasetsAPIService) PostDatasetRecordsFromFileV1Observ
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.postDatasetImportFromFileInSchema == nil {
-		return localVarReturnValue, nil, reportError("postDatasetImportFromFileInSchema is required and must be specified")
+	if r.importDatasetFromFileRequest == nil {
+		return localVarReturnValue, nil, reportError("importDatasetFromFileRequest is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -2084,7 +1774,7 @@ func (a *BetaObservabilityDatasetsAPIService) PostDatasetRecordsFromFileV1Observ
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.postDatasetImportFromFileInSchema
+	localVarPostBody = r.importDatasetFromFileRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -2180,11 +1870,11 @@ type ApiPostDatasetRecordsFromPlaygroundV1ObservabilityDatasetsDatasetIdImportsF
 	ctx context.Context
 	ApiService *BetaObservabilityDatasetsAPIService
 	datasetId string
-	postDatasetImportFromPlaygroundInSchema *PostDatasetImportFromPlaygroundInSchema
+	importDatasetFromPlaygroundRequest *ImportDatasetFromPlaygroundRequest
 }
 
-func (r ApiPostDatasetRecordsFromPlaygroundV1ObservabilityDatasetsDatasetIdImportsFromPlaygroundPostRequest) PostDatasetImportFromPlaygroundInSchema(postDatasetImportFromPlaygroundInSchema PostDatasetImportFromPlaygroundInSchema) ApiPostDatasetRecordsFromPlaygroundV1ObservabilityDatasetsDatasetIdImportsFromPlaygroundPostRequest {
-	r.postDatasetImportFromPlaygroundInSchema = &postDatasetImportFromPlaygroundInSchema
+func (r ApiPostDatasetRecordsFromPlaygroundV1ObservabilityDatasetsDatasetIdImportsFromPlaygroundPostRequest) ImportDatasetFromPlaygroundRequest(importDatasetFromPlaygroundRequest ImportDatasetFromPlaygroundRequest) ApiPostDatasetRecordsFromPlaygroundV1ObservabilityDatasetsDatasetIdImportsFromPlaygroundPostRequest {
+	r.importDatasetFromPlaygroundRequest = &importDatasetFromPlaygroundRequest
 	return r
 }
 
@@ -2193,10 +1883,12 @@ func (r ApiPostDatasetRecordsFromPlaygroundV1ObservabilityDatasetsDatasetIdImpor
 }
 
 /*
-PostDatasetRecordsFromPlaygroundV1ObservabilityDatasetsDatasetIdImportsFromPlaygroundPost Populate the dataset with samples from the playground
+PostDatasetRecordsFromPlaygroundV1ObservabilityDatasetsDatasetIdImportsFromPlaygroundPost Populate the dataset with records from playground conversations
+
+Populate the dataset with records from playground conversations
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param datasetId
+ @param datasetId Dataset UUID or workspace-scoped slug. UUID-shaped values are always interpreted as dataset IDs.
  @return ApiPostDatasetRecordsFromPlaygroundV1ObservabilityDatasetsDatasetIdImportsFromPlaygroundPostRequest
 */
 func (a *BetaObservabilityDatasetsAPIService) PostDatasetRecordsFromPlaygroundV1ObservabilityDatasetsDatasetIdImportsFromPlaygroundPost(ctx context.Context, datasetId string) ApiPostDatasetRecordsFromPlaygroundV1ObservabilityDatasetsDatasetIdImportsFromPlaygroundPostRequest {
@@ -2228,8 +1920,8 @@ func (a *BetaObservabilityDatasetsAPIService) PostDatasetRecordsFromPlaygroundV1
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.postDatasetImportFromPlaygroundInSchema == nil {
-		return localVarReturnValue, nil, reportError("postDatasetImportFromPlaygroundInSchema is required and must be specified")
+	if r.importDatasetFromPlaygroundRequest == nil {
+		return localVarReturnValue, nil, reportError("importDatasetFromPlaygroundRequest is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -2250,7 +1942,175 @@ func (a *BetaObservabilityDatasetsAPIService) PostDatasetRecordsFromPlaygroundV1
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.postDatasetImportFromPlaygroundInSchema
+	localVarPostBody = r.importDatasetFromPlaygroundRequest
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v ObservabilityError
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 404 {
+			var v ObservabilityError
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 408 {
+			var v ObservabilityError
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 409 {
+			var v ObservabilityError
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 422 {
+			var v ObservabilityError
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiPostDatasetRecordsFromSpansV1ObservabilityDatasetsDatasetIdImportsFromSpansPostRequest struct {
+	ctx context.Context
+	ApiService *BetaObservabilityDatasetsAPIService
+	datasetId string
+	importDatasetFromSpansRequest *ImportDatasetFromSpansRequest
+}
+
+func (r ApiPostDatasetRecordsFromSpansV1ObservabilityDatasetsDatasetIdImportsFromSpansPostRequest) ImportDatasetFromSpansRequest(importDatasetFromSpansRequest ImportDatasetFromSpansRequest) ApiPostDatasetRecordsFromSpansV1ObservabilityDatasetsDatasetIdImportsFromSpansPostRequest {
+	r.importDatasetFromSpansRequest = &importDatasetFromSpansRequest
+	return r
+}
+
+func (r ApiPostDatasetRecordsFromSpansV1ObservabilityDatasetsDatasetIdImportsFromSpansPostRequest) Execute() (*DatasetImportTask, *http.Response, error) {
+	return r.ApiService.PostDatasetRecordsFromSpansV1ObservabilityDatasetsDatasetIdImportsFromSpansPostExecute(r)
+}
+
+/*
+PostDatasetRecordsFromSpansV1ObservabilityDatasetsDatasetIdImportsFromSpansPost Populate the dataset with records mapped from telemetry spans
+
+Starts an asynchronous import of the requested telemetry spans. References not returned by the tenant-scoped telemetry query are skipped without distinguishing absence from access restrictions.
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param datasetId Dataset UUID or workspace-scoped slug. UUID-shaped values are always interpreted as dataset IDs.
+ @return ApiPostDatasetRecordsFromSpansV1ObservabilityDatasetsDatasetIdImportsFromSpansPostRequest
+*/
+func (a *BetaObservabilityDatasetsAPIService) PostDatasetRecordsFromSpansV1ObservabilityDatasetsDatasetIdImportsFromSpansPost(ctx context.Context, datasetId string) ApiPostDatasetRecordsFromSpansV1ObservabilityDatasetsDatasetIdImportsFromSpansPostRequest {
+	return ApiPostDatasetRecordsFromSpansV1ObservabilityDatasetsDatasetIdImportsFromSpansPostRequest{
+		ApiService: a,
+		ctx: ctx,
+		datasetId: datasetId,
+	}
+}
+
+// Execute executes the request
+//  @return DatasetImportTask
+func (a *BetaObservabilityDatasetsAPIService) PostDatasetRecordsFromSpansV1ObservabilityDatasetsDatasetIdImportsFromSpansPostExecute(r ApiPostDatasetRecordsFromSpansV1ObservabilityDatasetsDatasetIdImportsFromSpansPostRequest) (*DatasetImportTask, *http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodPost
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *DatasetImportTask
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BetaObservabilityDatasetsAPIService.PostDatasetRecordsFromSpansV1ObservabilityDatasetsDatasetIdImportsFromSpansPost")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/observability/datasets/{dataset_id}/imports/from-spans"
+	localVarPath = strings.Replace(localVarPath, "{"+"dataset_id"+"}", url.PathEscape(parameterValueToString(r.datasetId, "datasetId")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.importDatasetFromSpansRequest == nil {
+		return localVarReturnValue, nil, reportError("importDatasetFromSpansRequest is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.importDatasetFromSpansRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -2346,11 +2206,11 @@ type ApiUpdateDatasetV1ObservabilityDatasetsDatasetIdPatchRequest struct {
 	ctx context.Context
 	ApiService *BetaObservabilityDatasetsAPIService
 	datasetId string
-	patchDatasetInSchema *PatchDatasetInSchema
+	updateDatasetRequest *UpdateDatasetRequest
 }
 
-func (r ApiUpdateDatasetV1ObservabilityDatasetsDatasetIdPatchRequest) PatchDatasetInSchema(patchDatasetInSchema PatchDatasetInSchema) ApiUpdateDatasetV1ObservabilityDatasetsDatasetIdPatchRequest {
-	r.patchDatasetInSchema = &patchDatasetInSchema
+func (r ApiUpdateDatasetV1ObservabilityDatasetsDatasetIdPatchRequest) UpdateDatasetRequest(updateDatasetRequest UpdateDatasetRequest) ApiUpdateDatasetV1ObservabilityDatasetsDatasetIdPatchRequest {
+	r.updateDatasetRequest = &updateDatasetRequest
 	return r
 }
 
@@ -2361,8 +2221,10 @@ func (r ApiUpdateDatasetV1ObservabilityDatasetsDatasetIdPatchRequest) Execute() 
 /*
 UpdateDatasetV1ObservabilityDatasetsDatasetIdPatch Patch dataset
 
+Patch dataset
+
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param datasetId
+ @param datasetId Dataset UUID or workspace-scoped slug. UUID-shaped values are always interpreted as dataset IDs.
  @return ApiUpdateDatasetV1ObservabilityDatasetsDatasetIdPatchRequest
 */
 func (a *BetaObservabilityDatasetsAPIService) UpdateDatasetV1ObservabilityDatasetsDatasetIdPatch(ctx context.Context, datasetId string) ApiUpdateDatasetV1ObservabilityDatasetsDatasetIdPatchRequest {
@@ -2394,8 +2256,8 @@ func (a *BetaObservabilityDatasetsAPIService) UpdateDatasetV1ObservabilityDatase
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.patchDatasetInSchema == nil {
-		return localVarReturnValue, nil, reportError("patchDatasetInSchema is required and must be specified")
+	if r.updateDatasetRequest == nil {
+		return localVarReturnValue, nil, reportError("updateDatasetRequest is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -2416,7 +2278,7 @@ func (a *BetaObservabilityDatasetsAPIService) UpdateDatasetV1ObservabilityDatase
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.patchDatasetInSchema
+	localVarPostBody = r.updateDatasetRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err

@@ -25,7 +25,7 @@ type CustomTaskInProgressAttributesResponse struct {
 	CustomTaskId string `json:"custom_task_id"`
 	// The type/category of the custom task (e.g., 'llm_call', 'api_request').
 	CustomTaskType string `json:"custom_task_type"`
-	Payload Payload `json:"payload"`
+	Payload Payload2 `json:"payload"`
 }
 
 type _CustomTaskInProgressAttributesResponse CustomTaskInProgressAttributesResponse
@@ -34,7 +34,7 @@ type _CustomTaskInProgressAttributesResponse CustomTaskInProgressAttributesRespo
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCustomTaskInProgressAttributesResponse(customTaskId string, customTaskType string, payload Payload) *CustomTaskInProgressAttributesResponse {
+func NewCustomTaskInProgressAttributesResponse(customTaskId string, customTaskType string, payload Payload2) *CustomTaskInProgressAttributesResponse {
 	this := CustomTaskInProgressAttributesResponse{}
 	this.CustomTaskId = customTaskId
 	this.CustomTaskType = customTaskType
@@ -99,9 +99,9 @@ func (o *CustomTaskInProgressAttributesResponse) SetCustomTaskType(v string) {
 }
 
 // GetPayload returns the Payload field value
-func (o *CustomTaskInProgressAttributesResponse) GetPayload() Payload {
+func (o *CustomTaskInProgressAttributesResponse) GetPayload() Payload2 {
 	if o == nil {
-		var ret Payload
+		var ret Payload2
 		return ret
 	}
 
@@ -110,7 +110,7 @@ func (o *CustomTaskInProgressAttributesResponse) GetPayload() Payload {
 
 // GetPayloadOk returns a tuple with the Payload field value
 // and a boolean to check if the value has been set.
-func (o *CustomTaskInProgressAttributesResponse) GetPayloadOk() (*Payload, bool) {
+func (o *CustomTaskInProgressAttributesResponse) GetPayloadOk() (*Payload2, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -118,7 +118,7 @@ func (o *CustomTaskInProgressAttributesResponse) GetPayloadOk() (*Payload, bool)
 }
 
 // SetPayload sets field value
-func (o *CustomTaskInProgressAttributesResponse) SetPayload(v Payload) {
+func (o *CustomTaskInProgressAttributesResponse) SetPayload(v Payload2) {
 	o.Payload = v
 }
 

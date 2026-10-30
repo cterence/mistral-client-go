@@ -19,7 +19,9 @@ var _ MappedNullable = &PromptTokensDetails{}
 
 // PromptTokensDetails Token usage details for the prompt.
 type PromptTokensDetails struct {
+	Messages []MessageTokens `json:"messages,omitempty"`
 	CachedTokens *int32 `json:"cached_tokens,omitempty"`
+	AudioTokens *int32 `json:"audio_tokens,omitempty"`
 }
 
 // NewPromptTokensDetails instantiates a new PromptTokensDetails object
@@ -30,6 +32,8 @@ func NewPromptTokensDetails() *PromptTokensDetails {
 	this := PromptTokensDetails{}
 	var cachedTokens int32 = 0
 	this.CachedTokens = &cachedTokens
+	var audioTokens int32 = 0
+	this.AudioTokens = &audioTokens
 	return &this
 }
 
@@ -40,7 +44,41 @@ func NewPromptTokensDetailsWithDefaults() *PromptTokensDetails {
 	this := PromptTokensDetails{}
 	var cachedTokens int32 = 0
 	this.CachedTokens = &cachedTokens
+	var audioTokens int32 = 0
+	this.AudioTokens = &audioTokens
 	return &this
+}
+
+// GetMessages returns the Messages field value if set, zero value otherwise.
+func (o *PromptTokensDetails) GetMessages() []MessageTokens {
+	if o == nil || IsNil(o.Messages) {
+		var ret []MessageTokens
+		return ret
+	}
+	return o.Messages
+}
+
+// GetMessagesOk returns a tuple with the Messages field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PromptTokensDetails) GetMessagesOk() ([]MessageTokens, bool) {
+	if o == nil || IsNil(o.Messages) {
+		return nil, false
+	}
+	return o.Messages, true
+}
+
+// HasMessages returns a boolean if a field has been set.
+func (o *PromptTokensDetails) HasMessages() bool {
+	if o != nil && !IsNil(o.Messages) {
+		return true
+	}
+
+	return false
+}
+
+// SetMessages gets a reference to the given []MessageTokens and assigns it to the Messages field.
+func (o *PromptTokensDetails) SetMessages(v []MessageTokens) {
+	o.Messages = v
 }
 
 // GetCachedTokens returns the CachedTokens field value if set, zero value otherwise.
@@ -75,6 +113,38 @@ func (o *PromptTokensDetails) SetCachedTokens(v int32) {
 	o.CachedTokens = &v
 }
 
+// GetAudioTokens returns the AudioTokens field value if set, zero value otherwise.
+func (o *PromptTokensDetails) GetAudioTokens() int32 {
+	if o == nil || IsNil(o.AudioTokens) {
+		var ret int32
+		return ret
+	}
+	return *o.AudioTokens
+}
+
+// GetAudioTokensOk returns a tuple with the AudioTokens field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PromptTokensDetails) GetAudioTokensOk() (*int32, bool) {
+	if o == nil || IsNil(o.AudioTokens) {
+		return nil, false
+	}
+	return o.AudioTokens, true
+}
+
+// HasAudioTokens returns a boolean if a field has been set.
+func (o *PromptTokensDetails) HasAudioTokens() bool {
+	if o != nil && !IsNil(o.AudioTokens) {
+		return true
+	}
+
+	return false
+}
+
+// SetAudioTokens gets a reference to the given int32 and assigns it to the AudioTokens field.
+func (o *PromptTokensDetails) SetAudioTokens(v int32) {
+	o.AudioTokens = &v
+}
+
 func (o PromptTokensDetails) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -85,8 +155,14 @@ func (o PromptTokensDetails) MarshalJSON() ([]byte, error) {
 
 func (o PromptTokensDetails) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Messages) {
+		toSerialize["messages"] = o.Messages
+	}
 	if !IsNil(o.CachedTokens) {
 		toSerialize["cached_tokens"] = o.CachedTokens
+	}
+	if !IsNil(o.AudioTokens) {
+		toSerialize["audio_tokens"] = o.AudioTokens
 	}
 	return toSerialize, nil
 }

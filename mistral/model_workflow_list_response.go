@@ -22,7 +22,7 @@ var _ MappedNullable = &WorkflowListResponse{}
 // WorkflowListResponse struct for WorkflowListResponse
 type WorkflowListResponse struct {
 	// A list of workflows
-	Workflows []WorkflowBasicDefinition `json:"workflows,omitempty"`
+	Workflows []WorkflowBasicDefinition `json:"workflows"`
 	NextCursor NullableString `json:"next_cursor"`
 }
 
@@ -32,8 +32,9 @@ type _WorkflowListResponse WorkflowListResponse
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewWorkflowListResponse(nextCursor NullableString) *WorkflowListResponse {
+func NewWorkflowListResponse(workflows []WorkflowBasicDefinition, nextCursor NullableString) *WorkflowListResponse {
 	this := WorkflowListResponse{}
+	this.Workflows = workflows
 	this.NextCursor = nextCursor
 	return &this
 }
@@ -46,34 +47,26 @@ func NewWorkflowListResponseWithDefaults() *WorkflowListResponse {
 	return &this
 }
 
-// GetWorkflows returns the Workflows field value if set, zero value otherwise.
+// GetWorkflows returns the Workflows field value
 func (o *WorkflowListResponse) GetWorkflows() []WorkflowBasicDefinition {
-	if o == nil || IsNil(o.Workflows) {
+	if o == nil {
 		var ret []WorkflowBasicDefinition
 		return ret
 	}
+
 	return o.Workflows
 }
 
-// GetWorkflowsOk returns a tuple with the Workflows field value if set, nil otherwise
+// GetWorkflowsOk returns a tuple with the Workflows field value
 // and a boolean to check if the value has been set.
 func (o *WorkflowListResponse) GetWorkflowsOk() ([]WorkflowBasicDefinition, bool) {
-	if o == nil || IsNil(o.Workflows) {
+	if o == nil {
 		return nil, false
 	}
 	return o.Workflows, true
 }
 
-// HasWorkflows returns a boolean if a field has been set.
-func (o *WorkflowListResponse) HasWorkflows() bool {
-	if o != nil && !IsNil(o.Workflows) {
-		return true
-	}
-
-	return false
-}
-
-// SetWorkflows gets a reference to the given []WorkflowBasicDefinition and assigns it to the Workflows field.
+// SetWorkflows sets field value
 func (o *WorkflowListResponse) SetWorkflows(v []WorkflowBasicDefinition) {
 	o.Workflows = v
 }
@@ -114,9 +107,7 @@ func (o WorkflowListResponse) MarshalJSON() ([]byte, error) {
 
 func (o WorkflowListResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.Workflows) {
-		toSerialize["workflows"] = o.Workflows
-	}
+	toSerialize["workflows"] = o.Workflows
 	toSerialize["next_cursor"] = o.NextCursor.Get()
 	return toSerialize, nil
 }
@@ -126,6 +117,7 @@ func (o *WorkflowListResponse) UnmarshalJSON(data []byte) (err error) {
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
+		"workflows",
 		"next_cursor",
 	}
 

@@ -24,12 +24,20 @@ var _ MappedNullable = &WorkflowExecutionWithoutResultResponse{}
 type WorkflowExecutionWithoutResultResponse struct {
 	// The name of the workflow
 	WorkflowName string `json:"workflow_name"`
+	// The ID of the workflow
+	WorkflowId NullableString `json:"workflow_id,omitempty"`
+	// The name of the deployment that ran this execution
+	DeploymentName NullableString `json:"deployment_name,omitempty"`
 	// The ID of the workflow execution
 	ExecutionId string `json:"execution_id"`
 	// The parent execution ID of the workflow execution
 	ParentExecutionId NullableString `json:"parent_execution_id,omitempty"`
 	// The root execution ID of the workflow execution
 	RootExecutionId string `json:"root_execution_id"`
+	// The unique run identifier (database UUID)
+	RunId NullableString `json:"run_id,omitempty"`
+	// The ID of the user who triggered the execution
+	UserId NullableString `json:"user_id,omitempty"`
 	// The status of the workflow execution
 	Status NullableWorkflowExecutionStatus `json:"status"`
 	// The start time of the workflow execution
@@ -87,6 +95,90 @@ func (o *WorkflowExecutionWithoutResultResponse) GetWorkflowNameOk() (*string, b
 // SetWorkflowName sets field value
 func (o *WorkflowExecutionWithoutResultResponse) SetWorkflowName(v string) {
 	o.WorkflowName = v
+}
+
+// GetWorkflowId returns the WorkflowId field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *WorkflowExecutionWithoutResultResponse) GetWorkflowId() string {
+	if o == nil || IsNil(o.WorkflowId.Get()) {
+		var ret string
+		return ret
+	}
+	return *o.WorkflowId.Get()
+}
+
+// GetWorkflowIdOk returns a tuple with the WorkflowId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *WorkflowExecutionWithoutResultResponse) GetWorkflowIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.WorkflowId.Get(), o.WorkflowId.IsSet()
+}
+
+// HasWorkflowId returns a boolean if a field has been set.
+func (o *WorkflowExecutionWithoutResultResponse) HasWorkflowId() bool {
+	if o != nil && o.WorkflowId.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetWorkflowId gets a reference to the given NullableString and assigns it to the WorkflowId field.
+func (o *WorkflowExecutionWithoutResultResponse) SetWorkflowId(v string) {
+	o.WorkflowId.Set(&v)
+}
+// SetWorkflowIdNil sets the value for WorkflowId to be an explicit nil
+func (o *WorkflowExecutionWithoutResultResponse) SetWorkflowIdNil() {
+	o.WorkflowId.Set(nil)
+}
+
+// UnsetWorkflowId ensures that no value is present for WorkflowId, not even an explicit nil
+func (o *WorkflowExecutionWithoutResultResponse) UnsetWorkflowId() {
+	o.WorkflowId.Unset()
+}
+
+// GetDeploymentName returns the DeploymentName field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *WorkflowExecutionWithoutResultResponse) GetDeploymentName() string {
+	if o == nil || IsNil(o.DeploymentName.Get()) {
+		var ret string
+		return ret
+	}
+	return *o.DeploymentName.Get()
+}
+
+// GetDeploymentNameOk returns a tuple with the DeploymentName field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *WorkflowExecutionWithoutResultResponse) GetDeploymentNameOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.DeploymentName.Get(), o.DeploymentName.IsSet()
+}
+
+// HasDeploymentName returns a boolean if a field has been set.
+func (o *WorkflowExecutionWithoutResultResponse) HasDeploymentName() bool {
+	if o != nil && o.DeploymentName.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetDeploymentName gets a reference to the given NullableString and assigns it to the DeploymentName field.
+func (o *WorkflowExecutionWithoutResultResponse) SetDeploymentName(v string) {
+	o.DeploymentName.Set(&v)
+}
+// SetDeploymentNameNil sets the value for DeploymentName to be an explicit nil
+func (o *WorkflowExecutionWithoutResultResponse) SetDeploymentNameNil() {
+	o.DeploymentName.Set(nil)
+}
+
+// UnsetDeploymentName ensures that no value is present for DeploymentName, not even an explicit nil
+func (o *WorkflowExecutionWithoutResultResponse) UnsetDeploymentName() {
+	o.DeploymentName.Unset()
 }
 
 // GetExecutionId returns the ExecutionId field value
@@ -177,6 +269,90 @@ func (o *WorkflowExecutionWithoutResultResponse) GetRootExecutionIdOk() (*string
 // SetRootExecutionId sets field value
 func (o *WorkflowExecutionWithoutResultResponse) SetRootExecutionId(v string) {
 	o.RootExecutionId = v
+}
+
+// GetRunId returns the RunId field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *WorkflowExecutionWithoutResultResponse) GetRunId() string {
+	if o == nil || IsNil(o.RunId.Get()) {
+		var ret string
+		return ret
+	}
+	return *o.RunId.Get()
+}
+
+// GetRunIdOk returns a tuple with the RunId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *WorkflowExecutionWithoutResultResponse) GetRunIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.RunId.Get(), o.RunId.IsSet()
+}
+
+// HasRunId returns a boolean if a field has been set.
+func (o *WorkflowExecutionWithoutResultResponse) HasRunId() bool {
+	if o != nil && o.RunId.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetRunId gets a reference to the given NullableString and assigns it to the RunId field.
+func (o *WorkflowExecutionWithoutResultResponse) SetRunId(v string) {
+	o.RunId.Set(&v)
+}
+// SetRunIdNil sets the value for RunId to be an explicit nil
+func (o *WorkflowExecutionWithoutResultResponse) SetRunIdNil() {
+	o.RunId.Set(nil)
+}
+
+// UnsetRunId ensures that no value is present for RunId, not even an explicit nil
+func (o *WorkflowExecutionWithoutResultResponse) UnsetRunId() {
+	o.RunId.Unset()
+}
+
+// GetUserId returns the UserId field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *WorkflowExecutionWithoutResultResponse) GetUserId() string {
+	if o == nil || IsNil(o.UserId.Get()) {
+		var ret string
+		return ret
+	}
+	return *o.UserId.Get()
+}
+
+// GetUserIdOk returns a tuple with the UserId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *WorkflowExecutionWithoutResultResponse) GetUserIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.UserId.Get(), o.UserId.IsSet()
+}
+
+// HasUserId returns a boolean if a field has been set.
+func (o *WorkflowExecutionWithoutResultResponse) HasUserId() bool {
+	if o != nil && o.UserId.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetUserId gets a reference to the given NullableString and assigns it to the UserId field.
+func (o *WorkflowExecutionWithoutResultResponse) SetUserId(v string) {
+	o.UserId.Set(&v)
+}
+// SetUserIdNil sets the value for UserId to be an explicit nil
+func (o *WorkflowExecutionWithoutResultResponse) SetUserIdNil() {
+	o.UserId.Set(nil)
+}
+
+// UnsetUserId ensures that no value is present for UserId, not even an explicit nil
+func (o *WorkflowExecutionWithoutResultResponse) UnsetUserId() {
+	o.UserId.Unset()
 }
 
 // GetStatus returns the Status field value
@@ -308,11 +484,23 @@ func (o WorkflowExecutionWithoutResultResponse) MarshalJSON() ([]byte, error) {
 func (o WorkflowExecutionWithoutResultResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["workflow_name"] = o.WorkflowName
+	if o.WorkflowId.IsSet() {
+		toSerialize["workflow_id"] = o.WorkflowId.Get()
+	}
+	if o.DeploymentName.IsSet() {
+		toSerialize["deployment_name"] = o.DeploymentName.Get()
+	}
 	toSerialize["execution_id"] = o.ExecutionId
 	if o.ParentExecutionId.IsSet() {
 		toSerialize["parent_execution_id"] = o.ParentExecutionId.Get()
 	}
 	toSerialize["root_execution_id"] = o.RootExecutionId
+	if o.RunId.IsSet() {
+		toSerialize["run_id"] = o.RunId.Get()
+	}
+	if o.UserId.IsSet() {
+		toSerialize["user_id"] = o.UserId.Get()
+	}
 	toSerialize["status"] = o.Status.Get()
 	toSerialize["start_time"] = o.StartTime
 	toSerialize["end_time"] = o.EndTime.Get()

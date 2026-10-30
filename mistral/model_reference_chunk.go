@@ -22,7 +22,7 @@ var _ MappedNullable = &ReferenceChunk{}
 // ReferenceChunk struct for ReferenceChunk
 type ReferenceChunk struct {
 	Type *string `json:"type,omitempty"`
-	ReferenceIds []int32 `json:"reference_ids"`
+	ReferenceIds []ReferenceIdsInner `json:"reference_ids"`
 }
 
 type _ReferenceChunk ReferenceChunk
@@ -31,7 +31,7 @@ type _ReferenceChunk ReferenceChunk
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewReferenceChunk(referenceIds []int32) *ReferenceChunk {
+func NewReferenceChunk(referenceIds []ReferenceIdsInner) *ReferenceChunk {
 	this := ReferenceChunk{}
 	var type_ string = "reference"
 	this.Type = &type_
@@ -82,9 +82,9 @@ func (o *ReferenceChunk) SetType(v string) {
 }
 
 // GetReferenceIds returns the ReferenceIds field value
-func (o *ReferenceChunk) GetReferenceIds() []int32 {
+func (o *ReferenceChunk) GetReferenceIds() []ReferenceIdsInner {
 	if o == nil {
-		var ret []int32
+		var ret []ReferenceIdsInner
 		return ret
 	}
 
@@ -93,7 +93,7 @@ func (o *ReferenceChunk) GetReferenceIds() []int32 {
 
 // GetReferenceIdsOk returns a tuple with the ReferenceIds field value
 // and a boolean to check if the value has been set.
-func (o *ReferenceChunk) GetReferenceIdsOk() ([]int32, bool) {
+func (o *ReferenceChunk) GetReferenceIdsOk() ([]ReferenceIdsInner, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -101,7 +101,7 @@ func (o *ReferenceChunk) GetReferenceIdsOk() ([]int32, bool) {
 }
 
 // SetReferenceIds sets field value
-func (o *ReferenceChunk) SetReferenceIds(v []int32) {
+func (o *ReferenceChunk) SetReferenceIds(v []ReferenceIdsInner) {
 	o.ReferenceIds = v
 }
 

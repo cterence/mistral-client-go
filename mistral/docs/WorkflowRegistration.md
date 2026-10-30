@@ -5,17 +5,19 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Id** | **string** | Unique identifier of the workflow registration | 
-**TaskQueue** | **string** | Project name of the workflow | 
+**DeploymentId** | Pointer to **NullableString** | Deprecated. Use deployment_name instead. Will be removed in a future release. | [optional] 
+**TaskQueue** | Pointer to **NullableString** | Deprecated. Use deployment_name instead. Will be removed in a future release. | [optional] 
 **Definition** | [**WorkflowCodeDefinition**](WorkflowCodeDefinition.md) |  | 
 **WorkflowId** | **string** | Workflow ID of the workflow | 
 **Workflow** | Pointer to [**NullableWorkflow**](Workflow.md) | Workflow of the workflow registration | [optional] 
+**DeploymentName** | Pointer to **NullableString** | Name of the deployment this registration belongs to | [optional] 
 **CompatibleWithChatAssistant** | Pointer to **bool** | Whether the workflow is compatible with chat assistant | [optional] [default to false]
 
 ## Methods
 
 ### NewWorkflowRegistration
 
-`func NewWorkflowRegistration(id string, taskQueue string, definition WorkflowCodeDefinition, workflowId string, ) *WorkflowRegistration`
+`func NewWorkflowRegistration(id string, definition WorkflowCodeDefinition, workflowId string, ) *WorkflowRegistration`
 
 NewWorkflowRegistration instantiates a new WorkflowRegistration object
 This constructor will assign default values to properties that have it defined,
@@ -50,6 +52,41 @@ and a boolean to check if the value has been set.
 SetId sets Id field to given value.
 
 
+### GetDeploymentId
+
+`func (o *WorkflowRegistration) GetDeploymentId() string`
+
+GetDeploymentId returns the DeploymentId field if non-nil, zero value otherwise.
+
+### GetDeploymentIdOk
+
+`func (o *WorkflowRegistration) GetDeploymentIdOk() (*string, bool)`
+
+GetDeploymentIdOk returns a tuple with the DeploymentId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDeploymentId
+
+`func (o *WorkflowRegistration) SetDeploymentId(v string)`
+
+SetDeploymentId sets DeploymentId field to given value.
+
+### HasDeploymentId
+
+`func (o *WorkflowRegistration) HasDeploymentId() bool`
+
+HasDeploymentId returns a boolean if a field has been set.
+
+### SetDeploymentIdNil
+
+`func (o *WorkflowRegistration) SetDeploymentIdNil(b bool)`
+
+ SetDeploymentIdNil sets the value for DeploymentId to be an explicit nil
+
+### UnsetDeploymentId
+`func (o *WorkflowRegistration) UnsetDeploymentId()`
+
+UnsetDeploymentId ensures that no value is present for DeploymentId, not even an explicit nil
 ### GetTaskQueue
 
 `func (o *WorkflowRegistration) GetTaskQueue() string`
@@ -69,7 +106,22 @@ and a boolean to check if the value has been set.
 
 SetTaskQueue sets TaskQueue field to given value.
 
+### HasTaskQueue
 
+`func (o *WorkflowRegistration) HasTaskQueue() bool`
+
+HasTaskQueue returns a boolean if a field has been set.
+
+### SetTaskQueueNil
+
+`func (o *WorkflowRegistration) SetTaskQueueNil(b bool)`
+
+ SetTaskQueueNil sets the value for TaskQueue to be an explicit nil
+
+### UnsetTaskQueue
+`func (o *WorkflowRegistration) UnsetTaskQueue()`
+
+UnsetTaskQueue ensures that no value is present for TaskQueue, not even an explicit nil
 ### GetDefinition
 
 `func (o *WorkflowRegistration) GetDefinition() WorkflowCodeDefinition`
@@ -145,6 +197,41 @@ HasWorkflow returns a boolean if a field has been set.
 `func (o *WorkflowRegistration) UnsetWorkflow()`
 
 UnsetWorkflow ensures that no value is present for Workflow, not even an explicit nil
+### GetDeploymentName
+
+`func (o *WorkflowRegistration) GetDeploymentName() string`
+
+GetDeploymentName returns the DeploymentName field if non-nil, zero value otherwise.
+
+### GetDeploymentNameOk
+
+`func (o *WorkflowRegistration) GetDeploymentNameOk() (*string, bool)`
+
+GetDeploymentNameOk returns a tuple with the DeploymentName field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDeploymentName
+
+`func (o *WorkflowRegistration) SetDeploymentName(v string)`
+
+SetDeploymentName sets DeploymentName field to given value.
+
+### HasDeploymentName
+
+`func (o *WorkflowRegistration) HasDeploymentName() bool`
+
+HasDeploymentName returns a boolean if a field has been set.
+
+### SetDeploymentNameNil
+
+`func (o *WorkflowRegistration) SetDeploymentNameNil(b bool)`
+
+ SetDeploymentNameNil sets the value for DeploymentName to be an explicit nil
+
+### UnsetDeploymentName
+`func (o *WorkflowRegistration) UnsetDeploymentName()`
+
+UnsetDeploymentName ensures that no value is present for DeploymentName, not even an explicit nil
 ### GetCompatibleWithChatAssistant
 
 `func (o *WorkflowRegistration) GetCompatibleWithChatAssistant() bool`

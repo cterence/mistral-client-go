@@ -18,85 +18,21 @@ import (
 
 // Data - struct for Data
 type Data struct {
-	AgentHandoffDoneEvent *AgentHandoffDoneEvent
-	AgentHandoffStartedEvent *AgentHandoffStartedEvent
-	FunctionCallEvent *FunctionCallEvent
-	MessageOutputEvent *MessageOutputEvent
-	ResponseDoneEvent *ResponseDoneEvent
-	ResponseErrorEvent *ResponseErrorEvent
-	ResponseStartedEvent *ResponseStartedEvent
-	ToolExecutionDeltaEvent *ToolExecutionDeltaEvent
-	ToolExecutionDoneEvent *ToolExecutionDoneEvent
-	ToolExecutionStartedEvent *ToolExecutionStartedEvent
+	SpeechStreamAudioDelta *SpeechStreamAudioDelta
+	SpeechStreamDone *SpeechStreamDone
 }
 
-// AgentHandoffDoneEventAsData is a convenience function that returns AgentHandoffDoneEvent wrapped in Data
-func AgentHandoffDoneEventAsData(v *AgentHandoffDoneEvent) Data {
+// SpeechStreamAudioDeltaAsData is a convenience function that returns SpeechStreamAudioDelta wrapped in Data
+func SpeechStreamAudioDeltaAsData(v *SpeechStreamAudioDelta) Data {
 	return Data{
-		AgentHandoffDoneEvent: v,
+		SpeechStreamAudioDelta: v,
 	}
 }
 
-// AgentHandoffStartedEventAsData is a convenience function that returns AgentHandoffStartedEvent wrapped in Data
-func AgentHandoffStartedEventAsData(v *AgentHandoffStartedEvent) Data {
+// SpeechStreamDoneAsData is a convenience function that returns SpeechStreamDone wrapped in Data
+func SpeechStreamDoneAsData(v *SpeechStreamDone) Data {
 	return Data{
-		AgentHandoffStartedEvent: v,
-	}
-}
-
-// FunctionCallEventAsData is a convenience function that returns FunctionCallEvent wrapped in Data
-func FunctionCallEventAsData(v *FunctionCallEvent) Data {
-	return Data{
-		FunctionCallEvent: v,
-	}
-}
-
-// MessageOutputEventAsData is a convenience function that returns MessageOutputEvent wrapped in Data
-func MessageOutputEventAsData(v *MessageOutputEvent) Data {
-	return Data{
-		MessageOutputEvent: v,
-	}
-}
-
-// ResponseDoneEventAsData is a convenience function that returns ResponseDoneEvent wrapped in Data
-func ResponseDoneEventAsData(v *ResponseDoneEvent) Data {
-	return Data{
-		ResponseDoneEvent: v,
-	}
-}
-
-// ResponseErrorEventAsData is a convenience function that returns ResponseErrorEvent wrapped in Data
-func ResponseErrorEventAsData(v *ResponseErrorEvent) Data {
-	return Data{
-		ResponseErrorEvent: v,
-	}
-}
-
-// ResponseStartedEventAsData is a convenience function that returns ResponseStartedEvent wrapped in Data
-func ResponseStartedEventAsData(v *ResponseStartedEvent) Data {
-	return Data{
-		ResponseStartedEvent: v,
-	}
-}
-
-// ToolExecutionDeltaEventAsData is a convenience function that returns ToolExecutionDeltaEvent wrapped in Data
-func ToolExecutionDeltaEventAsData(v *ToolExecutionDeltaEvent) Data {
-	return Data{
-		ToolExecutionDeltaEvent: v,
-	}
-}
-
-// ToolExecutionDoneEventAsData is a convenience function that returns ToolExecutionDoneEvent wrapped in Data
-func ToolExecutionDoneEventAsData(v *ToolExecutionDoneEvent) Data {
-	return Data{
-		ToolExecutionDoneEvent: v,
-	}
-}
-
-// ToolExecutionStartedEventAsData is a convenience function that returns ToolExecutionStartedEvent wrapped in Data
-func ToolExecutionStartedEventAsData(v *ToolExecutionStartedEvent) Data {
-	return Data{
-		ToolExecutionStartedEvent: v,
+		SpeechStreamDone: v,
 	}
 }
 
@@ -105,188 +41,44 @@ func ToolExecutionStartedEventAsData(v *ToolExecutionStartedEvent) Data {
 func (dst *Data) UnmarshalJSON(data []byte) error {
 	var err error
 	match := 0
-	// try to unmarshal data into AgentHandoffDoneEvent
-	err = newStrictDecoder(data).Decode(&dst.AgentHandoffDoneEvent)
+	// try to unmarshal data into SpeechStreamAudioDelta
+	err = newStrictDecoder(data).Decode(&dst.SpeechStreamAudioDelta)
 	if err == nil {
-		jsonAgentHandoffDoneEvent, _ := json.Marshal(dst.AgentHandoffDoneEvent)
-		if string(jsonAgentHandoffDoneEvent) == "{}" { // empty struct
-			dst.AgentHandoffDoneEvent = nil
+		jsonSpeechStreamAudioDelta, _ := json.Marshal(dst.SpeechStreamAudioDelta)
+		if string(jsonSpeechStreamAudioDelta) == "{}" { // empty struct
+			dst.SpeechStreamAudioDelta = nil
 		} else {
-			if err = validator.Validate(dst.AgentHandoffDoneEvent); err != nil {
-				dst.AgentHandoffDoneEvent = nil
+			if err = validator.Validate(dst.SpeechStreamAudioDelta); err != nil {
+				dst.SpeechStreamAudioDelta = nil
 			} else {
 				match++
 			}
 		}
 	} else {
-		dst.AgentHandoffDoneEvent = nil
+		dst.SpeechStreamAudioDelta = nil
 	}
 
-	// try to unmarshal data into AgentHandoffStartedEvent
-	err = newStrictDecoder(data).Decode(&dst.AgentHandoffStartedEvent)
+	// try to unmarshal data into SpeechStreamDone
+	err = newStrictDecoder(data).Decode(&dst.SpeechStreamDone)
 	if err == nil {
-		jsonAgentHandoffStartedEvent, _ := json.Marshal(dst.AgentHandoffStartedEvent)
-		if string(jsonAgentHandoffStartedEvent) == "{}" { // empty struct
-			dst.AgentHandoffStartedEvent = nil
+		jsonSpeechStreamDone, _ := json.Marshal(dst.SpeechStreamDone)
+		if string(jsonSpeechStreamDone) == "{}" { // empty struct
+			dst.SpeechStreamDone = nil
 		} else {
-			if err = validator.Validate(dst.AgentHandoffStartedEvent); err != nil {
-				dst.AgentHandoffStartedEvent = nil
+			if err = validator.Validate(dst.SpeechStreamDone); err != nil {
+				dst.SpeechStreamDone = nil
 			} else {
 				match++
 			}
 		}
 	} else {
-		dst.AgentHandoffStartedEvent = nil
-	}
-
-	// try to unmarshal data into FunctionCallEvent
-	err = newStrictDecoder(data).Decode(&dst.FunctionCallEvent)
-	if err == nil {
-		jsonFunctionCallEvent, _ := json.Marshal(dst.FunctionCallEvent)
-		if string(jsonFunctionCallEvent) == "{}" { // empty struct
-			dst.FunctionCallEvent = nil
-		} else {
-			if err = validator.Validate(dst.FunctionCallEvent); err != nil {
-				dst.FunctionCallEvent = nil
-			} else {
-				match++
-			}
-		}
-	} else {
-		dst.FunctionCallEvent = nil
-	}
-
-	// try to unmarshal data into MessageOutputEvent
-	err = newStrictDecoder(data).Decode(&dst.MessageOutputEvent)
-	if err == nil {
-		jsonMessageOutputEvent, _ := json.Marshal(dst.MessageOutputEvent)
-		if string(jsonMessageOutputEvent) == "{}" { // empty struct
-			dst.MessageOutputEvent = nil
-		} else {
-			if err = validator.Validate(dst.MessageOutputEvent); err != nil {
-				dst.MessageOutputEvent = nil
-			} else {
-				match++
-			}
-		}
-	} else {
-		dst.MessageOutputEvent = nil
-	}
-
-	// try to unmarshal data into ResponseDoneEvent
-	err = newStrictDecoder(data).Decode(&dst.ResponseDoneEvent)
-	if err == nil {
-		jsonResponseDoneEvent, _ := json.Marshal(dst.ResponseDoneEvent)
-		if string(jsonResponseDoneEvent) == "{}" { // empty struct
-			dst.ResponseDoneEvent = nil
-		} else {
-			if err = validator.Validate(dst.ResponseDoneEvent); err != nil {
-				dst.ResponseDoneEvent = nil
-			} else {
-				match++
-			}
-		}
-	} else {
-		dst.ResponseDoneEvent = nil
-	}
-
-	// try to unmarshal data into ResponseErrorEvent
-	err = newStrictDecoder(data).Decode(&dst.ResponseErrorEvent)
-	if err == nil {
-		jsonResponseErrorEvent, _ := json.Marshal(dst.ResponseErrorEvent)
-		if string(jsonResponseErrorEvent) == "{}" { // empty struct
-			dst.ResponseErrorEvent = nil
-		} else {
-			if err = validator.Validate(dst.ResponseErrorEvent); err != nil {
-				dst.ResponseErrorEvent = nil
-			} else {
-				match++
-			}
-		}
-	} else {
-		dst.ResponseErrorEvent = nil
-	}
-
-	// try to unmarshal data into ResponseStartedEvent
-	err = newStrictDecoder(data).Decode(&dst.ResponseStartedEvent)
-	if err == nil {
-		jsonResponseStartedEvent, _ := json.Marshal(dst.ResponseStartedEvent)
-		if string(jsonResponseStartedEvent) == "{}" { // empty struct
-			dst.ResponseStartedEvent = nil
-		} else {
-			if err = validator.Validate(dst.ResponseStartedEvent); err != nil {
-				dst.ResponseStartedEvent = nil
-			} else {
-				match++
-			}
-		}
-	} else {
-		dst.ResponseStartedEvent = nil
-	}
-
-	// try to unmarshal data into ToolExecutionDeltaEvent
-	err = newStrictDecoder(data).Decode(&dst.ToolExecutionDeltaEvent)
-	if err == nil {
-		jsonToolExecutionDeltaEvent, _ := json.Marshal(dst.ToolExecutionDeltaEvent)
-		if string(jsonToolExecutionDeltaEvent) == "{}" { // empty struct
-			dst.ToolExecutionDeltaEvent = nil
-		} else {
-			if err = validator.Validate(dst.ToolExecutionDeltaEvent); err != nil {
-				dst.ToolExecutionDeltaEvent = nil
-			} else {
-				match++
-			}
-		}
-	} else {
-		dst.ToolExecutionDeltaEvent = nil
-	}
-
-	// try to unmarshal data into ToolExecutionDoneEvent
-	err = newStrictDecoder(data).Decode(&dst.ToolExecutionDoneEvent)
-	if err == nil {
-		jsonToolExecutionDoneEvent, _ := json.Marshal(dst.ToolExecutionDoneEvent)
-		if string(jsonToolExecutionDoneEvent) == "{}" { // empty struct
-			dst.ToolExecutionDoneEvent = nil
-		} else {
-			if err = validator.Validate(dst.ToolExecutionDoneEvent); err != nil {
-				dst.ToolExecutionDoneEvent = nil
-			} else {
-				match++
-			}
-		}
-	} else {
-		dst.ToolExecutionDoneEvent = nil
-	}
-
-	// try to unmarshal data into ToolExecutionStartedEvent
-	err = newStrictDecoder(data).Decode(&dst.ToolExecutionStartedEvent)
-	if err == nil {
-		jsonToolExecutionStartedEvent, _ := json.Marshal(dst.ToolExecutionStartedEvent)
-		if string(jsonToolExecutionStartedEvent) == "{}" { // empty struct
-			dst.ToolExecutionStartedEvent = nil
-		} else {
-			if err = validator.Validate(dst.ToolExecutionStartedEvent); err != nil {
-				dst.ToolExecutionStartedEvent = nil
-			} else {
-				match++
-			}
-		}
-	} else {
-		dst.ToolExecutionStartedEvent = nil
+		dst.SpeechStreamDone = nil
 	}
 
 	if match > 1 { // more than 1 match
 		// reset to nil
-		dst.AgentHandoffDoneEvent = nil
-		dst.AgentHandoffStartedEvent = nil
-		dst.FunctionCallEvent = nil
-		dst.MessageOutputEvent = nil
-		dst.ResponseDoneEvent = nil
-		dst.ResponseErrorEvent = nil
-		dst.ResponseStartedEvent = nil
-		dst.ToolExecutionDeltaEvent = nil
-		dst.ToolExecutionDoneEvent = nil
-		dst.ToolExecutionStartedEvent = nil
+		dst.SpeechStreamAudioDelta = nil
+		dst.SpeechStreamDone = nil
 
 		return fmt.Errorf("data matches more than one schema in oneOf(Data)")
 	} else if match == 1 {
@@ -302,44 +94,12 @@ func (dst *Data) UnmarshalJSON(data []byte) error {
 
 // Marshal data from the first non-nil pointers in the struct to JSON
 func (src Data) MarshalJSON() ([]byte, error) {
-	if src.AgentHandoffDoneEvent != nil {
-		return json.Marshal(&src.AgentHandoffDoneEvent)
+	if src.SpeechStreamAudioDelta != nil {
+		return json.Marshal(&src.SpeechStreamAudioDelta)
 	}
 
-	if src.AgentHandoffStartedEvent != nil {
-		return json.Marshal(&src.AgentHandoffStartedEvent)
-	}
-
-	if src.FunctionCallEvent != nil {
-		return json.Marshal(&src.FunctionCallEvent)
-	}
-
-	if src.MessageOutputEvent != nil {
-		return json.Marshal(&src.MessageOutputEvent)
-	}
-
-	if src.ResponseDoneEvent != nil {
-		return json.Marshal(&src.ResponseDoneEvent)
-	}
-
-	if src.ResponseErrorEvent != nil {
-		return json.Marshal(&src.ResponseErrorEvent)
-	}
-
-	if src.ResponseStartedEvent != nil {
-		return json.Marshal(&src.ResponseStartedEvent)
-	}
-
-	if src.ToolExecutionDeltaEvent != nil {
-		return json.Marshal(&src.ToolExecutionDeltaEvent)
-	}
-
-	if src.ToolExecutionDoneEvent != nil {
-		return json.Marshal(&src.ToolExecutionDoneEvent)
-	}
-
-	if src.ToolExecutionStartedEvent != nil {
-		return json.Marshal(&src.ToolExecutionStartedEvent)
+	if src.SpeechStreamDone != nil {
+		return json.Marshal(&src.SpeechStreamDone)
 	}
 
 	return nil, nil // no data in oneOf schemas
@@ -350,44 +110,12 @@ func (obj *Data) GetActualInstance() (interface{}) {
 	if obj == nil {
 		return nil
 	}
-	if obj.AgentHandoffDoneEvent != nil {
-		return obj.AgentHandoffDoneEvent
+	if obj.SpeechStreamAudioDelta != nil {
+		return obj.SpeechStreamAudioDelta
 	}
 
-	if obj.AgentHandoffStartedEvent != nil {
-		return obj.AgentHandoffStartedEvent
-	}
-
-	if obj.FunctionCallEvent != nil {
-		return obj.FunctionCallEvent
-	}
-
-	if obj.MessageOutputEvent != nil {
-		return obj.MessageOutputEvent
-	}
-
-	if obj.ResponseDoneEvent != nil {
-		return obj.ResponseDoneEvent
-	}
-
-	if obj.ResponseErrorEvent != nil {
-		return obj.ResponseErrorEvent
-	}
-
-	if obj.ResponseStartedEvent != nil {
-		return obj.ResponseStartedEvent
-	}
-
-	if obj.ToolExecutionDeltaEvent != nil {
-		return obj.ToolExecutionDeltaEvent
-	}
-
-	if obj.ToolExecutionDoneEvent != nil {
-		return obj.ToolExecutionDoneEvent
-	}
-
-	if obj.ToolExecutionStartedEvent != nil {
-		return obj.ToolExecutionStartedEvent
+	if obj.SpeechStreamDone != nil {
+		return obj.SpeechStreamDone
 	}
 
 	// all schemas are nil
@@ -396,44 +124,12 @@ func (obj *Data) GetActualInstance() (interface{}) {
 
 // Get the actual instance value
 func (obj Data) GetActualInstanceValue() (interface{}) {
-	if obj.AgentHandoffDoneEvent != nil {
-		return *obj.AgentHandoffDoneEvent
+	if obj.SpeechStreamAudioDelta != nil {
+		return *obj.SpeechStreamAudioDelta
 	}
 
-	if obj.AgentHandoffStartedEvent != nil {
-		return *obj.AgentHandoffStartedEvent
-	}
-
-	if obj.FunctionCallEvent != nil {
-		return *obj.FunctionCallEvent
-	}
-
-	if obj.MessageOutputEvent != nil {
-		return *obj.MessageOutputEvent
-	}
-
-	if obj.ResponseDoneEvent != nil {
-		return *obj.ResponseDoneEvent
-	}
-
-	if obj.ResponseErrorEvent != nil {
-		return *obj.ResponseErrorEvent
-	}
-
-	if obj.ResponseStartedEvent != nil {
-		return *obj.ResponseStartedEvent
-	}
-
-	if obj.ToolExecutionDeltaEvent != nil {
-		return *obj.ToolExecutionDeltaEvent
-	}
-
-	if obj.ToolExecutionDoneEvent != nil {
-		return *obj.ToolExecutionDoneEvent
-	}
-
-	if obj.ToolExecutionStartedEvent != nil {
-		return *obj.ToolExecutionStartedEvent
+	if obj.SpeechStreamDone != nil {
+		return *obj.SpeechStreamDone
 	}
 
 	// all schemas are nil

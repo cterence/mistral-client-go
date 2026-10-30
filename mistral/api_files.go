@@ -31,7 +31,7 @@ type ApiFilesApiRoutesDeleteFileRequest struct {
 	fileId string
 }
 
-func (r ApiFilesApiRoutesDeleteFileRequest) Execute() (*DeleteFileOut, *http.Response, error) {
+func (r ApiFilesApiRoutesDeleteFileRequest) Execute() (*DeleteFileResponse, *http.Response, error) {
 	return r.ApiService.FilesApiRoutesDeleteFileExecute(r)
 }
 
@@ -53,13 +53,13 @@ func (a *FilesAPIService) FilesApiRoutesDeleteFile(ctx context.Context, fileId s
 }
 
 // Execute executes the request
-//  @return DeleteFileOut
-func (a *FilesAPIService) FilesApiRoutesDeleteFileExecute(r ApiFilesApiRoutesDeleteFileRequest) (*DeleteFileOut, *http.Response, error) {
+//  @return DeleteFileResponse
+func (a *FilesAPIService) FilesApiRoutesDeleteFileExecute(r ApiFilesApiRoutesDeleteFileRequest) (*DeleteFileResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodDelete
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *DeleteFileOut
+		localVarReturnValue  *DeleteFileResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FilesAPIService.FilesApiRoutesDeleteFile")
@@ -238,18 +238,20 @@ type ApiFilesApiRoutesGetSignedUrlRequest struct {
 	expiry *int32
 }
 
-// Number of hours before the url becomes invalid. Defaults to 24h
+// Number of hours before the URL becomes invalid. Defaults to 24h. Must be between 1h and 168h.
 func (r ApiFilesApiRoutesGetSignedUrlRequest) Expiry(expiry int32) ApiFilesApiRoutesGetSignedUrlRequest {
 	r.expiry = &expiry
 	return r
 }
 
-func (r ApiFilesApiRoutesGetSignedUrlRequest) Execute() (*FileSignedURL, *http.Response, error) {
+func (r ApiFilesApiRoutesGetSignedUrlRequest) Execute() (*GetSignedUrlResponse, *http.Response, error) {
 	return r.ApiService.FilesApiRoutesGetSignedUrlExecute(r)
 }
 
 /*
 FilesApiRoutesGetSignedUrl Get Signed Url
+
+Get Signed Url
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param fileId
@@ -264,13 +266,13 @@ func (a *FilesAPIService) FilesApiRoutesGetSignedUrl(ctx context.Context, fileId
 }
 
 // Execute executes the request
-//  @return FileSignedURL
-func (a *FilesAPIService) FilesApiRoutesGetSignedUrlExecute(r ApiFilesApiRoutesGetSignedUrlRequest) (*FileSignedURL, *http.Response, error) {
+//  @return GetSignedUrlResponse
+func (a *FilesAPIService) FilesApiRoutesGetSignedUrlExecute(r ApiFilesApiRoutesGetSignedUrlRequest) (*GetSignedUrlResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *FileSignedURL
+		localVarReturnValue  *GetSignedUrlResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FilesAPIService.FilesApiRoutesGetSignedUrl")
@@ -399,7 +401,7 @@ func (r ApiFilesApiRoutesListFilesRequest) Mimetypes(mimetypes []string) ApiFile
 	return r
 }
 
-func (r ApiFilesApiRoutesListFilesRequest) Execute() (*ListFilesOut, *http.Response, error) {
+func (r ApiFilesApiRoutesListFilesRequest) Execute() (*ListFilesResponse, *http.Response, error) {
 	return r.ApiService.FilesApiRoutesListFilesExecute(r)
 }
 
@@ -419,13 +421,13 @@ func (a *FilesAPIService) FilesApiRoutesListFiles(ctx context.Context) ApiFilesA
 }
 
 // Execute executes the request
-//  @return ListFilesOut
-func (a *FilesAPIService) FilesApiRoutesListFilesExecute(r ApiFilesApiRoutesListFilesRequest) (*ListFilesOut, *http.Response, error) {
+//  @return ListFilesResponse
+func (a *FilesAPIService) FilesApiRoutesListFilesExecute(r ApiFilesApiRoutesListFilesRequest) (*ListFilesResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *ListFilesOut
+		localVarReturnValue  *ListFilesResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FilesAPIService.FilesApiRoutesListFiles")
@@ -559,7 +561,7 @@ type ApiFilesApiRoutesRetrieveFileRequest struct {
 	fileId string
 }
 
-func (r ApiFilesApiRoutesRetrieveFileRequest) Execute() (*RetrieveFileOut, *http.Response, error) {
+func (r ApiFilesApiRoutesRetrieveFileRequest) Execute() (*GetFileResponse, *http.Response, error) {
 	return r.ApiService.FilesApiRoutesRetrieveFileExecute(r)
 }
 
@@ -581,13 +583,13 @@ func (a *FilesAPIService) FilesApiRoutesRetrieveFile(ctx context.Context, fileId
 }
 
 // Execute executes the request
-//  @return RetrieveFileOut
-func (a *FilesAPIService) FilesApiRoutesRetrieveFileExecute(r ApiFilesApiRoutesRetrieveFileRequest) (*RetrieveFileOut, *http.Response, error) {
+//  @return GetFileResponse
+func (a *FilesAPIService) FilesApiRoutesRetrieveFileExecute(r ApiFilesApiRoutesRetrieveFileRequest) (*GetFileResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *RetrieveFileOut
+		localVarReturnValue  *GetFileResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FilesAPIService.FilesApiRoutesRetrieveFile")
@@ -671,7 +673,7 @@ func (r ApiFilesApiRoutesUploadFileRequest) File(file *os.File) ApiFilesApiRoute
 	return r
 }
 
-// Set before sending audio. Streaming delay updates are rejected after audio starts.
+// Total usage value for this row.
 func (r ApiFilesApiRoutesUploadFileRequest) Expiry(expiry int32) ApiFilesApiRoutesUploadFileRequest {
 	r.expiry = &expiry
 	return r
@@ -687,7 +689,7 @@ func (r ApiFilesApiRoutesUploadFileRequest) Purpose(purpose FilePurpose) ApiFile
 	return r
 }
 
-func (r ApiFilesApiRoutesUploadFileRequest) Execute() (*UploadFileOut, *http.Response, error) {
+func (r ApiFilesApiRoutesUploadFileRequest) Execute() (*CreateFileResponse, *http.Response, error) {
 	return r.ApiService.FilesApiRoutesUploadFileExecute(r)
 }
 
@@ -711,13 +713,13 @@ func (a *FilesAPIService) FilesApiRoutesUploadFile(ctx context.Context) ApiFiles
 }
 
 // Execute executes the request
-//  @return UploadFileOut
-func (a *FilesAPIService) FilesApiRoutesUploadFileExecute(r ApiFilesApiRoutesUploadFileRequest) (*UploadFileOut, *http.Response, error) {
+//  @return CreateFileResponse
+func (a *FilesAPIService) FilesApiRoutesUploadFileExecute(r ApiFilesApiRoutesUploadFileRequest) (*CreateFileResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *UploadFileOut
+		localVarReturnValue  *CreateFileResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FilesAPIService.FilesApiRoutesUploadFile")

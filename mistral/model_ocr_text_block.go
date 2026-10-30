@@ -27,6 +27,8 @@ type OCRTextBlock struct {
 	BottomRightY int32 `json:"bottom_right_y"`
 	// Text/markdown/html content of this block
 	Content string `json:"content"`
+	// Confidence scores for this block. Populated when confidence_scores_granularity is set to 'block'.
+	ConfidenceScores NullableOCRBlockConfidenceScores `json:"confidence_scores,omitempty"`
 	Type *string `json:"type,omitempty"`
 }
 
@@ -178,6 +180,48 @@ func (o *OCRTextBlock) SetContent(v string) {
 	o.Content = v
 }
 
+// GetConfidenceScores returns the ConfidenceScores field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *OCRTextBlock) GetConfidenceScores() OCRBlockConfidenceScores {
+	if o == nil || IsNil(o.ConfidenceScores.Get()) {
+		var ret OCRBlockConfidenceScores
+		return ret
+	}
+	return *o.ConfidenceScores.Get()
+}
+
+// GetConfidenceScoresOk returns a tuple with the ConfidenceScores field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *OCRTextBlock) GetConfidenceScoresOk() (*OCRBlockConfidenceScores, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.ConfidenceScores.Get(), o.ConfidenceScores.IsSet()
+}
+
+// HasConfidenceScores returns a boolean if a field has been set.
+func (o *OCRTextBlock) HasConfidenceScores() bool {
+	if o != nil && o.ConfidenceScores.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetConfidenceScores gets a reference to the given NullableOCRBlockConfidenceScores and assigns it to the ConfidenceScores field.
+func (o *OCRTextBlock) SetConfidenceScores(v OCRBlockConfidenceScores) {
+	o.ConfidenceScores.Set(&v)
+}
+// SetConfidenceScoresNil sets the value for ConfidenceScores to be an explicit nil
+func (o *OCRTextBlock) SetConfidenceScoresNil() {
+	o.ConfidenceScores.Set(nil)
+}
+
+// UnsetConfidenceScores ensures that no value is present for ConfidenceScores, not even an explicit nil
+func (o *OCRTextBlock) UnsetConfidenceScores() {
+	o.ConfidenceScores.Unset()
+}
+
 // GetType returns the Type field value if set, zero value otherwise.
 func (o *OCRTextBlock) GetType() string {
 	if o == nil || IsNil(o.Type) {
@@ -225,6 +269,9 @@ func (o OCRTextBlock) ToMap() (map[string]interface{}, error) {
 	toSerialize["bottom_right_x"] = o.BottomRightX
 	toSerialize["bottom_right_y"] = o.BottomRightY
 	toSerialize["content"] = o.Content
+	if o.ConfidenceScores.IsSet() {
+		toSerialize["confidence_scores"] = o.ConfidenceScores.Get()
+	}
 	if !IsNil(o.Type) {
 		toSerialize["type"] = o.Type
 	}

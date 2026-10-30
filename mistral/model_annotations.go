@@ -17,14 +17,12 @@ import (
 // checks if the Annotations type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &Annotations{}
 
-// Annotations struct for Annotations
+// Annotations Optional annotations the client can use to inform how objects are used or displayed.
 type Annotations struct {
 	Audience []string `json:"audience,omitempty"`
 	Priority NullableFloat32 `json:"priority,omitempty"`
-	AdditionalProperties map[string]interface{}
+	LastModified NullableString `json:"lastModified,omitempty"`
 }
-
-type _Annotations Annotations
 
 // NewAnnotations instantiates a new Annotations object
 // This constructor will assign default values to properties that have it defined,
@@ -118,6 +116,48 @@ func (o *Annotations) UnsetPriority() {
 	o.Priority.Unset()
 }
 
+// GetLastModified returns the LastModified field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *Annotations) GetLastModified() string {
+	if o == nil || IsNil(o.LastModified.Get()) {
+		var ret string
+		return ret
+	}
+	return *o.LastModified.Get()
+}
+
+// GetLastModifiedOk returns a tuple with the LastModified field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *Annotations) GetLastModifiedOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.LastModified.Get(), o.LastModified.IsSet()
+}
+
+// HasLastModified returns a boolean if a field has been set.
+func (o *Annotations) HasLastModified() bool {
+	if o != nil && o.LastModified.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetLastModified gets a reference to the given NullableString and assigns it to the LastModified field.
+func (o *Annotations) SetLastModified(v string) {
+	o.LastModified.Set(&v)
+}
+// SetLastModifiedNil sets the value for LastModified to be an explicit nil
+func (o *Annotations) SetLastModifiedNil() {
+	o.LastModified.Set(nil)
+}
+
+// UnsetLastModified ensures that no value is present for LastModified, not even an explicit nil
+func (o *Annotations) UnsetLastModified() {
+	o.LastModified.Unset()
+}
+
 func (o Annotations) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -134,34 +174,10 @@ func (o Annotations) ToMap() (map[string]interface{}, error) {
 	if o.Priority.IsSet() {
 		toSerialize["priority"] = o.Priority.Get()
 	}
-
-	for key, value := range o.AdditionalProperties {
-		toSerialize[key] = value
+	if o.LastModified.IsSet() {
+		toSerialize["lastModified"] = o.LastModified.Get()
 	}
-
 	return toSerialize, nil
-}
-
-func (o *Annotations) UnmarshalJSON(data []byte) (err error) {
-	varAnnotations := _Annotations{}
-
-	err = json.Unmarshal(data, &varAnnotations)
-
-	if err != nil {
-		return err
-	}
-
-	*o = Annotations(varAnnotations)
-
-	additionalProperties := make(map[string]interface{})
-
-	if err = json.Unmarshal(data, &additionalProperties); err == nil {
-		delete(additionalProperties, "audience")
-		delete(additionalProperties, "priority")
-		o.AdditionalProperties = additionalProperties
-	}
-
-	return err
 }
 
 type NullableAnnotations struct {

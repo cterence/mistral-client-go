@@ -13,13 +13,13 @@ Name | Type | Description | Notes
 **Icons** | Pointer to [**[]MCPServerIcon**](MCPServerIcon.md) |  | [optional] 
 **Annotations** | Pointer to [**NullableAnnotations**](Annotations.md) |  | [optional] 
 **Meta** | Pointer to **map[string]interface{}** |  | [optional] 
-**Type** | **string** |  | 
+**Type** | Pointer to **string** |  | [optional] [default to "resource_link"]
 
 ## Methods
 
 ### NewResourceLink
 
-`func NewResourceLink(name string, uri string, type_ string, ) *ResourceLink`
+`func NewResourceLink(name string, uri string, ) *ResourceLink`
 
 NewResourceLink instantiates a new ResourceLink object
 This constructor will assign default values to properties that have it defined,
@@ -338,6 +338,11 @@ and a boolean to check if the value has been set.
 
 SetType sets Type field to given value.
 
+### HasType
+
+`func (o *ResourceLink) HasType() bool`
+
+HasType returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

@@ -12,7 +12,6 @@ package mistral
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -23,6 +22,7 @@ var _ MappedNullable = &SpeechResponse{}
 type SpeechResponse struct {
 	// Base64 encoded audio data
 	AudioData string `json:"audio_data"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _SpeechResponse SpeechResponse
@@ -80,6 +80,11 @@ func (o SpeechResponse) MarshalJSON() ([]byte, error) {
 func (o SpeechResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["audio_data"] = o.AudioData
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -107,14 +112,20 @@ func (o *SpeechResponse) UnmarshalJSON(data []byte) (err error) {
 
 	varSpeechResponse := _SpeechResponse{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	err = decoder.Decode(&varSpeechResponse)
+	err = json.Unmarshal(data, &varSpeechResponse)
 
 	if err != nil {
 		return err
 	}
 
 	*o = SpeechResponse(varSpeechResponse)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "audio_data")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

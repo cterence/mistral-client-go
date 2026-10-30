@@ -12,18 +12,19 @@ package mistral
 
 import (
 	"encoding/json"
+	"bytes"
 	"fmt"
 )
 
 // checks if the MCPServerIcon type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &MCPServerIcon{}
 
-// MCPServerIcon An icon for display in user interfaces.
+// MCPServerIcon An optionally-sized icon for display in a user interface (2025-11-25+).
 type MCPServerIcon struct {
 	Src string `json:"src"`
 	MimeType NullableString `json:"mimeType,omitempty"`
 	Sizes []string `json:"sizes,omitempty"`
-	AdditionalProperties map[string]interface{}
+	Theme NullableString `json:"theme,omitempty"`
 }
 
 type _MCPServerIcon MCPServerIcon
@@ -145,6 +146,48 @@ func (o *MCPServerIcon) SetSizes(v []string) {
 	o.Sizes = v
 }
 
+// GetTheme returns the Theme field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *MCPServerIcon) GetTheme() string {
+	if o == nil || IsNil(o.Theme.Get()) {
+		var ret string
+		return ret
+	}
+	return *o.Theme.Get()
+}
+
+// GetThemeOk returns a tuple with the Theme field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *MCPServerIcon) GetThemeOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.Theme.Get(), o.Theme.IsSet()
+}
+
+// HasTheme returns a boolean if a field has been set.
+func (o *MCPServerIcon) HasTheme() bool {
+	if o != nil && o.Theme.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetTheme gets a reference to the given NullableString and assigns it to the Theme field.
+func (o *MCPServerIcon) SetTheme(v string) {
+	o.Theme.Set(&v)
+}
+// SetThemeNil sets the value for Theme to be an explicit nil
+func (o *MCPServerIcon) SetThemeNil() {
+	o.Theme.Set(nil)
+}
+
+// UnsetTheme ensures that no value is present for Theme, not even an explicit nil
+func (o *MCPServerIcon) UnsetTheme() {
+	o.Theme.Unset()
+}
+
 func (o MCPServerIcon) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -162,11 +205,9 @@ func (o MCPServerIcon) ToMap() (map[string]interface{}, error) {
 	if o.Sizes != nil {
 		toSerialize["sizes"] = o.Sizes
 	}
-
-	for key, value := range o.AdditionalProperties {
-		toSerialize[key] = value
+	if o.Theme.IsSet() {
+		toSerialize["theme"] = o.Theme.Get()
 	}
-
 	return toSerialize, nil
 }
 
@@ -194,22 +235,14 @@ func (o *MCPServerIcon) UnmarshalJSON(data []byte) (err error) {
 
 	varMCPServerIcon := _MCPServerIcon{}
 
-	err = json.Unmarshal(data, &varMCPServerIcon)
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	err = decoder.Decode(&varMCPServerIcon)
 
 	if err != nil {
 		return err
 	}
 
 	*o = MCPServerIcon(varMCPServerIcon)
-
-	additionalProperties := make(map[string]interface{})
-
-	if err = json.Unmarshal(data, &additionalProperties); err == nil {
-		delete(additionalProperties, "src")
-		delete(additionalProperties, "mimeType")
-		delete(additionalProperties, "sizes")
-		o.AdditionalProperties = additionalProperties
-	}
 
 	return err
 }

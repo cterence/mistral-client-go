@@ -19,12 +19,14 @@ import (
 // checks if the JSONPatchPayloadResponse type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &JSONPatchPayloadResponse{}
 
-// JSONPatchPayloadResponse A payload containing a list of JSON Patch operations.  Used for streaming incremental updates to workflow state.
+// JSONPatchPayloadResponse A payload containing a list of JSON Patch operations.  Used for streaming incremental updates to workflow state. When encrypted, the value field contains base64-encoded encrypted data and encoding_options indicates the type of encryption applied.
 type JSONPatchPayloadResponse struct {
 	// Discriminator indicating this is a JSON Patch payload.
 	Type string `json:"type"`
-	// The list of JSON Patch operations to apply in order.
-	Value []ValueInner `json:"value"`
+	// The list of JSON Patch operations. When encrypted, contains base64-encoded data.
+	Value JSONPatchPayloadValueResponse `json:"value"`
+	// Encoding options applied to the payload.
+	EncodingOptions []EncodedPayloadOptions `json:"encoding_options,omitempty"`
 }
 
 type _JSONPatchPayloadResponse JSONPatchPayloadResponse
@@ -33,7 +35,7 @@ type _JSONPatchPayloadResponse JSONPatchPayloadResponse
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewJSONPatchPayloadResponse(type_ string, value []ValueInner) *JSONPatchPayloadResponse {
+func NewJSONPatchPayloadResponse(type_ string, value JSONPatchPayloadValueResponse) *JSONPatchPayloadResponse {
 	this := JSONPatchPayloadResponse{}
 	this.Type = type_
 	this.Value = value
@@ -75,9 +77,9 @@ func (o *JSONPatchPayloadResponse) SetType(v string) {
 }
 
 // GetValue returns the Value field value
-func (o *JSONPatchPayloadResponse) GetValue() []ValueInner {
+func (o *JSONPatchPayloadResponse) GetValue() JSONPatchPayloadValueResponse {
 	if o == nil {
-		var ret []ValueInner
+		var ret JSONPatchPayloadValueResponse
 		return ret
 	}
 
@@ -86,16 +88,49 @@ func (o *JSONPatchPayloadResponse) GetValue() []ValueInner {
 
 // GetValueOk returns a tuple with the Value field value
 // and a boolean to check if the value has been set.
-func (o *JSONPatchPayloadResponse) GetValueOk() ([]ValueInner, bool) {
+func (o *JSONPatchPayloadResponse) GetValueOk() (*JSONPatchPayloadValueResponse, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return o.Value, true
+	return &o.Value, true
 }
 
 // SetValue sets field value
-func (o *JSONPatchPayloadResponse) SetValue(v []ValueInner) {
+func (o *JSONPatchPayloadResponse) SetValue(v JSONPatchPayloadValueResponse) {
 	o.Value = v
+}
+
+// GetEncodingOptions returns the EncodingOptions field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *JSONPatchPayloadResponse) GetEncodingOptions() []EncodedPayloadOptions {
+	if o == nil {
+		var ret []EncodedPayloadOptions
+		return ret
+	}
+	return o.EncodingOptions
+}
+
+// GetEncodingOptionsOk returns a tuple with the EncodingOptions field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *JSONPatchPayloadResponse) GetEncodingOptionsOk() ([]EncodedPayloadOptions, bool) {
+	if o == nil || IsNil(o.EncodingOptions) {
+		return nil, false
+	}
+	return o.EncodingOptions, true
+}
+
+// HasEncodingOptions returns a boolean if a field has been set.
+func (o *JSONPatchPayloadResponse) HasEncodingOptions() bool {
+	if o != nil && !IsNil(o.EncodingOptions) {
+		return true
+	}
+
+	return false
+}
+
+// SetEncodingOptions gets a reference to the given []EncodedPayloadOptions and assigns it to the EncodingOptions field.
+func (o *JSONPatchPayloadResponse) SetEncodingOptions(v []EncodedPayloadOptions) {
+	o.EncodingOptions = v
 }
 
 func (o JSONPatchPayloadResponse) MarshalJSON() ([]byte, error) {
@@ -110,6 +145,9 @@ func (o JSONPatchPayloadResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["type"] = o.Type
 	toSerialize["value"] = o.Value
+	if o.EncodingOptions != nil {
+		toSerialize["encoding_options"] = o.EncodingOptions
+	}
 	return toSerialize, nil
 }
 

@@ -21,15 +21,18 @@ var _ MappedNullable = &WorkflowExecutionRequest{}
 type WorkflowExecutionRequest struct {
 	// Allows you to specify a custom execution ID. If not provided, a random ID will be generated.
 	ExecutionId NullableString `json:"execution_id,omitempty"`
-	// Output JSON schema of the query's model
-	Input map[string]interface{} `json:"input,omitempty"`
-	// Encoded input to the workflow, used when payload encoding is enabled.
-	EncodedInput NullableNetworkEncodedInput `json:"encoded_input,omitempty"`
+	Input NullableInput5 `json:"input,omitempty"`
 	// If true, wait for the workflow to complete and return the result directly.
 	WaitForResult *bool `json:"wait_for_result,omitempty"`
 	// Maximum time to wait for completion when wait_for_result is true.
 	TimeoutSeconds NullableFloat32 `json:"timeout_seconds,omitempty"`
 	CustomTracingAttributes map[string]string `json:"custom_tracing_attributes,omitempty"`
+	// If true, ignore the caller's trace context and start a new, independent trace for this execution instead of joining the caller's trace.
+	ForceNewTrace *bool `json:"force_new_trace,omitempty"`
+	// W3C trace context to join this execution to the caller's trace. Ignored when force_new_trace is set.
+	Traceparent NullableString `json:"traceparent,omitempty"`
+	// Output JSON schema of the query's model
+	Extensions map[string]interface{} `json:"extensions,omitempty"`
 	// Deprecated. Use deployment_name instead.
 	TaskQueue NullableString `json:"task_queue,omitempty"`
 	// Name of the deployment to route this execution to
@@ -44,6 +47,8 @@ func NewWorkflowExecutionRequest() *WorkflowExecutionRequest {
 	this := WorkflowExecutionRequest{}
 	var waitForResult bool = false
 	this.WaitForResult = &waitForResult
+	var forceNewTrace bool = false
+	this.ForceNewTrace = &forceNewTrace
 	return &this
 }
 
@@ -54,6 +59,8 @@ func NewWorkflowExecutionRequestWithDefaults() *WorkflowExecutionRequest {
 	this := WorkflowExecutionRequest{}
 	var waitForResult bool = false
 	this.WaitForResult = &waitForResult
+	var forceNewTrace bool = false
+	this.ForceNewTrace = &forceNewTrace
 	return &this
 }
 
@@ -100,78 +107,45 @@ func (o *WorkflowExecutionRequest) UnsetExecutionId() {
 }
 
 // GetInput returns the Input field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *WorkflowExecutionRequest) GetInput() map[string]interface{} {
-	if o == nil {
-		var ret map[string]interface{}
+func (o *WorkflowExecutionRequest) GetInput() Input5 {
+	if o == nil || IsNil(o.Input.Get()) {
+		var ret Input5
 		return ret
 	}
-	return o.Input
+	return *o.Input.Get()
 }
 
 // GetInputOk returns a tuple with the Input field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *WorkflowExecutionRequest) GetInputOk() (map[string]interface{}, bool) {
-	if o == nil || IsNil(o.Input) {
-		return map[string]interface{}{}, false
+func (o *WorkflowExecutionRequest) GetInputOk() (*Input5, bool) {
+	if o == nil {
+		return nil, false
 	}
-	return o.Input, true
+	return o.Input.Get(), o.Input.IsSet()
 }
 
 // HasInput returns a boolean if a field has been set.
 func (o *WorkflowExecutionRequest) HasInput() bool {
-	if o != nil && !IsNil(o.Input) {
+	if o != nil && o.Input.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetInput gets a reference to the given map[string]interface{} and assigns it to the Input field.
-func (o *WorkflowExecutionRequest) SetInput(v map[string]interface{}) {
-	o.Input = v
+// SetInput gets a reference to the given NullableInput5 and assigns it to the Input field.
+func (o *WorkflowExecutionRequest) SetInput(v Input5) {
+	o.Input.Set(&v)
+}
+// SetInputNil sets the value for Input to be an explicit nil
+func (o *WorkflowExecutionRequest) SetInputNil() {
+	o.Input.Set(nil)
 }
 
-// GetEncodedInput returns the EncodedInput field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *WorkflowExecutionRequest) GetEncodedInput() NetworkEncodedInput {
-	if o == nil || IsNil(o.EncodedInput.Get()) {
-		var ret NetworkEncodedInput
-		return ret
-	}
-	return *o.EncodedInput.Get()
-}
-
-// GetEncodedInputOk returns a tuple with the EncodedInput field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *WorkflowExecutionRequest) GetEncodedInputOk() (*NetworkEncodedInput, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return o.EncodedInput.Get(), o.EncodedInput.IsSet()
-}
-
-// HasEncodedInput returns a boolean if a field has been set.
-func (o *WorkflowExecutionRequest) HasEncodedInput() bool {
-	if o != nil && o.EncodedInput.IsSet() {
-		return true
-	}
-
-	return false
-}
-
-// SetEncodedInput gets a reference to the given NullableNetworkEncodedInput and assigns it to the EncodedInput field.
-func (o *WorkflowExecutionRequest) SetEncodedInput(v NetworkEncodedInput) {
-	o.EncodedInput.Set(&v)
-}
-// SetEncodedInputNil sets the value for EncodedInput to be an explicit nil
-func (o *WorkflowExecutionRequest) SetEncodedInputNil() {
-	o.EncodedInput.Set(nil)
-}
-
-// UnsetEncodedInput ensures that no value is present for EncodedInput, not even an explicit nil
-func (o *WorkflowExecutionRequest) UnsetEncodedInput() {
-	o.EncodedInput.Unset()
+// UnsetInput ensures that no value is present for Input, not even an explicit nil
+func (o *WorkflowExecutionRequest) UnsetInput() {
+	o.Input.Unset()
 }
 
 // GetWaitForResult returns the WaitForResult field value if set, zero value otherwise.
@@ -281,6 +255,113 @@ func (o *WorkflowExecutionRequest) SetCustomTracingAttributes(v map[string]strin
 	o.CustomTracingAttributes = v
 }
 
+// GetForceNewTrace returns the ForceNewTrace field value if set, zero value otherwise.
+func (o *WorkflowExecutionRequest) GetForceNewTrace() bool {
+	if o == nil || IsNil(o.ForceNewTrace) {
+		var ret bool
+		return ret
+	}
+	return *o.ForceNewTrace
+}
+
+// GetForceNewTraceOk returns a tuple with the ForceNewTrace field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *WorkflowExecutionRequest) GetForceNewTraceOk() (*bool, bool) {
+	if o == nil || IsNil(o.ForceNewTrace) {
+		return nil, false
+	}
+	return o.ForceNewTrace, true
+}
+
+// HasForceNewTrace returns a boolean if a field has been set.
+func (o *WorkflowExecutionRequest) HasForceNewTrace() bool {
+	if o != nil && !IsNil(o.ForceNewTrace) {
+		return true
+	}
+
+	return false
+}
+
+// SetForceNewTrace gets a reference to the given bool and assigns it to the ForceNewTrace field.
+func (o *WorkflowExecutionRequest) SetForceNewTrace(v bool) {
+	o.ForceNewTrace = &v
+}
+
+// GetTraceparent returns the Traceparent field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *WorkflowExecutionRequest) GetTraceparent() string {
+	if o == nil || IsNil(o.Traceparent.Get()) {
+		var ret string
+		return ret
+	}
+	return *o.Traceparent.Get()
+}
+
+// GetTraceparentOk returns a tuple with the Traceparent field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *WorkflowExecutionRequest) GetTraceparentOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.Traceparent.Get(), o.Traceparent.IsSet()
+}
+
+// HasTraceparent returns a boolean if a field has been set.
+func (o *WorkflowExecutionRequest) HasTraceparent() bool {
+	if o != nil && o.Traceparent.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetTraceparent gets a reference to the given NullableString and assigns it to the Traceparent field.
+func (o *WorkflowExecutionRequest) SetTraceparent(v string) {
+	o.Traceparent.Set(&v)
+}
+// SetTraceparentNil sets the value for Traceparent to be an explicit nil
+func (o *WorkflowExecutionRequest) SetTraceparentNil() {
+	o.Traceparent.Set(nil)
+}
+
+// UnsetTraceparent ensures that no value is present for Traceparent, not even an explicit nil
+func (o *WorkflowExecutionRequest) UnsetTraceparent() {
+	o.Traceparent.Unset()
+}
+
+// GetExtensions returns the Extensions field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *WorkflowExecutionRequest) GetExtensions() map[string]interface{} {
+	if o == nil {
+		var ret map[string]interface{}
+		return ret
+	}
+	return o.Extensions
+}
+
+// GetExtensionsOk returns a tuple with the Extensions field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *WorkflowExecutionRequest) GetExtensionsOk() (map[string]interface{}, bool) {
+	if o == nil || IsNil(o.Extensions) {
+		return map[string]interface{}{}, false
+	}
+	return o.Extensions, true
+}
+
+// HasExtensions returns a boolean if a field has been set.
+func (o *WorkflowExecutionRequest) HasExtensions() bool {
+	if o != nil && !IsNil(o.Extensions) {
+		return true
+	}
+
+	return false
+}
+
+// SetExtensions gets a reference to the given map[string]interface{} and assigns it to the Extensions field.
+func (o *WorkflowExecutionRequest) SetExtensions(v map[string]interface{}) {
+	o.Extensions = v
+}
+
 // GetTaskQueue returns the TaskQueue field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *WorkflowExecutionRequest) GetTaskQueue() string {
 	if o == nil || IsNil(o.TaskQueue.Get()) {
@@ -378,11 +459,8 @@ func (o WorkflowExecutionRequest) ToMap() (map[string]interface{}, error) {
 	if o.ExecutionId.IsSet() {
 		toSerialize["execution_id"] = o.ExecutionId.Get()
 	}
-	if o.Input != nil {
-		toSerialize["input"] = o.Input
-	}
-	if o.EncodedInput.IsSet() {
-		toSerialize["encoded_input"] = o.EncodedInput.Get()
+	if o.Input.IsSet() {
+		toSerialize["input"] = o.Input.Get()
 	}
 	if !IsNil(o.WaitForResult) {
 		toSerialize["wait_for_result"] = o.WaitForResult
@@ -392,6 +470,15 @@ func (o WorkflowExecutionRequest) ToMap() (map[string]interface{}, error) {
 	}
 	if o.CustomTracingAttributes != nil {
 		toSerialize["custom_tracing_attributes"] = o.CustomTracingAttributes
+	}
+	if !IsNil(o.ForceNewTrace) {
+		toSerialize["force_new_trace"] = o.ForceNewTrace
+	}
+	if o.Traceparent.IsSet() {
+		toSerialize["traceparent"] = o.Traceparent.Get()
+	}
+	if o.Extensions != nil {
+		toSerialize["extensions"] = o.Extensions
 	}
 	if o.TaskQueue.IsSet() {
 		toSerialize["task_queue"] = o.TaskQueue.Get()

@@ -17,6 +17,8 @@ Method | HTTP request | Description
 
 Chat Classifications
 
+
+
 ### Example
 
 ```go
@@ -80,6 +82,8 @@ Name | Type | Description  | Notes
 > ModerationResponse ChatModerationsV1ChatModerationsPost(ctx).ChatModerationRequest(chatModerationRequest).Execute()
 
 Chat Moderations
+
+
 
 ### Example
 
@@ -145,6 +149,8 @@ Name | Type | Description  | Notes
 
 Classifications
 
+
+
 ### Example
 
 ```go
@@ -208,6 +214,8 @@ Name | Type | Description  | Notes
 > ModerationResponse ModerationsV1ModerationsPost(ctx).ClassificationRequest(classificationRequest).Execute()
 
 Moderations
+
+
 
 ### Example
 

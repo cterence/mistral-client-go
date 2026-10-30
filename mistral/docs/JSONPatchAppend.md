@@ -5,14 +5,14 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Path** | **string** | A JSON Pointer (RFC 6901) identifying the target location within the document. Can be a string path (e.g., &#39;/foo/bar&#39;), &#39;/&#39;, &#39;&#39;, or an empty list [] for root-level operations. | 
-**Value** | **string** | The value to use for the operation. A string to append to the existing value | 
+**Value** | [**Value2**](Value2.md) |  | 
 **Op** | **string** | &#39;append&#39; is an extension for efficient string concatenation in streaming scenarios. | 
 
 ## Methods
 
 ### NewJSONPatchAppend
 
-`func NewJSONPatchAppend(path string, value string, op string, ) *JSONPatchAppend`
+`func NewJSONPatchAppend(path string, value Value2, op string, ) *JSONPatchAppend`
 
 NewJSONPatchAppend instantiates a new JSONPatchAppend object
 This constructor will assign default values to properties that have it defined,
@@ -49,20 +49,20 @@ SetPath sets Path field to given value.
 
 ### GetValue
 
-`func (o *JSONPatchAppend) GetValue() string`
+`func (o *JSONPatchAppend) GetValue() Value2`
 
 GetValue returns the Value field if non-nil, zero value otherwise.
 
 ### GetValueOk
 
-`func (o *JSONPatchAppend) GetValueOk() (*string, bool)`
+`func (o *JSONPatchAppend) GetValueOk() (*Value2, bool)`
 
 GetValueOk returns a tuple with the Value field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetValue
 
-`func (o *JSONPatchAppend) SetValue(v string)`
+`func (o *JSONPatchAppend) SetValue(v Value2)`
 
 SetValue sets Value field to given value.
 

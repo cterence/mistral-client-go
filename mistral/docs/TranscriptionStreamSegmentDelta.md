@@ -6,15 +6,15 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Type** | Pointer to **string** |  | [optional] [default to "transcription.segment"]
 **Text** | **string** |  | 
-**Start** | **float32** |  | 
-**End** | **float32** |  | 
+**Start** | **NullableFloat32** |  | 
+**End** | **NullableFloat32** |  | 
 **SpeakerId** | Pointer to **NullableString** |  | [optional] 
 
 ## Methods
 
 ### NewTranscriptionStreamSegmentDelta
 
-`func NewTranscriptionStreamSegmentDelta(text string, start float32, end float32, ) *TranscriptionStreamSegmentDelta`
+`func NewTranscriptionStreamSegmentDelta(text string, start NullableFloat32, end NullableFloat32, ) *TranscriptionStreamSegmentDelta`
 
 NewTranscriptionStreamSegmentDelta instantiates a new TranscriptionStreamSegmentDelta object
 This constructor will assign default values to properties that have it defined,
@@ -94,6 +94,16 @@ and a boolean to check if the value has been set.
 SetStart sets Start field to given value.
 
 
+### SetStartNil
+
+`func (o *TranscriptionStreamSegmentDelta) SetStartNil(b bool)`
+
+ SetStartNil sets the value for Start to be an explicit nil
+
+### UnsetStart
+`func (o *TranscriptionStreamSegmentDelta) UnsetStart()`
+
+UnsetStart ensures that no value is present for Start, not even an explicit nil
 ### GetEnd
 
 `func (o *TranscriptionStreamSegmentDelta) GetEnd() float32`
@@ -114,6 +124,16 @@ and a boolean to check if the value has been set.
 SetEnd sets End field to given value.
 
 
+### SetEndNil
+
+`func (o *TranscriptionStreamSegmentDelta) SetEndNil(b bool)`
+
+ SetEndNil sets the value for End to be an explicit nil
+
+### UnsetEnd
+`func (o *TranscriptionStreamSegmentDelta) UnsetEnd()`
+
+UnsetEnd ensures that no value is present for End, not even an explicit nil
 ### GetSpeakerId
 
 `func (o *TranscriptionStreamSegmentDelta) GetSpeakerId() string`

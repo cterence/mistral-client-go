@@ -8,6 +8,10 @@ Name | Type | Description | Notes
 **EventTimestamp** | **int32** | Unix timestamp in nanoseconds when the event was created. | 
 **RootWorkflowExecId** | **string** | Execution ID of the root workflow that initiated this execution chain. | 
 **ParentWorkflowExecId** | **NullableString** | Execution ID of the parent workflow that initiated this execution. If this is a root workflow, this field is not set. | 
+**ContinuedRunId** | Pointer to **NullableString** | Run ID of the execution this run continued from. Non-null for continue-as-new runs. | [optional] 
+**FirstExecutionRunId** | Pointer to **NullableString** | Run ID of the first execution in this workflow chain. Equals workflow_run_id on a fresh start. Continue-as-new, retry and reset runs keep the original value. | [optional] 
+**ChainRunId** | Pointer to **NullableString** | Identifies one start of an execution. Shared by its continue-as-new, retry and reset runs, and by every sub-workflow below it. Starting the same execution ID again gives a new value. | [optional] 
+**ScheduleId** | Pointer to **NullableString** | Temporal schedule ID that triggered this execution, if any. | [optional] 
 **WorkflowExecId** | **string** | Execution ID of the workflow that emitted this event. | 
 **WorkflowRunId** | **string** | Run ID of the workflow execution. Changes on continue-as-new while workflow_exec_id stays the same. | 
 **WorkflowName** | **string** | The registered name of the workflow that emitted this event. | 
@@ -123,6 +127,146 @@ SetParentWorkflowExecId sets ParentWorkflowExecId field to given value.
 `func (o *WorkflowTaskFailedResponse) UnsetParentWorkflowExecId()`
 
 UnsetParentWorkflowExecId ensures that no value is present for ParentWorkflowExecId, not even an explicit nil
+### GetContinuedRunId
+
+`func (o *WorkflowTaskFailedResponse) GetContinuedRunId() string`
+
+GetContinuedRunId returns the ContinuedRunId field if non-nil, zero value otherwise.
+
+### GetContinuedRunIdOk
+
+`func (o *WorkflowTaskFailedResponse) GetContinuedRunIdOk() (*string, bool)`
+
+GetContinuedRunIdOk returns a tuple with the ContinuedRunId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetContinuedRunId
+
+`func (o *WorkflowTaskFailedResponse) SetContinuedRunId(v string)`
+
+SetContinuedRunId sets ContinuedRunId field to given value.
+
+### HasContinuedRunId
+
+`func (o *WorkflowTaskFailedResponse) HasContinuedRunId() bool`
+
+HasContinuedRunId returns a boolean if a field has been set.
+
+### SetContinuedRunIdNil
+
+`func (o *WorkflowTaskFailedResponse) SetContinuedRunIdNil(b bool)`
+
+ SetContinuedRunIdNil sets the value for ContinuedRunId to be an explicit nil
+
+### UnsetContinuedRunId
+`func (o *WorkflowTaskFailedResponse) UnsetContinuedRunId()`
+
+UnsetContinuedRunId ensures that no value is present for ContinuedRunId, not even an explicit nil
+### GetFirstExecutionRunId
+
+`func (o *WorkflowTaskFailedResponse) GetFirstExecutionRunId() string`
+
+GetFirstExecutionRunId returns the FirstExecutionRunId field if non-nil, zero value otherwise.
+
+### GetFirstExecutionRunIdOk
+
+`func (o *WorkflowTaskFailedResponse) GetFirstExecutionRunIdOk() (*string, bool)`
+
+GetFirstExecutionRunIdOk returns a tuple with the FirstExecutionRunId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetFirstExecutionRunId
+
+`func (o *WorkflowTaskFailedResponse) SetFirstExecutionRunId(v string)`
+
+SetFirstExecutionRunId sets FirstExecutionRunId field to given value.
+
+### HasFirstExecutionRunId
+
+`func (o *WorkflowTaskFailedResponse) HasFirstExecutionRunId() bool`
+
+HasFirstExecutionRunId returns a boolean if a field has been set.
+
+### SetFirstExecutionRunIdNil
+
+`func (o *WorkflowTaskFailedResponse) SetFirstExecutionRunIdNil(b bool)`
+
+ SetFirstExecutionRunIdNil sets the value for FirstExecutionRunId to be an explicit nil
+
+### UnsetFirstExecutionRunId
+`func (o *WorkflowTaskFailedResponse) UnsetFirstExecutionRunId()`
+
+UnsetFirstExecutionRunId ensures that no value is present for FirstExecutionRunId, not even an explicit nil
+### GetChainRunId
+
+`func (o *WorkflowTaskFailedResponse) GetChainRunId() string`
+
+GetChainRunId returns the ChainRunId field if non-nil, zero value otherwise.
+
+### GetChainRunIdOk
+
+`func (o *WorkflowTaskFailedResponse) GetChainRunIdOk() (*string, bool)`
+
+GetChainRunIdOk returns a tuple with the ChainRunId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetChainRunId
+
+`func (o *WorkflowTaskFailedResponse) SetChainRunId(v string)`
+
+SetChainRunId sets ChainRunId field to given value.
+
+### HasChainRunId
+
+`func (o *WorkflowTaskFailedResponse) HasChainRunId() bool`
+
+HasChainRunId returns a boolean if a field has been set.
+
+### SetChainRunIdNil
+
+`func (o *WorkflowTaskFailedResponse) SetChainRunIdNil(b bool)`
+
+ SetChainRunIdNil sets the value for ChainRunId to be an explicit nil
+
+### UnsetChainRunId
+`func (o *WorkflowTaskFailedResponse) UnsetChainRunId()`
+
+UnsetChainRunId ensures that no value is present for ChainRunId, not even an explicit nil
+### GetScheduleId
+
+`func (o *WorkflowTaskFailedResponse) GetScheduleId() string`
+
+GetScheduleId returns the ScheduleId field if non-nil, zero value otherwise.
+
+### GetScheduleIdOk
+
+`func (o *WorkflowTaskFailedResponse) GetScheduleIdOk() (*string, bool)`
+
+GetScheduleIdOk returns a tuple with the ScheduleId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetScheduleId
+
+`func (o *WorkflowTaskFailedResponse) SetScheduleId(v string)`
+
+SetScheduleId sets ScheduleId field to given value.
+
+### HasScheduleId
+
+`func (o *WorkflowTaskFailedResponse) HasScheduleId() bool`
+
+HasScheduleId returns a boolean if a field has been set.
+
+### SetScheduleIdNil
+
+`func (o *WorkflowTaskFailedResponse) SetScheduleIdNil(b bool)`
+
+ SetScheduleIdNil sets the value for ScheduleId to be an explicit nil
+
+### UnsetScheduleId
+`func (o *WorkflowTaskFailedResponse) UnsetScheduleId()`
+
+UnsetScheduleId ensures that no value is present for ScheduleId, not even an explicit nil
 ### GetWorkflowExecId
 
 `func (o *WorkflowTaskFailedResponse) GetWorkflowExecId() string`

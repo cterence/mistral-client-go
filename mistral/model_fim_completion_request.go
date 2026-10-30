@@ -12,7 +12,6 @@ package mistral
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -26,23 +25,23 @@ type FIMCompletionRequest struct {
 	// What sampling temperature to use, we recommend between 0.0 and 0.7. Higher values like 0.7 will make the output more random, while lower values like 0.2 will make it more focused and deterministic. We generally recommend altering this or `top_p` but not both. The default value varies depending on the model you are targeting. Call the `/models` endpoint to retrieve the appropriate value.
 	Temperature NullableFloat32 `json:"temperature,omitempty"`
 	// Nucleus sampling, where the model considers the results of the tokens with `top_p` probability mass. So 0.1 means only the tokens comprising the top 10% probability mass are considered. We generally recommend altering this or `temperature` but not both.
-	TopP *float32 `json:"top_p,omitempty"`
+	TopP NullableFloat32 `json:"top_p,omitempty"`
 	// The maximum number of tokens to generate in the completion. The token count of your prompt plus `max_tokens` cannot exceed the model's context length.
 	MaxTokens NullableInt32 `json:"max_tokens,omitempty"`
 	// Whether to stream back partial progress. If set, tokens will be sent as data-only server-side events as they become available, with the stream terminated by a data: [DONE] message. Otherwise, the server will hold the request open until the timeout or until completion, with the response containing the full result as JSON.
 	Stream *bool `json:"stream,omitempty"`
-	Stop *Stop `json:"stop,omitempty"`
+	Stop NullableStop `json:"stop,omitempty"`
 	// The seed to use for random sampling. If set, different calls will generate deterministic results.
 	RandomSeed NullableInt32 `json:"random_seed,omitempty"`
 	Metadata map[string]interface{} `json:"metadata,omitempty"`
 	// The text/code to complete.
 	Prompt string `json:"prompt"`
-	// Optional text/code that adds more context for the model. When given a `prompt` and a `suffix` the model will fill what is between them. When `suffix` is not provided, the model will simply execute completion starting with `prompt`.
+	// Filter by agent name
 	Suffix NullableString `json:"suffix,omitempty"`
 	// The minimum number of tokens to generate in the completion.
 	MinTokens NullableInt32 `json:"min_tokens,omitempty"`
-	// A cache key to enable prompt caching. When provided, the API will attempt to reuse previously computed tokens for requests sharing the same prefix (e.g. multi-turn conversations or requests with a similar system prompt). Cached tokens are billed at 10% of the standard input token price.
 	PromptCacheKey NullableString `json:"prompt_cache_key,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _FIMCompletionRequest FIMCompletionRequest
@@ -54,8 +53,6 @@ type _FIMCompletionRequest FIMCompletionRequest
 func NewFIMCompletionRequest(model string, prompt string) *FIMCompletionRequest {
 	this := FIMCompletionRequest{}
 	this.Model = model
-	var topP float32 = 1.0
-	this.TopP = &topP
 	var stream bool = false
 	this.Stream = &stream
 	this.Prompt = prompt
@@ -69,8 +66,6 @@ func NewFIMCompletionRequestWithDefaults() *FIMCompletionRequest {
 	this := FIMCompletionRequest{}
 	var model string = "codestral-2404"
 	this.Model = model
-	var topP float32 = 1.0
-	this.TopP = &topP
 	var stream bool = false
 	this.Stream = &stream
 	return &this
@@ -142,36 +137,46 @@ func (o *FIMCompletionRequest) UnsetTemperature() {
 	o.Temperature.Unset()
 }
 
-// GetTopP returns the TopP field value if set, zero value otherwise.
+// GetTopP returns the TopP field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *FIMCompletionRequest) GetTopP() float32 {
-	if o == nil || IsNil(o.TopP) {
+	if o == nil || IsNil(o.TopP.Get()) {
 		var ret float32
 		return ret
 	}
-	return *o.TopP
+	return *o.TopP.Get()
 }
 
 // GetTopPOk returns a tuple with the TopP field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *FIMCompletionRequest) GetTopPOk() (*float32, bool) {
-	if o == nil || IsNil(o.TopP) {
+	if o == nil {
 		return nil, false
 	}
-	return o.TopP, true
+	return o.TopP.Get(), o.TopP.IsSet()
 }
 
 // HasTopP returns a boolean if a field has been set.
 func (o *FIMCompletionRequest) HasTopP() bool {
-	if o != nil && !IsNil(o.TopP) {
+	if o != nil && o.TopP.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetTopP gets a reference to the given float32 and assigns it to the TopP field.
+// SetTopP gets a reference to the given NullableFloat32 and assigns it to the TopP field.
 func (o *FIMCompletionRequest) SetTopP(v float32) {
-	o.TopP = &v
+	o.TopP.Set(&v)
+}
+// SetTopPNil sets the value for TopP to be an explicit nil
+func (o *FIMCompletionRequest) SetTopPNil() {
+	o.TopP.Set(nil)
+}
+
+// UnsetTopP ensures that no value is present for TopP, not even an explicit nil
+func (o *FIMCompletionRequest) UnsetTopP() {
+	o.TopP.Unset()
 }
 
 // GetMaxTokens returns the MaxTokens field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -248,36 +253,46 @@ func (o *FIMCompletionRequest) SetStream(v bool) {
 	o.Stream = &v
 }
 
-// GetStop returns the Stop field value if set, zero value otherwise.
+// GetStop returns the Stop field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *FIMCompletionRequest) GetStop() Stop {
-	if o == nil || IsNil(o.Stop) {
+	if o == nil || IsNil(o.Stop.Get()) {
 		var ret Stop
 		return ret
 	}
-	return *o.Stop
+	return *o.Stop.Get()
 }
 
 // GetStopOk returns a tuple with the Stop field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *FIMCompletionRequest) GetStopOk() (*Stop, bool) {
-	if o == nil || IsNil(o.Stop) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Stop, true
+	return o.Stop.Get(), o.Stop.IsSet()
 }
 
 // HasStop returns a boolean if a field has been set.
 func (o *FIMCompletionRequest) HasStop() bool {
-	if o != nil && !IsNil(o.Stop) {
+	if o != nil && o.Stop.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetStop gets a reference to the given Stop and assigns it to the Stop field.
+// SetStop gets a reference to the given NullableStop and assigns it to the Stop field.
 func (o *FIMCompletionRequest) SetStop(v Stop) {
-	o.Stop = &v
+	o.Stop.Set(&v)
+}
+// SetStopNil sets the value for Stop to be an explicit nil
+func (o *FIMCompletionRequest) SetStopNil() {
+	o.Stop.Set(nil)
+}
+
+// UnsetStop ensures that no value is present for Stop, not even an explicit nil
+func (o *FIMCompletionRequest) UnsetStop() {
+	o.Stop.Unset()
 }
 
 // GetRandomSeed returns the RandomSeed field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -519,8 +534,8 @@ func (o FIMCompletionRequest) ToMap() (map[string]interface{}, error) {
 	if o.Temperature.IsSet() {
 		toSerialize["temperature"] = o.Temperature.Get()
 	}
-	if !IsNil(o.TopP) {
-		toSerialize["top_p"] = o.TopP
+	if o.TopP.IsSet() {
+		toSerialize["top_p"] = o.TopP.Get()
 	}
 	if o.MaxTokens.IsSet() {
 		toSerialize["max_tokens"] = o.MaxTokens.Get()
@@ -528,8 +543,8 @@ func (o FIMCompletionRequest) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Stream) {
 		toSerialize["stream"] = o.Stream
 	}
-	if !IsNil(o.Stop) {
-		toSerialize["stop"] = o.Stop
+	if o.Stop.IsSet() {
+		toSerialize["stop"] = o.Stop.Get()
 	}
 	if o.RandomSeed.IsSet() {
 		toSerialize["random_seed"] = o.RandomSeed.Get()
@@ -547,6 +562,11 @@ func (o FIMCompletionRequest) ToMap() (map[string]interface{}, error) {
 	if o.PromptCacheKey.IsSet() {
 		toSerialize["prompt_cache_key"] = o.PromptCacheKey.Get()
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -575,14 +595,31 @@ func (o *FIMCompletionRequest) UnmarshalJSON(data []byte) (err error) {
 
 	varFIMCompletionRequest := _FIMCompletionRequest{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	err = decoder.Decode(&varFIMCompletionRequest)
+	err = json.Unmarshal(data, &varFIMCompletionRequest)
 
 	if err != nil {
 		return err
 	}
 
 	*o = FIMCompletionRequest(varFIMCompletionRequest)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "model")
+		delete(additionalProperties, "temperature")
+		delete(additionalProperties, "top_p")
+		delete(additionalProperties, "max_tokens")
+		delete(additionalProperties, "stream")
+		delete(additionalProperties, "stop")
+		delete(additionalProperties, "random_seed")
+		delete(additionalProperties, "metadata")
+		delete(additionalProperties, "prompt")
+		delete(additionalProperties, "suffix")
+		delete(additionalProperties, "min_tokens")
+		delete(additionalProperties, "prompt_cache_key")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

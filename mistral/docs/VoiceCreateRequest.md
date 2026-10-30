@@ -11,15 +11,16 @@ Name | Type | Description | Notes
 **Age** | Pointer to **NullableInt32** |  | [optional] 
 **Tags** | Pointer to **[]string** |  | [optional] 
 **Color** | Pointer to **NullableString** |  | [optional] 
+**Description** | Pointer to **NullableString** |  | [optional] 
 **RetentionNotice** | Pointer to **int32** |  | [optional] [default to 30]
-**SampleAudio** | **string** | Base64-encoded audio file | 
+**SampleAudio** | Pointer to **Nullable*os.File** | Base64-encoded audio file | [optional] 
 **SampleFilename** | Pointer to **NullableString** | Original filename for extension detection | [optional] 
 
 ## Methods
 
 ### NewVoiceCreateRequest
 
-`func NewVoiceCreateRequest(name string, sampleAudio string, ) *VoiceCreateRequest`
+`func NewVoiceCreateRequest(name string, ) *VoiceCreateRequest`
 
 NewVoiceCreateRequest instantiates a new VoiceCreateRequest object
 This constructor will assign default values to properties that have it defined,
@@ -254,6 +255,41 @@ HasColor returns a boolean if a field has been set.
 `func (o *VoiceCreateRequest) UnsetColor()`
 
 UnsetColor ensures that no value is present for Color, not even an explicit nil
+### GetDescription
+
+`func (o *VoiceCreateRequest) GetDescription() string`
+
+GetDescription returns the Description field if non-nil, zero value otherwise.
+
+### GetDescriptionOk
+
+`func (o *VoiceCreateRequest) GetDescriptionOk() (*string, bool)`
+
+GetDescriptionOk returns a tuple with the Description field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDescription
+
+`func (o *VoiceCreateRequest) SetDescription(v string)`
+
+SetDescription sets Description field to given value.
+
+### HasDescription
+
+`func (o *VoiceCreateRequest) HasDescription() bool`
+
+HasDescription returns a boolean if a field has been set.
+
+### SetDescriptionNil
+
+`func (o *VoiceCreateRequest) SetDescriptionNil(b bool)`
+
+ SetDescriptionNil sets the value for Description to be an explicit nil
+
+### UnsetDescription
+`func (o *VoiceCreateRequest) UnsetDescription()`
+
+UnsetDescription ensures that no value is present for Description, not even an explicit nil
 ### GetRetentionNotice
 
 `func (o *VoiceCreateRequest) GetRetentionNotice() int32`
@@ -281,24 +317,39 @@ HasRetentionNotice returns a boolean if a field has been set.
 
 ### GetSampleAudio
 
-`func (o *VoiceCreateRequest) GetSampleAudio() string`
+`func (o *VoiceCreateRequest) GetSampleAudio() *os.File`
 
 GetSampleAudio returns the SampleAudio field if non-nil, zero value otherwise.
 
 ### GetSampleAudioOk
 
-`func (o *VoiceCreateRequest) GetSampleAudioOk() (*string, bool)`
+`func (o *VoiceCreateRequest) GetSampleAudioOk() (**os.File, bool)`
 
 GetSampleAudioOk returns a tuple with the SampleAudio field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetSampleAudio
 
-`func (o *VoiceCreateRequest) SetSampleAudio(v string)`
+`func (o *VoiceCreateRequest) SetSampleAudio(v *os.File)`
 
 SetSampleAudio sets SampleAudio field to given value.
 
+### HasSampleAudio
 
+`func (o *VoiceCreateRequest) HasSampleAudio() bool`
+
+HasSampleAudio returns a boolean if a field has been set.
+
+### SetSampleAudioNil
+
+`func (o *VoiceCreateRequest) SetSampleAudioNil(b bool)`
+
+ SetSampleAudioNil sets the value for SampleAudio to be an explicit nil
+
+### UnsetSampleAudio
+`func (o *VoiceCreateRequest) UnsetSampleAudio()`
+
+UnsetSampleAudio ensures that no value is present for SampleAudio, not even an explicit nil
 ### GetSampleFilename
 
 `func (o *VoiceCreateRequest) GetSampleFilename() string`

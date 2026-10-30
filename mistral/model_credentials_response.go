@@ -22,7 +22,8 @@ var _ MappedNullable = &CredentialsResponse{}
 // CredentialsResponse struct for CredentialsResponse
 type CredentialsResponse struct {
 	Credentials []AuthenticationConfiguration `json:"credentials"`
-	ConnectorPresetCredentialsForAuth []OutboundAuthenticationType `json:"connector_preset_credentials_for_auth,omitempty"`
+	// Deprecated
+	ConnectorPresetCredentialsForAuth []AuthenticationType `json:"connector_preset_credentials_for_auth,omitempty"`
 }
 
 type _CredentialsResponse CredentialsResponse
@@ -70,9 +71,10 @@ func (o *CredentialsResponse) SetCredentials(v []AuthenticationConfiguration) {
 }
 
 // GetConnectorPresetCredentialsForAuth returns the ConnectorPresetCredentialsForAuth field value if set, zero value otherwise.
-func (o *CredentialsResponse) GetConnectorPresetCredentialsForAuth() []OutboundAuthenticationType {
+// Deprecated
+func (o *CredentialsResponse) GetConnectorPresetCredentialsForAuth() []AuthenticationType {
 	if o == nil || IsNil(o.ConnectorPresetCredentialsForAuth) {
-		var ret []OutboundAuthenticationType
+		var ret []AuthenticationType
 		return ret
 	}
 	return o.ConnectorPresetCredentialsForAuth
@@ -80,7 +82,8 @@ func (o *CredentialsResponse) GetConnectorPresetCredentialsForAuth() []OutboundA
 
 // GetConnectorPresetCredentialsForAuthOk returns a tuple with the ConnectorPresetCredentialsForAuth field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CredentialsResponse) GetConnectorPresetCredentialsForAuthOk() ([]OutboundAuthenticationType, bool) {
+// Deprecated
+func (o *CredentialsResponse) GetConnectorPresetCredentialsForAuthOk() ([]AuthenticationType, bool) {
 	if o == nil || IsNil(o.ConnectorPresetCredentialsForAuth) {
 		return nil, false
 	}
@@ -96,8 +99,9 @@ func (o *CredentialsResponse) HasConnectorPresetCredentialsForAuth() bool {
 	return false
 }
 
-// SetConnectorPresetCredentialsForAuth gets a reference to the given []OutboundAuthenticationType and assigns it to the ConnectorPresetCredentialsForAuth field.
-func (o *CredentialsResponse) SetConnectorPresetCredentialsForAuth(v []OutboundAuthenticationType) {
+// SetConnectorPresetCredentialsForAuth gets a reference to the given []AuthenticationType and assigns it to the ConnectorPresetCredentialsForAuth field.
+// Deprecated
+func (o *CredentialsResponse) SetConnectorPresetCredentialsForAuth(v []AuthenticationType) {
 	o.ConnectorPresetCredentialsForAuth = v
 }
 

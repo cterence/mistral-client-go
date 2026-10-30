@@ -5,6 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Schedules** | [**[]ScheduleDefinitionOutput**](ScheduleDefinitionOutput.md) | A list of workflow schedules | 
+**NextPageToken** | Pointer to **NullableString** | Token for the next page of results | [optional] 
 
 ## Methods
 
@@ -45,6 +46,41 @@ and a boolean to check if the value has been set.
 SetSchedules sets Schedules field to given value.
 
 
+### GetNextPageToken
+
+`func (o *WorkflowScheduleListResponse) GetNextPageToken() string`
+
+GetNextPageToken returns the NextPageToken field if non-nil, zero value otherwise.
+
+### GetNextPageTokenOk
+
+`func (o *WorkflowScheduleListResponse) GetNextPageTokenOk() (*string, bool)`
+
+GetNextPageTokenOk returns a tuple with the NextPageToken field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetNextPageToken
+
+`func (o *WorkflowScheduleListResponse) SetNextPageToken(v string)`
+
+SetNextPageToken sets NextPageToken field to given value.
+
+### HasNextPageToken
+
+`func (o *WorkflowScheduleListResponse) HasNextPageToken() bool`
+
+HasNextPageToken returns a boolean if a field has been set.
+
+### SetNextPageTokenNil
+
+`func (o *WorkflowScheduleListResponse) SetNextPageTokenNil(b bool)`
+
+ SetNextPageTokenNil sets the value for NextPageToken to be an explicit nil
+
+### UnsetNextPageToken
+`func (o *WorkflowScheduleListResponse) UnsetNextPageToken()`
+
+UnsetNextPageToken ensures that no value is present for NextPageToken, not even an explicit nil
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

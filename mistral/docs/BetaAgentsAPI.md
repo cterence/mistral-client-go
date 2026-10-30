@@ -21,7 +21,7 @@ Method | HTTP request | Description
 
 ## AgentsApiV1AgentsCreate
 
-> Agent AgentsApiV1AgentsCreate(ctx).AgentCreationRequest(agentCreationRequest).Execute()
+> Agent AgentsApiV1AgentsCreate(ctx).CreateAgentRequest(createAgentRequest).Execute()
 
 Create a agent that can be used within a conversation.
 
@@ -40,11 +40,11 @@ import (
 )
 
 func main() {
-	agentCreationRequest := *openapiclient.NewAgentCreationRequest("Model_example", "Name_example") // AgentCreationRequest | 
+	createAgentRequest := *openapiclient.NewCreateAgentRequest("Model_example", "Name_example") // CreateAgentRequest | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.BetaAgentsAPI.AgentsApiV1AgentsCreate(context.Background()).AgentCreationRequest(agentCreationRequest).Execute()
+	resp, r, err := apiClient.BetaAgentsAPI.AgentsApiV1AgentsCreate(context.Background()).CreateAgentRequest(createAgentRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `BetaAgentsAPI.AgentsApiV1AgentsCreate``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -65,7 +65,7 @@ Other parameters are passed through a pointer to a apiAgentsApiV1AgentsCreateReq
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **agentCreationRequest** | [**AgentCreationRequest**](AgentCreationRequest.md) |  | 
+ **createAgentRequest** | [**CreateAgentRequest**](CreateAgentRequest.md) |  | 
 
 ### Return type
 
@@ -164,6 +164,8 @@ Name | Type | Description  | Notes
 > AgentsApiV1AgentsDelete(ctx, agentId).Execute()
 
 Delete an agent entity.
+
+
 
 ### Example
 
@@ -468,7 +470,7 @@ func main() {
 	name := "name_example" // string | Filter by agent name (optional)
 	search := "search_example" // string | Search agents by name or ID (optional)
 	id := "id_example" // string |  (optional)
-	metadata := TODO // AnyOfmapnull |  (optional)
+	metadata := TODO // AnyOfmapAnyType |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -500,7 +502,7 @@ Name | Type | Description  | Notes
  **name** | **string** | Filter by agent name | 
  **search** | **string** | Search agents by name or ID | 
  **id** | **string** |  | 
- **metadata** | [**AnyOfmapnull**](AnyOfmapnull.md) |  | 
+ **metadata** | [**AnyOfmapAnyType**](AnyOfmapAnyType.md) |  | 
 
 ### Return type
 
@@ -547,7 +549,7 @@ func main() {
 	name := "name_example" // string | Filter by agent name (optional)
 	search := "search_example" // string | Search agents by name or ID (optional)
 	id := "id_example" // string |  (optional)
-	metadata := TODO // AnyOfmapnull |  (optional)
+	metadata := TODO // AnyOfmapAnyType |  (optional)
 	pageToken := "pageToken_example" // string | Opaque cursor from a previous response's next_page_token. When set, results page forward from the cursor. (optional)
 
 	configuration := openapiclient.NewConfiguration()
@@ -579,7 +581,7 @@ Name | Type | Description  | Notes
  **name** | **string** | Filter by agent name | 
  **search** | **string** | Search agents by name or ID | 
  **id** | **string** |  | 
- **metadata** | [**AnyOfmapnull**](AnyOfmapnull.md) |  | 
+ **metadata** | [**AnyOfmapAnyType**](AnyOfmapAnyType.md) |  | 
  **pageToken** | **string** | Opaque cursor from a previous response&#39;s next_page_token. When set, results page forward from the cursor. | 
 
 ### Return type
@@ -746,7 +748,7 @@ Name | Type | Description  | Notes
 
 ## AgentsApiV1AgentsUpdate
 
-> Agent AgentsApiV1AgentsUpdate(ctx, agentId).AgentUpdateRequest(agentUpdateRequest).Execute()
+> Agent AgentsApiV1AgentsUpdate(ctx, agentId).UpdateAgentRequest(updateAgentRequest).Execute()
 
 Update an agent entity.
 
@@ -766,11 +768,11 @@ import (
 
 func main() {
 	agentId := "agentId_example" // string | 
-	agentUpdateRequest := *openapiclient.NewAgentUpdateRequest() // AgentUpdateRequest | 
+	updateAgentRequest := *openapiclient.NewUpdateAgentRequest() // UpdateAgentRequest | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.BetaAgentsAPI.AgentsApiV1AgentsUpdate(context.Background(), agentId).AgentUpdateRequest(agentUpdateRequest).Execute()
+	resp, r, err := apiClient.BetaAgentsAPI.AgentsApiV1AgentsUpdate(context.Background(), agentId).UpdateAgentRequest(updateAgentRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `BetaAgentsAPI.AgentsApiV1AgentsUpdate``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -796,7 +798,7 @@ Other parameters are passed through a pointer to a apiAgentsApiV1AgentsUpdateReq
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **agentUpdateRequest** | [**AgentUpdateRequest**](AgentUpdateRequest.md) |  | 
+ **updateAgentRequest** | [**UpdateAgentRequest**](UpdateAgentRequest.md) |  | 
 
 ### Return type
 

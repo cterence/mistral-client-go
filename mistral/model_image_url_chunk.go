@@ -19,7 +19,7 @@ import (
 // checks if the ImageURLChunk type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &ImageURLChunk{}
 
-// ImageURLChunk {\"type\":\"image_url\",\"image_url\":{\"url\":\"data:image/png;base64,iVBORw0
+// ImageURLChunk {\"type\":\"image_url\",\"image_url\":\"data:image/png;base64,iVBORw0\"}
 type ImageURLChunk struct {
 	Type *string `json:"type,omitempty"`
 	ImageUrl ImageUrl `json:"image_url"`

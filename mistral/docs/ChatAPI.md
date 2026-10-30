@@ -14,6 +14,8 @@ Method | HTTP request | Description
 
 Chat Completion
 
+
+
 ### Example
 
 ```go

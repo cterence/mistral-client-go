@@ -6,16 +6,16 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Model** | **string** | ID of the model with FIM to use. | [default to "codestral-2404"]
 **Temperature** | Pointer to **NullableFloat32** | What sampling temperature to use, we recommend between 0.0 and 0.7. Higher values like 0.7 will make the output more random, while lower values like 0.2 will make it more focused and deterministic. We generally recommend altering this or &#x60;top_p&#x60; but not both. The default value varies depending on the model you are targeting. Call the &#x60;/models&#x60; endpoint to retrieve the appropriate value. | [optional] 
-**TopP** | Pointer to **float32** | Nucleus sampling, where the model considers the results of the tokens with &#x60;top_p&#x60; probability mass. So 0.1 means only the tokens comprising the top 10% probability mass are considered. We generally recommend altering this or &#x60;temperature&#x60; but not both. | [optional] [default to 1.0]
+**TopP** | Pointer to **NullableFloat32** | Nucleus sampling, where the model considers the results of the tokens with &#x60;top_p&#x60; probability mass. So 0.1 means only the tokens comprising the top 10% probability mass are considered. We generally recommend altering this or &#x60;temperature&#x60; but not both. | [optional] 
 **MaxTokens** | Pointer to **NullableInt32** | The maximum number of tokens to generate in the completion. The token count of your prompt plus &#x60;max_tokens&#x60; cannot exceed the model&#39;s context length. | [optional] 
 **Stream** | Pointer to **bool** | Whether to stream back partial progress. If set, tokens will be sent as data-only server-side events as they become available, with the stream terminated by a data: [DONE] message. Otherwise, the server will hold the request open until the timeout or until completion, with the response containing the full result as JSON. | [optional] [default to false]
-**Stop** | Pointer to [**Stop**](Stop.md) |  | [optional] 
+**Stop** | Pointer to [**NullableStop**](Stop.md) |  | [optional] 
 **RandomSeed** | Pointer to **NullableInt32** | The seed to use for random sampling. If set, different calls will generate deterministic results. | [optional] 
 **Metadata** | Pointer to **map[string]interface{}** |  | [optional] 
 **Prompt** | **string** | The text/code to complete. | 
-**Suffix** | Pointer to **NullableString** | Optional text/code that adds more context for the model. When given a &#x60;prompt&#x60; and a &#x60;suffix&#x60; the model will fill what is between them. When &#x60;suffix&#x60; is not provided, the model will simply execute completion starting with &#x60;prompt&#x60;. | [optional] 
+**Suffix** | Pointer to **NullableString** | Filter by agent name | [optional] 
 **MinTokens** | Pointer to **NullableInt32** | The minimum number of tokens to generate in the completion. | [optional] 
-**PromptCacheKey** | Pointer to **NullableString** | A cache key to enable prompt caching. When provided, the API will attempt to reuse previously computed tokens for requests sharing the same prefix (e.g. multi-turn conversations or requests with a similar system prompt). Cached tokens are billed at 10% of the standard input token price. | [optional] 
+**PromptCacheKey** | Pointer to **NullableString** |  | [optional] 
 
 ## Methods
 
@@ -116,6 +116,16 @@ SetTopP sets TopP field to given value.
 
 HasTopP returns a boolean if a field has been set.
 
+### SetTopPNil
+
+`func (o *FIMCompletionRequest) SetTopPNil(b bool)`
+
+ SetTopPNil sets the value for TopP to be an explicit nil
+
+### UnsetTopP
+`func (o *FIMCompletionRequest) UnsetTopP()`
+
+UnsetTopP ensures that no value is present for TopP, not even an explicit nil
 ### GetMaxTokens
 
 `func (o *FIMCompletionRequest) GetMaxTokens() int32`
@@ -201,6 +211,16 @@ SetStop sets Stop field to given value.
 
 HasStop returns a boolean if a field has been set.
 
+### SetStopNil
+
+`func (o *FIMCompletionRequest) SetStopNil(b bool)`
+
+ SetStopNil sets the value for Stop to be an explicit nil
+
+### UnsetStop
+`func (o *FIMCompletionRequest) UnsetStop()`
+
+UnsetStop ensures that no value is present for Stop, not even an explicit nil
 ### GetRandomSeed
 
 `func (o *FIMCompletionRequest) GetRandomSeed() int32`

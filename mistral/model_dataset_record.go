@@ -27,9 +27,10 @@ type DatasetRecord struct {
 	UpdatedAt time.Time `json:"updated_at"`
 	DeletedAt NullableTime `json:"deleted_at"`
 	DatasetId string `json:"dataset_id"`
-	Payload ConversationPayload `json:"payload"`
+	// Caller-authored input object stored on a dataset record.
+	Payload map[string]interface{} `json:"payload"`
 	Properties map[string]interface{} `json:"properties"`
-	Source ConversationSource `json:"source"`
+	Source DatasetRecordSource `json:"source"`
 }
 
 type _DatasetRecord DatasetRecord
@@ -38,7 +39,7 @@ type _DatasetRecord DatasetRecord
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewDatasetRecord(id string, createdAt time.Time, updatedAt time.Time, deletedAt NullableTime, datasetId string, payload ConversationPayload, properties map[string]interface{}, source ConversationSource) *DatasetRecord {
+func NewDatasetRecord(id string, createdAt time.Time, updatedAt time.Time, deletedAt NullableTime, datasetId string, payload map[string]interface{}, properties map[string]interface{}, source DatasetRecordSource) *DatasetRecord {
 	this := DatasetRecord{}
 	this.Id = id
 	this.CreatedAt = createdAt
@@ -182,9 +183,9 @@ func (o *DatasetRecord) SetDatasetId(v string) {
 }
 
 // GetPayload returns the Payload field value
-func (o *DatasetRecord) GetPayload() ConversationPayload {
+func (o *DatasetRecord) GetPayload() map[string]interface{} {
 	if o == nil {
-		var ret ConversationPayload
+		var ret map[string]interface{}
 		return ret
 	}
 
@@ -193,15 +194,15 @@ func (o *DatasetRecord) GetPayload() ConversationPayload {
 
 // GetPayloadOk returns a tuple with the Payload field value
 // and a boolean to check if the value has been set.
-func (o *DatasetRecord) GetPayloadOk() (*ConversationPayload, bool) {
+func (o *DatasetRecord) GetPayloadOk() (map[string]interface{}, bool) {
 	if o == nil {
-		return nil, false
+		return map[string]interface{}{}, false
 	}
-	return &o.Payload, true
+	return o.Payload, true
 }
 
 // SetPayload sets field value
-func (o *DatasetRecord) SetPayload(v ConversationPayload) {
+func (o *DatasetRecord) SetPayload(v map[string]interface{}) {
 	o.Payload = v
 }
 
@@ -230,9 +231,9 @@ func (o *DatasetRecord) SetProperties(v map[string]interface{}) {
 }
 
 // GetSource returns the Source field value
-func (o *DatasetRecord) GetSource() ConversationSource {
+func (o *DatasetRecord) GetSource() DatasetRecordSource {
 	if o == nil {
-		var ret ConversationSource
+		var ret DatasetRecordSource
 		return ret
 	}
 
@@ -241,7 +242,7 @@ func (o *DatasetRecord) GetSource() ConversationSource {
 
 // GetSourceOk returns a tuple with the Source field value
 // and a boolean to check if the value has been set.
-func (o *DatasetRecord) GetSourceOk() (*ConversationSource, bool) {
+func (o *DatasetRecord) GetSourceOk() (*DatasetRecordSource, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -249,7 +250,7 @@ func (o *DatasetRecord) GetSourceOk() (*ConversationSource, bool) {
 }
 
 // SetSource sets field value
-func (o *DatasetRecord) SetSource(v ConversationSource) {
+func (o *DatasetRecord) SetSource(v DatasetRecordSource) {
 	o.Source = v
 }
 

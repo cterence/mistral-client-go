@@ -6,6 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Audience** | Pointer to **[]string** |  | [optional] 
 **Priority** | Pointer to **NullableFloat32** |  | [optional] 
+**LastModified** | Pointer to **NullableString** |  | [optional] 
 
 ## Methods
 
@@ -96,6 +97,41 @@ HasPriority returns a boolean if a field has been set.
 `func (o *Annotations) UnsetPriority()`
 
 UnsetPriority ensures that no value is present for Priority, not even an explicit nil
+### GetLastModified
+
+`func (o *Annotations) GetLastModified() string`
+
+GetLastModified returns the LastModified field if non-nil, zero value otherwise.
+
+### GetLastModifiedOk
+
+`func (o *Annotations) GetLastModifiedOk() (*string, bool)`
+
+GetLastModifiedOk returns a tuple with the LastModified field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetLastModified
+
+`func (o *Annotations) SetLastModified(v string)`
+
+SetLastModified sets LastModified field to given value.
+
+### HasLastModified
+
+`func (o *Annotations) HasLastModified() bool`
+
+HasLastModified returns a boolean if a field has been set.
+
+### SetLastModifiedNil
+
+`func (o *Annotations) SetLastModifiedNil(b bool)`
+
+ SetLastModifiedNil sets the value for LastModified to be an explicit nil
+
+### UnsetLastModified
+`func (o *Annotations) UnsetLastModified()`
+
+UnsetLastModified ensures that no value is present for LastModified, not even an explicit nil
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

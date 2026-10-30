@@ -40,6 +40,8 @@ func (r ApiChatClassificationsV1ChatClassificationsPostRequest) Execute() (*Clas
 /*
 ChatClassificationsV1ChatClassificationsPost Chat Classifications
 
+Chat Classifications
+
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiChatClassificationsV1ChatClassificationsPostRequest
 */
@@ -157,6 +159,8 @@ func (r ApiChatModerationsV1ChatModerationsPostRequest) Execute() (*ModerationRe
 
 /*
 ChatModerationsV1ChatModerationsPost Chat Moderations
+
+Chat Moderations
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiChatModerationsV1ChatModerationsPostRequest
@@ -276,6 +280,8 @@ func (r ApiClassificationsV1ClassificationsPostRequest) Execute() (*Classificati
 /*
 ClassificationsV1ClassificationsPost Classifications
 
+Classifications
+
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiClassificationsV1ClassificationsPostRequest
 */
@@ -393,6 +399,8 @@ func (r ApiModerationsV1ModerationsPostRequest) Execute() (*ModerationResponse, 
 
 /*
 ModerationsV1ModerationsPost Moderations
+
+Moderations
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiModerationsV1ModerationsPostRequest

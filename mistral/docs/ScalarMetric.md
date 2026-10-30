@@ -4,13 +4,13 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Value** | [**Value**](Value.md) |  | 
+**Value** | [**Value3**](Value3.md) |  | 
 
 ## Methods
 
 ### NewScalarMetric
 
-`func NewScalarMetric(value Value, ) *ScalarMetric`
+`func NewScalarMetric(value Value3, ) *ScalarMetric`
 
 NewScalarMetric instantiates a new ScalarMetric object
 This constructor will assign default values to properties that have it defined,
@@ -27,20 +27,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetValue
 
-`func (o *ScalarMetric) GetValue() Value`
+`func (o *ScalarMetric) GetValue() Value3`
 
 GetValue returns the Value field if non-nil, zero value otherwise.
 
 ### GetValueOk
 
-`func (o *ScalarMetric) GetValueOk() (*Value, bool)`
+`func (o *ScalarMetric) GetValueOk() (*Value3, bool)`
 
 GetValueOk returns a tuple with the Value field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetValue
 
-`func (o *ScalarMetric) SetValue(v Value)`
+`func (o *ScalarMetric) SetValue(v Value3)`
 
 SetValue sets Value field to given value.
 

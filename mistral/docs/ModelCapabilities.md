@@ -6,6 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **CompletionChat** | Pointer to **bool** |  | [optional] [default to false]
 **FunctionCalling** | Pointer to **bool** |  | [optional] [default to false]
+**Reasoning** | Pointer to **bool** |  | [optional] [default to false]
 **CompletionFim** | Pointer to **bool** |  | [optional] [default to false]
 **FineTuning** | Pointer to **bool** |  | [optional] [default to false]
 **Vision** | Pointer to **bool** |  | [optional] [default to false]
@@ -14,6 +15,9 @@ Name | Type | Description | Notes
 **Moderation** | Pointer to **bool** |  | [optional] [default to false]
 **Audio** | Pointer to **bool** |  | [optional] [default to false]
 **AudioTranscription** | Pointer to **bool** |  | [optional] [default to false]
+**AudioTranscriptionRealtime** | Pointer to **bool** |  | [optional] [default to false]
+**AudioSpeech** | Pointer to **bool** |  | [optional] [default to false]
+**UnifiedResources** | Pointer to **bool** |  | [optional] [default to false]
 
 ## Methods
 
@@ -83,6 +87,31 @@ SetFunctionCalling sets FunctionCalling field to given value.
 `func (o *ModelCapabilities) HasFunctionCalling() bool`
 
 HasFunctionCalling returns a boolean if a field has been set.
+
+### GetReasoning
+
+`func (o *ModelCapabilities) GetReasoning() bool`
+
+GetReasoning returns the Reasoning field if non-nil, zero value otherwise.
+
+### GetReasoningOk
+
+`func (o *ModelCapabilities) GetReasoningOk() (*bool, bool)`
+
+GetReasoningOk returns a tuple with the Reasoning field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetReasoning
+
+`func (o *ModelCapabilities) SetReasoning(v bool)`
+
+SetReasoning sets Reasoning field to given value.
+
+### HasReasoning
+
+`func (o *ModelCapabilities) HasReasoning() bool`
+
+HasReasoning returns a boolean if a field has been set.
 
 ### GetCompletionFim
 
@@ -283,6 +312,81 @@ SetAudioTranscription sets AudioTranscription field to given value.
 `func (o *ModelCapabilities) HasAudioTranscription() bool`
 
 HasAudioTranscription returns a boolean if a field has been set.
+
+### GetAudioTranscriptionRealtime
+
+`func (o *ModelCapabilities) GetAudioTranscriptionRealtime() bool`
+
+GetAudioTranscriptionRealtime returns the AudioTranscriptionRealtime field if non-nil, zero value otherwise.
+
+### GetAudioTranscriptionRealtimeOk
+
+`func (o *ModelCapabilities) GetAudioTranscriptionRealtimeOk() (*bool, bool)`
+
+GetAudioTranscriptionRealtimeOk returns a tuple with the AudioTranscriptionRealtime field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAudioTranscriptionRealtime
+
+`func (o *ModelCapabilities) SetAudioTranscriptionRealtime(v bool)`
+
+SetAudioTranscriptionRealtime sets AudioTranscriptionRealtime field to given value.
+
+### HasAudioTranscriptionRealtime
+
+`func (o *ModelCapabilities) HasAudioTranscriptionRealtime() bool`
+
+HasAudioTranscriptionRealtime returns a boolean if a field has been set.
+
+### GetAudioSpeech
+
+`func (o *ModelCapabilities) GetAudioSpeech() bool`
+
+GetAudioSpeech returns the AudioSpeech field if non-nil, zero value otherwise.
+
+### GetAudioSpeechOk
+
+`func (o *ModelCapabilities) GetAudioSpeechOk() (*bool, bool)`
+
+GetAudioSpeechOk returns a tuple with the AudioSpeech field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAudioSpeech
+
+`func (o *ModelCapabilities) SetAudioSpeech(v bool)`
+
+SetAudioSpeech sets AudioSpeech field to given value.
+
+### HasAudioSpeech
+
+`func (o *ModelCapabilities) HasAudioSpeech() bool`
+
+HasAudioSpeech returns a boolean if a field has been set.
+
+### GetUnifiedResources
+
+`func (o *ModelCapabilities) GetUnifiedResources() bool`
+
+GetUnifiedResources returns the UnifiedResources field if non-nil, zero value otherwise.
+
+### GetUnifiedResourcesOk
+
+`func (o *ModelCapabilities) GetUnifiedResourcesOk() (*bool, bool)`
+
+GetUnifiedResourcesOk returns a tuple with the UnifiedResources field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetUnifiedResources
+
+`func (o *ModelCapabilities) SetUnifiedResources(v bool)`
+
+SetUnifiedResources sets UnifiedResources field to given value.
+
+### HasUnifiedResources
+
+`func (o *ModelCapabilities) HasUnifiedResources() bool`
+
+HasUnifiedResources returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

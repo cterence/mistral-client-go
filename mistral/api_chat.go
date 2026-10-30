@@ -40,6 +40,8 @@ func (r ApiChatCompletionV1ChatCompletionsPostRequest) Execute() (*ChatCompletio
 /*
 ChatCompletionV1ChatCompletionsPost Chat Completion
 
+Chat Completion
+
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiChatCompletionV1ChatCompletionsPostRequest
 */

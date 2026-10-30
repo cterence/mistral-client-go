@@ -10,7 +10,9 @@ Name | Type | Description | Notes
 **Queries** | Pointer to [**[]QueryDefinition**](QueryDefinition.md) | Query handlers defined by the workflow | [optional] 
 **Updates** | Pointer to [**[]UpdateDefinition**](UpdateDefinition.md) | Update handlers defined by the workflow | [optional] 
 **EnforceDeterminism** | Pointer to **bool** | Whether the workflow enforces deterministic execution | [optional] [default to false]
+**OnBehalfOf** | Pointer to **bool** | Whether the workflow must run associated to a user&#39;s identity | [optional] [default to false]
 **ExecutionTimeout** | Pointer to **float32** | Maximum total execution time including retries and continue-as-new | [optional] 
+**PluginMetadata** | Pointer to **map[string]interface{}** | Output JSON schema of the query&#39;s model | [optional] 
 
 ## Methods
 
@@ -186,6 +188,31 @@ SetEnforceDeterminism sets EnforceDeterminism field to given value.
 
 HasEnforceDeterminism returns a boolean if a field has been set.
 
+### GetOnBehalfOf
+
+`func (o *WorkflowCodeDefinition) GetOnBehalfOf() bool`
+
+GetOnBehalfOf returns the OnBehalfOf field if non-nil, zero value otherwise.
+
+### GetOnBehalfOfOk
+
+`func (o *WorkflowCodeDefinition) GetOnBehalfOfOk() (*bool, bool)`
+
+GetOnBehalfOfOk returns a tuple with the OnBehalfOf field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetOnBehalfOf
+
+`func (o *WorkflowCodeDefinition) SetOnBehalfOf(v bool)`
+
+SetOnBehalfOf sets OnBehalfOf field to given value.
+
+### HasOnBehalfOf
+
+`func (o *WorkflowCodeDefinition) HasOnBehalfOf() bool`
+
+HasOnBehalfOf returns a boolean if a field has been set.
+
 ### GetExecutionTimeout
 
 `func (o *WorkflowCodeDefinition) GetExecutionTimeout() float32`
@@ -211,6 +238,41 @@ SetExecutionTimeout sets ExecutionTimeout field to given value.
 
 HasExecutionTimeout returns a boolean if a field has been set.
 
+### GetPluginMetadata
+
+`func (o *WorkflowCodeDefinition) GetPluginMetadata() map[string]interface{}`
+
+GetPluginMetadata returns the PluginMetadata field if non-nil, zero value otherwise.
+
+### GetPluginMetadataOk
+
+`func (o *WorkflowCodeDefinition) GetPluginMetadataOk() (*map[string]interface{}, bool)`
+
+GetPluginMetadataOk returns a tuple with the PluginMetadata field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPluginMetadata
+
+`func (o *WorkflowCodeDefinition) SetPluginMetadata(v map[string]interface{})`
+
+SetPluginMetadata sets PluginMetadata field to given value.
+
+### HasPluginMetadata
+
+`func (o *WorkflowCodeDefinition) HasPluginMetadata() bool`
+
+HasPluginMetadata returns a boolean if a field has been set.
+
+### SetPluginMetadataNil
+
+`func (o *WorkflowCodeDefinition) SetPluginMetadataNil(b bool)`
+
+ SetPluginMetadataNil sets the value for PluginMetadata to be an explicit nil
+
+### UnsetPluginMetadata
+`func (o *WorkflowCodeDefinition) UnsetPluginMetadata()`
+
+UnsetPluginMetadata ensures that no value is present for PluginMetadata, not even an explicit nil
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

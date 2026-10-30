@@ -23,8 +23,8 @@ var _ MappedNullable = &TranscriptionStreamSegmentDelta{}
 type TranscriptionStreamSegmentDelta struct {
 	Type *string `json:"type,omitempty"`
 	Text string `json:"text"`
-	Start float32 `json:"start"`
-	End float32 `json:"end"`
+	Start NullableFloat32 `json:"start"`
+	End NullableFloat32 `json:"end"`
 	SpeakerId NullableString `json:"speaker_id,omitempty"`
 }
 
@@ -34,7 +34,7 @@ type _TranscriptionStreamSegmentDelta TranscriptionStreamSegmentDelta
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewTranscriptionStreamSegmentDelta(text string, start float32, end float32) *TranscriptionStreamSegmentDelta {
+func NewTranscriptionStreamSegmentDelta(text string, start NullableFloat32, end NullableFloat32) *TranscriptionStreamSegmentDelta {
 	this := TranscriptionStreamSegmentDelta{}
 	var type_ string = "transcription.segment"
 	this.Type = &type_
@@ -111,51 +111,55 @@ func (o *TranscriptionStreamSegmentDelta) SetText(v string) {
 }
 
 // GetStart returns the Start field value
+// If the value is explicit nil, the zero value for float32 will be returned
 func (o *TranscriptionStreamSegmentDelta) GetStart() float32 {
-	if o == nil {
+	if o == nil || o.Start.Get() == nil {
 		var ret float32
 		return ret
 	}
 
-	return o.Start
+	return *o.Start.Get()
 }
 
 // GetStartOk returns a tuple with the Start field value
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *TranscriptionStreamSegmentDelta) GetStartOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Start, true
+	return o.Start.Get(), o.Start.IsSet()
 }
 
 // SetStart sets field value
 func (o *TranscriptionStreamSegmentDelta) SetStart(v float32) {
-	o.Start = v
+	o.Start.Set(&v)
 }
 
 // GetEnd returns the End field value
+// If the value is explicit nil, the zero value for float32 will be returned
 func (o *TranscriptionStreamSegmentDelta) GetEnd() float32 {
-	if o == nil {
+	if o == nil || o.End.Get() == nil {
 		var ret float32
 		return ret
 	}
 
-	return o.End
+	return *o.End.Get()
 }
 
 // GetEndOk returns a tuple with the End field value
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *TranscriptionStreamSegmentDelta) GetEndOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.End, true
+	return o.End.Get(), o.End.IsSet()
 }
 
 // SetEnd sets field value
 func (o *TranscriptionStreamSegmentDelta) SetEnd(v float32) {
-	o.End = v
+	o.End.Set(&v)
 }
 
 // GetSpeakerId returns the SpeakerId field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -214,8 +218,8 @@ func (o TranscriptionStreamSegmentDelta) ToMap() (map[string]interface{}, error)
 		toSerialize["type"] = o.Type
 	}
 	toSerialize["text"] = o.Text
-	toSerialize["start"] = o.Start
-	toSerialize["end"] = o.End
+	toSerialize["start"] = o.Start.Get()
+	toSerialize["end"] = o.End.Get()
 	if o.SpeakerId.IsSet() {
 		toSerialize["speaker_id"] = o.SpeakerId.Get()
 	}

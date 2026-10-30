@@ -23,7 +23,7 @@ var _ MappedNullable = &UpdateInvocationBody{}
 type UpdateInvocationBody struct {
 	// The name of the update to request
 	Name string `json:"name"`
-	Input NullableInput2 `json:"input,omitempty"`
+	Input NullableInput3 `json:"input,omitempty"`
 }
 
 type _UpdateInvocationBody UpdateInvocationBody
@@ -71,9 +71,9 @@ func (o *UpdateInvocationBody) SetName(v string) {
 }
 
 // GetInput returns the Input field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *UpdateInvocationBody) GetInput() Input2 {
+func (o *UpdateInvocationBody) GetInput() Input3 {
 	if o == nil || IsNil(o.Input.Get()) {
-		var ret Input2
+		var ret Input3
 		return ret
 	}
 	return *o.Input.Get()
@@ -82,7 +82,7 @@ func (o *UpdateInvocationBody) GetInput() Input2 {
 // GetInputOk returns a tuple with the Input field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *UpdateInvocationBody) GetInputOk() (*Input2, bool) {
+func (o *UpdateInvocationBody) GetInputOk() (*Input3, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -98,8 +98,8 @@ func (o *UpdateInvocationBody) HasInput() bool {
 	return false
 }
 
-// SetInput gets a reference to the given NullableInput2 and assigns it to the Input field.
-func (o *UpdateInvocationBody) SetInput(v Input2) {
+// SetInput gets a reference to the given NullableInput3 and assigns it to the Input field.
+func (o *UpdateInvocationBody) SetInput(v Input3) {
 	o.Input.Set(&v)
 }
 // SetInputNil sets the value for Input to be an explicit nil

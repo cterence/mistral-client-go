@@ -4,17 +4,17 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Type** | **string** |  | 
+**Type** | Pointer to **string** |  | [optional] [default to "audio"]
 **Data** | **string** |  | 
 **MimeType** | **string** |  | 
 **Annotations** | Pointer to [**NullableAnnotations**](Annotations.md) |  | [optional] 
-**Meta** | Pointer to **map[string]interface{}** |  | [optional] 
+**Meta** | Pointer to **map[string]interface{}** | Output JSON schema of the query&#39;s model | [optional] 
 
 ## Methods
 
 ### NewAudioContent
 
-`func NewAudioContent(type_ string, data string, mimeType string, ) *AudioContent`
+`func NewAudioContent(data string, mimeType string, ) *AudioContent`
 
 NewAudioContent instantiates a new AudioContent object
 This constructor will assign default values to properties that have it defined,
@@ -48,6 +48,11 @@ and a boolean to check if the value has been set.
 
 SetType sets Type field to given value.
 
+### HasType
+
+`func (o *AudioContent) HasType() bool`
+
+HasType returns a boolean if a field has been set.
 
 ### GetData
 

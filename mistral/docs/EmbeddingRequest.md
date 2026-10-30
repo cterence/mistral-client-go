@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Model** | **string** | ID of the model to use. | 
 **Metadata** | Pointer to **map[string]interface{}** |  | [optional] 
-**Input** | [**Input1**](Input1.md) |  | 
+**Input** | [**Input2**](Input2.md) |  | 
 **OutputDimension** | Pointer to **NullableInt32** | The dimension of the output embeddings when feature available. If not provided, a default output dimension will be used. | [optional] 
 **OutputDtype** | Pointer to [**EmbeddingDtype**](EmbeddingDtype.md) | The data type of the output embeddings when feature available. If not provided, a default output data type will be used. | [optional] [default to EMBEDDINGDTYPE_FLOAT]
 **EncodingFormat** | Pointer to [**EncodingFormat**](EncodingFormat.md) | The format of embeddings in the response. | [optional] [default to ENCODINGFORMAT_FLOAT]
@@ -15,7 +15,7 @@ Name | Type | Description | Notes
 
 ### NewEmbeddingRequest
 
-`func NewEmbeddingRequest(model string, input Input1, ) *EmbeddingRequest`
+`func NewEmbeddingRequest(model string, input Input2, ) *EmbeddingRequest`
 
 NewEmbeddingRequest instantiates a new EmbeddingRequest object
 This constructor will assign default values to properties that have it defined,
@@ -87,20 +87,20 @@ HasMetadata returns a boolean if a field has been set.
 UnsetMetadata ensures that no value is present for Metadata, not even an explicit nil
 ### GetInput
 
-`func (o *EmbeddingRequest) GetInput() Input1`
+`func (o *EmbeddingRequest) GetInput() Input2`
 
 GetInput returns the Input field if non-nil, zero value otherwise.
 
 ### GetInputOk
 
-`func (o *EmbeddingRequest) GetInputOk() (*Input1, bool)`
+`func (o *EmbeddingRequest) GetInputOk() (*Input2, bool)`
 
 GetInputOk returns a tuple with the Input field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetInput
 
-`func (o *EmbeddingRequest) SetInput(v Input1)`
+`func (o *EmbeddingRequest) SetInput(v Input2)`
 
 SetInput sets Input field to given value.
 

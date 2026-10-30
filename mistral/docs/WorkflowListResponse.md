@@ -4,14 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Workflows** | Pointer to [**[]WorkflowBasicDefinition**](WorkflowBasicDefinition.md) | A list of workflows | [optional] 
+**Workflows** | [**[]WorkflowBasicDefinition**](WorkflowBasicDefinition.md) | A list of workflows | 
 **NextCursor** | **NullableString** |  | 
 
 ## Methods
 
 ### NewWorkflowListResponse
 
-`func NewWorkflowListResponse(nextCursor NullableString, ) *WorkflowListResponse`
+`func NewWorkflowListResponse(workflows []WorkflowBasicDefinition, nextCursor NullableString, ) *WorkflowListResponse`
 
 NewWorkflowListResponse instantiates a new WorkflowListResponse object
 This constructor will assign default values to properties that have it defined,
@@ -45,11 +45,6 @@ and a boolean to check if the value has been set.
 
 SetWorkflows sets Workflows field to given value.
 
-### HasWorkflows
-
-`func (o *WorkflowListResponse) HasWorkflows() bool`
-
-HasWorkflows returns a boolean if a field has been set.
 
 ### GetNextCursor
 

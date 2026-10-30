@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Object** | Pointer to **string** |  | [optional] [default to "list"]
-**Data** | Pointer to [**[]DataInner**](DataInner.md) |  | [optional] 
+**Data** | Pointer to [**[]Data1Inner**](Data1Inner.md) |  | [optional] 
 
 ## Methods
 
@@ -53,20 +53,20 @@ HasObject returns a boolean if a field has been set.
 
 ### GetData
 
-`func (o *ModelList) GetData() []DataInner`
+`func (o *ModelList) GetData() []Data1Inner`
 
 GetData returns the Data field if non-nil, zero value otherwise.
 
 ### GetDataOk
 
-`func (o *ModelList) GetDataOk() (*[]DataInner, bool)`
+`func (o *ModelList) GetDataOk() (*[]Data1Inner, bool)`
 
 GetDataOk returns a tuple with the Data field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetData
 
-`func (o *ModelList) SetData(v []DataInner)`
+`func (o *ModelList) SetData(v []Data1Inner)`
 
 SetData sets Data field to given value.
 

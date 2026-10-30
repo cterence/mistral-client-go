@@ -17,6 +17,7 @@ Name | Type | Description | Notes
 **Id** | **string** |  | 
 **Version** | **int32** |  | 
 **Versions** | **[]int32** |  | 
+**OwnerId** | Pointer to **NullableString** |  | [optional] 
 **CreatedAt** | **time.Time** |  | 
 **UpdatedAt** | **time.Time** |  | 
 **DeploymentChat** | **bool** |  | 
@@ -392,6 +393,41 @@ and a boolean to check if the value has been set.
 SetVersions sets Versions field to given value.
 
 
+### GetOwnerId
+
+`func (o *Agent) GetOwnerId() string`
+
+GetOwnerId returns the OwnerId field if non-nil, zero value otherwise.
+
+### GetOwnerIdOk
+
+`func (o *Agent) GetOwnerIdOk() (*string, bool)`
+
+GetOwnerIdOk returns a tuple with the OwnerId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetOwnerId
+
+`func (o *Agent) SetOwnerId(v string)`
+
+SetOwnerId sets OwnerId field to given value.
+
+### HasOwnerId
+
+`func (o *Agent) HasOwnerId() bool`
+
+HasOwnerId returns a boolean if a field has been set.
+
+### SetOwnerIdNil
+
+`func (o *Agent) SetOwnerIdNil(b bool)`
+
+ SetOwnerIdNil sets the value for OwnerId to be an explicit nil
+
+### UnsetOwnerId
+`func (o *Agent) UnsetOwnerId()`
+
+UnsetOwnerId ensures that no value is present for OwnerId, not even an explicit nil
 ### GetCreatedAt
 
 `func (o *Agent) GetCreatedAt() time.Time`

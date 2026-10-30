@@ -101,6 +101,8 @@ func (r ApiAudioApiV1TranscriptionsPostRequest) Execute() (*TranscriptionRespons
 /*
 AudioApiV1TranscriptionsPost Create Transcription
 
+Create Transcription
+
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiAudioApiV1TranscriptionsPostRequest
 */
@@ -293,6 +295,8 @@ func (r ApiAudioApiV1TranscriptionsPostStreamRequest) Execute() (*TranscriptionS
 
 /*
 AudioApiV1TranscriptionsPostStream Create Streaming Transcription (SSE)
+
+Create Streaming Transcription (SSE)
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiAudioApiV1TranscriptionsPostStreamRequest

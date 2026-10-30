@@ -22,6 +22,18 @@ func Test_mistral_AudioVoicesAPIService(t *testing.T) {
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
 
+	t.Run("Test AudioVoicesAPIService AudioV2VoicesList", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		resp, httpRes, err := apiClient.AudioVoicesAPI.AudioV2VoicesList(context.Background()).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
 	t.Run("Test AudioVoicesAPIService CreateVoiceV1AudioVoicesPost", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test

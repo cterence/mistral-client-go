@@ -5,11 +5,13 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **ExecutionId** | Pointer to **NullableString** | Allows you to specify a custom execution ID. If not provided, a random ID will be generated. | [optional] 
-**Input** | Pointer to **map[string]interface{}** | Output JSON schema of the query&#39;s model | [optional] 
-**EncodedInput** | Pointer to [**NullableNetworkEncodedInput**](NetworkEncodedInput.md) | Encoded input to the workflow, used when payload encoding is enabled. | [optional] 
+**Input** | Pointer to [**NullableInput5**](Input5.md) |  | [optional] 
 **WaitForResult** | Pointer to **bool** | If true, wait for the workflow to complete and return the result directly. | [optional] [default to false]
 **TimeoutSeconds** | Pointer to **NullableFloat32** | Maximum time to wait for completion when wait_for_result is true. | [optional] 
 **CustomTracingAttributes** | Pointer to **map[string]string** |  | [optional] 
+**ForceNewTrace** | Pointer to **bool** | If true, ignore the caller&#39;s trace context and start a new, independent trace for this execution instead of joining the caller&#39;s trace. | [optional] [default to false]
+**Traceparent** | Pointer to **NullableString** | W3C trace context to join this execution to the caller&#39;s trace. Ignored when force_new_trace is set. | [optional] 
+**Extensions** | Pointer to **map[string]interface{}** | Output JSON schema of the query&#39;s model | [optional] 
 **TaskQueue** | Pointer to **NullableString** | Deprecated. Use deployment_name instead. | [optional] 
 **DeploymentName** | Pointer to **NullableString** | Name of the deployment to route this execution to | [optional] 
 
@@ -69,20 +71,20 @@ HasExecutionId returns a boolean if a field has been set.
 UnsetExecutionId ensures that no value is present for ExecutionId, not even an explicit nil
 ### GetInput
 
-`func (o *WorkflowExecutionRequest) GetInput() map[string]interface{}`
+`func (o *WorkflowExecutionRequest) GetInput() Input5`
 
 GetInput returns the Input field if non-nil, zero value otherwise.
 
 ### GetInputOk
 
-`func (o *WorkflowExecutionRequest) GetInputOk() (*map[string]interface{}, bool)`
+`func (o *WorkflowExecutionRequest) GetInputOk() (*Input5, bool)`
 
 GetInputOk returns a tuple with the Input field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetInput
 
-`func (o *WorkflowExecutionRequest) SetInput(v map[string]interface{})`
+`func (o *WorkflowExecutionRequest) SetInput(v Input5)`
 
 SetInput sets Input field to given value.
 
@@ -102,41 +104,6 @@ HasInput returns a boolean if a field has been set.
 `func (o *WorkflowExecutionRequest) UnsetInput()`
 
 UnsetInput ensures that no value is present for Input, not even an explicit nil
-### GetEncodedInput
-
-`func (o *WorkflowExecutionRequest) GetEncodedInput() NetworkEncodedInput`
-
-GetEncodedInput returns the EncodedInput field if non-nil, zero value otherwise.
-
-### GetEncodedInputOk
-
-`func (o *WorkflowExecutionRequest) GetEncodedInputOk() (*NetworkEncodedInput, bool)`
-
-GetEncodedInputOk returns a tuple with the EncodedInput field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetEncodedInput
-
-`func (o *WorkflowExecutionRequest) SetEncodedInput(v NetworkEncodedInput)`
-
-SetEncodedInput sets EncodedInput field to given value.
-
-### HasEncodedInput
-
-`func (o *WorkflowExecutionRequest) HasEncodedInput() bool`
-
-HasEncodedInput returns a boolean if a field has been set.
-
-### SetEncodedInputNil
-
-`func (o *WorkflowExecutionRequest) SetEncodedInputNil(b bool)`
-
- SetEncodedInputNil sets the value for EncodedInput to be an explicit nil
-
-### UnsetEncodedInput
-`func (o *WorkflowExecutionRequest) UnsetEncodedInput()`
-
-UnsetEncodedInput ensures that no value is present for EncodedInput, not even an explicit nil
 ### GetWaitForResult
 
 `func (o *WorkflowExecutionRequest) GetWaitForResult() bool`
@@ -232,6 +199,101 @@ HasCustomTracingAttributes returns a boolean if a field has been set.
 `func (o *WorkflowExecutionRequest) UnsetCustomTracingAttributes()`
 
 UnsetCustomTracingAttributes ensures that no value is present for CustomTracingAttributes, not even an explicit nil
+### GetForceNewTrace
+
+`func (o *WorkflowExecutionRequest) GetForceNewTrace() bool`
+
+GetForceNewTrace returns the ForceNewTrace field if non-nil, zero value otherwise.
+
+### GetForceNewTraceOk
+
+`func (o *WorkflowExecutionRequest) GetForceNewTraceOk() (*bool, bool)`
+
+GetForceNewTraceOk returns a tuple with the ForceNewTrace field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetForceNewTrace
+
+`func (o *WorkflowExecutionRequest) SetForceNewTrace(v bool)`
+
+SetForceNewTrace sets ForceNewTrace field to given value.
+
+### HasForceNewTrace
+
+`func (o *WorkflowExecutionRequest) HasForceNewTrace() bool`
+
+HasForceNewTrace returns a boolean if a field has been set.
+
+### GetTraceparent
+
+`func (o *WorkflowExecutionRequest) GetTraceparent() string`
+
+GetTraceparent returns the Traceparent field if non-nil, zero value otherwise.
+
+### GetTraceparentOk
+
+`func (o *WorkflowExecutionRequest) GetTraceparentOk() (*string, bool)`
+
+GetTraceparentOk returns a tuple with the Traceparent field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetTraceparent
+
+`func (o *WorkflowExecutionRequest) SetTraceparent(v string)`
+
+SetTraceparent sets Traceparent field to given value.
+
+### HasTraceparent
+
+`func (o *WorkflowExecutionRequest) HasTraceparent() bool`
+
+HasTraceparent returns a boolean if a field has been set.
+
+### SetTraceparentNil
+
+`func (o *WorkflowExecutionRequest) SetTraceparentNil(b bool)`
+
+ SetTraceparentNil sets the value for Traceparent to be an explicit nil
+
+### UnsetTraceparent
+`func (o *WorkflowExecutionRequest) UnsetTraceparent()`
+
+UnsetTraceparent ensures that no value is present for Traceparent, not even an explicit nil
+### GetExtensions
+
+`func (o *WorkflowExecutionRequest) GetExtensions() map[string]interface{}`
+
+GetExtensions returns the Extensions field if non-nil, zero value otherwise.
+
+### GetExtensionsOk
+
+`func (o *WorkflowExecutionRequest) GetExtensionsOk() (*map[string]interface{}, bool)`
+
+GetExtensionsOk returns a tuple with the Extensions field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetExtensions
+
+`func (o *WorkflowExecutionRequest) SetExtensions(v map[string]interface{})`
+
+SetExtensions sets Extensions field to given value.
+
+### HasExtensions
+
+`func (o *WorkflowExecutionRequest) HasExtensions() bool`
+
+HasExtensions returns a boolean if a field has been set.
+
+### SetExtensionsNil
+
+`func (o *WorkflowExecutionRequest) SetExtensionsNil(b bool)`
+
+ SetExtensionsNil sets the value for Extensions to be an explicit nil
+
+### UnsetExtensions
+`func (o *WorkflowExecutionRequest) UnsetExtensions()`
+
+UnsetExtensions ensures that no value is present for Extensions, not even an explicit nil
 ### GetTaskQueue
 
 `func (o *WorkflowExecutionRequest) GetTaskQueue() string`

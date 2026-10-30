@@ -14,6 +14,7 @@ Name | Type | Description | Notes
 **Jitter** | Pointer to **NullableString** | Jitter to apply each action.  An action&#39;s scheduled time will be incremented by a random value between 0 and this value if present (but not past the next schedule).  | [optional] 
 **TimeZoneName** | Pointer to **NullableString** | IANA time zone name, for example &#x60;&#x60;US/Central&#x60;&#x60;. | [optional] 
 **Policy** | Pointer to [**SchedulePolicy**](SchedulePolicy.md) | Policy for the schedule. | [optional] 
+**MaxExecutions** | Pointer to **NullableInt32** | Maximum number of times this schedule will trigger a workflow execution. Once this limit is reached, no further executions are triggered automatically. null means unlimited. | [optional] 
 **ScheduleId** | Pointer to **NullableString** | Unique identifier for the schedule. | [optional] 
 
 ## Methods
@@ -330,6 +331,41 @@ SetPolicy sets Policy field to given value.
 
 HasPolicy returns a boolean if a field has been set.
 
+### GetMaxExecutions
+
+`func (o *ScheduleDefinition) GetMaxExecutions() int32`
+
+GetMaxExecutions returns the MaxExecutions field if non-nil, zero value otherwise.
+
+### GetMaxExecutionsOk
+
+`func (o *ScheduleDefinition) GetMaxExecutionsOk() (*int32, bool)`
+
+GetMaxExecutionsOk returns a tuple with the MaxExecutions field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetMaxExecutions
+
+`func (o *ScheduleDefinition) SetMaxExecutions(v int32)`
+
+SetMaxExecutions sets MaxExecutions field to given value.
+
+### HasMaxExecutions
+
+`func (o *ScheduleDefinition) HasMaxExecutions() bool`
+
+HasMaxExecutions returns a boolean if a field has been set.
+
+### SetMaxExecutionsNil
+
+`func (o *ScheduleDefinition) SetMaxExecutionsNil(b bool)`
+
+ SetMaxExecutionsNil sets the value for MaxExecutions to be an explicit nil
+
+### UnsetMaxExecutions
+`func (o *ScheduleDefinition) UnsetMaxExecutions()`
+
+UnsetMaxExecutions ensures that no value is present for MaxExecutions, not even an explicit nil
 ### GetScheduleId
 
 `func (o *ScheduleDefinition) GetScheduleId() string`

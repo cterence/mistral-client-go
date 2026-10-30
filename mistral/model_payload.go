@@ -16,23 +16,23 @@ import (
 	"gopkg.in/validator.v2"
 )
 
-// Payload - The current state or incremental update for the task.
+// Payload - struct for Payload
 type Payload struct {
-	JSONPatchPayloadResponse *JSONPatchPayloadResponse
-	JSONPayloadResponse *JSONPayloadResponse
+	CreateConnectorRequest *CreateConnectorRequest
+	CreateHTTPConnectorRequest *CreateHTTPConnectorRequest
 }
 
-// JSONPatchPayloadResponseAsPayload is a convenience function that returns JSONPatchPayloadResponse wrapped in Payload
-func JSONPatchPayloadResponseAsPayload(v *JSONPatchPayloadResponse) Payload {
+// CreateConnectorRequestAsPayload is a convenience function that returns CreateConnectorRequest wrapped in Payload
+func CreateConnectorRequestAsPayload(v *CreateConnectorRequest) Payload {
 	return Payload{
-		JSONPatchPayloadResponse: v,
+		CreateConnectorRequest: v,
 	}
 }
 
-// JSONPayloadResponseAsPayload is a convenience function that returns JSONPayloadResponse wrapped in Payload
-func JSONPayloadResponseAsPayload(v *JSONPayloadResponse) Payload {
+// CreateHTTPConnectorRequestAsPayload is a convenience function that returns CreateHTTPConnectorRequest wrapped in Payload
+func CreateHTTPConnectorRequestAsPayload(v *CreateHTTPConnectorRequest) Payload {
 	return Payload{
-		JSONPayloadResponse: v,
+		CreateHTTPConnectorRequest: v,
 	}
 }
 
@@ -41,44 +41,44 @@ func JSONPayloadResponseAsPayload(v *JSONPayloadResponse) Payload {
 func (dst *Payload) UnmarshalJSON(data []byte) error {
 	var err error
 	match := 0
-	// try to unmarshal data into JSONPatchPayloadResponse
-	err = newStrictDecoder(data).Decode(&dst.JSONPatchPayloadResponse)
+	// try to unmarshal data into CreateConnectorRequest
+	err = newStrictDecoder(data).Decode(&dst.CreateConnectorRequest)
 	if err == nil {
-		jsonJSONPatchPayloadResponse, _ := json.Marshal(dst.JSONPatchPayloadResponse)
-		if string(jsonJSONPatchPayloadResponse) == "{}" { // empty struct
-			dst.JSONPatchPayloadResponse = nil
+		jsonCreateConnectorRequest, _ := json.Marshal(dst.CreateConnectorRequest)
+		if string(jsonCreateConnectorRequest) == "{}" { // empty struct
+			dst.CreateConnectorRequest = nil
 		} else {
-			if err = validator.Validate(dst.JSONPatchPayloadResponse); err != nil {
-				dst.JSONPatchPayloadResponse = nil
+			if err = validator.Validate(dst.CreateConnectorRequest); err != nil {
+				dst.CreateConnectorRequest = nil
 			} else {
 				match++
 			}
 		}
 	} else {
-		dst.JSONPatchPayloadResponse = nil
+		dst.CreateConnectorRequest = nil
 	}
 
-	// try to unmarshal data into JSONPayloadResponse
-	err = newStrictDecoder(data).Decode(&dst.JSONPayloadResponse)
+	// try to unmarshal data into CreateHTTPConnectorRequest
+	err = newStrictDecoder(data).Decode(&dst.CreateHTTPConnectorRequest)
 	if err == nil {
-		jsonJSONPayloadResponse, _ := json.Marshal(dst.JSONPayloadResponse)
-		if string(jsonJSONPayloadResponse) == "{}" { // empty struct
-			dst.JSONPayloadResponse = nil
+		jsonCreateHTTPConnectorRequest, _ := json.Marshal(dst.CreateHTTPConnectorRequest)
+		if string(jsonCreateHTTPConnectorRequest) == "{}" { // empty struct
+			dst.CreateHTTPConnectorRequest = nil
 		} else {
-			if err = validator.Validate(dst.JSONPayloadResponse); err != nil {
-				dst.JSONPayloadResponse = nil
+			if err = validator.Validate(dst.CreateHTTPConnectorRequest); err != nil {
+				dst.CreateHTTPConnectorRequest = nil
 			} else {
 				match++
 			}
 		}
 	} else {
-		dst.JSONPayloadResponse = nil
+		dst.CreateHTTPConnectorRequest = nil
 	}
 
 	if match > 1 { // more than 1 match
 		// reset to nil
-		dst.JSONPatchPayloadResponse = nil
-		dst.JSONPayloadResponse = nil
+		dst.CreateConnectorRequest = nil
+		dst.CreateHTTPConnectorRequest = nil
 
 		return fmt.Errorf("data matches more than one schema in oneOf(Payload)")
 	} else if match == 1 {
@@ -94,12 +94,12 @@ func (dst *Payload) UnmarshalJSON(data []byte) error {
 
 // Marshal data from the first non-nil pointers in the struct to JSON
 func (src Payload) MarshalJSON() ([]byte, error) {
-	if src.JSONPatchPayloadResponse != nil {
-		return json.Marshal(&src.JSONPatchPayloadResponse)
+	if src.CreateConnectorRequest != nil {
+		return json.Marshal(&src.CreateConnectorRequest)
 	}
 
-	if src.JSONPayloadResponse != nil {
-		return json.Marshal(&src.JSONPayloadResponse)
+	if src.CreateHTTPConnectorRequest != nil {
+		return json.Marshal(&src.CreateHTTPConnectorRequest)
 	}
 
 	return nil, nil // no data in oneOf schemas
@@ -110,12 +110,12 @@ func (obj *Payload) GetActualInstance() (interface{}) {
 	if obj == nil {
 		return nil
 	}
-	if obj.JSONPatchPayloadResponse != nil {
-		return obj.JSONPatchPayloadResponse
+	if obj.CreateConnectorRequest != nil {
+		return obj.CreateConnectorRequest
 	}
 
-	if obj.JSONPayloadResponse != nil {
-		return obj.JSONPayloadResponse
+	if obj.CreateHTTPConnectorRequest != nil {
+		return obj.CreateHTTPConnectorRequest
 	}
 
 	// all schemas are nil
@@ -124,12 +124,12 @@ func (obj *Payload) GetActualInstance() (interface{}) {
 
 // Get the actual instance value
 func (obj Payload) GetActualInstanceValue() (interface{}) {
-	if obj.JSONPatchPayloadResponse != nil {
-		return *obj.JSONPatchPayloadResponse
+	if obj.CreateConnectorRequest != nil {
+		return *obj.CreateConnectorRequest
 	}
 
-	if obj.JSONPayloadResponse != nil {
-		return *obj.JSONPayloadResponse
+	if obj.CreateHTTPConnectorRequest != nil {
+		return *obj.CreateHTTPConnectorRequest
 	}
 
 	// all schemas are nil

@@ -19,10 +19,8 @@ var _ MappedNullable = &ConnectorsQueryFilters{}
 
 // ConnectorsQueryFilters struct for ConnectorsQueryFilters
 type ConnectorsQueryFilters struct {
-	// Filter for active connectors for a given user, workspace and organization.
-	Active NullableBool `json:"active,omitempty"`
-	// Fetch connection secrets.
-	FetchConnectionSecrets *bool `json:"fetch_connection_secrets,omitempty"`
+	// Filter connectors by whether they expose an MCP-compatible tool interface.
+	SupportsMcp NullableBool `json:"supports_mcp,omitempty"`
 }
 
 // NewConnectorsQueryFilters instantiates a new ConnectorsQueryFilters object
@@ -31,8 +29,6 @@ type ConnectorsQueryFilters struct {
 // will change when the set of required properties is changed
 func NewConnectorsQueryFilters() *ConnectorsQueryFilters {
 	this := ConnectorsQueryFilters{}
-	var fetchConnectionSecrets bool = false
-	this.FetchConnectionSecrets = &fetchConnectionSecrets
 	return &this
 }
 
@@ -41,83 +37,49 @@ func NewConnectorsQueryFilters() *ConnectorsQueryFilters {
 // but it doesn't guarantee that properties required by API are set
 func NewConnectorsQueryFiltersWithDefaults() *ConnectorsQueryFilters {
 	this := ConnectorsQueryFilters{}
-	var fetchConnectionSecrets bool = false
-	this.FetchConnectionSecrets = &fetchConnectionSecrets
 	return &this
 }
 
-// GetActive returns the Active field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *ConnectorsQueryFilters) GetActive() bool {
-	if o == nil || IsNil(o.Active.Get()) {
+// GetSupportsMcp returns the SupportsMcp field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *ConnectorsQueryFilters) GetSupportsMcp() bool {
+	if o == nil || IsNil(o.SupportsMcp.Get()) {
 		var ret bool
 		return ret
 	}
-	return *o.Active.Get()
+	return *o.SupportsMcp.Get()
 }
 
-// GetActiveOk returns a tuple with the Active field value if set, nil otherwise
+// GetSupportsMcpOk returns a tuple with the SupportsMcp field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *ConnectorsQueryFilters) GetActiveOk() (*bool, bool) {
+func (o *ConnectorsQueryFilters) GetSupportsMcpOk() (*bool, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return o.Active.Get(), o.Active.IsSet()
+	return o.SupportsMcp.Get(), o.SupportsMcp.IsSet()
 }
 
-// HasActive returns a boolean if a field has been set.
-func (o *ConnectorsQueryFilters) HasActive() bool {
-	if o != nil && o.Active.IsSet() {
+// HasSupportsMcp returns a boolean if a field has been set.
+func (o *ConnectorsQueryFilters) HasSupportsMcp() bool {
+	if o != nil && o.SupportsMcp.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetActive gets a reference to the given NullableBool and assigns it to the Active field.
-func (o *ConnectorsQueryFilters) SetActive(v bool) {
-	o.Active.Set(&v)
+// SetSupportsMcp gets a reference to the given NullableBool and assigns it to the SupportsMcp field.
+func (o *ConnectorsQueryFilters) SetSupportsMcp(v bool) {
+	o.SupportsMcp.Set(&v)
 }
-// SetActiveNil sets the value for Active to be an explicit nil
-func (o *ConnectorsQueryFilters) SetActiveNil() {
-	o.Active.Set(nil)
-}
-
-// UnsetActive ensures that no value is present for Active, not even an explicit nil
-func (o *ConnectorsQueryFilters) UnsetActive() {
-	o.Active.Unset()
+// SetSupportsMcpNil sets the value for SupportsMcp to be an explicit nil
+func (o *ConnectorsQueryFilters) SetSupportsMcpNil() {
+	o.SupportsMcp.Set(nil)
 }
 
-// GetFetchConnectionSecrets returns the FetchConnectionSecrets field value if set, zero value otherwise.
-func (o *ConnectorsQueryFilters) GetFetchConnectionSecrets() bool {
-	if o == nil || IsNil(o.FetchConnectionSecrets) {
-		var ret bool
-		return ret
-	}
-	return *o.FetchConnectionSecrets
-}
-
-// GetFetchConnectionSecretsOk returns a tuple with the FetchConnectionSecrets field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *ConnectorsQueryFilters) GetFetchConnectionSecretsOk() (*bool, bool) {
-	if o == nil || IsNil(o.FetchConnectionSecrets) {
-		return nil, false
-	}
-	return o.FetchConnectionSecrets, true
-}
-
-// HasFetchConnectionSecrets returns a boolean if a field has been set.
-func (o *ConnectorsQueryFilters) HasFetchConnectionSecrets() bool {
-	if o != nil && !IsNil(o.FetchConnectionSecrets) {
-		return true
-	}
-
-	return false
-}
-
-// SetFetchConnectionSecrets gets a reference to the given bool and assigns it to the FetchConnectionSecrets field.
-func (o *ConnectorsQueryFilters) SetFetchConnectionSecrets(v bool) {
-	o.FetchConnectionSecrets = &v
+// UnsetSupportsMcp ensures that no value is present for SupportsMcp, not even an explicit nil
+func (o *ConnectorsQueryFilters) UnsetSupportsMcp() {
+	o.SupportsMcp.Unset()
 }
 
 func (o ConnectorsQueryFilters) MarshalJSON() ([]byte, error) {
@@ -130,11 +92,8 @@ func (o ConnectorsQueryFilters) MarshalJSON() ([]byte, error) {
 
 func (o ConnectorsQueryFilters) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Active.IsSet() {
-		toSerialize["active"] = o.Active.Get()
-	}
-	if !IsNil(o.FetchConnectionSecrets) {
-		toSerialize["fetch_connection_secrets"] = o.FetchConnectionSecrets
+	if o.SupportsMcp.IsSet() {
+		toSerialize["supports_mcp"] = o.SupportsMcp.Get()
 	}
 	return toSerialize, nil
 }

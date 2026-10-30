@@ -17,13 +17,10 @@ import (
 // checks if the ToolExecution type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &ToolExecution{}
 
-// ToolExecution Execution-related properties for a tool.
+// ToolExecution Execution-related properties for a tool (2025-11-25 only).
 type ToolExecution struct {
 	TaskSupport NullableString `json:"taskSupport,omitempty"`
-	AdditionalProperties map[string]interface{}
 }
-
-type _ToolExecution ToolExecution
 
 // NewToolExecution instantiates a new ToolExecution object
 // This constructor will assign default values to properties that have it defined,
@@ -97,33 +94,7 @@ func (o ToolExecution) ToMap() (map[string]interface{}, error) {
 	if o.TaskSupport.IsSet() {
 		toSerialize["taskSupport"] = o.TaskSupport.Get()
 	}
-
-	for key, value := range o.AdditionalProperties {
-		toSerialize[key] = value
-	}
-
 	return toSerialize, nil
-}
-
-func (o *ToolExecution) UnmarshalJSON(data []byte) (err error) {
-	varToolExecution := _ToolExecution{}
-
-	err = json.Unmarshal(data, &varToolExecution)
-
-	if err != nil {
-		return err
-	}
-
-	*o = ToolExecution(varToolExecution)
-
-	additionalProperties := make(map[string]interface{})
-
-	if err = json.Unmarshal(data, &additionalProperties); err == nil {
-		delete(additionalProperties, "taskSupport")
-		o.AdditionalProperties = additionalProperties
-	}
-
-	return err
 }
 
 type NullableToolExecution struct {

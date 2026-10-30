@@ -6,21 +6,30 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **MaxTokens** | Pointer to **NullableInt32** | The maximum number of tokens to generate in the completion. The token count of your prompt plus &#x60;max_tokens&#x60; cannot exceed the model&#39;s context length. | [optional] 
 **Stream** | Pointer to **bool** | Whether to stream back partial progress. If set, tokens will be sent as data-only server-side events as they become available, with the stream terminated by a data: [DONE] message. Otherwise, the server will hold the request open until the timeout or until completion, with the response containing the full result as JSON. | [optional] [default to false]
-**Stop** | Pointer to [**Stop**](Stop.md) |  | [optional] 
+**Stop** | Pointer to [**NullableStop**](Stop.md) |  | [optional] 
 **RandomSeed** | Pointer to **NullableInt32** | The seed to use for random sampling. If set, different calls will generate deterministic results. | [optional] 
 **Metadata** | Pointer to **map[string]interface{}** |  | [optional] 
 **Messages** | [**[]MessagesInner**](MessagesInner.md) | The prompt(s) to generate completions for, encoded as a list of dict with role and content. | 
 **ResponseFormat** | Pointer to [**ResponseFormat**](ResponseFormat.md) |  | [optional] 
-**Tools** | Pointer to [**[]Tool**](Tool.md) |  | [optional] 
+**Tools** | Pointer to [**[]ChatCompletionRequestToolsInner**](ChatCompletionRequestToolsInner.md) |  | [optional] 
 **ToolChoice** | Pointer to [**ToolChoice**](ToolChoice.md) |  | [optional] [default to auto]
-**PresencePenalty** | Pointer to **float32** | The &#x60;presence_penalty&#x60; determines how much the model penalizes the repetition of words or phrases. A higher presence penalty encourages the model to use a wider variety of words and phrases, making the output more diverse and creative. | [optional] [default to 0.0]
-**FrequencyPenalty** | Pointer to **float32** | The &#x60;frequency_penalty&#x60; penalizes the repetition of words based on their frequency in the generated text. A higher frequency penalty discourages the model from repeating words that have already appeared frequently in the output, promoting diversity and reducing repetition. | [optional] [default to 0.0]
+**PresencePenalty** | Pointer to **NullableFloat32** | The &#x60;presence_penalty&#x60; determines how much the model penalizes the repetition of words or phrases. A higher presence penalty encourages the model to use a wider variety of words and phrases, making the output more diverse and creative. | [optional] 
+**FrequencyPenalty** | Pointer to **NullableFloat32** | The &#x60;frequency_penalty&#x60; penalizes the repetition of words based on their frequency in the generated text. A higher frequency penalty discourages the model from repeating words that have already appeared frequently in the output, promoting diversity and reducing repetition. | [optional] 
+**MinTokens** | Pointer to **NullableInt32** |  | [optional] 
+**RepetitionPenalty** | Pointer to **NullableFloat32** |  | [optional] 
+**TopK** | Pointer to **NullableInt32** |  | [optional] 
+**Logprobs** | Pointer to **NullableBool** |  | [optional] 
+**TopLogprobs** | Pointer to **NullableInt32** |  | [optional] 
+**PromptLogprobs** | Pointer to **NullableBool** |  | [optional] 
+**TopPromptLogprobs** | Pointer to **NullableInt32** |  | [optional] 
 **N** | Pointer to **NullableInt32** | Number of completions to return for each request, input tokens are only billed once. | [optional] 
 **Prediction** | Pointer to [**Prediction**](Prediction.md) | Enable users to specify expected results, optimizing response times by leveraging known or predictable content. This approach is especially effective for updating text documents or code files with minimal changes, reducing latency while maintaining high-quality results. | [optional] [default to {type=content, content=}]
 **ParallelToolCalls** | Pointer to **bool** |  | [optional] [default to true]
-**PromptMode** | Pointer to [**NullableMistralPromptMode**](MistralPromptMode.md) | Allows toggling between the reasoning mode and no system prompt. When set to &#x60;reasoning&#x60; the system prompt for reasoning models will be used. **Deprecated for reasoning models - use &#x60;reasoning_effort&#x60; parameter instead.** | [optional] 
-**ReasoningEffort** | Pointer to **string** | Controls the reasoning effort level for reasoning models. \&quot;high\&quot; enables comprehensive reasoning traces, \&quot;none\&quot; disables reasoning effort. | [optional] 
-**PromptCacheKey** | Pointer to **NullableString** | A cache key to enable prompt caching. When provided, the API will attempt to reuse previously computed tokens for requests sharing the same prefix (e.g. multi-turn conversations or requests with a similar system prompt). Cached tokens are billed at 10% of the standard input token price. | [optional] 
+**ReasoningEffort** | Pointer to [**NullableReasoningEffort**](ReasoningEffort.md) |  | [optional] 
+**PromptMode** | Pointer to [**NullableMistralPromptMode**](MistralPromptMode.md) | Allows toggling between the reasoning mode and no system prompt. When set to &#x60;reasoning&#x60; the system prompt for reasoning models will be used. | [optional] 
+**Guardrails** | Pointer to [**[]GuardrailConfig**](GuardrailConfig.md) |  | [optional] 
+**PromptCacheKey** | Pointer to **NullableString** |  | [optional] 
+**ServiceTier** | Pointer to [**NullableRequestedServiceTier**](RequestedServiceTier.md) | Determines whether to serve the request using priority or standard capacity. | [optional] 
 **AgentId** | **string** | The ID of the agent to use for this completion. | 
 
 ## Methods
@@ -127,6 +136,16 @@ SetStop sets Stop field to given value.
 
 HasStop returns a boolean if a field has been set.
 
+### SetStopNil
+
+`func (o *AgentsCompletionRequest) SetStopNil(b bool)`
+
+ SetStopNil sets the value for Stop to be an explicit nil
+
+### UnsetStop
+`func (o *AgentsCompletionRequest) UnsetStop()`
+
+UnsetStop ensures that no value is present for Stop, not even an explicit nil
 ### GetRandomSeed
 
 `func (o *AgentsCompletionRequest) GetRandomSeed() int32`
@@ -244,20 +263,20 @@ HasResponseFormat returns a boolean if a field has been set.
 
 ### GetTools
 
-`func (o *AgentsCompletionRequest) GetTools() []Tool`
+`func (o *AgentsCompletionRequest) GetTools() []ChatCompletionRequestToolsInner`
 
 GetTools returns the Tools field if non-nil, zero value otherwise.
 
 ### GetToolsOk
 
-`func (o *AgentsCompletionRequest) GetToolsOk() (*[]Tool, bool)`
+`func (o *AgentsCompletionRequest) GetToolsOk() (*[]ChatCompletionRequestToolsInner, bool)`
 
 GetToolsOk returns a tuple with the Tools field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTools
 
-`func (o *AgentsCompletionRequest) SetTools(v []Tool)`
+`func (o *AgentsCompletionRequest) SetTools(v []ChatCompletionRequestToolsInner)`
 
 SetTools sets Tools field to given value.
 
@@ -327,6 +346,16 @@ SetPresencePenalty sets PresencePenalty field to given value.
 
 HasPresencePenalty returns a boolean if a field has been set.
 
+### SetPresencePenaltyNil
+
+`func (o *AgentsCompletionRequest) SetPresencePenaltyNil(b bool)`
+
+ SetPresencePenaltyNil sets the value for PresencePenalty to be an explicit nil
+
+### UnsetPresencePenalty
+`func (o *AgentsCompletionRequest) UnsetPresencePenalty()`
+
+UnsetPresencePenalty ensures that no value is present for PresencePenalty, not even an explicit nil
 ### GetFrequencyPenalty
 
 `func (o *AgentsCompletionRequest) GetFrequencyPenalty() float32`
@@ -352,6 +381,261 @@ SetFrequencyPenalty sets FrequencyPenalty field to given value.
 
 HasFrequencyPenalty returns a boolean if a field has been set.
 
+### SetFrequencyPenaltyNil
+
+`func (o *AgentsCompletionRequest) SetFrequencyPenaltyNil(b bool)`
+
+ SetFrequencyPenaltyNil sets the value for FrequencyPenalty to be an explicit nil
+
+### UnsetFrequencyPenalty
+`func (o *AgentsCompletionRequest) UnsetFrequencyPenalty()`
+
+UnsetFrequencyPenalty ensures that no value is present for FrequencyPenalty, not even an explicit nil
+### GetMinTokens
+
+`func (o *AgentsCompletionRequest) GetMinTokens() int32`
+
+GetMinTokens returns the MinTokens field if non-nil, zero value otherwise.
+
+### GetMinTokensOk
+
+`func (o *AgentsCompletionRequest) GetMinTokensOk() (*int32, bool)`
+
+GetMinTokensOk returns a tuple with the MinTokens field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetMinTokens
+
+`func (o *AgentsCompletionRequest) SetMinTokens(v int32)`
+
+SetMinTokens sets MinTokens field to given value.
+
+### HasMinTokens
+
+`func (o *AgentsCompletionRequest) HasMinTokens() bool`
+
+HasMinTokens returns a boolean if a field has been set.
+
+### SetMinTokensNil
+
+`func (o *AgentsCompletionRequest) SetMinTokensNil(b bool)`
+
+ SetMinTokensNil sets the value for MinTokens to be an explicit nil
+
+### UnsetMinTokens
+`func (o *AgentsCompletionRequest) UnsetMinTokens()`
+
+UnsetMinTokens ensures that no value is present for MinTokens, not even an explicit nil
+### GetRepetitionPenalty
+
+`func (o *AgentsCompletionRequest) GetRepetitionPenalty() float32`
+
+GetRepetitionPenalty returns the RepetitionPenalty field if non-nil, zero value otherwise.
+
+### GetRepetitionPenaltyOk
+
+`func (o *AgentsCompletionRequest) GetRepetitionPenaltyOk() (*float32, bool)`
+
+GetRepetitionPenaltyOk returns a tuple with the RepetitionPenalty field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetRepetitionPenalty
+
+`func (o *AgentsCompletionRequest) SetRepetitionPenalty(v float32)`
+
+SetRepetitionPenalty sets RepetitionPenalty field to given value.
+
+### HasRepetitionPenalty
+
+`func (o *AgentsCompletionRequest) HasRepetitionPenalty() bool`
+
+HasRepetitionPenalty returns a boolean if a field has been set.
+
+### SetRepetitionPenaltyNil
+
+`func (o *AgentsCompletionRequest) SetRepetitionPenaltyNil(b bool)`
+
+ SetRepetitionPenaltyNil sets the value for RepetitionPenalty to be an explicit nil
+
+### UnsetRepetitionPenalty
+`func (o *AgentsCompletionRequest) UnsetRepetitionPenalty()`
+
+UnsetRepetitionPenalty ensures that no value is present for RepetitionPenalty, not even an explicit nil
+### GetTopK
+
+`func (o *AgentsCompletionRequest) GetTopK() int32`
+
+GetTopK returns the TopK field if non-nil, zero value otherwise.
+
+### GetTopKOk
+
+`func (o *AgentsCompletionRequest) GetTopKOk() (*int32, bool)`
+
+GetTopKOk returns a tuple with the TopK field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetTopK
+
+`func (o *AgentsCompletionRequest) SetTopK(v int32)`
+
+SetTopK sets TopK field to given value.
+
+### HasTopK
+
+`func (o *AgentsCompletionRequest) HasTopK() bool`
+
+HasTopK returns a boolean if a field has been set.
+
+### SetTopKNil
+
+`func (o *AgentsCompletionRequest) SetTopKNil(b bool)`
+
+ SetTopKNil sets the value for TopK to be an explicit nil
+
+### UnsetTopK
+`func (o *AgentsCompletionRequest) UnsetTopK()`
+
+UnsetTopK ensures that no value is present for TopK, not even an explicit nil
+### GetLogprobs
+
+`func (o *AgentsCompletionRequest) GetLogprobs() bool`
+
+GetLogprobs returns the Logprobs field if non-nil, zero value otherwise.
+
+### GetLogprobsOk
+
+`func (o *AgentsCompletionRequest) GetLogprobsOk() (*bool, bool)`
+
+GetLogprobsOk returns a tuple with the Logprobs field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetLogprobs
+
+`func (o *AgentsCompletionRequest) SetLogprobs(v bool)`
+
+SetLogprobs sets Logprobs field to given value.
+
+### HasLogprobs
+
+`func (o *AgentsCompletionRequest) HasLogprobs() bool`
+
+HasLogprobs returns a boolean if a field has been set.
+
+### SetLogprobsNil
+
+`func (o *AgentsCompletionRequest) SetLogprobsNil(b bool)`
+
+ SetLogprobsNil sets the value for Logprobs to be an explicit nil
+
+### UnsetLogprobs
+`func (o *AgentsCompletionRequest) UnsetLogprobs()`
+
+UnsetLogprobs ensures that no value is present for Logprobs, not even an explicit nil
+### GetTopLogprobs
+
+`func (o *AgentsCompletionRequest) GetTopLogprobs() int32`
+
+GetTopLogprobs returns the TopLogprobs field if non-nil, zero value otherwise.
+
+### GetTopLogprobsOk
+
+`func (o *AgentsCompletionRequest) GetTopLogprobsOk() (*int32, bool)`
+
+GetTopLogprobsOk returns a tuple with the TopLogprobs field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetTopLogprobs
+
+`func (o *AgentsCompletionRequest) SetTopLogprobs(v int32)`
+
+SetTopLogprobs sets TopLogprobs field to given value.
+
+### HasTopLogprobs
+
+`func (o *AgentsCompletionRequest) HasTopLogprobs() bool`
+
+HasTopLogprobs returns a boolean if a field has been set.
+
+### SetTopLogprobsNil
+
+`func (o *AgentsCompletionRequest) SetTopLogprobsNil(b bool)`
+
+ SetTopLogprobsNil sets the value for TopLogprobs to be an explicit nil
+
+### UnsetTopLogprobs
+`func (o *AgentsCompletionRequest) UnsetTopLogprobs()`
+
+UnsetTopLogprobs ensures that no value is present for TopLogprobs, not even an explicit nil
+### GetPromptLogprobs
+
+`func (o *AgentsCompletionRequest) GetPromptLogprobs() bool`
+
+GetPromptLogprobs returns the PromptLogprobs field if non-nil, zero value otherwise.
+
+### GetPromptLogprobsOk
+
+`func (o *AgentsCompletionRequest) GetPromptLogprobsOk() (*bool, bool)`
+
+GetPromptLogprobsOk returns a tuple with the PromptLogprobs field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPromptLogprobs
+
+`func (o *AgentsCompletionRequest) SetPromptLogprobs(v bool)`
+
+SetPromptLogprobs sets PromptLogprobs field to given value.
+
+### HasPromptLogprobs
+
+`func (o *AgentsCompletionRequest) HasPromptLogprobs() bool`
+
+HasPromptLogprobs returns a boolean if a field has been set.
+
+### SetPromptLogprobsNil
+
+`func (o *AgentsCompletionRequest) SetPromptLogprobsNil(b bool)`
+
+ SetPromptLogprobsNil sets the value for PromptLogprobs to be an explicit nil
+
+### UnsetPromptLogprobs
+`func (o *AgentsCompletionRequest) UnsetPromptLogprobs()`
+
+UnsetPromptLogprobs ensures that no value is present for PromptLogprobs, not even an explicit nil
+### GetTopPromptLogprobs
+
+`func (o *AgentsCompletionRequest) GetTopPromptLogprobs() int32`
+
+GetTopPromptLogprobs returns the TopPromptLogprobs field if non-nil, zero value otherwise.
+
+### GetTopPromptLogprobsOk
+
+`func (o *AgentsCompletionRequest) GetTopPromptLogprobsOk() (*int32, bool)`
+
+GetTopPromptLogprobsOk returns a tuple with the TopPromptLogprobs field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetTopPromptLogprobs
+
+`func (o *AgentsCompletionRequest) SetTopPromptLogprobs(v int32)`
+
+SetTopPromptLogprobs sets TopPromptLogprobs field to given value.
+
+### HasTopPromptLogprobs
+
+`func (o *AgentsCompletionRequest) HasTopPromptLogprobs() bool`
+
+HasTopPromptLogprobs returns a boolean if a field has been set.
+
+### SetTopPromptLogprobsNil
+
+`func (o *AgentsCompletionRequest) SetTopPromptLogprobsNil(b bool)`
+
+ SetTopPromptLogprobsNil sets the value for TopPromptLogprobs to be an explicit nil
+
+### UnsetTopPromptLogprobs
+`func (o *AgentsCompletionRequest) UnsetTopPromptLogprobs()`
+
+UnsetTopPromptLogprobs ensures that no value is present for TopPromptLogprobs, not even an explicit nil
 ### GetN
 
 `func (o *AgentsCompletionRequest) GetN() int32`
@@ -437,6 +721,41 @@ SetParallelToolCalls sets ParallelToolCalls field to given value.
 
 HasParallelToolCalls returns a boolean if a field has been set.
 
+### GetReasoningEffort
+
+`func (o *AgentsCompletionRequest) GetReasoningEffort() ReasoningEffort`
+
+GetReasoningEffort returns the ReasoningEffort field if non-nil, zero value otherwise.
+
+### GetReasoningEffortOk
+
+`func (o *AgentsCompletionRequest) GetReasoningEffortOk() (*ReasoningEffort, bool)`
+
+GetReasoningEffortOk returns a tuple with the ReasoningEffort field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetReasoningEffort
+
+`func (o *AgentsCompletionRequest) SetReasoningEffort(v ReasoningEffort)`
+
+SetReasoningEffort sets ReasoningEffort field to given value.
+
+### HasReasoningEffort
+
+`func (o *AgentsCompletionRequest) HasReasoningEffort() bool`
+
+HasReasoningEffort returns a boolean if a field has been set.
+
+### SetReasoningEffortNil
+
+`func (o *AgentsCompletionRequest) SetReasoningEffortNil(b bool)`
+
+ SetReasoningEffortNil sets the value for ReasoningEffort to be an explicit nil
+
+### UnsetReasoningEffort
+`func (o *AgentsCompletionRequest) UnsetReasoningEffort()`
+
+UnsetReasoningEffort ensures that no value is present for ReasoningEffort, not even an explicit nil
 ### GetPromptMode
 
 `func (o *AgentsCompletionRequest) GetPromptMode() MistralPromptMode`
@@ -472,31 +791,41 @@ HasPromptMode returns a boolean if a field has been set.
 `func (o *AgentsCompletionRequest) UnsetPromptMode()`
 
 UnsetPromptMode ensures that no value is present for PromptMode, not even an explicit nil
-### GetReasoningEffort
+### GetGuardrails
 
-`func (o *AgentsCompletionRequest) GetReasoningEffort() string`
+`func (o *AgentsCompletionRequest) GetGuardrails() []GuardrailConfig`
 
-GetReasoningEffort returns the ReasoningEffort field if non-nil, zero value otherwise.
+GetGuardrails returns the Guardrails field if non-nil, zero value otherwise.
 
-### GetReasoningEffortOk
+### GetGuardrailsOk
 
-`func (o *AgentsCompletionRequest) GetReasoningEffortOk() (*string, bool)`
+`func (o *AgentsCompletionRequest) GetGuardrailsOk() (*[]GuardrailConfig, bool)`
 
-GetReasoningEffortOk returns a tuple with the ReasoningEffort field if it's non-nil, zero value otherwise
+GetGuardrailsOk returns a tuple with the Guardrails field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetReasoningEffort
+### SetGuardrails
 
-`func (o *AgentsCompletionRequest) SetReasoningEffort(v string)`
+`func (o *AgentsCompletionRequest) SetGuardrails(v []GuardrailConfig)`
 
-SetReasoningEffort sets ReasoningEffort field to given value.
+SetGuardrails sets Guardrails field to given value.
 
-### HasReasoningEffort
+### HasGuardrails
 
-`func (o *AgentsCompletionRequest) HasReasoningEffort() bool`
+`func (o *AgentsCompletionRequest) HasGuardrails() bool`
 
-HasReasoningEffort returns a boolean if a field has been set.
+HasGuardrails returns a boolean if a field has been set.
 
+### SetGuardrailsNil
+
+`func (o *AgentsCompletionRequest) SetGuardrailsNil(b bool)`
+
+ SetGuardrailsNil sets the value for Guardrails to be an explicit nil
+
+### UnsetGuardrails
+`func (o *AgentsCompletionRequest) UnsetGuardrails()`
+
+UnsetGuardrails ensures that no value is present for Guardrails, not even an explicit nil
 ### GetPromptCacheKey
 
 `func (o *AgentsCompletionRequest) GetPromptCacheKey() string`
@@ -532,6 +861,41 @@ HasPromptCacheKey returns a boolean if a field has been set.
 `func (o *AgentsCompletionRequest) UnsetPromptCacheKey()`
 
 UnsetPromptCacheKey ensures that no value is present for PromptCacheKey, not even an explicit nil
+### GetServiceTier
+
+`func (o *AgentsCompletionRequest) GetServiceTier() RequestedServiceTier`
+
+GetServiceTier returns the ServiceTier field if non-nil, zero value otherwise.
+
+### GetServiceTierOk
+
+`func (o *AgentsCompletionRequest) GetServiceTierOk() (*RequestedServiceTier, bool)`
+
+GetServiceTierOk returns a tuple with the ServiceTier field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetServiceTier
+
+`func (o *AgentsCompletionRequest) SetServiceTier(v RequestedServiceTier)`
+
+SetServiceTier sets ServiceTier field to given value.
+
+### HasServiceTier
+
+`func (o *AgentsCompletionRequest) HasServiceTier() bool`
+
+HasServiceTier returns a boolean if a field has been set.
+
+### SetServiceTierNil
+
+`func (o *AgentsCompletionRequest) SetServiceTierNil(b bool)`
+
+ SetServiceTierNil sets the value for ServiceTier to be an explicit nil
+
+### UnsetServiceTier
+`func (o *AgentsCompletionRequest) UnsetServiceTier()`
+
+UnsetServiceTier ensures that no value is present for ServiceTier, not even an explicit nil
 ### GetAgentId
 
 `func (o *AgentsCompletionRequest) GetAgentId() string`

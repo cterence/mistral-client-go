@@ -25,6 +25,7 @@ const (
 	BUILTINCONNECTORS_CODE_INTERPRETER BuiltInConnectors = "code_interpreter"
 	BUILTINCONNECTORS_IMAGE_GENERATION BuiltInConnectors = "image_generation"
 	BUILTINCONNECTORS_DOCUMENT_LIBRARY BuiltInConnectors = "document_library"
+	BUILTINCONNECTORS_MISTRAL_MCP BuiltInConnectors = "mistral_mcp"
 )
 
 // All allowed values of BuiltInConnectors enum
@@ -34,6 +35,7 @@ var AllowedBuiltInConnectorsEnumValues = []BuiltInConnectors{
 	"code_interpreter",
 	"image_generation",
 	"document_library",
+	"mistral_mcp",
 }
 
 func (v *BuiltInConnectors) UnmarshalJSON(src []byte) error {

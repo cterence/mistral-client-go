@@ -12,352 +12,128 @@ package mistral
 
 import (
 	"encoding/json"
-	"time"
-	"bytes"
 	"fmt"
+	"gopkg.in/validator.v2"
 )
 
-// checks if the Connector type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &Connector{}
-
-// Connector struct for Connector
+// Connector - struct for Connector
 type Connector struct {
-	Id string `json:"id"`
-	Name string `json:"name"`
-	Description string `json:"description"`
-	CreatedAt time.Time `json:"created_at"`
-	ModifiedAt time.Time `json:"modified_at"`
-	Server NullableString `json:"server,omitempty"`
-	AuthType NullableString `json:"auth_type,omitempty"`
-	Tools []IntegrationsSchemasApiToolTool `json:"tools,omitempty"`
+	HTTPConnector *HTTPConnector
+	MCPConnector *MCPConnector
 }
 
-type _Connector Connector
-
-// NewConnector instantiates a new Connector object
-// This constructor will assign default values to properties that have it defined,
-// and makes sure properties required by API are set, but the set of arguments
-// will change when the set of required properties is changed
-func NewConnector(id string, name string, description string, createdAt time.Time, modifiedAt time.Time) *Connector {
-	this := Connector{}
-	this.Id = id
-	this.Name = name
-	this.Description = description
-	this.CreatedAt = createdAt
-	this.ModifiedAt = modifiedAt
-	return &this
-}
-
-// NewConnectorWithDefaults instantiates a new Connector object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set
-func NewConnectorWithDefaults() *Connector {
-	this := Connector{}
-	return &this
-}
-
-// GetId returns the Id field value
-func (o *Connector) GetId() string {
-	if o == nil {
-		var ret string
-		return ret
+// HTTPConnectorAsConnector is a convenience function that returns HTTPConnector wrapped in Connector
+func HTTPConnectorAsConnector(v *HTTPConnector) Connector {
+	return Connector{
+		HTTPConnector: v,
 	}
-
-	return o.Id
 }
 
-// GetIdOk returns a tuple with the Id field value
-// and a boolean to check if the value has been set.
-func (o *Connector) GetIdOk() (*string, bool) {
-	if o == nil {
-		return nil, false
+// MCPConnectorAsConnector is a convenience function that returns MCPConnector wrapped in Connector
+func MCPConnectorAsConnector(v *MCPConnector) Connector {
+	return Connector{
+		MCPConnector: v,
 	}
-	return &o.Id, true
 }
 
-// SetId sets field value
-func (o *Connector) SetId(v string) {
-	o.Id = v
-}
 
-// GetName returns the Name field value
-func (o *Connector) GetName() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.Name
-}
-
-// GetNameOk returns a tuple with the Name field value
-// and a boolean to check if the value has been set.
-func (o *Connector) GetNameOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Name, true
-}
-
-// SetName sets field value
-func (o *Connector) SetName(v string) {
-	o.Name = v
-}
-
-// GetDescription returns the Description field value
-func (o *Connector) GetDescription() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.Description
-}
-
-// GetDescriptionOk returns a tuple with the Description field value
-// and a boolean to check if the value has been set.
-func (o *Connector) GetDescriptionOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Description, true
-}
-
-// SetDescription sets field value
-func (o *Connector) SetDescription(v string) {
-	o.Description = v
-}
-
-// GetCreatedAt returns the CreatedAt field value
-func (o *Connector) GetCreatedAt() time.Time {
-	if o == nil {
-		var ret time.Time
-		return ret
-	}
-
-	return o.CreatedAt
-}
-
-// GetCreatedAtOk returns a tuple with the CreatedAt field value
-// and a boolean to check if the value has been set.
-func (o *Connector) GetCreatedAtOk() (*time.Time, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.CreatedAt, true
-}
-
-// SetCreatedAt sets field value
-func (o *Connector) SetCreatedAt(v time.Time) {
-	o.CreatedAt = v
-}
-
-// GetModifiedAt returns the ModifiedAt field value
-func (o *Connector) GetModifiedAt() time.Time {
-	if o == nil {
-		var ret time.Time
-		return ret
-	}
-
-	return o.ModifiedAt
-}
-
-// GetModifiedAtOk returns a tuple with the ModifiedAt field value
-// and a boolean to check if the value has been set.
-func (o *Connector) GetModifiedAtOk() (*time.Time, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.ModifiedAt, true
-}
-
-// SetModifiedAt sets field value
-func (o *Connector) SetModifiedAt(v time.Time) {
-	o.ModifiedAt = v
-}
-
-// GetServer returns the Server field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *Connector) GetServer() string {
-	if o == nil || IsNil(o.Server.Get()) {
-		var ret string
-		return ret
-	}
-	return *o.Server.Get()
-}
-
-// GetServerOk returns a tuple with the Server field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *Connector) GetServerOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return o.Server.Get(), o.Server.IsSet()
-}
-
-// HasServer returns a boolean if a field has been set.
-func (o *Connector) HasServer() bool {
-	if o != nil && o.Server.IsSet() {
-		return true
-	}
-
-	return false
-}
-
-// SetServer gets a reference to the given NullableString and assigns it to the Server field.
-func (o *Connector) SetServer(v string) {
-	o.Server.Set(&v)
-}
-// SetServerNil sets the value for Server to be an explicit nil
-func (o *Connector) SetServerNil() {
-	o.Server.Set(nil)
-}
-
-// UnsetServer ensures that no value is present for Server, not even an explicit nil
-func (o *Connector) UnsetServer() {
-	o.Server.Unset()
-}
-
-// GetAuthType returns the AuthType field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *Connector) GetAuthType() string {
-	if o == nil || IsNil(o.AuthType.Get()) {
-		var ret string
-		return ret
-	}
-	return *o.AuthType.Get()
-}
-
-// GetAuthTypeOk returns a tuple with the AuthType field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *Connector) GetAuthTypeOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return o.AuthType.Get(), o.AuthType.IsSet()
-}
-
-// HasAuthType returns a boolean if a field has been set.
-func (o *Connector) HasAuthType() bool {
-	if o != nil && o.AuthType.IsSet() {
-		return true
-	}
-
-	return false
-}
-
-// SetAuthType gets a reference to the given NullableString and assigns it to the AuthType field.
-func (o *Connector) SetAuthType(v string) {
-	o.AuthType.Set(&v)
-}
-// SetAuthTypeNil sets the value for AuthType to be an explicit nil
-func (o *Connector) SetAuthTypeNil() {
-	o.AuthType.Set(nil)
-}
-
-// UnsetAuthType ensures that no value is present for AuthType, not even an explicit nil
-func (o *Connector) UnsetAuthType() {
-	o.AuthType.Unset()
-}
-
-// GetTools returns the Tools field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *Connector) GetTools() []IntegrationsSchemasApiToolTool {
-	if o == nil {
-		var ret []IntegrationsSchemasApiToolTool
-		return ret
-	}
-	return o.Tools
-}
-
-// GetToolsOk returns a tuple with the Tools field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *Connector) GetToolsOk() ([]IntegrationsSchemasApiToolTool, bool) {
-	if o == nil || IsNil(o.Tools) {
-		return nil, false
-	}
-	return o.Tools, true
-}
-
-// HasTools returns a boolean if a field has been set.
-func (o *Connector) HasTools() bool {
-	if o != nil && !IsNil(o.Tools) {
-		return true
-	}
-
-	return false
-}
-
-// SetTools gets a reference to the given []IntegrationsSchemasApiToolTool and assigns it to the Tools field.
-func (o *Connector) SetTools(v []IntegrationsSchemasApiToolTool) {
-	o.Tools = v
-}
-
-func (o Connector) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
-	if err != nil {
-		return []byte{}, err
-	}
-	return json.Marshal(toSerialize)
-}
-
-func (o Connector) ToMap() (map[string]interface{}, error) {
-	toSerialize := map[string]interface{}{}
-	toSerialize["id"] = o.Id
-	toSerialize["name"] = o.Name
-	toSerialize["description"] = o.Description
-	toSerialize["created_at"] = o.CreatedAt
-	toSerialize["modified_at"] = o.ModifiedAt
-	if o.Server.IsSet() {
-		toSerialize["server"] = o.Server.Get()
-	}
-	if o.AuthType.IsSet() {
-		toSerialize["auth_type"] = o.AuthType.Get()
-	}
-	if o.Tools != nil {
-		toSerialize["tools"] = o.Tools
-	}
-	return toSerialize, nil
-}
-
-func (o *Connector) UnmarshalJSON(data []byte) (err error) {
-	// This validates that all required properties are included in the JSON object
-	// by unmarshalling the object into a generic map with string keys and checking
-	// that every required field exists as a key in the generic map.
-	requiredProperties := []string{
-		"id",
-		"name",
-		"description",
-		"created_at",
-		"modified_at",
-	}
-
-	allProperties := make(map[string]interface{})
-
-	err = json.Unmarshal(data, &allProperties)
-
-	if err != nil {
-		return err;
-	}
-
-	for _, requiredProperty := range(requiredProperties) {
-		if _, exists := allProperties[requiredProperty]; !exists {
-			return fmt.Errorf("no value given for required property %v", requiredProperty)
+// Unmarshal JSON data into one of the pointers in the struct
+func (dst *Connector) UnmarshalJSON(data []byte) error {
+	var err error
+	match := 0
+	// try to unmarshal data into HTTPConnector
+	err = newStrictDecoder(data).Decode(&dst.HTTPConnector)
+	if err == nil {
+		jsonHTTPConnector, _ := json.Marshal(dst.HTTPConnector)
+		if string(jsonHTTPConnector) == "{}" { // empty struct
+			dst.HTTPConnector = nil
+		} else {
+			if err = validator.Validate(dst.HTTPConnector); err != nil {
+				dst.HTTPConnector = nil
+			} else {
+				match++
+			}
 		}
+	} else {
+		dst.HTTPConnector = nil
 	}
 
-	varConnector := _Connector{}
-
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	err = decoder.Decode(&varConnector)
-
-	if err != nil {
-		return err
+	// try to unmarshal data into MCPConnector
+	err = newStrictDecoder(data).Decode(&dst.MCPConnector)
+	if err == nil {
+		jsonMCPConnector, _ := json.Marshal(dst.MCPConnector)
+		if string(jsonMCPConnector) == "{}" { // empty struct
+			dst.MCPConnector = nil
+		} else {
+			if err = validator.Validate(dst.MCPConnector); err != nil {
+				dst.MCPConnector = nil
+			} else {
+				match++
+			}
+		}
+	} else {
+		dst.MCPConnector = nil
 	}
 
-	*o = Connector(varConnector)
+	if match > 1 { // more than 1 match
+		// reset to nil
+		dst.HTTPConnector = nil
+		dst.MCPConnector = nil
 
-	return err
+		return fmt.Errorf("data matches more than one schema in oneOf(Connector)")
+	} else if match == 1 {
+		return nil // exactly one match
+	} else { // no match
+		if err != nil {
+			return fmt.Errorf("data failed to match schemas in oneOf(Connector): %v", err)
+		}
+
+		return fmt.Errorf("data failed to match schemas in oneOf(Connector)")
+	}
+}
+
+// Marshal data from the first non-nil pointers in the struct to JSON
+func (src Connector) MarshalJSON() ([]byte, error) {
+	if src.HTTPConnector != nil {
+		return json.Marshal(&src.HTTPConnector)
+	}
+
+	if src.MCPConnector != nil {
+		return json.Marshal(&src.MCPConnector)
+	}
+
+	return nil, nil // no data in oneOf schemas
+}
+
+// Get the actual instance
+func (obj *Connector) GetActualInstance() (interface{}) {
+	if obj == nil {
+		return nil
+	}
+	if obj.HTTPConnector != nil {
+		return obj.HTTPConnector
+	}
+
+	if obj.MCPConnector != nil {
+		return obj.MCPConnector
+	}
+
+	// all schemas are nil
+	return nil
+}
+
+// Get the actual instance value
+func (obj Connector) GetActualInstanceValue() (interface{}) {
+	if obj.HTTPConnector != nil {
+		return *obj.HTTPConnector
+	}
+
+	if obj.MCPConnector != nil {
+		return *obj.MCPConnector
+	}
+
+	// all schemas are nil
+	return nil
 }
 
 type NullableConnector struct {

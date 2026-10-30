@@ -8,6 +8,10 @@ Name | Type | Description | Notes
 **EventTimestamp** | **int32** | Unix timestamp in nanoseconds when the event was created. | 
 **RootWorkflowExecId** | **string** | Execution ID of the root workflow that initiated this execution chain. | 
 **ParentWorkflowExecId** | **string** | Execution ID of the parent workflow that initiated this execution. If this is a root workflow, this field is not set. | 
+**ContinuedRunId** | Pointer to **string** | Run ID of the execution this run continued from. Non-null for continue-as-new runs. | [optional] 
+**FirstExecutionRunId** | Pointer to **string** | Run ID of the first execution in this workflow chain. Equals workflow_run_id on a fresh start. Continue-as-new, retry and reset runs keep the original value. | [optional] 
+**ChainRunId** | Pointer to **string** | Identifies one start of an execution. Shared by its continue-as-new, retry and reset runs, and by every sub-workflow below it. Starting the same execution ID again gives a new value. | [optional] 
+**ScheduleId** | Pointer to **string** | Temporal schedule ID that triggered this execution, if any. | [optional] 
 **WorkflowExecId** | **string** | Execution ID of the workflow that emitted this event. | 
 **WorkflowRunId** | **string** | Run ID of the workflow execution. Changes on continue-as-new while workflow_exec_id stays the same. | 
 **WorkflowName** | **string** | The registered name of the workflow that emitted this event. | 
@@ -112,6 +116,106 @@ and a boolean to check if the value has been set.
 
 SetParentWorkflowExecId sets ParentWorkflowExecId field to given value.
 
+
+### GetContinuedRunId
+
+`func (o *Data3) GetContinuedRunId() string`
+
+GetContinuedRunId returns the ContinuedRunId field if non-nil, zero value otherwise.
+
+### GetContinuedRunIdOk
+
+`func (o *Data3) GetContinuedRunIdOk() (*string, bool)`
+
+GetContinuedRunIdOk returns a tuple with the ContinuedRunId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetContinuedRunId
+
+`func (o *Data3) SetContinuedRunId(v string)`
+
+SetContinuedRunId sets ContinuedRunId field to given value.
+
+### HasContinuedRunId
+
+`func (o *Data3) HasContinuedRunId() bool`
+
+HasContinuedRunId returns a boolean if a field has been set.
+
+### GetFirstExecutionRunId
+
+`func (o *Data3) GetFirstExecutionRunId() string`
+
+GetFirstExecutionRunId returns the FirstExecutionRunId field if non-nil, zero value otherwise.
+
+### GetFirstExecutionRunIdOk
+
+`func (o *Data3) GetFirstExecutionRunIdOk() (*string, bool)`
+
+GetFirstExecutionRunIdOk returns a tuple with the FirstExecutionRunId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetFirstExecutionRunId
+
+`func (o *Data3) SetFirstExecutionRunId(v string)`
+
+SetFirstExecutionRunId sets FirstExecutionRunId field to given value.
+
+### HasFirstExecutionRunId
+
+`func (o *Data3) HasFirstExecutionRunId() bool`
+
+HasFirstExecutionRunId returns a boolean if a field has been set.
+
+### GetChainRunId
+
+`func (o *Data3) GetChainRunId() string`
+
+GetChainRunId returns the ChainRunId field if non-nil, zero value otherwise.
+
+### GetChainRunIdOk
+
+`func (o *Data3) GetChainRunIdOk() (*string, bool)`
+
+GetChainRunIdOk returns a tuple with the ChainRunId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetChainRunId
+
+`func (o *Data3) SetChainRunId(v string)`
+
+SetChainRunId sets ChainRunId field to given value.
+
+### HasChainRunId
+
+`func (o *Data3) HasChainRunId() bool`
+
+HasChainRunId returns a boolean if a field has been set.
+
+### GetScheduleId
+
+`func (o *Data3) GetScheduleId() string`
+
+GetScheduleId returns the ScheduleId field if non-nil, zero value otherwise.
+
+### GetScheduleIdOk
+
+`func (o *Data3) GetScheduleIdOk() (*string, bool)`
+
+GetScheduleIdOk returns a tuple with the ScheduleId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetScheduleId
+
+`func (o *Data3) SetScheduleId(v string)`
+
+SetScheduleId sets ScheduleId field to given value.
+
+### HasScheduleId
+
+`func (o *Data3) HasScheduleId() bool`
+
+HasScheduleId returns a boolean if a field has been set.
 
 ### GetWorkflowExecId
 

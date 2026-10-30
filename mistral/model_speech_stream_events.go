@@ -12,7 +12,6 @@ package mistral
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -21,8 +20,9 @@ var _ MappedNullable = &SpeechStreamEvents{}
 
 // SpeechStreamEvents struct for SpeechStreamEvents
 type SpeechStreamEvents struct {
-	Event string `json:"event"`
-	Data Data1 `json:"data"`
+	Event SpeechStreamEventTypes `json:"event"`
+	Data Data `json:"data"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _SpeechStreamEvents SpeechStreamEvents
@@ -31,7 +31,7 @@ type _SpeechStreamEvents SpeechStreamEvents
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewSpeechStreamEvents(event string, data Data1) *SpeechStreamEvents {
+func NewSpeechStreamEvents(event SpeechStreamEventTypes, data Data) *SpeechStreamEvents {
 	this := SpeechStreamEvents{}
 	this.Event = event
 	this.Data = data
@@ -47,9 +47,9 @@ func NewSpeechStreamEventsWithDefaults() *SpeechStreamEvents {
 }
 
 // GetEvent returns the Event field value
-func (o *SpeechStreamEvents) GetEvent() string {
+func (o *SpeechStreamEvents) GetEvent() SpeechStreamEventTypes {
 	if o == nil {
-		var ret string
+		var ret SpeechStreamEventTypes
 		return ret
 	}
 
@@ -58,7 +58,7 @@ func (o *SpeechStreamEvents) GetEvent() string {
 
 // GetEventOk returns a tuple with the Event field value
 // and a boolean to check if the value has been set.
-func (o *SpeechStreamEvents) GetEventOk() (*string, bool) {
+func (o *SpeechStreamEvents) GetEventOk() (*SpeechStreamEventTypes, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -66,14 +66,14 @@ func (o *SpeechStreamEvents) GetEventOk() (*string, bool) {
 }
 
 // SetEvent sets field value
-func (o *SpeechStreamEvents) SetEvent(v string) {
+func (o *SpeechStreamEvents) SetEvent(v SpeechStreamEventTypes) {
 	o.Event = v
 }
 
 // GetData returns the Data field value
-func (o *SpeechStreamEvents) GetData() Data1 {
+func (o *SpeechStreamEvents) GetData() Data {
 	if o == nil {
-		var ret Data1
+		var ret Data
 		return ret
 	}
 
@@ -82,7 +82,7 @@ func (o *SpeechStreamEvents) GetData() Data1 {
 
 // GetDataOk returns a tuple with the Data field value
 // and a boolean to check if the value has been set.
-func (o *SpeechStreamEvents) GetDataOk() (*Data1, bool) {
+func (o *SpeechStreamEvents) GetDataOk() (*Data, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -90,7 +90,7 @@ func (o *SpeechStreamEvents) GetDataOk() (*Data1, bool) {
 }
 
 // SetData sets field value
-func (o *SpeechStreamEvents) SetData(v Data1) {
+func (o *SpeechStreamEvents) SetData(v Data) {
 	o.Data = v
 }
 
@@ -106,6 +106,11 @@ func (o SpeechStreamEvents) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["event"] = o.Event
 	toSerialize["data"] = o.Data
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -134,14 +139,21 @@ func (o *SpeechStreamEvents) UnmarshalJSON(data []byte) (err error) {
 
 	varSpeechStreamEvents := _SpeechStreamEvents{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	err = decoder.Decode(&varSpeechStreamEvents)
+	err = json.Unmarshal(data, &varSpeechStreamEvents)
 
 	if err != nil {
 		return err
 	}
 
 	*o = SpeechStreamEvents(varSpeechStreamEvents)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "event")
+		delete(additionalProperties, "data")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

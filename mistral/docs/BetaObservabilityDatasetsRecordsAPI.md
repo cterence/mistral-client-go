@@ -6,10 +6,10 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**DeleteDatasetRecordV1ObservabilityDatasetRecordsDatasetRecordIdDelete**](BetaObservabilityDatasetsRecordsAPI.md#DeleteDatasetRecordV1ObservabilityDatasetRecordsDatasetRecordIdDelete) | **Delete** /v1/observability/dataset-records/{dataset_record_id} | Delete a record from a dataset
 [**DeleteDatasetRecordsV1ObservabilityDatasetRecordsBulkDeletePost**](BetaObservabilityDatasetsRecordsAPI.md#DeleteDatasetRecordsV1ObservabilityDatasetRecordsBulkDeletePost) | **Post** /v1/observability/dataset-records/bulk-delete | Delete multiple records from datasets
-[**GetDatasetRecordV1ObservabilityDatasetRecordsDatasetRecordIdGet**](BetaObservabilityDatasetsRecordsAPI.md#GetDatasetRecordV1ObservabilityDatasetRecordsDatasetRecordIdGet) | **Get** /v1/observability/dataset-records/{dataset_record_id} | Get the content of a given conversation from a dataset
+[**GetDatasetRecordV1ObservabilityDatasetRecordsDatasetRecordIdGet**](BetaObservabilityDatasetsRecordsAPI.md#GetDatasetRecordV1ObservabilityDatasetRecordsDatasetRecordIdGet) | **Get** /v1/observability/dataset-records/{dataset_record_id} | Get the content of a given dataset record
 [**JudgeDatasetRecordV1ObservabilityDatasetRecordsDatasetRecordIdLiveJudgingPost**](BetaObservabilityDatasetsRecordsAPI.md#JudgeDatasetRecordV1ObservabilityDatasetRecordsDatasetRecordIdLiveJudgingPost) | **Post** /v1/observability/dataset-records/{dataset_record_id}/live-judging | Run Judge on a dataset record based on the given options
-[**UpdateDatasetRecordPayloadV1ObservabilityDatasetRecordsDatasetRecordIdPayloadPut**](BetaObservabilityDatasetsRecordsAPI.md#UpdateDatasetRecordPayloadV1ObservabilityDatasetRecordsDatasetRecordIdPayloadPut) | **Put** /v1/observability/dataset-records/{dataset_record_id}/payload | Update a dataset record conversation payload
-[**UpdateDatasetRecordPropertiesV1ObservabilityDatasetRecordsDatasetRecordIdPropertiesPut**](BetaObservabilityDatasetsRecordsAPI.md#UpdateDatasetRecordPropertiesV1ObservabilityDatasetRecordsDatasetRecordIdPropertiesPut) | **Put** /v1/observability/dataset-records/{dataset_record_id}/properties | Update conversation properties
+[**UpdateDatasetRecordPayloadV1ObservabilityDatasetRecordsDatasetRecordIdPayloadPut**](BetaObservabilityDatasetsRecordsAPI.md#UpdateDatasetRecordPayloadV1ObservabilityDatasetRecordsDatasetRecordIdPayloadPut) | **Put** /v1/observability/dataset-records/{dataset_record_id}/payload | Update a dataset record payload
+[**UpdateDatasetRecordPropertiesV1ObservabilityDatasetRecordsDatasetRecordIdPropertiesPut**](BetaObservabilityDatasetsRecordsAPI.md#UpdateDatasetRecordPropertiesV1ObservabilityDatasetRecordsDatasetRecordIdPropertiesPut) | **Put** /v1/observability/dataset-records/{dataset_record_id}/properties | Update dataset record properties
 
 
 
@@ -18,6 +18,8 @@ Method | HTTP request | Description
 > DeleteDatasetRecordV1ObservabilityDatasetRecordsDatasetRecordIdDelete(ctx, datasetRecordId).Execute()
 
 Delete a record from a dataset
+
+
 
 ### Example
 
@@ -81,9 +83,11 @@ Name | Type | Description  | Notes
 
 ## DeleteDatasetRecordsV1ObservabilityDatasetRecordsBulkDeletePost
 
-> DeleteDatasetRecordsV1ObservabilityDatasetRecordsBulkDeletePost(ctx).DeleteDatasetRecordsInSchema(deleteDatasetRecordsInSchema).Execute()
+> DeleteDatasetRecordsV1ObservabilityDatasetRecordsBulkDeletePost(ctx).DeleteDatasetRecordsRequest(deleteDatasetRecordsRequest).Execute()
 
 Delete multiple records from datasets
+
+
 
 ### Example
 
@@ -98,11 +102,11 @@ import (
 )
 
 func main() {
-	deleteDatasetRecordsInSchema := *openapiclient.NewDeleteDatasetRecordsInSchema([]string{"DatasetRecordIds_example"}) // DeleteDatasetRecordsInSchema | 
+	deleteDatasetRecordsRequest := *openapiclient.NewDeleteDatasetRecordsRequest([]string{"DatasetRecordIds_example"}) // DeleteDatasetRecordsRequest | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.BetaObservabilityDatasetsRecordsAPI.DeleteDatasetRecordsV1ObservabilityDatasetRecordsBulkDeletePost(context.Background()).DeleteDatasetRecordsInSchema(deleteDatasetRecordsInSchema).Execute()
+	r, err := apiClient.BetaObservabilityDatasetsRecordsAPI.DeleteDatasetRecordsV1ObservabilityDatasetRecordsBulkDeletePost(context.Background()).DeleteDatasetRecordsRequest(deleteDatasetRecordsRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `BetaObservabilityDatasetsRecordsAPI.DeleteDatasetRecordsV1ObservabilityDatasetRecordsBulkDeletePost``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -121,7 +125,7 @@ Other parameters are passed through a pointer to a apiDeleteDatasetRecordsV1Obse
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **deleteDatasetRecordsInSchema** | [**DeleteDatasetRecordsInSchema**](DeleteDatasetRecordsInSchema.md) |  | 
+ **deleteDatasetRecordsRequest** | [**DeleteDatasetRecordsRequest**](DeleteDatasetRecordsRequest.md) |  | 
 
 ### Return type
 
@@ -145,7 +149,9 @@ Name | Type | Description  | Notes
 
 > DatasetRecord GetDatasetRecordV1ObservabilityDatasetRecordsDatasetRecordIdGet(ctx, datasetRecordId).Execute()
 
-Get the content of a given conversation from a dataset
+Get the content of a given dataset record
+
+
 
 ### Example
 
@@ -211,9 +217,11 @@ Name | Type | Description  | Notes
 
 ## JudgeDatasetRecordV1ObservabilityDatasetRecordsDatasetRecordIdLiveJudgingPost
 
-> JudgeOutput JudgeDatasetRecordV1ObservabilityDatasetRecordsDatasetRecordIdLiveJudgingPost(ctx, datasetRecordId).PostDatasetRecordJudgingInSchema(postDatasetRecordJudgingInSchema).Execute()
+> JudgeOutput JudgeDatasetRecordV1ObservabilityDatasetRecordsDatasetRecordIdLiveJudgingPost(ctx, datasetRecordId).JudgeDatasetRecordRequest(judgeDatasetRecordRequest).Execute()
 
 Run Judge on a dataset record based on the given options
+
+
 
 ### Example
 
@@ -229,11 +237,11 @@ import (
 
 func main() {
 	datasetRecordId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | 
-	postDatasetRecordJudgingInSchema := *openapiclient.NewPostDatasetRecordJudgingInSchema(*openapiclient.NewPostJudgeInSchema("Name_example", "Description_example", "ModelName_example", openapiclient.Output{JudgeClassificationOutput: openapiclient.NewJudgeClassificationOutput([]openapiclient.JudgeClassificationOutputOption{*openapiclient.NewJudgeClassificationOutputOption("Value_example", "Description_example")})}, "Instructions_example", []string{"Tools_example"})) // PostDatasetRecordJudgingInSchema | 
+	judgeDatasetRecordRequest := *openapiclient.NewJudgeDatasetRecordRequest(*openapiclient.NewCreateJudgeRequest("Name_example", "Description_example", "ModelName_example", openapiclient.Output{JudgeClassificationOutput: openapiclient.NewJudgeClassificationOutput([]openapiclient.JudgeClassificationOutputOption{*openapiclient.NewJudgeClassificationOutputOption("Value_example", "Description_example")})}, "Instructions_example", []string{"Tools_example"})) // JudgeDatasetRecordRequest | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.BetaObservabilityDatasetsRecordsAPI.JudgeDatasetRecordV1ObservabilityDatasetRecordsDatasetRecordIdLiveJudgingPost(context.Background(), datasetRecordId).PostDatasetRecordJudgingInSchema(postDatasetRecordJudgingInSchema).Execute()
+	resp, r, err := apiClient.BetaObservabilityDatasetsRecordsAPI.JudgeDatasetRecordV1ObservabilityDatasetRecordsDatasetRecordIdLiveJudgingPost(context.Background(), datasetRecordId).JudgeDatasetRecordRequest(judgeDatasetRecordRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `BetaObservabilityDatasetsRecordsAPI.JudgeDatasetRecordV1ObservabilityDatasetRecordsDatasetRecordIdLiveJudgingPost``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -259,7 +267,7 @@ Other parameters are passed through a pointer to a apiJudgeDatasetRecordV1Observ
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **postDatasetRecordJudgingInSchema** | [**PostDatasetRecordJudgingInSchema**](PostDatasetRecordJudgingInSchema.md) |  | 
+ **judgeDatasetRecordRequest** | [**JudgeDatasetRecordRequest**](JudgeDatasetRecordRequest.md) |  | 
 
 ### Return type
 
@@ -281,9 +289,11 @@ Name | Type | Description  | Notes
 
 ## UpdateDatasetRecordPayloadV1ObservabilityDatasetRecordsDatasetRecordIdPayloadPut
 
-> UpdateDatasetRecordPayloadV1ObservabilityDatasetRecordsDatasetRecordIdPayloadPut(ctx, datasetRecordId).PutDatasetRecordPayloadInSchema(putDatasetRecordPayloadInSchema).Execute()
+> UpdateDatasetRecordPayloadV1ObservabilityDatasetRecordsDatasetRecordIdPayloadPut(ctx, datasetRecordId).UpdateDatasetRecordPayloadRequest(updateDatasetRecordPayloadRequest).Execute()
 
-Update a dataset record conversation payload
+Update a dataset record payload
+
+
 
 ### Example
 
@@ -299,11 +309,11 @@ import (
 
 func main() {
 	datasetRecordId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | 
-	putDatasetRecordPayloadInSchema := *openapiclient.NewPutDatasetRecordPayloadInSchema(*openapiclient.NewConversationPayload([]map[string]interface{}{map[string]interface{}{"key": interface{}(123)}})) // PutDatasetRecordPayloadInSchema | 
+	updateDatasetRecordPayloadRequest := *openapiclient.NewUpdateDatasetRecordPayloadRequest(map[string]interface{}{"key": interface{}(123)}) // UpdateDatasetRecordPayloadRequest | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.BetaObservabilityDatasetsRecordsAPI.UpdateDatasetRecordPayloadV1ObservabilityDatasetRecordsDatasetRecordIdPayloadPut(context.Background(), datasetRecordId).PutDatasetRecordPayloadInSchema(putDatasetRecordPayloadInSchema).Execute()
+	r, err := apiClient.BetaObservabilityDatasetsRecordsAPI.UpdateDatasetRecordPayloadV1ObservabilityDatasetRecordsDatasetRecordIdPayloadPut(context.Background(), datasetRecordId).UpdateDatasetRecordPayloadRequest(updateDatasetRecordPayloadRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `BetaObservabilityDatasetsRecordsAPI.UpdateDatasetRecordPayloadV1ObservabilityDatasetRecordsDatasetRecordIdPayloadPut``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -327,7 +337,7 @@ Other parameters are passed through a pointer to a apiUpdateDatasetRecordPayload
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **putDatasetRecordPayloadInSchema** | [**PutDatasetRecordPayloadInSchema**](PutDatasetRecordPayloadInSchema.md) |  | 
+ **updateDatasetRecordPayloadRequest** | [**UpdateDatasetRecordPayloadRequest**](UpdateDatasetRecordPayloadRequest.md) |  | 
 
 ### Return type
 
@@ -349,9 +359,11 @@ Name | Type | Description  | Notes
 
 ## UpdateDatasetRecordPropertiesV1ObservabilityDatasetRecordsDatasetRecordIdPropertiesPut
 
-> UpdateDatasetRecordPropertiesV1ObservabilityDatasetRecordsDatasetRecordIdPropertiesPut(ctx, datasetRecordId).PutDatasetRecordPropertiesInSchema(putDatasetRecordPropertiesInSchema).Execute()
+> UpdateDatasetRecordPropertiesV1ObservabilityDatasetRecordsDatasetRecordIdPropertiesPut(ctx, datasetRecordId).UpdateDatasetRecordPropertiesRequest(updateDatasetRecordPropertiesRequest).Execute()
 
-Update conversation properties
+Update dataset record properties
+
+
 
 ### Example
 
@@ -367,11 +379,11 @@ import (
 
 func main() {
 	datasetRecordId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | 
-	putDatasetRecordPropertiesInSchema := *openapiclient.NewPutDatasetRecordPropertiesInSchema(map[string]interface{}{"key": interface{}(123)}) // PutDatasetRecordPropertiesInSchema | 
+	updateDatasetRecordPropertiesRequest := *openapiclient.NewUpdateDatasetRecordPropertiesRequest(map[string]interface{}{"key": interface{}(123)}) // UpdateDatasetRecordPropertiesRequest | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.BetaObservabilityDatasetsRecordsAPI.UpdateDatasetRecordPropertiesV1ObservabilityDatasetRecordsDatasetRecordIdPropertiesPut(context.Background(), datasetRecordId).PutDatasetRecordPropertiesInSchema(putDatasetRecordPropertiesInSchema).Execute()
+	r, err := apiClient.BetaObservabilityDatasetsRecordsAPI.UpdateDatasetRecordPropertiesV1ObservabilityDatasetRecordsDatasetRecordIdPropertiesPut(context.Background(), datasetRecordId).UpdateDatasetRecordPropertiesRequest(updateDatasetRecordPropertiesRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `BetaObservabilityDatasetsRecordsAPI.UpdateDatasetRecordPropertiesV1ObservabilityDatasetRecordsDatasetRecordIdPropertiesPut``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -395,7 +407,7 @@ Other parameters are passed through a pointer to a apiUpdateDatasetRecordPropert
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **putDatasetRecordPropertiesInSchema** | [**PutDatasetRecordPropertiesInSchema**](PutDatasetRecordPropertiesInSchema.md) |  | 
+ **updateDatasetRecordPropertiesRequest** | [**UpdateDatasetRecordPropertiesRequest**](UpdateDatasetRecordPropertiesRequest.md) |  | 
 
 ### Return type
 

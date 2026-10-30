@@ -5,14 +5,19 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **WorkflowName** | **string** | The name of the workflow | 
+**WorkflowId** | Pointer to **NullableString** | The ID of the workflow | [optional] 
+**DeploymentName** | Pointer to **NullableString** | The name of the deployment that ran this execution | [optional] 
 **ExecutionId** | **string** | The ID of the workflow execution | 
 **ParentExecutionId** | Pointer to **NullableString** | The parent execution ID of the workflow execution | [optional] 
 **RootExecutionId** | **string** | The root execution ID of the workflow execution | 
+**RunId** | Pointer to **NullableString** | The unique run identifier (database UUID) | [optional] 
+**UserId** | Pointer to **NullableString** | The ID of the user who triggered the execution | [optional] 
 **Status** | [**NullableWorkflowExecutionStatus**](WorkflowExecutionStatus.md) | The status of the workflow execution | 
 **StartTime** | **time.Time** | The start time of the workflow execution | 
 **EndTime** | **NullableTime** | The end time of the workflow execution, if available | 
 **TotalDurationMs** | Pointer to **NullableInt32** | The total duration of the trace in milliseconds | [optional] 
 **Result** | [**NullableAnyOf**](anyOf&lt;&gt;.md) | The result of the workflow execution, if available | 
+**SearchKeys** | Pointer to **map[string]string** | The execution&#39;s search keys (metadata), if requested via include_search_keys. | [optional] 
 **DataSource** | **string** | The data source of the trace | 
 **OtelTraceId** | Pointer to **NullableString** | The ID of the trace | [optional] 
 **OtelTraceData** | Pointer to [**NullableTempoGetTraceResponse**](TempoGetTraceResponse.md) | The raw OpenTelemetry trace data | [optional] 
@@ -56,6 +61,76 @@ and a boolean to check if the value has been set.
 SetWorkflowName sets WorkflowName field to given value.
 
 
+### GetWorkflowId
+
+`func (o *WorkflowExecutionTraceOTelResponse) GetWorkflowId() string`
+
+GetWorkflowId returns the WorkflowId field if non-nil, zero value otherwise.
+
+### GetWorkflowIdOk
+
+`func (o *WorkflowExecutionTraceOTelResponse) GetWorkflowIdOk() (*string, bool)`
+
+GetWorkflowIdOk returns a tuple with the WorkflowId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetWorkflowId
+
+`func (o *WorkflowExecutionTraceOTelResponse) SetWorkflowId(v string)`
+
+SetWorkflowId sets WorkflowId field to given value.
+
+### HasWorkflowId
+
+`func (o *WorkflowExecutionTraceOTelResponse) HasWorkflowId() bool`
+
+HasWorkflowId returns a boolean if a field has been set.
+
+### SetWorkflowIdNil
+
+`func (o *WorkflowExecutionTraceOTelResponse) SetWorkflowIdNil(b bool)`
+
+ SetWorkflowIdNil sets the value for WorkflowId to be an explicit nil
+
+### UnsetWorkflowId
+`func (o *WorkflowExecutionTraceOTelResponse) UnsetWorkflowId()`
+
+UnsetWorkflowId ensures that no value is present for WorkflowId, not even an explicit nil
+### GetDeploymentName
+
+`func (o *WorkflowExecutionTraceOTelResponse) GetDeploymentName() string`
+
+GetDeploymentName returns the DeploymentName field if non-nil, zero value otherwise.
+
+### GetDeploymentNameOk
+
+`func (o *WorkflowExecutionTraceOTelResponse) GetDeploymentNameOk() (*string, bool)`
+
+GetDeploymentNameOk returns a tuple with the DeploymentName field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDeploymentName
+
+`func (o *WorkflowExecutionTraceOTelResponse) SetDeploymentName(v string)`
+
+SetDeploymentName sets DeploymentName field to given value.
+
+### HasDeploymentName
+
+`func (o *WorkflowExecutionTraceOTelResponse) HasDeploymentName() bool`
+
+HasDeploymentName returns a boolean if a field has been set.
+
+### SetDeploymentNameNil
+
+`func (o *WorkflowExecutionTraceOTelResponse) SetDeploymentNameNil(b bool)`
+
+ SetDeploymentNameNil sets the value for DeploymentName to be an explicit nil
+
+### UnsetDeploymentName
+`func (o *WorkflowExecutionTraceOTelResponse) UnsetDeploymentName()`
+
+UnsetDeploymentName ensures that no value is present for DeploymentName, not even an explicit nil
 ### GetExecutionId
 
 `func (o *WorkflowExecutionTraceOTelResponse) GetExecutionId() string`
@@ -131,6 +206,76 @@ and a boolean to check if the value has been set.
 SetRootExecutionId sets RootExecutionId field to given value.
 
 
+### GetRunId
+
+`func (o *WorkflowExecutionTraceOTelResponse) GetRunId() string`
+
+GetRunId returns the RunId field if non-nil, zero value otherwise.
+
+### GetRunIdOk
+
+`func (o *WorkflowExecutionTraceOTelResponse) GetRunIdOk() (*string, bool)`
+
+GetRunIdOk returns a tuple with the RunId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetRunId
+
+`func (o *WorkflowExecutionTraceOTelResponse) SetRunId(v string)`
+
+SetRunId sets RunId field to given value.
+
+### HasRunId
+
+`func (o *WorkflowExecutionTraceOTelResponse) HasRunId() bool`
+
+HasRunId returns a boolean if a field has been set.
+
+### SetRunIdNil
+
+`func (o *WorkflowExecutionTraceOTelResponse) SetRunIdNil(b bool)`
+
+ SetRunIdNil sets the value for RunId to be an explicit nil
+
+### UnsetRunId
+`func (o *WorkflowExecutionTraceOTelResponse) UnsetRunId()`
+
+UnsetRunId ensures that no value is present for RunId, not even an explicit nil
+### GetUserId
+
+`func (o *WorkflowExecutionTraceOTelResponse) GetUserId() string`
+
+GetUserId returns the UserId field if non-nil, zero value otherwise.
+
+### GetUserIdOk
+
+`func (o *WorkflowExecutionTraceOTelResponse) GetUserIdOk() (*string, bool)`
+
+GetUserIdOk returns a tuple with the UserId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetUserId
+
+`func (o *WorkflowExecutionTraceOTelResponse) SetUserId(v string)`
+
+SetUserId sets UserId field to given value.
+
+### HasUserId
+
+`func (o *WorkflowExecutionTraceOTelResponse) HasUserId() bool`
+
+HasUserId returns a boolean if a field has been set.
+
+### SetUserIdNil
+
+`func (o *WorkflowExecutionTraceOTelResponse) SetUserIdNil(b bool)`
+
+ SetUserIdNil sets the value for UserId to be an explicit nil
+
+### UnsetUserId
+`func (o *WorkflowExecutionTraceOTelResponse) UnsetUserId()`
+
+UnsetUserId ensures that no value is present for UserId, not even an explicit nil
 ### GetStatus
 
 `func (o *WorkflowExecutionTraceOTelResponse) GetStatus() WorkflowExecutionStatus`
@@ -276,6 +421,41 @@ SetResult sets Result field to given value.
 `func (o *WorkflowExecutionTraceOTelResponse) UnsetResult()`
 
 UnsetResult ensures that no value is present for Result, not even an explicit nil
+### GetSearchKeys
+
+`func (o *WorkflowExecutionTraceOTelResponse) GetSearchKeys() map[string]*string`
+
+GetSearchKeys returns the SearchKeys field if non-nil, zero value otherwise.
+
+### GetSearchKeysOk
+
+`func (o *WorkflowExecutionTraceOTelResponse) GetSearchKeysOk() (*map[string]*string, bool)`
+
+GetSearchKeysOk returns a tuple with the SearchKeys field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSearchKeys
+
+`func (o *WorkflowExecutionTraceOTelResponse) SetSearchKeys(v map[string]*string)`
+
+SetSearchKeys sets SearchKeys field to given value.
+
+### HasSearchKeys
+
+`func (o *WorkflowExecutionTraceOTelResponse) HasSearchKeys() bool`
+
+HasSearchKeys returns a boolean if a field has been set.
+
+### SetSearchKeysNil
+
+`func (o *WorkflowExecutionTraceOTelResponse) SetSearchKeysNil(b bool)`
+
+ SetSearchKeysNil sets the value for SearchKeys to be an explicit nil
+
+### UnsetSearchKeys
+`func (o *WorkflowExecutionTraceOTelResponse) UnsetSearchKeys()`
+
+UnsetSearchKeys ensures that no value is present for SearchKeys, not even an explicit nil
 ### GetDataSource
 
 `func (o *WorkflowExecutionTraceOTelResponse) GetDataSource() string`

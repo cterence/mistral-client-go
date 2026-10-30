@@ -21,10 +21,10 @@ var _ MappedNullable = &StreamV1WorkflowsExecutionsExecutionIdStreamGet200Respon
 type StreamV1WorkflowsExecutionsExecutionIdStreamGet200Response struct {
 	// Filter by agent name
 	Event NullableString `json:"event,omitempty"`
-	Data *StreamEventSsePayload `json:"data,omitempty"`
+	Data *StreamV1WorkflowsExecutionsExecutionIdStreamGet200ResponseData `json:"data,omitempty"`
 	// Filter by agent name
 	Id NullableString `json:"id,omitempty"`
-	// Set before sending audio. Streaming delay updates are rejected after audio starts.
+	// Total usage value for this row.
 	Retry NullableInt32 `json:"retry,omitempty"`
 }
 
@@ -88,9 +88,9 @@ func (o *StreamV1WorkflowsExecutionsExecutionIdStreamGet200Response) UnsetEvent(
 }
 
 // GetData returns the Data field value if set, zero value otherwise.
-func (o *StreamV1WorkflowsExecutionsExecutionIdStreamGet200Response) GetData() StreamEventSsePayload {
+func (o *StreamV1WorkflowsExecutionsExecutionIdStreamGet200Response) GetData() StreamV1WorkflowsExecutionsExecutionIdStreamGet200ResponseData {
 	if o == nil || IsNil(o.Data) {
-		var ret StreamEventSsePayload
+		var ret StreamV1WorkflowsExecutionsExecutionIdStreamGet200ResponseData
 		return ret
 	}
 	return *o.Data
@@ -98,7 +98,7 @@ func (o *StreamV1WorkflowsExecutionsExecutionIdStreamGet200Response) GetData() S
 
 // GetDataOk returns a tuple with the Data field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *StreamV1WorkflowsExecutionsExecutionIdStreamGet200Response) GetDataOk() (*StreamEventSsePayload, bool) {
+func (o *StreamV1WorkflowsExecutionsExecutionIdStreamGet200Response) GetDataOk() (*StreamV1WorkflowsExecutionsExecutionIdStreamGet200ResponseData, bool) {
 	if o == nil || IsNil(o.Data) {
 		return nil, false
 	}
@@ -114,8 +114,8 @@ func (o *StreamV1WorkflowsExecutionsExecutionIdStreamGet200Response) HasData() b
 	return false
 }
 
-// SetData gets a reference to the given StreamEventSsePayload and assigns it to the Data field.
-func (o *StreamV1WorkflowsExecutionsExecutionIdStreamGet200Response) SetData(v StreamEventSsePayload) {
+// SetData gets a reference to the given StreamV1WorkflowsExecutionsExecutionIdStreamGet200ResponseData and assigns it to the Data field.
+func (o *StreamV1WorkflowsExecutionsExecutionIdStreamGet200Response) SetData(v StreamV1WorkflowsExecutionsExecutionIdStreamGet200ResponseData) {
 	o.Data = &v
 }
 

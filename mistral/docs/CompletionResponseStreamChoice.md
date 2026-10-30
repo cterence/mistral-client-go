@@ -7,6 +7,8 @@ Name | Type | Description | Notes
 **Index** | **int32** |  | 
 **Delta** | [**DeltaMessage**](DeltaMessage.md) |  | 
 **FinishReason** | **NullableString** |  | 
+**Logprobs** | Pointer to [**NullableChatCompletionResponseChoiceLogprobs**](ChatCompletionResponseChoiceLogprobs.md) |  | [optional] 
+**PromptLogprobs** | Pointer to [**NullableChatCompletionResponseChoiceLogprobs**](ChatCompletionResponseChoiceLogprobs.md) |  | [optional] 
 
 ## Methods
 
@@ -97,6 +99,76 @@ SetFinishReason sets FinishReason field to given value.
 `func (o *CompletionResponseStreamChoice) UnsetFinishReason()`
 
 UnsetFinishReason ensures that no value is present for FinishReason, not even an explicit nil
+### GetLogprobs
+
+`func (o *CompletionResponseStreamChoice) GetLogprobs() ChatCompletionResponseChoiceLogprobs`
+
+GetLogprobs returns the Logprobs field if non-nil, zero value otherwise.
+
+### GetLogprobsOk
+
+`func (o *CompletionResponseStreamChoice) GetLogprobsOk() (*ChatCompletionResponseChoiceLogprobs, bool)`
+
+GetLogprobsOk returns a tuple with the Logprobs field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetLogprobs
+
+`func (o *CompletionResponseStreamChoice) SetLogprobs(v ChatCompletionResponseChoiceLogprobs)`
+
+SetLogprobs sets Logprobs field to given value.
+
+### HasLogprobs
+
+`func (o *CompletionResponseStreamChoice) HasLogprobs() bool`
+
+HasLogprobs returns a boolean if a field has been set.
+
+### SetLogprobsNil
+
+`func (o *CompletionResponseStreamChoice) SetLogprobsNil(b bool)`
+
+ SetLogprobsNil sets the value for Logprobs to be an explicit nil
+
+### UnsetLogprobs
+`func (o *CompletionResponseStreamChoice) UnsetLogprobs()`
+
+UnsetLogprobs ensures that no value is present for Logprobs, not even an explicit nil
+### GetPromptLogprobs
+
+`func (o *CompletionResponseStreamChoice) GetPromptLogprobs() ChatCompletionResponseChoiceLogprobs`
+
+GetPromptLogprobs returns the PromptLogprobs field if non-nil, zero value otherwise.
+
+### GetPromptLogprobsOk
+
+`func (o *CompletionResponseStreamChoice) GetPromptLogprobsOk() (*ChatCompletionResponseChoiceLogprobs, bool)`
+
+GetPromptLogprobsOk returns a tuple with the PromptLogprobs field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPromptLogprobs
+
+`func (o *CompletionResponseStreamChoice) SetPromptLogprobs(v ChatCompletionResponseChoiceLogprobs)`
+
+SetPromptLogprobs sets PromptLogprobs field to given value.
+
+### HasPromptLogprobs
+
+`func (o *CompletionResponseStreamChoice) HasPromptLogprobs() bool`
+
+HasPromptLogprobs returns a boolean if a field has been set.
+
+### SetPromptLogprobsNil
+
+`func (o *CompletionResponseStreamChoice) SetPromptLogprobsNil(b bool)`
+
+ SetPromptLogprobsNil sets the value for PromptLogprobs to be an explicit nil
+
+### UnsetPromptLogprobs
+`func (o *CompletionResponseStreamChoice) UnsetPromptLogprobs()`
+
+UnsetPromptLogprobs ensures that no value is present for PromptLogprobs, not even an explicit nil
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

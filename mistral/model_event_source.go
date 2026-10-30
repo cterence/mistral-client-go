@@ -22,12 +22,14 @@ type EventSource string
 const (
 	EVENTSOURCE_DATABASE EventSource = "DATABASE"
 	EVENTSOURCE_LIVE EventSource = "LIVE"
+	EVENTSOURCE_HYBRID EventSource = "HYBRID"
 )
 
 // All allowed values of EventSource enum
 var AllowedEventSourceEnumValues = []EventSource{
 	"DATABASE",
 	"LIVE",
+	"HYBRID",
 }
 
 func (v *EventSource) UnmarshalJSON(src []byte) error {
