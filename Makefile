@@ -18,6 +18,8 @@ generate:
 	rm -f $(GEN_DIR)/git_push.sh $(GEN_DIR)/.travis.yml
 	mv $(GEN_DIR)/go.mod go.mod
 	mv $(GEN_DIR)/* $(SDK_DIR)/
+	# ImageURL.md/ImageUrl.md collide on case-insensitive filesystems
+	rm -rf $(SDK_DIR)/docs
 	# tests import the module root; the package lives in $(SDK_DIR)
 	nix develop -c sed -i 's|"$(MOD_PATH)"|"$(MOD_PATH)/$(SDK_DIR)"|g' $(SDK_DIR)/test/*.go $(SDK_DIR)/README.md
 	$(MAKE) fixup
