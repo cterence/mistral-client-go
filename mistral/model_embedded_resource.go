@@ -12,6 +12,7 @@ package mistral
 
 import (
 	"encoding/json"
+	"bytes"
 	"fmt"
 )
 
@@ -20,11 +21,10 @@ var _ MappedNullable = &EmbeddedResource{}
 
 // EmbeddedResource The contents of a resource, embedded into a prompt or tool call result.  It is up to the client how best to render embedded resources for the benefit of the LLM and/or the user.
 type EmbeddedResource struct {
-	Type string `json:"type"`
+	Type *string `json:"type,omitempty"`
 	Resource Resource `json:"resource"`
 	Annotations NullableAnnotations `json:"annotations,omitempty"`
 	Meta map[string]interface{} `json:"_meta,omitempty"`
-	AdditionalProperties map[string]interface{}
 }
 
 type _EmbeddedResource EmbeddedResource
@@ -33,9 +33,10 @@ type _EmbeddedResource EmbeddedResource
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewEmbeddedResource(type_ string, resource Resource) *EmbeddedResource {
+func NewEmbeddedResource(resource Resource) *EmbeddedResource {
 	this := EmbeddedResource{}
-	this.Type = type_
+	var type_ string = "resource"
+	this.Type = &type_
 	this.Resource = resource
 	return &this
 }
@@ -45,31 +46,41 @@ func NewEmbeddedResource(type_ string, resource Resource) *EmbeddedResource {
 // but it doesn't guarantee that properties required by API are set
 func NewEmbeddedResourceWithDefaults() *EmbeddedResource {
 	this := EmbeddedResource{}
+	var type_ string = "resource"
+	this.Type = &type_
 	return &this
 }
 
-// GetType returns the Type field value
+// GetType returns the Type field value if set, zero value otherwise.
 func (o *EmbeddedResource) GetType() string {
-	if o == nil {
+	if o == nil || IsNil(o.Type) {
 		var ret string
 		return ret
 	}
-
-	return o.Type
+	return *o.Type
 }
 
-// GetTypeOk returns a tuple with the Type field value
+// GetTypeOk returns a tuple with the Type field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EmbeddedResource) GetTypeOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Type) {
 		return nil, false
 	}
-	return &o.Type, true
+	return o.Type, true
 }
 
-// SetType sets field value
+// HasType returns a boolean if a field has been set.
+func (o *EmbeddedResource) HasType() bool {
+	if o != nil && !IsNil(o.Type) {
+		return true
+	}
+
+	return false
+}
+
+// SetType gets a reference to the given string and assigns it to the Type field.
 func (o *EmbeddedResource) SetType(v string) {
-	o.Type = v
+	o.Type = &v
 }
 
 // GetResource returns the Resource field value
@@ -181,7 +192,9 @@ func (o EmbeddedResource) MarshalJSON() ([]byte, error) {
 
 func (o EmbeddedResource) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["type"] = o.Type
+	if !IsNil(o.Type) {
+		toSerialize["type"] = o.Type
+	}
 	toSerialize["resource"] = o.Resource
 	if o.Annotations.IsSet() {
 		toSerialize["annotations"] = o.Annotations.Get()
@@ -189,11 +202,6 @@ func (o EmbeddedResource) ToMap() (map[string]interface{}, error) {
 	if o.Meta != nil {
 		toSerialize["_meta"] = o.Meta
 	}
-
-	for key, value := range o.AdditionalProperties {
-		toSerialize[key] = value
-	}
-
 	return toSerialize, nil
 }
 
@@ -202,7 +210,6 @@ func (o *EmbeddedResource) UnmarshalJSON(data []byte) (err error) {
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
-		"type",
 		"resource",
 	}
 
@@ -222,23 +229,14 @@ func (o *EmbeddedResource) UnmarshalJSON(data []byte) (err error) {
 
 	varEmbeddedResource := _EmbeddedResource{}
 
-	err = json.Unmarshal(data, &varEmbeddedResource)
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	err = decoder.Decode(&varEmbeddedResource)
 
 	if err != nil {
 		return err
 	}
 
 	*o = EmbeddedResource(varEmbeddedResource)
-
-	additionalProperties := make(map[string]interface{})
-
-	if err = json.Unmarshal(data, &additionalProperties); err == nil {
-		delete(additionalProperties, "type")
-		delete(additionalProperties, "resource")
-		delete(additionalProperties, "annotations")
-		delete(additionalProperties, "_meta")
-		o.AdditionalProperties = additionalProperties
-	}
 
 	return err
 }

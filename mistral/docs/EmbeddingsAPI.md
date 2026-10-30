@@ -29,7 +29,7 @@ import (
 )
 
 func main() {
-	embeddingRequest := *openapiclient.NewEmbeddingRequest("mistral-embed", *openapiclient.NewInput1()) // EmbeddingRequest | 
+	embeddingRequest := *openapiclient.NewEmbeddingRequest("mistral-embed", *openapiclient.NewInput2()) // EmbeddingRequest | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)

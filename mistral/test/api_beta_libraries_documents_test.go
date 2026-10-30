@@ -125,6 +125,21 @@ func Test_mistral_BetaLibrariesDocumentsAPIService(t *testing.T) {
 
 	})
 
+	t.Run("Test BetaLibrariesDocumentsAPIService LibrariesDocumentsPatchV1", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		var libraryId string
+		var documentId string
+
+		resp, httpRes, err := apiClient.BetaLibrariesDocumentsAPI.LibrariesDocumentsPatchV1(context.Background(), libraryId, documentId).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
 	t.Run("Test BetaLibrariesDocumentsAPIService LibrariesDocumentsReprocessV1", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test

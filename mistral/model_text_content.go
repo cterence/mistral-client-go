@@ -12,19 +12,16 @@ package mistral
 
 import (
 	"encoding/json"
+	"bytes"
 	"fmt"
 )
 
 // checks if the TextContent type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &TextContent{}
 
-// TextContent Text content for a message.
+// TextContent struct for TextContent
 type TextContent struct {
-	Type string `json:"type"`
-	Text string `json:"text"`
-	Annotations NullableAnnotations `json:"annotations,omitempty"`
-	Meta map[string]interface{} `json:"_meta,omitempty"`
-	AdditionalProperties map[string]interface{}
+	TextContent string `json:"textContent"`
 }
 
 type _TextContent TextContent
@@ -33,10 +30,9 @@ type _TextContent TextContent
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewTextContent(type_ string, text string) *TextContent {
+func NewTextContent(textContent string) *TextContent {
 	this := TextContent{}
-	this.Type = type_
-	this.Text = text
+	this.TextContent = textContent
 	return &this
 }
 
@@ -48,127 +44,28 @@ func NewTextContentWithDefaults() *TextContent {
 	return &this
 }
 
-// GetType returns the Type field value
-func (o *TextContent) GetType() string {
+// GetTextContent returns the TextContent field value
+func (o *TextContent) GetTextContent() string {
 	if o == nil {
 		var ret string
 		return ret
 	}
 
-	return o.Type
+	return o.TextContent
 }
 
-// GetTypeOk returns a tuple with the Type field value
+// GetTextContentOk returns a tuple with the TextContent field value
 // and a boolean to check if the value has been set.
-func (o *TextContent) GetTypeOk() (*string, bool) {
+func (o *TextContent) GetTextContentOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Type, true
+	return &o.TextContent, true
 }
 
-// SetType sets field value
-func (o *TextContent) SetType(v string) {
-	o.Type = v
-}
-
-// GetText returns the Text field value
-func (o *TextContent) GetText() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.Text
-}
-
-// GetTextOk returns a tuple with the Text field value
-// and a boolean to check if the value has been set.
-func (o *TextContent) GetTextOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Text, true
-}
-
-// SetText sets field value
-func (o *TextContent) SetText(v string) {
-	o.Text = v
-}
-
-// GetAnnotations returns the Annotations field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *TextContent) GetAnnotations() Annotations {
-	if o == nil || IsNil(o.Annotations.Get()) {
-		var ret Annotations
-		return ret
-	}
-	return *o.Annotations.Get()
-}
-
-// GetAnnotationsOk returns a tuple with the Annotations field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *TextContent) GetAnnotationsOk() (*Annotations, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return o.Annotations.Get(), o.Annotations.IsSet()
-}
-
-// HasAnnotations returns a boolean if a field has been set.
-func (o *TextContent) HasAnnotations() bool {
-	if o != nil && o.Annotations.IsSet() {
-		return true
-	}
-
-	return false
-}
-
-// SetAnnotations gets a reference to the given NullableAnnotations and assigns it to the Annotations field.
-func (o *TextContent) SetAnnotations(v Annotations) {
-	o.Annotations.Set(&v)
-}
-// SetAnnotationsNil sets the value for Annotations to be an explicit nil
-func (o *TextContent) SetAnnotationsNil() {
-	o.Annotations.Set(nil)
-}
-
-// UnsetAnnotations ensures that no value is present for Annotations, not even an explicit nil
-func (o *TextContent) UnsetAnnotations() {
-	o.Annotations.Unset()
-}
-
-// GetMeta returns the Meta field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *TextContent) GetMeta() map[string]interface{} {
-	if o == nil {
-		var ret map[string]interface{}
-		return ret
-	}
-	return o.Meta
-}
-
-// GetMetaOk returns a tuple with the Meta field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *TextContent) GetMetaOk() (map[string]interface{}, bool) {
-	if o == nil || IsNil(o.Meta) {
-		return map[string]interface{}{}, false
-	}
-	return o.Meta, true
-}
-
-// HasMeta returns a boolean if a field has been set.
-func (o *TextContent) HasMeta() bool {
-	if o != nil && !IsNil(o.Meta) {
-		return true
-	}
-
-	return false
-}
-
-// SetMeta gets a reference to the given map[string]interface{} and assigns it to the Meta field.
-func (o *TextContent) SetMeta(v map[string]interface{}) {
-	o.Meta = v
+// SetTextContent sets field value
+func (o *TextContent) SetTextContent(v string) {
+	o.TextContent = v
 }
 
 func (o TextContent) MarshalJSON() ([]byte, error) {
@@ -181,19 +78,7 @@ func (o TextContent) MarshalJSON() ([]byte, error) {
 
 func (o TextContent) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["type"] = o.Type
-	toSerialize["text"] = o.Text
-	if o.Annotations.IsSet() {
-		toSerialize["annotations"] = o.Annotations.Get()
-	}
-	if o.Meta != nil {
-		toSerialize["_meta"] = o.Meta
-	}
-
-	for key, value := range o.AdditionalProperties {
-		toSerialize[key] = value
-	}
-
+	toSerialize["textContent"] = o.TextContent
 	return toSerialize, nil
 }
 
@@ -202,8 +87,7 @@ func (o *TextContent) UnmarshalJSON(data []byte) (err error) {
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
-		"type",
-		"text",
+		"textContent",
 	}
 
 	allProperties := make(map[string]interface{})
@@ -222,23 +106,14 @@ func (o *TextContent) UnmarshalJSON(data []byte) (err error) {
 
 	varTextContent := _TextContent{}
 
-	err = json.Unmarshal(data, &varTextContent)
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	err = decoder.Decode(&varTextContent)
 
 	if err != nil {
 		return err
 	}
 
 	*o = TextContent(varTextContent)
-
-	additionalProperties := make(map[string]interface{})
-
-	if err = json.Unmarshal(data, &additionalProperties); err == nil {
-		delete(additionalProperties, "type")
-		delete(additionalProperties, "text")
-		delete(additionalProperties, "annotations")
-		delete(additionalProperties, "_meta")
-		o.AdditionalProperties = additionalProperties
-	}
 
 	return err
 }

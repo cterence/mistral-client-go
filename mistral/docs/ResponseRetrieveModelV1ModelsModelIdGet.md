@@ -16,6 +16,8 @@ Name | Type | Description | Notes
 **Deprecation** | Pointer to **time.Time** |  | [optional] 
 **DeprecationReplacementModel** | Pointer to **string** |  | [optional] 
 **DefaultModelTemperature** | Pointer to **float32** |  | [optional] 
+**Internal** | Pointer to **bool** |  | [optional] [default to false]
+**BillingModelName** | Pointer to **string** |  | [optional] 
 **Type** | Pointer to **string** |  | [optional] [default to "base"]
 **Job** | **string** |  | 
 **Root** | **string** |  | 
@@ -329,6 +331,56 @@ SetDefaultModelTemperature sets DefaultModelTemperature field to given value.
 `func (o *ResponseRetrieveModelV1ModelsModelIdGet) HasDefaultModelTemperature() bool`
 
 HasDefaultModelTemperature returns a boolean if a field has been set.
+
+### GetInternal
+
+`func (o *ResponseRetrieveModelV1ModelsModelIdGet) GetInternal() bool`
+
+GetInternal returns the Internal field if non-nil, zero value otherwise.
+
+### GetInternalOk
+
+`func (o *ResponseRetrieveModelV1ModelsModelIdGet) GetInternalOk() (*bool, bool)`
+
+GetInternalOk returns a tuple with the Internal field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetInternal
+
+`func (o *ResponseRetrieveModelV1ModelsModelIdGet) SetInternal(v bool)`
+
+SetInternal sets Internal field to given value.
+
+### HasInternal
+
+`func (o *ResponseRetrieveModelV1ModelsModelIdGet) HasInternal() bool`
+
+HasInternal returns a boolean if a field has been set.
+
+### GetBillingModelName
+
+`func (o *ResponseRetrieveModelV1ModelsModelIdGet) GetBillingModelName() string`
+
+GetBillingModelName returns the BillingModelName field if non-nil, zero value otherwise.
+
+### GetBillingModelNameOk
+
+`func (o *ResponseRetrieveModelV1ModelsModelIdGet) GetBillingModelNameOk() (*string, bool)`
+
+GetBillingModelNameOk returns a tuple with the BillingModelName field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetBillingModelName
+
+`func (o *ResponseRetrieveModelV1ModelsModelIdGet) SetBillingModelName(v string)`
+
+SetBillingModelName sets BillingModelName field to given value.
+
+### HasBillingModelName
+
+`func (o *ResponseRetrieveModelV1ModelsModelIdGet) HasBillingModelName() bool`
+
+HasBillingModelName returns a boolean if a field has been set.
 
 ### GetType
 

@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Type** | **string** |  | 
+**Type** | Pointer to **string** |  | [optional] [default to "resource"]
 **Resource** | [**Resource**](Resource.md) |  | 
 **Annotations** | Pointer to [**NullableAnnotations**](Annotations.md) |  | [optional] 
 **Meta** | Pointer to **map[string]interface{}** |  | [optional] 
@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 
 ### NewEmbeddedResource
 
-`func NewEmbeddedResource(type_ string, resource Resource, ) *EmbeddedResource`
+`func NewEmbeddedResource(resource Resource, ) *EmbeddedResource`
 
 NewEmbeddedResource instantiates a new EmbeddedResource object
 This constructor will assign default values to properties that have it defined,
@@ -47,6 +47,11 @@ and a boolean to check if the value has been set.
 
 SetType sets Type field to given value.
 
+### HasType
+
+`func (o *EmbeddedResource) HasType() bool`
+
+HasType returns a boolean if a field has been set.
 
 ### GetResource
 

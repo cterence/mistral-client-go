@@ -23,13 +23,17 @@ var _ MappedNullable = &WorkflowRegistration{}
 type WorkflowRegistration struct {
 	// Unique identifier of the workflow registration
 	Id string `json:"id"`
-	// Project name of the workflow
-	TaskQueue string `json:"task_queue"`
+	// Deprecated. Use deployment_name instead. Will be removed in a future release.
+	DeploymentId NullableString `json:"deployment_id,omitempty"`
+	// Deprecated. Use deployment_name instead. Will be removed in a future release.
+	TaskQueue NullableString `json:"task_queue,omitempty"`
 	Definition WorkflowCodeDefinition `json:"definition"`
 	// Workflow ID of the workflow
 	WorkflowId string `json:"workflow_id"`
 	// Workflow of the workflow registration
 	Workflow NullableWorkflow `json:"workflow,omitempty"`
+	// Name of the deployment this registration belongs to
+	DeploymentName NullableString `json:"deployment_name,omitempty"`
 	// Whether the workflow is compatible with chat assistant
 	CompatibleWithChatAssistant *bool `json:"compatible_with_chat_assistant,omitempty"`
 }
@@ -40,10 +44,9 @@ type _WorkflowRegistration WorkflowRegistration
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewWorkflowRegistration(id string, taskQueue string, definition WorkflowCodeDefinition, workflowId string) *WorkflowRegistration {
+func NewWorkflowRegistration(id string, definition WorkflowCodeDefinition, workflowId string) *WorkflowRegistration {
 	this := WorkflowRegistration{}
 	this.Id = id
-	this.TaskQueue = taskQueue
 	this.Definition = definition
 	this.WorkflowId = workflowId
 	var compatibleWithChatAssistant bool = false
@@ -85,28 +88,88 @@ func (o *WorkflowRegistration) SetId(v string) {
 	o.Id = v
 }
 
-// GetTaskQueue returns the TaskQueue field value
-func (o *WorkflowRegistration) GetTaskQueue() string {
-	if o == nil {
+// GetDeploymentId returns the DeploymentId field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *WorkflowRegistration) GetDeploymentId() string {
+	if o == nil || IsNil(o.DeploymentId.Get()) {
 		var ret string
 		return ret
 	}
-
-	return o.TaskQueue
+	return *o.DeploymentId.Get()
 }
 
-// GetTaskQueueOk returns a tuple with the TaskQueue field value
+// GetDeploymentIdOk returns a tuple with the DeploymentId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *WorkflowRegistration) GetDeploymentIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.DeploymentId.Get(), o.DeploymentId.IsSet()
+}
+
+// HasDeploymentId returns a boolean if a field has been set.
+func (o *WorkflowRegistration) HasDeploymentId() bool {
+	if o != nil && o.DeploymentId.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetDeploymentId gets a reference to the given NullableString and assigns it to the DeploymentId field.
+func (o *WorkflowRegistration) SetDeploymentId(v string) {
+	o.DeploymentId.Set(&v)
+}
+// SetDeploymentIdNil sets the value for DeploymentId to be an explicit nil
+func (o *WorkflowRegistration) SetDeploymentIdNil() {
+	o.DeploymentId.Set(nil)
+}
+
+// UnsetDeploymentId ensures that no value is present for DeploymentId, not even an explicit nil
+func (o *WorkflowRegistration) UnsetDeploymentId() {
+	o.DeploymentId.Unset()
+}
+
+// GetTaskQueue returns the TaskQueue field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *WorkflowRegistration) GetTaskQueue() string {
+	if o == nil || IsNil(o.TaskQueue.Get()) {
+		var ret string
+		return ret
+	}
+	return *o.TaskQueue.Get()
+}
+
+// GetTaskQueueOk returns a tuple with the TaskQueue field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *WorkflowRegistration) GetTaskQueueOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.TaskQueue, true
+	return o.TaskQueue.Get(), o.TaskQueue.IsSet()
 }
 
-// SetTaskQueue sets field value
+// HasTaskQueue returns a boolean if a field has been set.
+func (o *WorkflowRegistration) HasTaskQueue() bool {
+	if o != nil && o.TaskQueue.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetTaskQueue gets a reference to the given NullableString and assigns it to the TaskQueue field.
 func (o *WorkflowRegistration) SetTaskQueue(v string) {
-	o.TaskQueue = v
+	o.TaskQueue.Set(&v)
+}
+// SetTaskQueueNil sets the value for TaskQueue to be an explicit nil
+func (o *WorkflowRegistration) SetTaskQueueNil() {
+	o.TaskQueue.Set(nil)
+}
+
+// UnsetTaskQueue ensures that no value is present for TaskQueue, not even an explicit nil
+func (o *WorkflowRegistration) UnsetTaskQueue() {
+	o.TaskQueue.Unset()
 }
 
 // GetDefinition returns the Definition field value
@@ -199,6 +262,48 @@ func (o *WorkflowRegistration) UnsetWorkflow() {
 	o.Workflow.Unset()
 }
 
+// GetDeploymentName returns the DeploymentName field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *WorkflowRegistration) GetDeploymentName() string {
+	if o == nil || IsNil(o.DeploymentName.Get()) {
+		var ret string
+		return ret
+	}
+	return *o.DeploymentName.Get()
+}
+
+// GetDeploymentNameOk returns a tuple with the DeploymentName field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *WorkflowRegistration) GetDeploymentNameOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.DeploymentName.Get(), o.DeploymentName.IsSet()
+}
+
+// HasDeploymentName returns a boolean if a field has been set.
+func (o *WorkflowRegistration) HasDeploymentName() bool {
+	if o != nil && o.DeploymentName.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetDeploymentName gets a reference to the given NullableString and assigns it to the DeploymentName field.
+func (o *WorkflowRegistration) SetDeploymentName(v string) {
+	o.DeploymentName.Set(&v)
+}
+// SetDeploymentNameNil sets the value for DeploymentName to be an explicit nil
+func (o *WorkflowRegistration) SetDeploymentNameNil() {
+	o.DeploymentName.Set(nil)
+}
+
+// UnsetDeploymentName ensures that no value is present for DeploymentName, not even an explicit nil
+func (o *WorkflowRegistration) UnsetDeploymentName() {
+	o.DeploymentName.Unset()
+}
+
 // GetCompatibleWithChatAssistant returns the CompatibleWithChatAssistant field value if set, zero value otherwise.
 func (o *WorkflowRegistration) GetCompatibleWithChatAssistant() bool {
 	if o == nil || IsNil(o.CompatibleWithChatAssistant) {
@@ -242,11 +347,19 @@ func (o WorkflowRegistration) MarshalJSON() ([]byte, error) {
 func (o WorkflowRegistration) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["id"] = o.Id
-	toSerialize["task_queue"] = o.TaskQueue
+	if o.DeploymentId.IsSet() {
+		toSerialize["deployment_id"] = o.DeploymentId.Get()
+	}
+	if o.TaskQueue.IsSet() {
+		toSerialize["task_queue"] = o.TaskQueue.Get()
+	}
 	toSerialize["definition"] = o.Definition
 	toSerialize["workflow_id"] = o.WorkflowId
 	if o.Workflow.IsSet() {
 		toSerialize["workflow"] = o.Workflow.Get()
+	}
+	if o.DeploymentName.IsSet() {
+		toSerialize["deployment_name"] = o.DeploymentName.Get()
 	}
 	if !IsNil(o.CompatibleWithChatAssistant) {
 		toSerialize["compatible_with_chat_assistant"] = o.CompatibleWithChatAssistant
@@ -260,7 +373,6 @@ func (o *WorkflowRegistration) UnmarshalJSON(data []byte) (err error) {
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
 		"id",
-		"task_queue",
 		"definition",
 		"workflow_id",
 	}

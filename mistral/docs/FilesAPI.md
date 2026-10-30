@@ -15,7 +15,7 @@ Method | HTTP request | Description
 
 ## FilesApiRoutesDeleteFile
 
-> DeleteFileOut FilesApiRoutesDeleteFile(ctx, fileId).Execute()
+> DeleteFileResponse FilesApiRoutesDeleteFile(ctx, fileId).Execute()
 
 Delete File
 
@@ -43,7 +43,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `FilesAPI.FilesApiRoutesDeleteFile``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `FilesApiRoutesDeleteFile`: DeleteFileOut
+	// response from `FilesApiRoutesDeleteFile`: DeleteFileResponse
 	fmt.Fprintf(os.Stdout, "Response from `FilesAPI.FilesApiRoutesDeleteFile`: %v\n", resp)
 }
 ```
@@ -67,7 +67,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DeleteFileOut**](DeleteFileOut.md)
+[**DeleteFileResponse**](DeleteFileResponse.md)
 
 ### Authorization
 
@@ -155,9 +155,11 @@ Name | Type | Description  | Notes
 
 ## FilesApiRoutesGetSignedUrl
 
-> FileSignedURL FilesApiRoutesGetSignedUrl(ctx, fileId).Expiry(expiry).Execute()
+> GetSignedUrlResponse FilesApiRoutesGetSignedUrl(ctx, fileId).Expiry(expiry).Execute()
 
 Get Signed Url
+
+
 
 ### Example
 
@@ -173,7 +175,7 @@ import (
 
 func main() {
 	fileId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | 
-	expiry := int32(56) // int32 | Number of hours before the url becomes invalid. Defaults to 24h (optional) (default to 24)
+	expiry := int32(56) // int32 | Number of hours before the URL becomes invalid. Defaults to 24h. Must be between 1h and 168h. (optional) (default to 24)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -182,7 +184,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `FilesAPI.FilesApiRoutesGetSignedUrl``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `FilesApiRoutesGetSignedUrl`: FileSignedURL
+	// response from `FilesApiRoutesGetSignedUrl`: GetSignedUrlResponse
 	fmt.Fprintf(os.Stdout, "Response from `FilesAPI.FilesApiRoutesGetSignedUrl`: %v\n", resp)
 }
 ```
@@ -203,11 +205,11 @@ Other parameters are passed through a pointer to a apiFilesApiRoutesGetSignedUrl
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **expiry** | **int32** | Number of hours before the url becomes invalid. Defaults to 24h | [default to 24]
+ **expiry** | **int32** | Number of hours before the URL becomes invalid. Defaults to 24h. Must be between 1h and 168h. | [default to 24]
 
 ### Return type
 
-[**FileSignedURL**](FileSignedURL.md)
+[**GetSignedUrlResponse**](GetSignedUrlResponse.md)
 
 ### Authorization
 
@@ -225,7 +227,7 @@ Name | Type | Description  | Notes
 
 ## FilesApiRoutesListFiles
 
-> ListFilesOut FilesApiRoutesListFiles(ctx).Page(page).PageSize(pageSize).IncludeTotal(includeTotal).SampleType(sampleType).Source(source).Search(search).Purpose(purpose).Mimetypes(mimetypes).Execute()
+> ListFilesResponse FilesApiRoutesListFiles(ctx).Page(page).PageSize(pageSize).IncludeTotal(includeTotal).SampleType(sampleType).Source(source).Search(search).Purpose(purpose).Mimetypes(mimetypes).Execute()
 
 List Files
 
@@ -260,7 +262,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `FilesAPI.FilesApiRoutesListFiles``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `FilesApiRoutesListFiles`: ListFilesOut
+	// response from `FilesApiRoutesListFiles`: ListFilesResponse
 	fmt.Fprintf(os.Stdout, "Response from `FilesAPI.FilesApiRoutesListFiles`: %v\n", resp)
 }
 ```
@@ -287,7 +289,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ListFilesOut**](ListFilesOut.md)
+[**ListFilesResponse**](ListFilesResponse.md)
 
 ### Authorization
 
@@ -305,7 +307,7 @@ Name | Type | Description  | Notes
 
 ## FilesApiRoutesRetrieveFile
 
-> RetrieveFileOut FilesApiRoutesRetrieveFile(ctx, fileId).Execute()
+> GetFileResponse FilesApiRoutesRetrieveFile(ctx, fileId).Execute()
 
 Retrieve File
 
@@ -333,7 +335,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `FilesAPI.FilesApiRoutesRetrieveFile``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `FilesApiRoutesRetrieveFile`: RetrieveFileOut
+	// response from `FilesApiRoutesRetrieveFile`: GetFileResponse
 	fmt.Fprintf(os.Stdout, "Response from `FilesAPI.FilesApiRoutesRetrieveFile`: %v\n", resp)
 }
 ```
@@ -357,7 +359,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**RetrieveFileOut**](RetrieveFileOut.md)
+[**GetFileResponse**](GetFileResponse.md)
 
 ### Authorization
 
@@ -375,7 +377,7 @@ Name | Type | Description  | Notes
 
 ## FilesApiRoutesUploadFile
 
-> UploadFileOut FilesApiRoutesUploadFile(ctx).File(file).Expiry(expiry).Visibility(visibility).Purpose(purpose).Execute()
+> CreateFileResponse FilesApiRoutesUploadFile(ctx).File(file).Expiry(expiry).Visibility(visibility).Purpose(purpose).Execute()
 
 Upload File
 
@@ -395,7 +397,7 @@ import (
 
 func main() {
 	file := os.NewFile(1234, "some_file") // *os.File | The File object (not file name) to be uploaded.  To upload a file and specify a custom file name you should format your request as such:  ```bash  file=@path/to/your/file.jsonl;filename=custom_name.jsonl  ```  Otherwise, you can just keep the original file name:  ```bash  file=@path/to/your/file.jsonl  ```
-	expiry := int32(56) // int32 | Set before sending audio. Streaming delay updates are rejected after audio starts. (optional)
+	expiry := int32(56) // int32 | Total usage value for this row. (optional)
 	visibility := "visibility_example" // string |  (optional)
 	purpose := openapiclient.FilePurpose("fine-tune") // FilePurpose |  (optional)
 
@@ -406,7 +408,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `FilesAPI.FilesApiRoutesUploadFile``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `FilesApiRoutesUploadFile`: UploadFileOut
+	// response from `FilesApiRoutesUploadFile`: CreateFileResponse
 	fmt.Fprintf(os.Stdout, "Response from `FilesAPI.FilesApiRoutesUploadFile`: %v\n", resp)
 }
 ```
@@ -423,13 +425,13 @@ Other parameters are passed through a pointer to a apiFilesApiRoutesUploadFileRe
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **file** | ***os.File** | The File object (not file name) to be uploaded.  To upload a file and specify a custom file name you should format your request as such:  &#x60;&#x60;&#x60;bash  file&#x3D;@path/to/your/file.jsonl;filename&#x3D;custom_name.jsonl  &#x60;&#x60;&#x60;  Otherwise, you can just keep the original file name:  &#x60;&#x60;&#x60;bash  file&#x3D;@path/to/your/file.jsonl  &#x60;&#x60;&#x60; | 
- **expiry** | **int32** | Set before sending audio. Streaming delay updates are rejected after audio starts. | 
+ **expiry** | **int32** | Total usage value for this row. | 
  **visibility** | **string** |  | 
  **purpose** | [**FilePurpose**](FilePurpose.md) |  | 
 
 ### Return type
 
-[**UploadFileOut**](UploadFileOut.md)
+[**CreateFileResponse**](CreateFileResponse.md)
 
 ### Authorization
 

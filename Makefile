@@ -24,12 +24,16 @@ generate:
 	nix develop -c sh -c 'go mod tidy && go build ./...'
 
 fixup:
+	nix develop -c sed -i -z 's/return \*o.SampleAudio.Get()\n/return o.SampleAudio.Get()\n/g; s/o.SampleAudio.Set(\&v)/o.SampleAudio.Set(v)/g; s/GetSampleAudioOk() (\*\*os.File, bool)/GetSampleAudioOk() (*os.File, bool)/g' $(SDK_DIR)/model_voice_create_request.go
 	nix develop -c sed -i -z \
 		-e 's/\t\tvar defaultValue ConnectorsQueryFilters = {[^}]*}\n\t\tparameterAddToHeaderOrQuery(localVarQueryParams, "query_filters", defaultValue, "form", "")\n\t\tr.queryFilters = \&defaultValue\n//g' \
 		-e 's/\tvar toolChoice ToolChoice = auto\n\tthis.ToolChoice = \&toolChoice/\tvar toolChoice ToolChoice\n\tauto := TOOLCHOICEENUM_AUTO\n\ttoolChoice.ToolChoiceEnum = \&auto\n\tthis.ToolChoice = \&toolChoice/g' \
 		-e 's/\tvar prediction Prediction = {type=content, content=}\n\tthis.Prediction = \&prediction\n//g' \
 		$(SDK_DIR)/api_beta_connectors.go $(SDK_DIR)/model_chat_completion_request.go $(SDK_DIR)/model_agents_completion_request.go
-	nix develop -c sed -i 's/\*OsFile/OsFile/g' $(SDK_DIR)/model_input_audio.go
+	nix develop -c sed -i 's/\*OsFile/OsFile/g' $(SDK_DIR)/model_*.go
+	nix develop -c sed -i 's/ArrayOf\*mapmapOfStringAny/ArrayOfMapmapOfStringAny/g' $(SDK_DIR)/model_*.go
+	nix develop -c sed -i 's/Nullable\*os\.File/NullableOsFile/g' $(SDK_DIR)/model_*.go
+	nix develop -c sed -i -z 's/var toolChoice \(ToolChoice[0-9]*\) = auto\n\tthis.ToolChoice = \&toolChoice/var toolChoice \1\n\tauto := \&\1{String: nil}\n\ttoolChoice = *auto\n\tthis.ToolChoice = \&toolChoice/g' $(SDK_DIR)/model_*.go
 	# live API sends undocumented fields; strict decoding breaks on spec lag
 	nix develop -c sed -i '/decoder.DisallowUnknownFields()/d' $(SDK_DIR)/model_*.go
 

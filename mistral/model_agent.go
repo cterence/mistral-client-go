@@ -39,6 +39,7 @@ type Agent struct {
 	Id string `json:"id"`
 	Version int32 `json:"version"`
 	Versions []int32 `json:"versions"`
+	OwnerId NullableString `json:"owner_id,omitempty"`
 	CreatedAt time.Time `json:"created_at"`
 	UpdatedAt time.Time `json:"updated_at"`
 	DeploymentChat bool `json:"deployment_chat"`
@@ -477,6 +478,48 @@ func (o *Agent) SetVersions(v []int32) {
 	o.Versions = v
 }
 
+// GetOwnerId returns the OwnerId field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *Agent) GetOwnerId() string {
+	if o == nil || IsNil(o.OwnerId.Get()) {
+		var ret string
+		return ret
+	}
+	return *o.OwnerId.Get()
+}
+
+// GetOwnerIdOk returns a tuple with the OwnerId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *Agent) GetOwnerIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.OwnerId.Get(), o.OwnerId.IsSet()
+}
+
+// HasOwnerId returns a boolean if a field has been set.
+func (o *Agent) HasOwnerId() bool {
+	if o != nil && o.OwnerId.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetOwnerId gets a reference to the given NullableString and assigns it to the OwnerId field.
+func (o *Agent) SetOwnerId(v string) {
+	o.OwnerId.Set(&v)
+}
+// SetOwnerIdNil sets the value for OwnerId to be an explicit nil
+func (o *Agent) SetOwnerIdNil() {
+	o.OwnerId.Set(nil)
+}
+
+// UnsetOwnerId ensures that no value is present for OwnerId, not even an explicit nil
+func (o *Agent) UnsetOwnerId() {
+	o.OwnerId.Unset()
+}
+
 // GetCreatedAt returns the CreatedAt field value
 func (o *Agent) GetCreatedAt() time.Time {
 	if o == nil {
@@ -654,6 +697,9 @@ func (o Agent) ToMap() (map[string]interface{}, error) {
 	toSerialize["id"] = o.Id
 	toSerialize["version"] = o.Version
 	toSerialize["versions"] = o.Versions
+	if o.OwnerId.IsSet() {
+		toSerialize["owner_id"] = o.OwnerId.Get()
+	}
 	toSerialize["created_at"] = o.CreatedAt
 	toSerialize["updated_at"] = o.UpdatedAt
 	toSerialize["deployment_chat"] = o.DeploymentChat

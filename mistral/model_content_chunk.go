@@ -23,6 +23,8 @@ type ContentChunk struct {
 	FileChunk *FileChunk
 	ImageURLChunk *ImageURLChunk
 	ReferenceChunk *ReferenceChunk
+	ResourceChunk *ResourceChunk
+	ResourceLinkChunk *ResourceLinkChunk
 	TextChunk *TextChunk
 	ThinkChunk *ThinkChunk
 }
@@ -59,6 +61,20 @@ func ImageURLChunkAsContentChunk(v *ImageURLChunk) ContentChunk {
 func ReferenceChunkAsContentChunk(v *ReferenceChunk) ContentChunk {
 	return ContentChunk{
 		ReferenceChunk: v,
+	}
+}
+
+// ResourceChunkAsContentChunk is a convenience function that returns ResourceChunk wrapped in ContentChunk
+func ResourceChunkAsContentChunk(v *ResourceChunk) ContentChunk {
+	return ContentChunk{
+		ResourceChunk: v,
+	}
+}
+
+// ResourceLinkChunkAsContentChunk is a convenience function that returns ResourceLinkChunk wrapped in ContentChunk
+func ResourceLinkChunkAsContentChunk(v *ResourceLinkChunk) ContentChunk {
+	return ContentChunk{
+		ResourceLinkChunk: v,
 	}
 }
 
@@ -166,6 +182,40 @@ func (dst *ContentChunk) UnmarshalJSON(data []byte) error {
 		dst.ReferenceChunk = nil
 	}
 
+	// try to unmarshal data into ResourceChunk
+	err = newStrictDecoder(data).Decode(&dst.ResourceChunk)
+	if err == nil {
+		jsonResourceChunk, _ := json.Marshal(dst.ResourceChunk)
+		if string(jsonResourceChunk) == "{}" { // empty struct
+			dst.ResourceChunk = nil
+		} else {
+			if err = validator.Validate(dst.ResourceChunk); err != nil {
+				dst.ResourceChunk = nil
+			} else {
+				match++
+			}
+		}
+	} else {
+		dst.ResourceChunk = nil
+	}
+
+	// try to unmarshal data into ResourceLinkChunk
+	err = newStrictDecoder(data).Decode(&dst.ResourceLinkChunk)
+	if err == nil {
+		jsonResourceLinkChunk, _ := json.Marshal(dst.ResourceLinkChunk)
+		if string(jsonResourceLinkChunk) == "{}" { // empty struct
+			dst.ResourceLinkChunk = nil
+		} else {
+			if err = validator.Validate(dst.ResourceLinkChunk); err != nil {
+				dst.ResourceLinkChunk = nil
+			} else {
+				match++
+			}
+		}
+	} else {
+		dst.ResourceLinkChunk = nil
+	}
+
 	// try to unmarshal data into TextChunk
 	err = newStrictDecoder(data).Decode(&dst.TextChunk)
 	if err == nil {
@@ -207,6 +257,8 @@ func (dst *ContentChunk) UnmarshalJSON(data []byte) error {
 		dst.FileChunk = nil
 		dst.ImageURLChunk = nil
 		dst.ReferenceChunk = nil
+		dst.ResourceChunk = nil
+		dst.ResourceLinkChunk = nil
 		dst.TextChunk = nil
 		dst.ThinkChunk = nil
 
@@ -242,6 +294,14 @@ func (src ContentChunk) MarshalJSON() ([]byte, error) {
 
 	if src.ReferenceChunk != nil {
 		return json.Marshal(&src.ReferenceChunk)
+	}
+
+	if src.ResourceChunk != nil {
+		return json.Marshal(&src.ResourceChunk)
+	}
+
+	if src.ResourceLinkChunk != nil {
+		return json.Marshal(&src.ResourceLinkChunk)
 	}
 
 	if src.TextChunk != nil {
@@ -280,6 +340,14 @@ func (obj *ContentChunk) GetActualInstance() (interface{}) {
 		return obj.ReferenceChunk
 	}
 
+	if obj.ResourceChunk != nil {
+		return obj.ResourceChunk
+	}
+
+	if obj.ResourceLinkChunk != nil {
+		return obj.ResourceLinkChunk
+	}
+
 	if obj.TextChunk != nil {
 		return obj.TextChunk
 	}
@@ -312,6 +380,14 @@ func (obj ContentChunk) GetActualInstanceValue() (interface{}) {
 
 	if obj.ReferenceChunk != nil {
 		return *obj.ReferenceChunk
+	}
+
+	if obj.ResourceChunk != nil {
+		return *obj.ResourceChunk
+	}
+
+	if obj.ResourceLinkChunk != nil {
+		return *obj.ResourceLinkChunk
 	}
 
 	if obj.TextChunk != nil {

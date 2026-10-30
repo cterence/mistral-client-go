@@ -15,12 +15,19 @@ Name | Type | Description | Notes
 **TimeZoneName** | Pointer to **NullableString** | IANA time zone name, for example &#x60;&#x60;US/Central&#x60;&#x60;. | [optional] 
 **Policy** | Pointer to [**SchedulePolicy**](SchedulePolicy.md) | Policy for the schedule. | [optional] 
 **ScheduleId** | **string** | Unique identifier for the schedule. | 
+**RemainingExecutions** | Pointer to **NullableInt32** | Remaining workflow executions before this schedule stops triggering automatically. null means unlimited; 0 means the limit has been reached and the schedule is exhausted. | [optional] 
+**WorkflowName** | **string** | Name of the workflow this schedule triggers. | 
+**DeploymentName** | Pointer to **NullableString** | Name of the deployment this schedule targets. | [optional] 
+**Paused** | **bool** | Whether the schedule is currently paused. | 
+**Note** | Pointer to **NullableString** | Human-readable note associated with the current pause or resume state. | [optional] 
+**FutureExecutions** | Pointer to [**[]ScheduleFutureExecution**](ScheduleFutureExecution.md) | Upcoming scheduled executions (10 next executions, earliest first). | [optional] 
+**RecentExecutions** | Pointer to [**[]ScheduleRecentExecution**](ScheduleRecentExecution.md) | Most recent scheduled executions (10 most recent, newest last). | [optional] 
 
 ## Methods
 
 ### NewScheduleDefinitionOutput
 
-`func NewScheduleDefinitionOutput(input interface{}, scheduleId string, ) *ScheduleDefinitionOutput`
+`func NewScheduleDefinitionOutput(input interface{}, scheduleId string, workflowName string, paused bool, ) *ScheduleDefinitionOutput`
 
 NewScheduleDefinitionOutput instantiates a new ScheduleDefinitionOutput object
 This constructor will assign default values to properties that have it defined,
@@ -349,6 +356,201 @@ and a boolean to check if the value has been set.
 
 SetScheduleId sets ScheduleId field to given value.
 
+
+### GetRemainingExecutions
+
+`func (o *ScheduleDefinitionOutput) GetRemainingExecutions() int32`
+
+GetRemainingExecutions returns the RemainingExecutions field if non-nil, zero value otherwise.
+
+### GetRemainingExecutionsOk
+
+`func (o *ScheduleDefinitionOutput) GetRemainingExecutionsOk() (*int32, bool)`
+
+GetRemainingExecutionsOk returns a tuple with the RemainingExecutions field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetRemainingExecutions
+
+`func (o *ScheduleDefinitionOutput) SetRemainingExecutions(v int32)`
+
+SetRemainingExecutions sets RemainingExecutions field to given value.
+
+### HasRemainingExecutions
+
+`func (o *ScheduleDefinitionOutput) HasRemainingExecutions() bool`
+
+HasRemainingExecutions returns a boolean if a field has been set.
+
+### SetRemainingExecutionsNil
+
+`func (o *ScheduleDefinitionOutput) SetRemainingExecutionsNil(b bool)`
+
+ SetRemainingExecutionsNil sets the value for RemainingExecutions to be an explicit nil
+
+### UnsetRemainingExecutions
+`func (o *ScheduleDefinitionOutput) UnsetRemainingExecutions()`
+
+UnsetRemainingExecutions ensures that no value is present for RemainingExecutions, not even an explicit nil
+### GetWorkflowName
+
+`func (o *ScheduleDefinitionOutput) GetWorkflowName() string`
+
+GetWorkflowName returns the WorkflowName field if non-nil, zero value otherwise.
+
+### GetWorkflowNameOk
+
+`func (o *ScheduleDefinitionOutput) GetWorkflowNameOk() (*string, bool)`
+
+GetWorkflowNameOk returns a tuple with the WorkflowName field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetWorkflowName
+
+`func (o *ScheduleDefinitionOutput) SetWorkflowName(v string)`
+
+SetWorkflowName sets WorkflowName field to given value.
+
+
+### GetDeploymentName
+
+`func (o *ScheduleDefinitionOutput) GetDeploymentName() string`
+
+GetDeploymentName returns the DeploymentName field if non-nil, zero value otherwise.
+
+### GetDeploymentNameOk
+
+`func (o *ScheduleDefinitionOutput) GetDeploymentNameOk() (*string, bool)`
+
+GetDeploymentNameOk returns a tuple with the DeploymentName field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDeploymentName
+
+`func (o *ScheduleDefinitionOutput) SetDeploymentName(v string)`
+
+SetDeploymentName sets DeploymentName field to given value.
+
+### HasDeploymentName
+
+`func (o *ScheduleDefinitionOutput) HasDeploymentName() bool`
+
+HasDeploymentName returns a boolean if a field has been set.
+
+### SetDeploymentNameNil
+
+`func (o *ScheduleDefinitionOutput) SetDeploymentNameNil(b bool)`
+
+ SetDeploymentNameNil sets the value for DeploymentName to be an explicit nil
+
+### UnsetDeploymentName
+`func (o *ScheduleDefinitionOutput) UnsetDeploymentName()`
+
+UnsetDeploymentName ensures that no value is present for DeploymentName, not even an explicit nil
+### GetPaused
+
+`func (o *ScheduleDefinitionOutput) GetPaused() bool`
+
+GetPaused returns the Paused field if non-nil, zero value otherwise.
+
+### GetPausedOk
+
+`func (o *ScheduleDefinitionOutput) GetPausedOk() (*bool, bool)`
+
+GetPausedOk returns a tuple with the Paused field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPaused
+
+`func (o *ScheduleDefinitionOutput) SetPaused(v bool)`
+
+SetPaused sets Paused field to given value.
+
+
+### GetNote
+
+`func (o *ScheduleDefinitionOutput) GetNote() string`
+
+GetNote returns the Note field if non-nil, zero value otherwise.
+
+### GetNoteOk
+
+`func (o *ScheduleDefinitionOutput) GetNoteOk() (*string, bool)`
+
+GetNoteOk returns a tuple with the Note field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetNote
+
+`func (o *ScheduleDefinitionOutput) SetNote(v string)`
+
+SetNote sets Note field to given value.
+
+### HasNote
+
+`func (o *ScheduleDefinitionOutput) HasNote() bool`
+
+HasNote returns a boolean if a field has been set.
+
+### SetNoteNil
+
+`func (o *ScheduleDefinitionOutput) SetNoteNil(b bool)`
+
+ SetNoteNil sets the value for Note to be an explicit nil
+
+### UnsetNote
+`func (o *ScheduleDefinitionOutput) UnsetNote()`
+
+UnsetNote ensures that no value is present for Note, not even an explicit nil
+### GetFutureExecutions
+
+`func (o *ScheduleDefinitionOutput) GetFutureExecutions() []ScheduleFutureExecution`
+
+GetFutureExecutions returns the FutureExecutions field if non-nil, zero value otherwise.
+
+### GetFutureExecutionsOk
+
+`func (o *ScheduleDefinitionOutput) GetFutureExecutionsOk() (*[]ScheduleFutureExecution, bool)`
+
+GetFutureExecutionsOk returns a tuple with the FutureExecutions field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetFutureExecutions
+
+`func (o *ScheduleDefinitionOutput) SetFutureExecutions(v []ScheduleFutureExecution)`
+
+SetFutureExecutions sets FutureExecutions field to given value.
+
+### HasFutureExecutions
+
+`func (o *ScheduleDefinitionOutput) HasFutureExecutions() bool`
+
+HasFutureExecutions returns a boolean if a field has been set.
+
+### GetRecentExecutions
+
+`func (o *ScheduleDefinitionOutput) GetRecentExecutions() []ScheduleRecentExecution`
+
+GetRecentExecutions returns the RecentExecutions field if non-nil, zero value otherwise.
+
+### GetRecentExecutionsOk
+
+`func (o *ScheduleDefinitionOutput) GetRecentExecutionsOk() (*[]ScheduleRecentExecution, bool)`
+
+GetRecentExecutionsOk returns a tuple with the RecentExecutions field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetRecentExecutions
+
+`func (o *ScheduleDefinitionOutput) SetRecentExecutions(v []ScheduleRecentExecution)`
+
+SetRecentExecutions sets RecentExecutions field to given value.
+
+### HasRecentExecutions
+
+`func (o *ScheduleDefinitionOutput) HasRecentExecutions() bool`
+
+HasRecentExecutions returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

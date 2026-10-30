@@ -14,7 +14,7 @@ Name | Type | Description | Notes
 **Prediction** | Pointer to [**NullablePrediction**](Prediction.md) |  | [optional] 
 **ResponseFormat** | Pointer to [**NullableResponseFormat**](ResponseFormat.md) |  | [optional] 
 **ToolChoice** | Pointer to [**ToolChoiceEnum**](ToolChoiceEnum.md) |  | [optional] [default to TOOLCHOICEENUM_AUTO]
-**ReasoningEffort** | Pointer to **NullableString** | Controls the reasoning effort level for reasoning models. \&quot;high\&quot; enables comprehensive reasoning traces, \&quot;none\&quot; disables reasoning effort. | [optional] 
+**ReasoningEffort** | Pointer to [**NullableReasoningEffort**](ReasoningEffort.md) |  | [optional] 
 
 ## Methods
 
@@ -377,20 +377,20 @@ HasToolChoice returns a boolean if a field has been set.
 
 ### GetReasoningEffort
 
-`func (o *CompletionArgs) GetReasoningEffort() string`
+`func (o *CompletionArgs) GetReasoningEffort() ReasoningEffort`
 
 GetReasoningEffort returns the ReasoningEffort field if non-nil, zero value otherwise.
 
 ### GetReasoningEffortOk
 
-`func (o *CompletionArgs) GetReasoningEffortOk() (*string, bool)`
+`func (o *CompletionArgs) GetReasoningEffortOk() (*ReasoningEffort, bool)`
 
 GetReasoningEffortOk returns a tuple with the ReasoningEffort field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetReasoningEffort
 
-`func (o *CompletionArgs) SetReasoningEffort(v string)`
+`func (o *CompletionArgs) SetReasoningEffort(v ReasoningEffort)`
 
 SetReasoningEffort sets ReasoningEffort field to given value.
 

@@ -5,13 +5,13 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Messages** | **[]map[string]interface{}** |  | 
-**Properties** | Pointer to **map[string]interface{}** |  | [optional] 
+**Properties** | Pointer to **map[string]interface{}** | Output JSON schema of the query&#39;s model | [optional] 
 
 ## Methods
 
 ### NewJudgeConversationRequest
 
-`func NewJudgeConversationRequest(messages []map[string]interface{}, ) *JudgeConversationRequest`
+`func NewJudgeConversationRequest(messages []*map[string]interface{}, ) *JudgeConversationRequest`
 
 NewJudgeConversationRequest instantiates a new JudgeConversationRequest object
 This constructor will assign default values to properties that have it defined,
@@ -28,20 +28,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetMessages
 
-`func (o *JudgeConversationRequest) GetMessages() []map[string]interface{}`
+`func (o *JudgeConversationRequest) GetMessages() []*map[string]interface{}`
 
 GetMessages returns the Messages field if non-nil, zero value otherwise.
 
 ### GetMessagesOk
 
-`func (o *JudgeConversationRequest) GetMessagesOk() (*[]map[string]interface{}, bool)`
+`func (o *JudgeConversationRequest) GetMessagesOk() (*[]*map[string]interface{}, bool)`
 
 GetMessagesOk returns a tuple with the Messages field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetMessages
 
-`func (o *JudgeConversationRequest) SetMessages(v []map[string]interface{})`
+`func (o *JudgeConversationRequest) SetMessages(v []*map[string]interface{})`
 
 SetMessages sets Messages field to given value.
 

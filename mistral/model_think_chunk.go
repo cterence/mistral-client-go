@@ -23,6 +23,8 @@ var _ MappedNullable = &ThinkChunk{}
 type ThinkChunk struct {
 	Type *string `json:"type,omitempty"`
 	Thinking []ThinkingInner `json:"thinking"`
+	// Signature to replay some reasoning blocks across turns.
+	Signature NullableString `json:"signature,omitempty"`
 	// Whether the thinking chunk is closed or not. Currently only used for prefixing.
 	Closed *bool `json:"closed,omitempty"`
 }
@@ -111,6 +113,48 @@ func (o *ThinkChunk) SetThinking(v []ThinkingInner) {
 	o.Thinking = v
 }
 
+// GetSignature returns the Signature field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *ThinkChunk) GetSignature() string {
+	if o == nil || IsNil(o.Signature.Get()) {
+		var ret string
+		return ret
+	}
+	return *o.Signature.Get()
+}
+
+// GetSignatureOk returns a tuple with the Signature field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *ThinkChunk) GetSignatureOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.Signature.Get(), o.Signature.IsSet()
+}
+
+// HasSignature returns a boolean if a field has been set.
+func (o *ThinkChunk) HasSignature() bool {
+	if o != nil && o.Signature.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetSignature gets a reference to the given NullableString and assigns it to the Signature field.
+func (o *ThinkChunk) SetSignature(v string) {
+	o.Signature.Set(&v)
+}
+// SetSignatureNil sets the value for Signature to be an explicit nil
+func (o *ThinkChunk) SetSignatureNil() {
+	o.Signature.Set(nil)
+}
+
+// UnsetSignature ensures that no value is present for Signature, not even an explicit nil
+func (o *ThinkChunk) UnsetSignature() {
+	o.Signature.Unset()
+}
+
 // GetClosed returns the Closed field value if set, zero value otherwise.
 func (o *ThinkChunk) GetClosed() bool {
 	if o == nil || IsNil(o.Closed) {
@@ -157,6 +201,9 @@ func (o ThinkChunk) ToMap() (map[string]interface{}, error) {
 		toSerialize["type"] = o.Type
 	}
 	toSerialize["thinking"] = o.Thinking
+	if o.Signature.IsSet() {
+		toSerialize["signature"] = o.Signature.Get()
+	}
 	if !IsNil(o.Closed) {
 		toSerialize["closed"] = o.Closed
 	}

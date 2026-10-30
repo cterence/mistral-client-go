@@ -6,8 +6,8 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Type** | Pointer to **string** |  | [optional] [default to "transcription_segment"]
 **Text** | **string** |  | 
-**Start** | **float32** |  | 
-**End** | **float32** |  | 
+**Start** | **NullableFloat32** |  | 
+**End** | **NullableFloat32** |  | 
 **Score** | Pointer to **NullableFloat32** |  | [optional] 
 **SpeakerId** | Pointer to **NullableString** |  | [optional] 
 
@@ -15,7 +15,7 @@ Name | Type | Description | Notes
 
 ### NewTranscriptionSegmentChunk
 
-`func NewTranscriptionSegmentChunk(text string, start float32, end float32, ) *TranscriptionSegmentChunk`
+`func NewTranscriptionSegmentChunk(text string, start NullableFloat32, end NullableFloat32, ) *TranscriptionSegmentChunk`
 
 NewTranscriptionSegmentChunk instantiates a new TranscriptionSegmentChunk object
 This constructor will assign default values to properties that have it defined,
@@ -95,6 +95,16 @@ and a boolean to check if the value has been set.
 SetStart sets Start field to given value.
 
 
+### SetStartNil
+
+`func (o *TranscriptionSegmentChunk) SetStartNil(b bool)`
+
+ SetStartNil sets the value for Start to be an explicit nil
+
+### UnsetStart
+`func (o *TranscriptionSegmentChunk) UnsetStart()`
+
+UnsetStart ensures that no value is present for Start, not even an explicit nil
 ### GetEnd
 
 `func (o *TranscriptionSegmentChunk) GetEnd() float32`
@@ -115,6 +125,16 @@ and a boolean to check if the value has been set.
 SetEnd sets End field to given value.
 
 
+### SetEndNil
+
+`func (o *TranscriptionSegmentChunk) SetEndNil(b bool)`
+
+ SetEndNil sets the value for End to be an explicit nil
+
+### UnsetEnd
+`func (o *TranscriptionSegmentChunk) UnsetEnd()`
+
+UnsetEnd ensures that no value is present for End, not even an explicit nil
 ### GetScore
 
 `func (o *TranscriptionSegmentChunk) GetScore() float32`

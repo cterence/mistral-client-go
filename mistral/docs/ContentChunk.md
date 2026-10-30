@@ -9,17 +9,21 @@ Name | Type | Description | Notes
 **ImageUrl** | [**ImageUrl**](ImageUrl.md) |  | 
 **DocumentUrl** | **string** |  | 
 **DocumentName** | Pointer to **string** | The filename of the document | [optional] 
-**ReferenceIds** | **[]int32** |  | 
+**ReferenceIds** | [**[]ReferenceIdsInner**](ReferenceIdsInner.md) |  | 
 **FileId** | **string** |  | 
 **Thinking** | [**[]ThinkingInner**](ThinkingInner.md) |  | 
+**Signature** | Pointer to **string** | Signature to replay some reasoning blocks across turns. | [optional] 
 **Closed** | Pointer to **bool** | Whether the thinking chunk is closed or not. Currently only used for prefixing. | [optional] [default to true]
 **InputAudio** | [**InputAudio**](InputAudio.md) |  | 
+**Uri** | **string** |  | 
+**Content** | [**Content4**](Content4.md) |  | 
+**Metadata** | Pointer to [**map[string]ResourceLinkChunkMetadataValue**](ResourceLinkChunkMetadataValue.md) |  | [optional] 
 
 ## Methods
 
 ### NewContentChunk
 
-`func NewContentChunk(text string, imageUrl ImageUrl, documentUrl string, referenceIds []int32, fileId string, thinking []ThinkingInner, inputAudio InputAudio, ) *ContentChunk`
+`func NewContentChunk(text string, imageUrl ImageUrl, documentUrl string, referenceIds []ReferenceIdsInner, fileId string, thinking []ThinkingInner, inputAudio InputAudio, uri string, content Content4, ) *ContentChunk`
 
 NewContentChunk instantiates a new ContentChunk object
 This constructor will assign default values to properties that have it defined,
@@ -146,20 +150,20 @@ HasDocumentName returns a boolean if a field has been set.
 
 ### GetReferenceIds
 
-`func (o *ContentChunk) GetReferenceIds() []int32`
+`func (o *ContentChunk) GetReferenceIds() []ReferenceIdsInner`
 
 GetReferenceIds returns the ReferenceIds field if non-nil, zero value otherwise.
 
 ### GetReferenceIdsOk
 
-`func (o *ContentChunk) GetReferenceIdsOk() (*[]int32, bool)`
+`func (o *ContentChunk) GetReferenceIdsOk() (*[]ReferenceIdsInner, bool)`
 
 GetReferenceIdsOk returns a tuple with the ReferenceIds field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetReferenceIds
 
-`func (o *ContentChunk) SetReferenceIds(v []int32)`
+`func (o *ContentChunk) SetReferenceIds(v []ReferenceIdsInner)`
 
 SetReferenceIds sets ReferenceIds field to given value.
 
@@ -203,6 +207,31 @@ and a boolean to check if the value has been set.
 
 SetThinking sets Thinking field to given value.
 
+
+### GetSignature
+
+`func (o *ContentChunk) GetSignature() string`
+
+GetSignature returns the Signature field if non-nil, zero value otherwise.
+
+### GetSignatureOk
+
+`func (o *ContentChunk) GetSignatureOk() (*string, bool)`
+
+GetSignatureOk returns a tuple with the Signature field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSignature
+
+`func (o *ContentChunk) SetSignature(v string)`
+
+SetSignature sets Signature field to given value.
+
+### HasSignature
+
+`func (o *ContentChunk) HasSignature() bool`
+
+HasSignature returns a boolean if a field has been set.
 
 ### GetClosed
 
@@ -248,6 +277,71 @@ and a boolean to check if the value has been set.
 
 SetInputAudio sets InputAudio field to given value.
 
+
+### GetUri
+
+`func (o *ContentChunk) GetUri() string`
+
+GetUri returns the Uri field if non-nil, zero value otherwise.
+
+### GetUriOk
+
+`func (o *ContentChunk) GetUriOk() (*string, bool)`
+
+GetUriOk returns a tuple with the Uri field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetUri
+
+`func (o *ContentChunk) SetUri(v string)`
+
+SetUri sets Uri field to given value.
+
+
+### GetContent
+
+`func (o *ContentChunk) GetContent() Content4`
+
+GetContent returns the Content field if non-nil, zero value otherwise.
+
+### GetContentOk
+
+`func (o *ContentChunk) GetContentOk() (*Content4, bool)`
+
+GetContentOk returns a tuple with the Content field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetContent
+
+`func (o *ContentChunk) SetContent(v Content4)`
+
+SetContent sets Content field to given value.
+
+
+### GetMetadata
+
+`func (o *ContentChunk) GetMetadata() map[string]ResourceLinkChunkMetadataValue`
+
+GetMetadata returns the Metadata field if non-nil, zero value otherwise.
+
+### GetMetadataOk
+
+`func (o *ContentChunk) GetMetadataOk() (*map[string]ResourceLinkChunkMetadataValue, bool)`
+
+GetMetadataOk returns a tuple with the Metadata field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetMetadata
+
+`func (o *ContentChunk) SetMetadata(v map[string]ResourceLinkChunkMetadataValue)`
+
+SetMetadata sets Metadata field to given value.
+
+### HasMetadata
+
+`func (o *ContentChunk) HasMetadata() bool`
+
+HasMetadata returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

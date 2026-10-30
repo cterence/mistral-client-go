@@ -5,8 +5,9 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Name** | **string** | Name of the credentials. Use this name to access or modify your credentials. | 
+**Title** | Pointer to **NullableString** | Human-readable title for the credentials. | [optional] 
 **IsDefault** | Pointer to **NullableBool** | Controls whether this credential is the default for its auth method. On creation: if no credential exists yet for this auth method, the credential is automatically set as default when is_default is true or omitted; setting is_default to false is rejected because a default must exist. If other credentials already exist, setting is_default to true promotes this credential (demoting the previous default); false or omitted creates it as non-default. On update: true promotes this credential, false is rejected if it is currently the default (promote another credential first), omitted leaves the default status unchanged. | [optional] 
-**Credentials** | Pointer to [**NullableConnectionCredentials**](ConnectionCredentials.md) | The credential data (headers, bearer_token). | [optional] 
+**Credentials** | Pointer to [**NullableConnectionCredentialsInput**](ConnectionCredentialsInput.md) | The credential data (headers, bearer_token, or OAuth2 client credentials). | [optional] 
 
 ## Methods
 
@@ -47,6 +48,41 @@ and a boolean to check if the value has been set.
 SetName sets Name field to given value.
 
 
+### GetTitle
+
+`func (o *CredentialsCreateOrUpdate) GetTitle() string`
+
+GetTitle returns the Title field if non-nil, zero value otherwise.
+
+### GetTitleOk
+
+`func (o *CredentialsCreateOrUpdate) GetTitleOk() (*string, bool)`
+
+GetTitleOk returns a tuple with the Title field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetTitle
+
+`func (o *CredentialsCreateOrUpdate) SetTitle(v string)`
+
+SetTitle sets Title field to given value.
+
+### HasTitle
+
+`func (o *CredentialsCreateOrUpdate) HasTitle() bool`
+
+HasTitle returns a boolean if a field has been set.
+
+### SetTitleNil
+
+`func (o *CredentialsCreateOrUpdate) SetTitleNil(b bool)`
+
+ SetTitleNil sets the value for Title to be an explicit nil
+
+### UnsetTitle
+`func (o *CredentialsCreateOrUpdate) UnsetTitle()`
+
+UnsetTitle ensures that no value is present for Title, not even an explicit nil
 ### GetIsDefault
 
 `func (o *CredentialsCreateOrUpdate) GetIsDefault() bool`
@@ -84,20 +120,20 @@ HasIsDefault returns a boolean if a field has been set.
 UnsetIsDefault ensures that no value is present for IsDefault, not even an explicit nil
 ### GetCredentials
 
-`func (o *CredentialsCreateOrUpdate) GetCredentials() ConnectionCredentials`
+`func (o *CredentialsCreateOrUpdate) GetCredentials() ConnectionCredentialsInput`
 
 GetCredentials returns the Credentials field if non-nil, zero value otherwise.
 
 ### GetCredentialsOk
 
-`func (o *CredentialsCreateOrUpdate) GetCredentialsOk() (*ConnectionCredentials, bool)`
+`func (o *CredentialsCreateOrUpdate) GetCredentialsOk() (*ConnectionCredentialsInput, bool)`
 
 GetCredentialsOk returns a tuple with the Credentials field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCredentials
 
-`func (o *CredentialsCreateOrUpdate) SetCredentials(v ConnectionCredentials)`
+`func (o *CredentialsCreateOrUpdate) SetCredentials(v ConnectionCredentialsInput)`
 
 SetCredentials sets Credentials field to given value.
 

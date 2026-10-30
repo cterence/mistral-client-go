@@ -21,13 +21,17 @@ var _ MappedNullable = &SpeechRequest{}
 // SpeechRequest struct for SpeechRequest
 type SpeechRequest struct {
 	Model NullableString `json:"model,omitempty"`
+	// Custom type for metadata with embedded validation.
+	Metadata map[string]interface{} `json:"metadata,omitempty"`
 	Stream *bool `json:"stream,omitempty"`
+	PromptCacheKey NullableString `json:"prompt_cache_key,omitempty"`
 	// The preset or custom voice to use for generating the speech.
 	VoiceId NullableString `json:"voice_id,omitempty"`
-	// The base64-encoded audio reference for zero-shot voice cloning.
-	RefAudio NullableString `json:"ref_audio,omitempty"`
-	// Text to generate speech from.
+	RefAudio NullableRefAudio `json:"ref_audio,omitempty"`
+	// Text to generate a speech from
 	Input string `json:"input"`
+	// Optional pronunciation hints mapping a (case-sensitive) word to its ordered list of IPA phones.
+	PhonemeHints map[string][]IPAPhoneme `json:"phoneme_hints,omitempty"`
 	// Output audio format. Defaults to mp3.
 	ResponseFormat *SpeechOutputFormat `json:"response_format,omitempty"`
 	AdditionalProperties map[string]interface{}
@@ -103,6 +107,39 @@ func (o *SpeechRequest) UnsetModel() {
 	o.Model.Unset()
 }
 
+// GetMetadata returns the Metadata field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *SpeechRequest) GetMetadata() map[string]interface{} {
+	if o == nil {
+		var ret map[string]interface{}
+		return ret
+	}
+	return o.Metadata
+}
+
+// GetMetadataOk returns a tuple with the Metadata field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *SpeechRequest) GetMetadataOk() (map[string]interface{}, bool) {
+	if o == nil || IsNil(o.Metadata) {
+		return map[string]interface{}{}, false
+	}
+	return o.Metadata, true
+}
+
+// HasMetadata returns a boolean if a field has been set.
+func (o *SpeechRequest) HasMetadata() bool {
+	if o != nil && !IsNil(o.Metadata) {
+		return true
+	}
+
+	return false
+}
+
+// SetMetadata gets a reference to the given map[string]interface{} and assigns it to the Metadata field.
+func (o *SpeechRequest) SetMetadata(v map[string]interface{}) {
+	o.Metadata = v
+}
+
 // GetStream returns the Stream field value if set, zero value otherwise.
 func (o *SpeechRequest) GetStream() bool {
 	if o == nil || IsNil(o.Stream) {
@@ -133,6 +170,48 @@ func (o *SpeechRequest) HasStream() bool {
 // SetStream gets a reference to the given bool and assigns it to the Stream field.
 func (o *SpeechRequest) SetStream(v bool) {
 	o.Stream = &v
+}
+
+// GetPromptCacheKey returns the PromptCacheKey field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *SpeechRequest) GetPromptCacheKey() string {
+	if o == nil || IsNil(o.PromptCacheKey.Get()) {
+		var ret string
+		return ret
+	}
+	return *o.PromptCacheKey.Get()
+}
+
+// GetPromptCacheKeyOk returns a tuple with the PromptCacheKey field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *SpeechRequest) GetPromptCacheKeyOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.PromptCacheKey.Get(), o.PromptCacheKey.IsSet()
+}
+
+// HasPromptCacheKey returns a boolean if a field has been set.
+func (o *SpeechRequest) HasPromptCacheKey() bool {
+	if o != nil && o.PromptCacheKey.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetPromptCacheKey gets a reference to the given NullableString and assigns it to the PromptCacheKey field.
+func (o *SpeechRequest) SetPromptCacheKey(v string) {
+	o.PromptCacheKey.Set(&v)
+}
+// SetPromptCacheKeyNil sets the value for PromptCacheKey to be an explicit nil
+func (o *SpeechRequest) SetPromptCacheKeyNil() {
+	o.PromptCacheKey.Set(nil)
+}
+
+// UnsetPromptCacheKey ensures that no value is present for PromptCacheKey, not even an explicit nil
+func (o *SpeechRequest) UnsetPromptCacheKey() {
+	o.PromptCacheKey.Unset()
 }
 
 // GetVoiceId returns the VoiceId field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -178,9 +257,9 @@ func (o *SpeechRequest) UnsetVoiceId() {
 }
 
 // GetRefAudio returns the RefAudio field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *SpeechRequest) GetRefAudio() string {
+func (o *SpeechRequest) GetRefAudio() RefAudio {
 	if o == nil || IsNil(o.RefAudio.Get()) {
-		var ret string
+		var ret RefAudio
 		return ret
 	}
 	return *o.RefAudio.Get()
@@ -189,7 +268,7 @@ func (o *SpeechRequest) GetRefAudio() string {
 // GetRefAudioOk returns a tuple with the RefAudio field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *SpeechRequest) GetRefAudioOk() (*string, bool) {
+func (o *SpeechRequest) GetRefAudioOk() (*RefAudio, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -205,8 +284,8 @@ func (o *SpeechRequest) HasRefAudio() bool {
 	return false
 }
 
-// SetRefAudio gets a reference to the given NullableString and assigns it to the RefAudio field.
-func (o *SpeechRequest) SetRefAudio(v string) {
+// SetRefAudio gets a reference to the given NullableRefAudio and assigns it to the RefAudio field.
+func (o *SpeechRequest) SetRefAudio(v RefAudio) {
 	o.RefAudio.Set(&v)
 }
 // SetRefAudioNil sets the value for RefAudio to be an explicit nil
@@ -241,6 +320,39 @@ func (o *SpeechRequest) GetInputOk() (*string, bool) {
 // SetInput sets field value
 func (o *SpeechRequest) SetInput(v string) {
 	o.Input = v
+}
+
+// GetPhonemeHints returns the PhonemeHints field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *SpeechRequest) GetPhonemeHints() map[string][]IPAPhoneme {
+	if o == nil {
+		var ret map[string][]IPAPhoneme
+		return ret
+	}
+	return o.PhonemeHints
+}
+
+// GetPhonemeHintsOk returns a tuple with the PhonemeHints field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *SpeechRequest) GetPhonemeHintsOk() (map[string][]IPAPhoneme, bool) {
+	if o == nil || IsNil(o.PhonemeHints) {
+		return map[string][]IPAPhoneme{}, false
+	}
+	return o.PhonemeHints, true
+}
+
+// HasPhonemeHints returns a boolean if a field has been set.
+func (o *SpeechRequest) HasPhonemeHints() bool {
+	if o != nil && !IsNil(o.PhonemeHints) {
+		return true
+	}
+
+	return false
+}
+
+// SetPhonemeHints gets a reference to the given map[string][]IPAPhoneme and assigns it to the PhonemeHints field.
+func (o *SpeechRequest) SetPhonemeHints(v map[string][]IPAPhoneme) {
+	o.PhonemeHints = v
 }
 
 // GetResponseFormat returns the ResponseFormat field value if set, zero value otherwise.
@@ -288,8 +400,14 @@ func (o SpeechRequest) ToMap() (map[string]interface{}, error) {
 	if o.Model.IsSet() {
 		toSerialize["model"] = o.Model.Get()
 	}
+	if o.Metadata != nil {
+		toSerialize["metadata"] = o.Metadata
+	}
 	if !IsNil(o.Stream) {
 		toSerialize["stream"] = o.Stream
+	}
+	if o.PromptCacheKey.IsSet() {
+		toSerialize["prompt_cache_key"] = o.PromptCacheKey.Get()
 	}
 	if o.VoiceId.IsSet() {
 		toSerialize["voice_id"] = o.VoiceId.Get()
@@ -298,6 +416,9 @@ func (o SpeechRequest) ToMap() (map[string]interface{}, error) {
 		toSerialize["ref_audio"] = o.RefAudio.Get()
 	}
 	toSerialize["input"] = o.Input
+	if o.PhonemeHints != nil {
+		toSerialize["phoneme_hints"] = o.PhonemeHints
+	}
 	if !IsNil(o.ResponseFormat) {
 		toSerialize["response_format"] = o.ResponseFormat
 	}
@@ -345,10 +466,13 @@ func (o *SpeechRequest) UnmarshalJSON(data []byte) (err error) {
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "model")
+		delete(additionalProperties, "metadata")
 		delete(additionalProperties, "stream")
+		delete(additionalProperties, "prompt_cache_key")
 		delete(additionalProperties, "voice_id")
 		delete(additionalProperties, "ref_audio")
 		delete(additionalProperties, "input")
+		delete(additionalProperties, "phoneme_hints")
 		delete(additionalProperties, "response_format")
 		o.AdditionalProperties = additionalProperties
 	}

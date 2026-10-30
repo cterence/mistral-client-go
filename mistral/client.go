@@ -49,6 +49,8 @@ type APIClient struct {
 
 	// API Services
 
+	AgentsAPI *AgentsAPIService
+
 	AudioSpeechAPI *AudioSpeechAPIService
 
 	AudioTranscriptionsAPI *AudioTranscriptionsAPIService
@@ -56,6 +58,24 @@ type APIClient struct {
 	AudioVoicesAPI *AudioVoicesAPIService
 
 	BatchAPI *BatchAPIService
+
+	BetaAdminApiKeysAPI *BetaAdminApiKeysAPIService
+
+	BetaAdminAuditLogsAPI *BetaAdminAuditLogsAPIService
+
+	BetaAdminBillingAPI *BetaAdminBillingAPIService
+
+	BetaAdminScimAPI *BetaAdminScimAPIService
+
+	BetaAdminUserGroupsAPI *BetaAdminUserGroupsAPIService
+
+	BetaAdminUsersAPI *BetaAdminUsersAPIService
+
+	BetaAdminVibeCodeAnalyticsAPI *BetaAdminVibeCodeAnalyticsAPIService
+
+	BetaAdminVibeWorkAnalyticsAPI *BetaAdminVibeWorkAnalyticsAPIService
+
+	BetaAdminWorkspacesAPI *BetaAdminWorkspacesAPIService
 
 	BetaAgentsAPI *BetaAgentsAPIService
 
@@ -69,41 +89,45 @@ type APIClient struct {
 
 	BetaLibrariesDocumentsAPI *BetaLibrariesDocumentsAPIService
 
-	BetaObservabilityCampaignsAPI *BetaObservabilityCampaignsAPIService
-
-	BetaObservabilityChatCompletionEventsAPI *BetaObservabilityChatCompletionEventsAPIService
-
-	BetaObservabilityChatCompletionEventsFieldsAPI *BetaObservabilityChatCompletionEventsFieldsAPIService
-
 	BetaObservabilityDatasetsAPI *BetaObservabilityDatasetsAPIService
 
 	BetaObservabilityDatasetsRecordsAPI *BetaObservabilityDatasetsRecordsAPIService
 
+	BetaObservabilityEvaluationsAPI *BetaObservabilityEvaluationsAPIService
+
+	BetaObservabilityEvaluationsOptimizationsAPI *BetaObservabilityEvaluationsOptimizationsAPIService
+
+	BetaObservabilityEvaluationsProjectsAPI *BetaObservabilityEvaluationsProjectsAPIService
+
+	BetaObservabilityEvaluationsRecordsAPI *BetaObservabilityEvaluationsRecordsAPIService
+
+	BetaObservabilityEvaluationsRunsAPI *BetaObservabilityEvaluationsRunsAPIService
+
 	BetaObservabilityJudgesAPI *BetaObservabilityJudgesAPIService
 
-	BetaWorkflowsAPI *BetaWorkflowsAPIService
+	BetaObservabilityLogsAPI *BetaObservabilityLogsAPIService
 
-	BetaWorkflowsDeploymentsAPI *BetaWorkflowsDeploymentsAPIService
+	BetaObservabilitySpansAPI *BetaObservabilitySpansAPIService
 
-	BetaWorkflowsEventsAPI *BetaWorkflowsEventsAPIService
+	BetaObservabilityTracesAPI *BetaObservabilityTracesAPIService
 
-	BetaWorkflowsExecutionsAPI *BetaWorkflowsExecutionsAPIService
+	BetaPromptsAPI *BetaPromptsAPIService
 
-	BetaWorkflowsMetricsAPI *BetaWorkflowsMetricsAPIService
+	BetaRagIngestionPipelineConfigurationsAPI *BetaRagIngestionPipelineConfigurationsAPIService
 
-	BetaWorkflowsRunsAPI *BetaWorkflowsRunsAPIService
+	BetaRagManagedIndexesAPI *BetaRagManagedIndexesAPIService
 
-	BetaWorkflowsSchedulesAPI *BetaWorkflowsSchedulesAPIService
+	BetaRagSearchIndexesAPI *BetaRagSearchIndexesAPIService
 
-	BetaWorkflowsWorkersAPI *BetaWorkflowsWorkersAPIService
+	BetaServiceAccountsAPI *BetaServiceAccountsAPIService
+
+	BetaSkillsAPI *BetaSkillsAPIService
+
+	BetaUsersAPI *BetaUsersAPIService
 
 	ChatAPI *ChatAPIService
 
 	ClassifiersAPI *ClassifiersAPIService
-
-	DeprecatedAgentsAPI *DeprecatedAgentsAPIService
-
-	DeprecatedFineTuningAPI *DeprecatedFineTuningAPIService
 
 	EmbeddingsAPI *EmbeddingsAPIService
 
@@ -114,6 +138,24 @@ type APIClient struct {
 	ModelsAPI *ModelsAPIService
 
 	OcrAPI *OcrAPIService
+
+	RealtimeSessionsAPI *RealtimeSessionsAPIService
+
+	ResponsesAPI *ResponsesAPIService
+
+	WorkflowsAPI *WorkflowsAPIService
+
+	WorkflowsDeploymentsAPI *WorkflowsDeploymentsAPIService
+
+	WorkflowsEventsAPI *WorkflowsEventsAPIService
+
+	WorkflowsExecutionsAPI *WorkflowsExecutionsAPIService
+
+	WorkflowsMetricsAPI *WorkflowsMetricsAPIService
+
+	WorkflowsRunsAPI *WorkflowsRunsAPIService
+
+	WorkflowsSchedulesAPI *WorkflowsSchedulesAPIService
 }
 
 type service struct {
@@ -132,39 +174,60 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.common.client = c
 
 	// API Services
+	c.AgentsAPI = (*AgentsAPIService)(&c.common)
 	c.AudioSpeechAPI = (*AudioSpeechAPIService)(&c.common)
 	c.AudioTranscriptionsAPI = (*AudioTranscriptionsAPIService)(&c.common)
 	c.AudioVoicesAPI = (*AudioVoicesAPIService)(&c.common)
 	c.BatchAPI = (*BatchAPIService)(&c.common)
+	c.BetaAdminApiKeysAPI = (*BetaAdminApiKeysAPIService)(&c.common)
+	c.BetaAdminAuditLogsAPI = (*BetaAdminAuditLogsAPIService)(&c.common)
+	c.BetaAdminBillingAPI = (*BetaAdminBillingAPIService)(&c.common)
+	c.BetaAdminScimAPI = (*BetaAdminScimAPIService)(&c.common)
+	c.BetaAdminUserGroupsAPI = (*BetaAdminUserGroupsAPIService)(&c.common)
+	c.BetaAdminUsersAPI = (*BetaAdminUsersAPIService)(&c.common)
+	c.BetaAdminVibeCodeAnalyticsAPI = (*BetaAdminVibeCodeAnalyticsAPIService)(&c.common)
+	c.BetaAdminVibeWorkAnalyticsAPI = (*BetaAdminVibeWorkAnalyticsAPIService)(&c.common)
+	c.BetaAdminWorkspacesAPI = (*BetaAdminWorkspacesAPIService)(&c.common)
 	c.BetaAgentsAPI = (*BetaAgentsAPIService)(&c.common)
 	c.BetaConnectorsAPI = (*BetaConnectorsAPIService)(&c.common)
 	c.BetaConversationsAPI = (*BetaConversationsAPIService)(&c.common)
 	c.BetaLibrariesAPI = (*BetaLibrariesAPIService)(&c.common)
 	c.BetaLibrariesAccessesAPI = (*BetaLibrariesAccessesAPIService)(&c.common)
 	c.BetaLibrariesDocumentsAPI = (*BetaLibrariesDocumentsAPIService)(&c.common)
-	c.BetaObservabilityCampaignsAPI = (*BetaObservabilityCampaignsAPIService)(&c.common)
-	c.BetaObservabilityChatCompletionEventsAPI = (*BetaObservabilityChatCompletionEventsAPIService)(&c.common)
-	c.BetaObservabilityChatCompletionEventsFieldsAPI = (*BetaObservabilityChatCompletionEventsFieldsAPIService)(&c.common)
 	c.BetaObservabilityDatasetsAPI = (*BetaObservabilityDatasetsAPIService)(&c.common)
 	c.BetaObservabilityDatasetsRecordsAPI = (*BetaObservabilityDatasetsRecordsAPIService)(&c.common)
+	c.BetaObservabilityEvaluationsAPI = (*BetaObservabilityEvaluationsAPIService)(&c.common)
+	c.BetaObservabilityEvaluationsOptimizationsAPI = (*BetaObservabilityEvaluationsOptimizationsAPIService)(&c.common)
+	c.BetaObservabilityEvaluationsProjectsAPI = (*BetaObservabilityEvaluationsProjectsAPIService)(&c.common)
+	c.BetaObservabilityEvaluationsRecordsAPI = (*BetaObservabilityEvaluationsRecordsAPIService)(&c.common)
+	c.BetaObservabilityEvaluationsRunsAPI = (*BetaObservabilityEvaluationsRunsAPIService)(&c.common)
 	c.BetaObservabilityJudgesAPI = (*BetaObservabilityJudgesAPIService)(&c.common)
-	c.BetaWorkflowsAPI = (*BetaWorkflowsAPIService)(&c.common)
-	c.BetaWorkflowsDeploymentsAPI = (*BetaWorkflowsDeploymentsAPIService)(&c.common)
-	c.BetaWorkflowsEventsAPI = (*BetaWorkflowsEventsAPIService)(&c.common)
-	c.BetaWorkflowsExecutionsAPI = (*BetaWorkflowsExecutionsAPIService)(&c.common)
-	c.BetaWorkflowsMetricsAPI = (*BetaWorkflowsMetricsAPIService)(&c.common)
-	c.BetaWorkflowsRunsAPI = (*BetaWorkflowsRunsAPIService)(&c.common)
-	c.BetaWorkflowsSchedulesAPI = (*BetaWorkflowsSchedulesAPIService)(&c.common)
-	c.BetaWorkflowsWorkersAPI = (*BetaWorkflowsWorkersAPIService)(&c.common)
+	c.BetaObservabilityLogsAPI = (*BetaObservabilityLogsAPIService)(&c.common)
+	c.BetaObservabilitySpansAPI = (*BetaObservabilitySpansAPIService)(&c.common)
+	c.BetaObservabilityTracesAPI = (*BetaObservabilityTracesAPIService)(&c.common)
+	c.BetaPromptsAPI = (*BetaPromptsAPIService)(&c.common)
+	c.BetaRagIngestionPipelineConfigurationsAPI = (*BetaRagIngestionPipelineConfigurationsAPIService)(&c.common)
+	c.BetaRagManagedIndexesAPI = (*BetaRagManagedIndexesAPIService)(&c.common)
+	c.BetaRagSearchIndexesAPI = (*BetaRagSearchIndexesAPIService)(&c.common)
+	c.BetaServiceAccountsAPI = (*BetaServiceAccountsAPIService)(&c.common)
+	c.BetaSkillsAPI = (*BetaSkillsAPIService)(&c.common)
+	c.BetaUsersAPI = (*BetaUsersAPIService)(&c.common)
 	c.ChatAPI = (*ChatAPIService)(&c.common)
 	c.ClassifiersAPI = (*ClassifiersAPIService)(&c.common)
-	c.DeprecatedAgentsAPI = (*DeprecatedAgentsAPIService)(&c.common)
-	c.DeprecatedFineTuningAPI = (*DeprecatedFineTuningAPIService)(&c.common)
 	c.EmbeddingsAPI = (*EmbeddingsAPIService)(&c.common)
 	c.FilesAPI = (*FilesAPIService)(&c.common)
 	c.FimAPI = (*FimAPIService)(&c.common)
 	c.ModelsAPI = (*ModelsAPIService)(&c.common)
 	c.OcrAPI = (*OcrAPIService)(&c.common)
+	c.RealtimeSessionsAPI = (*RealtimeSessionsAPIService)(&c.common)
+	c.ResponsesAPI = (*ResponsesAPIService)(&c.common)
+	c.WorkflowsAPI = (*WorkflowsAPIService)(&c.common)
+	c.WorkflowsDeploymentsAPI = (*WorkflowsDeploymentsAPIService)(&c.common)
+	c.WorkflowsEventsAPI = (*WorkflowsEventsAPIService)(&c.common)
+	c.WorkflowsExecutionsAPI = (*WorkflowsExecutionsAPIService)(&c.common)
+	c.WorkflowsMetricsAPI = (*WorkflowsMetricsAPIService)(&c.common)
+	c.WorkflowsRunsAPI = (*WorkflowsRunsAPIService)(&c.common)
+	c.WorkflowsSchedulesAPI = (*WorkflowsSchedulesAPIService)(&c.common)
 
 	return c
 }

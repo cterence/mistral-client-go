@@ -12,20 +12,20 @@ package mistral
 
 import (
 	"encoding/json"
+	"bytes"
 	"fmt"
 )
 
 // checks if the ImageContent type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &ImageContent{}
 
-// ImageContent Image content for a message.
+// ImageContent An image provided to or from an LLM.
 type ImageContent struct {
-	Type string `json:"type"`
+	Type *string `json:"type,omitempty"`
 	Data string `json:"data"`
 	MimeType string `json:"mimeType"`
 	Annotations NullableAnnotations `json:"annotations,omitempty"`
 	Meta map[string]interface{} `json:"_meta,omitempty"`
-	AdditionalProperties map[string]interface{}
 }
 
 type _ImageContent ImageContent
@@ -34,9 +34,10 @@ type _ImageContent ImageContent
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewImageContent(type_ string, data string, mimeType string) *ImageContent {
+func NewImageContent(data string, mimeType string) *ImageContent {
 	this := ImageContent{}
-	this.Type = type_
+	var type_ string = "image"
+	this.Type = &type_
 	this.Data = data
 	this.MimeType = mimeType
 	return &this
@@ -47,31 +48,41 @@ func NewImageContent(type_ string, data string, mimeType string) *ImageContent {
 // but it doesn't guarantee that properties required by API are set
 func NewImageContentWithDefaults() *ImageContent {
 	this := ImageContent{}
+	var type_ string = "image"
+	this.Type = &type_
 	return &this
 }
 
-// GetType returns the Type field value
+// GetType returns the Type field value if set, zero value otherwise.
 func (o *ImageContent) GetType() string {
-	if o == nil {
+	if o == nil || IsNil(o.Type) {
 		var ret string
 		return ret
 	}
-
-	return o.Type
+	return *o.Type
 }
 
-// GetTypeOk returns a tuple with the Type field value
+// GetTypeOk returns a tuple with the Type field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ImageContent) GetTypeOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Type) {
 		return nil, false
 	}
-	return &o.Type, true
+	return o.Type, true
 }
 
-// SetType sets field value
+// HasType returns a boolean if a field has been set.
+func (o *ImageContent) HasType() bool {
+	if o != nil && !IsNil(o.Type) {
+		return true
+	}
+
+	return false
+}
+
+// SetType gets a reference to the given string and assigns it to the Type field.
 func (o *ImageContent) SetType(v string) {
-	o.Type = v
+	o.Type = &v
 }
 
 // GetData returns the Data field value
@@ -207,7 +218,9 @@ func (o ImageContent) MarshalJSON() ([]byte, error) {
 
 func (o ImageContent) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["type"] = o.Type
+	if !IsNil(o.Type) {
+		toSerialize["type"] = o.Type
+	}
 	toSerialize["data"] = o.Data
 	toSerialize["mimeType"] = o.MimeType
 	if o.Annotations.IsSet() {
@@ -216,11 +229,6 @@ func (o ImageContent) ToMap() (map[string]interface{}, error) {
 	if o.Meta != nil {
 		toSerialize["_meta"] = o.Meta
 	}
-
-	for key, value := range o.AdditionalProperties {
-		toSerialize[key] = value
-	}
-
 	return toSerialize, nil
 }
 
@@ -229,7 +237,6 @@ func (o *ImageContent) UnmarshalJSON(data []byte) (err error) {
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
-		"type",
 		"data",
 		"mimeType",
 	}
@@ -250,24 +257,14 @@ func (o *ImageContent) UnmarshalJSON(data []byte) (err error) {
 
 	varImageContent := _ImageContent{}
 
-	err = json.Unmarshal(data, &varImageContent)
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	err = decoder.Decode(&varImageContent)
 
 	if err != nil {
 		return err
 	}
 
 	*o = ImageContent(varImageContent)
-
-	additionalProperties := make(map[string]interface{})
-
-	if err = json.Unmarshal(data, &additionalProperties); err == nil {
-		delete(additionalProperties, "type")
-		delete(additionalProperties, "data")
-		delete(additionalProperties, "mimeType")
-		delete(additionalProperties, "annotations")
-		delete(additionalProperties, "_meta")
-		o.AdditionalProperties = additionalProperties
-	}
 
 	return err
 }

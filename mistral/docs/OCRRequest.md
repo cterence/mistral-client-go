@@ -5,8 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Model** | **NullableString** |  | 
-**Id** | Pointer to **string** |  | [optional] 
-**Document** | [**Document**](Document.md) |  | 
+**Document** | [**Document1**](Document1.md) |  | 
 **Pages** | Pointer to [**NullablePages**](Pages.md) |  | [optional] 
 **IncludeImageBase64** | Pointer to **NullableBool** | Include image URLs in response | [optional] 
 **ImageLimit** | Pointer to **NullableInt32** | Max images to extract | [optional] 
@@ -15,16 +14,16 @@ Name | Type | Description | Notes
 **DocumentAnnotationFormat** | Pointer to [**NullableResponseFormat**](ResponseFormat.md) | Structured output class for extracting useful information from the entire document. Only json_schema is valid for this field | [optional] 
 **DocumentAnnotationPrompt** | Pointer to **NullableString** | Optional prompt to guide the model in extracting structured output from the entire document. A document_annotation_format must be provided. | [optional] 
 **TableFormat** | Pointer to **NullableString** |  | [optional] 
-**ExtractHeader** | Pointer to **bool** |  | [optional] [default to false]
-**ExtractFooter** | Pointer to **bool** |  | [optional] [default to false]
-**IncludeBlocks** | Pointer to **bool** | Return paragraph-level bounding boxes for all content blocks in the response | [optional] [default to false]
-**ConfidenceScoresGranularity** | Pointer to **NullableString** | Granularity for confidence scores: &#39;word&#39; (per-word scores) or &#39;page&#39; (aggregate only). Defaults to None (no confidence scores) to keep response payload small. | [optional] 
+**ExtractHeader** | Pointer to **bool** | Extract the page header into the response&#39;s &#x60;header&#x60; field and remove it from the markdown content | [optional] [default to false]
+**ExtractFooter** | Pointer to **bool** | Extract the page footer into the response&#39;s &#x60;footer&#x60; field and remove it from the markdown content | [optional] [default to false]
+**IncludeBlocks** | Pointer to **bool** | Return paragraph-level bounding boxes for all content blocks in the response | [optional] [default to true]
+**ConfidenceScoresGranularity** | Pointer to **NullableString** | Granularity for confidence scores: &#39;page&#39; (aggregate only), &#39;word&#39; (per-word scores), or &#39;block&#39; (per-block scores). Defaults to None (no confidence scores) to keep response payload small. | [optional] 
 
 ## Methods
 
 ### NewOCRRequest
 
-`func NewOCRRequest(model NullableString, document Document, ) *OCRRequest`
+`func NewOCRRequest(model NullableString, document Document1, ) *OCRRequest`
 
 NewOCRRequest instantiates a new OCRRequest object
 This constructor will assign default values to properties that have it defined,
@@ -69,47 +68,22 @@ SetModel sets Model field to given value.
 `func (o *OCRRequest) UnsetModel()`
 
 UnsetModel ensures that no value is present for Model, not even an explicit nil
-### GetId
-
-`func (o *OCRRequest) GetId() string`
-
-GetId returns the Id field if non-nil, zero value otherwise.
-
-### GetIdOk
-
-`func (o *OCRRequest) GetIdOk() (*string, bool)`
-
-GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetId
-
-`func (o *OCRRequest) SetId(v string)`
-
-SetId sets Id field to given value.
-
-### HasId
-
-`func (o *OCRRequest) HasId() bool`
-
-HasId returns a boolean if a field has been set.
-
 ### GetDocument
 
-`func (o *OCRRequest) GetDocument() Document`
+`func (o *OCRRequest) GetDocument() Document1`
 
 GetDocument returns the Document field if non-nil, zero value otherwise.
 
 ### GetDocumentOk
 
-`func (o *OCRRequest) GetDocumentOk() (*Document, bool)`
+`func (o *OCRRequest) GetDocumentOk() (*Document1, bool)`
 
 GetDocumentOk returns a tuple with the Document field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetDocument
 
-`func (o *OCRRequest) SetDocument(v Document)`
+`func (o *OCRRequest) SetDocument(v Document1)`
 
 SetDocument sets Document field to given value.
 

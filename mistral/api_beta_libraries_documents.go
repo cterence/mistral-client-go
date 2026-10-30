@@ -371,7 +371,7 @@ type ApiLibrariesDocumentsGetStatusV1Request struct {
 	documentId string
 }
 
-func (r ApiLibrariesDocumentsGetStatusV1Request) Execute() (*ProcessingStatusOut, *http.Response, error) {
+func (r ApiLibrariesDocumentsGetStatusV1Request) Execute() (*ProcessingStatus, *http.Response, error) {
 	return r.ApiService.LibrariesDocumentsGetStatusV1Execute(r)
 }
 
@@ -395,13 +395,13 @@ func (a *BetaLibrariesDocumentsAPIService) LibrariesDocumentsGetStatusV1(ctx con
 }
 
 // Execute executes the request
-//  @return ProcessingStatusOut
-func (a *BetaLibrariesDocumentsAPIService) LibrariesDocumentsGetStatusV1Execute(r ApiLibrariesDocumentsGetStatusV1Request) (*ProcessingStatusOut, *http.Response, error) {
+//  @return ProcessingStatus
+func (a *BetaLibrariesDocumentsAPIService) LibrariesDocumentsGetStatusV1Execute(r ApiLibrariesDocumentsGetStatusV1Request) (*ProcessingStatus, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *ProcessingStatusOut
+		localVarReturnValue  *ProcessingStatus
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BetaLibrariesDocumentsAPIService.LibrariesDocumentsGetStatusV1")
@@ -486,6 +486,18 @@ type ApiLibrariesDocumentsGetTextContentV1Request struct {
 	ApiService *BetaLibrariesDocumentsAPIService
 	libraryId string
 	documentId string
+	pageStart *int32
+	pageEnd *int32
+}
+
+func (r ApiLibrariesDocumentsGetTextContentV1Request) PageStart(pageStart int32) ApiLibrariesDocumentsGetTextContentV1Request {
+	r.pageStart = &pageStart
+	return r
+}
+
+func (r ApiLibrariesDocumentsGetTextContentV1Request) PageEnd(pageEnd int32) ApiLibrariesDocumentsGetTextContentV1Request {
+	r.pageEnd = &pageEnd
+	return r
 }
 
 func (r ApiLibrariesDocumentsGetTextContentV1Request) Execute() (*DocumentTextContent, *http.Response, error) {
@@ -534,6 +546,12 @@ func (a *BetaLibrariesDocumentsAPIService) LibrariesDocumentsGetTextContentV1Exe
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
+	if r.pageStart != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "page_start", r.pageStart, "form", "")
+	}
+	if r.pageEnd != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "page_end", r.pageEnd, "form", "")
+	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -605,7 +623,7 @@ type ApiLibrariesDocumentsGetV1Request struct {
 	documentId string
 }
 
-func (r ApiLibrariesDocumentsGetV1Request) Execute() (*DocumentOut, *http.Response, error) {
+func (r ApiLibrariesDocumentsGetV1Request) Execute() (*Document, *http.Response, error) {
 	return r.ApiService.LibrariesDocumentsGetV1Execute(r)
 }
 
@@ -629,13 +647,13 @@ func (a *BetaLibrariesDocumentsAPIService) LibrariesDocumentsGetV1(ctx context.C
 }
 
 // Execute executes the request
-//  @return DocumentOut
-func (a *BetaLibrariesDocumentsAPIService) LibrariesDocumentsGetV1Execute(r ApiLibrariesDocumentsGetV1Request) (*DocumentOut, *http.Response, error) {
+//  @return Document
+func (a *BetaLibrariesDocumentsAPIService) LibrariesDocumentsGetV1Execute(r ApiLibrariesDocumentsGetV1Request) (*Document, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *DocumentOut
+		localVarReturnValue  *Document
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BetaLibrariesDocumentsAPIService.LibrariesDocumentsGetV1")
@@ -742,6 +760,8 @@ func (r ApiLibrariesDocumentsListV1Request) Page(page int32) ApiLibrariesDocumen
 	return r
 }
 
+// Deprecated: this parameter will be removed in a future version.
+// Deprecated
 func (r ApiLibrariesDocumentsListV1Request) FiltersAttributes(filtersAttributes string) ApiLibrariesDocumentsListV1Request {
 	r.filtersAttributes = &filtersAttributes
 	return r
@@ -757,7 +777,7 @@ func (r ApiLibrariesDocumentsListV1Request) SortOrder(sortOrder string) ApiLibra
 	return r
 }
 
-func (r ApiLibrariesDocumentsListV1Request) Execute() (*ListDocumentOut, *http.Response, error) {
+func (r ApiLibrariesDocumentsListV1Request) Execute() (*ListDocumentsResponse, *http.Response, error) {
 	return r.ApiService.LibrariesDocumentsListV1Execute(r)
 }
 
@@ -779,13 +799,13 @@ func (a *BetaLibrariesDocumentsAPIService) LibrariesDocumentsListV1(ctx context.
 }
 
 // Execute executes the request
-//  @return ListDocumentOut
-func (a *BetaLibrariesDocumentsAPIService) LibrariesDocumentsListV1Execute(r ApiLibrariesDocumentsListV1Request) (*ListDocumentOut, *http.Response, error) {
+//  @return ListDocumentsResponse
+func (a *BetaLibrariesDocumentsAPIService) LibrariesDocumentsListV1Execute(r ApiLibrariesDocumentsListV1Request) (*ListDocumentsResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *ListDocumentOut
+		localVarReturnValue  *ListDocumentsResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BetaLibrariesDocumentsAPIService.LibrariesDocumentsListV1")
@@ -851,6 +871,134 @@ func (a *BetaLibrariesDocumentsAPIService) LibrariesDocumentsListV1Execute(r Api
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 422 {
+			var v HTTPValidationError
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiLibrariesDocumentsPatchV1Request struct {
+	ctx context.Context
+	ApiService *BetaLibrariesDocumentsAPIService
+	libraryId string
+	documentId string
+	updateDocumentRequest *UpdateDocumentRequest
+}
+
+func (r ApiLibrariesDocumentsPatchV1Request) UpdateDocumentRequest(updateDocumentRequest UpdateDocumentRequest) ApiLibrariesDocumentsPatchV1Request {
+	r.updateDocumentRequest = &updateDocumentRequest
+	return r
+}
+
+func (r ApiLibrariesDocumentsPatchV1Request) Execute() (*Document, *http.Response, error) {
+	return r.ApiService.LibrariesDocumentsPatchV1Execute(r)
+}
+
+/*
+LibrariesDocumentsPatchV1 Update the metadata of a specific document.
+
+Given a library and a document in that library, update the name and/or attributes of that document.
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param libraryId
+ @param documentId
+ @return ApiLibrariesDocumentsPatchV1Request
+*/
+func (a *BetaLibrariesDocumentsAPIService) LibrariesDocumentsPatchV1(ctx context.Context, libraryId string, documentId string) ApiLibrariesDocumentsPatchV1Request {
+	return ApiLibrariesDocumentsPatchV1Request{
+		ApiService: a,
+		ctx: ctx,
+		libraryId: libraryId,
+		documentId: documentId,
+	}
+}
+
+// Execute executes the request
+//  @return Document
+func (a *BetaLibrariesDocumentsAPIService) LibrariesDocumentsPatchV1Execute(r ApiLibrariesDocumentsPatchV1Request) (*Document, *http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodPatch
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *Document
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BetaLibrariesDocumentsAPIService.LibrariesDocumentsPatchV1")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/libraries/{library_id}/documents/{document_id}"
+	localVarPath = strings.Replace(localVarPath, "{"+"library_id"+"}", url.PathEscape(parameterValueToString(r.libraryId, "libraryId")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"document_id"+"}", url.PathEscape(parameterValueToString(r.documentId, "documentId")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.updateDocumentRequest == nil {
+		return localVarReturnValue, nil, reportError("updateDocumentRequest is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.updateDocumentRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1009,15 +1157,15 @@ type ApiLibrariesDocumentsUpdateV1Request struct {
 	ApiService *BetaLibrariesDocumentsAPIService
 	libraryId string
 	documentId string
-	documentUpdateIn *DocumentUpdateIn
+	updateDocumentRequest *UpdateDocumentRequest
 }
 
-func (r ApiLibrariesDocumentsUpdateV1Request) DocumentUpdateIn(documentUpdateIn DocumentUpdateIn) ApiLibrariesDocumentsUpdateV1Request {
-	r.documentUpdateIn = &documentUpdateIn
+func (r ApiLibrariesDocumentsUpdateV1Request) UpdateDocumentRequest(updateDocumentRequest UpdateDocumentRequest) ApiLibrariesDocumentsUpdateV1Request {
+	r.updateDocumentRequest = &updateDocumentRequest
 	return r
 }
 
-func (r ApiLibrariesDocumentsUpdateV1Request) Execute() (*DocumentOut, *http.Response, error) {
+func (r ApiLibrariesDocumentsUpdateV1Request) Execute() (*Document, *http.Response, error) {
 	return r.ApiService.LibrariesDocumentsUpdateV1Execute(r)
 }
 
@@ -1030,6 +1178,8 @@ Given a library and a document in that library, update the name of that document
  @param libraryId
  @param documentId
  @return ApiLibrariesDocumentsUpdateV1Request
+
+Deprecated
 */
 func (a *BetaLibrariesDocumentsAPIService) LibrariesDocumentsUpdateV1(ctx context.Context, libraryId string, documentId string) ApiLibrariesDocumentsUpdateV1Request {
 	return ApiLibrariesDocumentsUpdateV1Request{
@@ -1041,13 +1191,14 @@ func (a *BetaLibrariesDocumentsAPIService) LibrariesDocumentsUpdateV1(ctx contex
 }
 
 // Execute executes the request
-//  @return DocumentOut
-func (a *BetaLibrariesDocumentsAPIService) LibrariesDocumentsUpdateV1Execute(r ApiLibrariesDocumentsUpdateV1Request) (*DocumentOut, *http.Response, error) {
+//  @return Document
+// Deprecated
+func (a *BetaLibrariesDocumentsAPIService) LibrariesDocumentsUpdateV1Execute(r ApiLibrariesDocumentsUpdateV1Request) (*Document, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPut
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *DocumentOut
+		localVarReturnValue  *Document
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BetaLibrariesDocumentsAPIService.LibrariesDocumentsUpdateV1")
@@ -1062,8 +1213,8 @@ func (a *BetaLibrariesDocumentsAPIService) LibrariesDocumentsUpdateV1Execute(r A
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.documentUpdateIn == nil {
-		return localVarReturnValue, nil, reportError("documentUpdateIn is required and must be specified")
+	if r.updateDocumentRequest == nil {
+		return localVarReturnValue, nil, reportError("updateDocumentRequest is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -1084,7 +1235,7 @@ func (a *BetaLibrariesDocumentsAPIService) LibrariesDocumentsUpdateV1Execute(r A
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.documentUpdateIn
+	localVarPostBody = r.updateDocumentRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1145,7 +1296,7 @@ func (r ApiLibrariesDocumentsUploadV1Request) File(file *os.File) ApiLibrariesDo
 	return r
 }
 
-func (r ApiLibrariesDocumentsUploadV1Request) Execute() (*DocumentOut, *http.Response, error) {
+func (r ApiLibrariesDocumentsUploadV1Request) Execute() (*Document, *http.Response, error) {
 	return r.ApiService.LibrariesDocumentsUploadV1Execute(r)
 }
 
@@ -1167,13 +1318,13 @@ func (a *BetaLibrariesDocumentsAPIService) LibrariesDocumentsUploadV1(ctx contex
 }
 
 // Execute executes the request
-//  @return DocumentOut
-func (a *BetaLibrariesDocumentsAPIService) LibrariesDocumentsUploadV1Execute(r ApiLibrariesDocumentsUploadV1Request) (*DocumentOut, *http.Response, error) {
+//  @return Document
+func (a *BetaLibrariesDocumentsAPIService) LibrariesDocumentsUploadV1Execute(r ApiLibrariesDocumentsUploadV1Request) (*Document, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *DocumentOut
+		localVarReturnValue  *Document
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BetaLibrariesDocumentsAPIService.LibrariesDocumentsUploadV1")

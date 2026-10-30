@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **BottomRightX** | **int32** |  | 
 **BottomRightY** | **int32** |  | 
 **Content** | **string** | Text/markdown/html content of this block | 
+**ConfidenceScores** | Pointer to [**OCRBlockConfidenceScores**](OCRBlockConfidenceScores.md) | Confidence scores for this block. Populated when confidence_scores_granularity is set to &#39;block&#39;. | [optional] 
 **Type** | Pointer to **string** |  | [optional] [default to "text"]
 **ImageId** | **string** | References the corresponding entry in OCRPageObject.images | 
 **TableId** | Pointer to **string** | References the corresponding entry in OCRPageObject.tables, when tables are extracted | [optional] 
@@ -131,6 +132,31 @@ and a boolean to check if the value has been set.
 
 SetContent sets Content field to given value.
 
+
+### GetConfidenceScores
+
+`func (o *OCRPageObjectBlocksInner) GetConfidenceScores() OCRBlockConfidenceScores`
+
+GetConfidenceScores returns the ConfidenceScores field if non-nil, zero value otherwise.
+
+### GetConfidenceScoresOk
+
+`func (o *OCRPageObjectBlocksInner) GetConfidenceScoresOk() (*OCRBlockConfidenceScores, bool)`
+
+GetConfidenceScoresOk returns a tuple with the ConfidenceScores field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetConfidenceScores
+
+`func (o *OCRPageObjectBlocksInner) SetConfidenceScores(v OCRBlockConfidenceScores)`
+
+SetConfidenceScores sets ConfidenceScores field to given value.
+
+### HasConfidenceScores
+
+`func (o *OCRPageObjectBlocksInner) HasConfidenceScores() bool`
+
+HasConfidenceScores returns a boolean if a field has been set.
 
 ### GetType
 

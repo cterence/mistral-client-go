@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Name** | **string** | The name of the signal to send | 
-**Input** | Pointer to [**NullableInput3**](Input3.md) |  | [optional] 
+**Input** | Pointer to [**NullableInput4**](Input4.md) |  | [optional] 
 
 ## Methods
 
@@ -48,20 +48,20 @@ SetName sets Name field to given value.
 
 ### GetInput
 
-`func (o *SignalInvocationBody) GetInput() Input3`
+`func (o *SignalInvocationBody) GetInput() Input4`
 
 GetInput returns the Input field if non-nil, zero value otherwise.
 
 ### GetInputOk
 
-`func (o *SignalInvocationBody) GetInputOk() (*Input3, bool)`
+`func (o *SignalInvocationBody) GetInputOk() (*Input4, bool)`
 
 GetInputOk returns a tuple with the Input field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetInput
 
-`func (o *SignalInvocationBody) SetInput(v Input3)`
+`func (o *SignalInvocationBody) SetInput(v Input4)`
 
 SetInput sets Input field to given value.
 

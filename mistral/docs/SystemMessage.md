@@ -5,13 +5,13 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Role** | Pointer to **string** |  | [optional] [default to "system"]
-**Content** | [**Content4**](Content4.md) |  | 
+**Content** | [**Content5**](Content5.md) |  | 
 
 ## Methods
 
 ### NewSystemMessage
 
-`func NewSystemMessage(content Content4, ) *SystemMessage`
+`func NewSystemMessage(content Content5, ) *SystemMessage`
 
 NewSystemMessage instantiates a new SystemMessage object
 This constructor will assign default values to properties that have it defined,
@@ -53,20 +53,20 @@ HasRole returns a boolean if a field has been set.
 
 ### GetContent
 
-`func (o *SystemMessage) GetContent() Content4`
+`func (o *SystemMessage) GetContent() Content5`
 
 GetContent returns the Content field if non-nil, zero value otherwise.
 
 ### GetContentOk
 
-`func (o *SystemMessage) GetContentOk() (*Content4, bool)`
+`func (o *SystemMessage) GetContentOk() (*Content5, bool)`
 
 GetContentOk returns a tuple with the Content field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetContent
 
-`func (o *SystemMessage) SetContent(v Content4)`
+`func (o *SystemMessage) SetContent(v Content5)`
 
 SetContent sets Content field to given value.
 

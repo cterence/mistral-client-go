@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Results** | Pointer to [**[]JudgePreview**](JudgePreview.md) |  | [optional] 
+**Results** | Pointer to [**[]Judge**](Judge.md) |  | [optional] 
 **Count** | **int32** |  | 
 **Next** | Pointer to **NullableString** |  | [optional] 
 **Previous** | Pointer to **NullableString** |  | [optional] 
@@ -30,20 +30,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetResults
 
-`func (o *PaginatedResultJudgePreview) GetResults() []JudgePreview`
+`func (o *PaginatedResultJudgePreview) GetResults() []Judge`
 
 GetResults returns the Results field if non-nil, zero value otherwise.
 
 ### GetResultsOk
 
-`func (o *PaginatedResultJudgePreview) GetResultsOk() (*[]JudgePreview, bool)`
+`func (o *PaginatedResultJudgePreview) GetResultsOk() (*[]Judge, bool)`
 
 GetResultsOk returns a tuple with the Results field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetResults
 
-`func (o *PaginatedResultJudgePreview) SetResults(v []JudgePreview)`
+`func (o *PaginatedResultJudgePreview) SetResults(v []Judge)`
 
 SetResults sets Results field to given value.
 

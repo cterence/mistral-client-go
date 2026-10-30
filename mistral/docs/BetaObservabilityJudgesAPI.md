@@ -15,9 +15,11 @@ Method | HTTP request | Description
 
 ## CreateJudgeV1ObservabilityJudgesPost
 
-> JudgePreview CreateJudgeV1ObservabilityJudgesPost(ctx).PostJudgeInSchema(postJudgeInSchema).Execute()
+> Judge CreateJudgeV1ObservabilityJudgesPost(ctx).CreateJudgeRequest(createJudgeRequest).Execute()
 
 Create a new judge
+
+
 
 ### Example
 
@@ -32,16 +34,16 @@ import (
 )
 
 func main() {
-	postJudgeInSchema := *openapiclient.NewPostJudgeInSchema("Name_example", "Description_example", "ModelName_example", openapiclient.Output{JudgeClassificationOutput: openapiclient.NewJudgeClassificationOutput([]openapiclient.JudgeClassificationOutputOption{*openapiclient.NewJudgeClassificationOutputOption("Value_example", "Description_example")})}, "Instructions_example", []string{"Tools_example"}) // PostJudgeInSchema | 
+	createJudgeRequest := *openapiclient.NewCreateJudgeRequest("Name_example", "Description_example", "ModelName_example", openapiclient.Output{JudgeClassificationOutput: openapiclient.NewJudgeClassificationOutput([]openapiclient.JudgeClassificationOutputOption{*openapiclient.NewJudgeClassificationOutputOption("Value_example", "Description_example")})}, "Instructions_example", []string{"Tools_example"}) // CreateJudgeRequest | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.BetaObservabilityJudgesAPI.CreateJudgeV1ObservabilityJudgesPost(context.Background()).PostJudgeInSchema(postJudgeInSchema).Execute()
+	resp, r, err := apiClient.BetaObservabilityJudgesAPI.CreateJudgeV1ObservabilityJudgesPost(context.Background()).CreateJudgeRequest(createJudgeRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `BetaObservabilityJudgesAPI.CreateJudgeV1ObservabilityJudgesPost``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CreateJudgeV1ObservabilityJudgesPost`: JudgePreview
+	// response from `CreateJudgeV1ObservabilityJudgesPost`: Judge
 	fmt.Fprintf(os.Stdout, "Response from `BetaObservabilityJudgesAPI.CreateJudgeV1ObservabilityJudgesPost`: %v\n", resp)
 }
 ```
@@ -57,11 +59,11 @@ Other parameters are passed through a pointer to a apiCreateJudgeV1Observability
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **postJudgeInSchema** | [**PostJudgeInSchema**](PostJudgeInSchema.md) |  | 
+ **createJudgeRequest** | [**CreateJudgeRequest**](CreateJudgeRequest.md) |  | 
 
 ### Return type
 
-[**JudgePreview**](JudgePreview.md)
+[**Judge**](Judge.md)
 
 ### Authorization
 
@@ -82,6 +84,8 @@ Name | Type | Description  | Notes
 > DeleteJudgeV1ObservabilityJudgesJudgeIdDelete(ctx, judgeId).Execute()
 
 Delete a judge
+
+
 
 ### Example
 
@@ -145,9 +149,11 @@ Name | Type | Description  | Notes
 
 ## GetJudgeByIdV1ObservabilityJudgesJudgeIdGet
 
-> JudgePreview GetJudgeByIdV1ObservabilityJudgesJudgeIdGet(ctx, judgeId).Execute()
+> Judge GetJudgeByIdV1ObservabilityJudgesJudgeIdGet(ctx, judgeId).Execute()
 
 Get judge by id
+
+
 
 ### Example
 
@@ -171,7 +177,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `BetaObservabilityJudgesAPI.GetJudgeByIdV1ObservabilityJudgesJudgeIdGet``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetJudgeByIdV1ObservabilityJudgesJudgeIdGet`: JudgePreview
+	// response from `GetJudgeByIdV1ObservabilityJudgesJudgeIdGet`: Judge
 	fmt.Fprintf(os.Stdout, "Response from `BetaObservabilityJudgesAPI.GetJudgeByIdV1ObservabilityJudgesJudgeIdGet`: %v\n", resp)
 }
 ```
@@ -195,7 +201,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**JudgePreview**](JudgePreview.md)
+[**Judge**](Judge.md)
 
 ### Authorization
 
@@ -213,9 +219,11 @@ Name | Type | Description  | Notes
 
 ## GetJudgesV1ObservabilityJudgesGet
 
-> JudgePreviews GetJudgesV1ObservabilityJudgesGet(ctx).TypeFilter(typeFilter).ModelFilter(modelFilter).PageSize(pageSize).Page(page).Q(q).Execute()
+> ListJudgesResponse GetJudgesV1ObservabilityJudgesGet(ctx).TypeFilter(typeFilter).ModelFilter(modelFilter).PageSize(pageSize).Page(page).Q(q).Execute()
 
 Get judges with optional filtering and search
+
+
 
 ### Example
 
@@ -243,7 +251,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `BetaObservabilityJudgesAPI.GetJudgesV1ObservabilityJudgesGet``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetJudgesV1ObservabilityJudgesGet`: JudgePreviews
+	// response from `GetJudgesV1ObservabilityJudgesGet`: ListJudgesResponse
 	fmt.Fprintf(os.Stdout, "Response from `BetaObservabilityJudgesAPI.GetJudgesV1ObservabilityJudgesGet`: %v\n", resp)
 }
 ```
@@ -267,7 +275,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**JudgePreviews**](JudgePreviews.md)
+[**ListJudgesResponse**](ListJudgesResponse.md)
 
 ### Authorization
 
@@ -289,6 +297,8 @@ Name | Type | Description  | Notes
 
 Run a saved judge on a conversation
 
+
+
 ### Example
 
 ```go
@@ -303,7 +313,7 @@ import (
 
 func main() {
 	judgeId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | 
-	judgeConversationRequest := *openapiclient.NewJudgeConversationRequest([]map[string]interface{}{map[string]interface{}{"key": interface{}(123)}}) // JudgeConversationRequest | 
+	judgeConversationRequest := *openapiclient.NewJudgeConversationRequest([]*map[string]interface{}{nil}) // JudgeConversationRequest | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -355,9 +365,11 @@ Name | Type | Description  | Notes
 
 ## UpdateJudgeV1ObservabilityJudgesJudgeIdPut
 
-> UpdateJudgeV1ObservabilityJudgesJudgeIdPut(ctx, judgeId).PutJudgeInSchema(putJudgeInSchema).Execute()
+> UpdateJudgeV1ObservabilityJudgesJudgeIdPut(ctx, judgeId).UpdateJudgeRequest(updateJudgeRequest).Execute()
 
 Update a judge
+
+
 
 ### Example
 
@@ -373,11 +385,11 @@ import (
 
 func main() {
 	judgeId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | 
-	putJudgeInSchema := *openapiclient.NewPutJudgeInSchema("Name_example", "Description_example", "ModelName_example", openapiclient.Output{JudgeClassificationOutput: openapiclient.NewJudgeClassificationOutput([]openapiclient.JudgeClassificationOutputOption{*openapiclient.NewJudgeClassificationOutputOption("Value_example", "Description_example")})}, "Instructions_example", []string{"Tools_example"}) // PutJudgeInSchema | 
+	updateJudgeRequest := *openapiclient.NewUpdateJudgeRequest("Name_example", "Description_example", "ModelName_example", openapiclient.Output{JudgeClassificationOutput: openapiclient.NewJudgeClassificationOutput([]openapiclient.JudgeClassificationOutputOption{*openapiclient.NewJudgeClassificationOutputOption("Value_example", "Description_example")})}, "Instructions_example", []string{"Tools_example"}) // UpdateJudgeRequest | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.BetaObservabilityJudgesAPI.UpdateJudgeV1ObservabilityJudgesJudgeIdPut(context.Background(), judgeId).PutJudgeInSchema(putJudgeInSchema).Execute()
+	r, err := apiClient.BetaObservabilityJudgesAPI.UpdateJudgeV1ObservabilityJudgesJudgeIdPut(context.Background(), judgeId).UpdateJudgeRequest(updateJudgeRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `BetaObservabilityJudgesAPI.UpdateJudgeV1ObservabilityJudgesJudgeIdPut``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -401,7 +413,7 @@ Other parameters are passed through a pointer to a apiUpdateJudgeV1Observability
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **putJudgeInSchema** | [**PutJudgeInSchema**](PutJudgeInSchema.md) |  | 
+ **updateJudgeRequest** | [**UpdateJudgeRequest**](UpdateJudgeRequest.md) |  | 
 
 ### Return type
 

@@ -25,8 +25,12 @@ type WorkflowExecutionStartedAttributesResponse struct {
 	TaskId string `json:"task_id"`
 	// The registered name of the workflow being executed.
 	WorkflowName string `json:"workflow_name"`
+	// The user-friendly display name of the workflow, if available.
+	DisplayName NullableString `json:"display_name,omitempty"`
 	// The input arguments passed to the workflow.
 	Input JSONPayloadResponse `json:"input"`
+	// Workflow retry attempt number. 1 on first run and CAN; >1 on workflow-level retries.
+	Attempt *int32 `json:"attempt,omitempty"`
 }
 
 type _WorkflowExecutionStartedAttributesResponse WorkflowExecutionStartedAttributesResponse
@@ -40,6 +44,8 @@ func NewWorkflowExecutionStartedAttributesResponse(taskId string, workflowName s
 	this.TaskId = taskId
 	this.WorkflowName = workflowName
 	this.Input = input
+	var attempt int32 = 1
+	this.Attempt = &attempt
 	return &this
 }
 
@@ -48,6 +54,8 @@ func NewWorkflowExecutionStartedAttributesResponse(taskId string, workflowName s
 // but it doesn't guarantee that properties required by API are set
 func NewWorkflowExecutionStartedAttributesResponseWithDefaults() *WorkflowExecutionStartedAttributesResponse {
 	this := WorkflowExecutionStartedAttributesResponse{}
+	var attempt int32 = 1
+	this.Attempt = &attempt
 	return &this
 }
 
@@ -99,6 +107,48 @@ func (o *WorkflowExecutionStartedAttributesResponse) SetWorkflowName(v string) {
 	o.WorkflowName = v
 }
 
+// GetDisplayName returns the DisplayName field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *WorkflowExecutionStartedAttributesResponse) GetDisplayName() string {
+	if o == nil || IsNil(o.DisplayName.Get()) {
+		var ret string
+		return ret
+	}
+	return *o.DisplayName.Get()
+}
+
+// GetDisplayNameOk returns a tuple with the DisplayName field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *WorkflowExecutionStartedAttributesResponse) GetDisplayNameOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.DisplayName.Get(), o.DisplayName.IsSet()
+}
+
+// HasDisplayName returns a boolean if a field has been set.
+func (o *WorkflowExecutionStartedAttributesResponse) HasDisplayName() bool {
+	if o != nil && o.DisplayName.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetDisplayName gets a reference to the given NullableString and assigns it to the DisplayName field.
+func (o *WorkflowExecutionStartedAttributesResponse) SetDisplayName(v string) {
+	o.DisplayName.Set(&v)
+}
+// SetDisplayNameNil sets the value for DisplayName to be an explicit nil
+func (o *WorkflowExecutionStartedAttributesResponse) SetDisplayNameNil() {
+	o.DisplayName.Set(nil)
+}
+
+// UnsetDisplayName ensures that no value is present for DisplayName, not even an explicit nil
+func (o *WorkflowExecutionStartedAttributesResponse) UnsetDisplayName() {
+	o.DisplayName.Unset()
+}
+
 // GetInput returns the Input field value
 func (o *WorkflowExecutionStartedAttributesResponse) GetInput() JSONPayloadResponse {
 	if o == nil {
@@ -123,6 +173,38 @@ func (o *WorkflowExecutionStartedAttributesResponse) SetInput(v JSONPayloadRespo
 	o.Input = v
 }
 
+// GetAttempt returns the Attempt field value if set, zero value otherwise.
+func (o *WorkflowExecutionStartedAttributesResponse) GetAttempt() int32 {
+	if o == nil || IsNil(o.Attempt) {
+		var ret int32
+		return ret
+	}
+	return *o.Attempt
+}
+
+// GetAttemptOk returns a tuple with the Attempt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *WorkflowExecutionStartedAttributesResponse) GetAttemptOk() (*int32, bool) {
+	if o == nil || IsNil(o.Attempt) {
+		return nil, false
+	}
+	return o.Attempt, true
+}
+
+// HasAttempt returns a boolean if a field has been set.
+func (o *WorkflowExecutionStartedAttributesResponse) HasAttempt() bool {
+	if o != nil && !IsNil(o.Attempt) {
+		return true
+	}
+
+	return false
+}
+
+// SetAttempt gets a reference to the given int32 and assigns it to the Attempt field.
+func (o *WorkflowExecutionStartedAttributesResponse) SetAttempt(v int32) {
+	o.Attempt = &v
+}
+
 func (o WorkflowExecutionStartedAttributesResponse) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -135,7 +217,13 @@ func (o WorkflowExecutionStartedAttributesResponse) ToMap() (map[string]interfac
 	toSerialize := map[string]interface{}{}
 	toSerialize["task_id"] = o.TaskId
 	toSerialize["workflow_name"] = o.WorkflowName
+	if o.DisplayName.IsSet() {
+		toSerialize["display_name"] = o.DisplayName.Get()
+	}
 	toSerialize["input"] = o.Input
+	if !IsNil(o.Attempt) {
+		toSerialize["attempt"] = o.Attempt
+	}
 	return toSerialize, nil
 }
 

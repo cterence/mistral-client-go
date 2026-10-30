@@ -21,7 +21,8 @@ var _ MappedNullable = &JudgeConversationRequest{}
 
 // JudgeConversationRequest struct for JudgeConversationRequest
 type JudgeConversationRequest struct {
-	Messages []map[string]interface{} `json:"messages"`
+	Messages []*map[string]interface{} `json:"messages"`
+	// Output JSON schema of the query's model
 	Properties map[string]interface{} `json:"properties,omitempty"`
 }
 
@@ -31,7 +32,7 @@ type _JudgeConversationRequest JudgeConversationRequest
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewJudgeConversationRequest(messages []map[string]interface{}) *JudgeConversationRequest {
+func NewJudgeConversationRequest(messages []*map[string]interface{}) *JudgeConversationRequest {
 	this := JudgeConversationRequest{}
 	this.Messages = messages
 	return &this
@@ -46,9 +47,9 @@ func NewJudgeConversationRequestWithDefaults() *JudgeConversationRequest {
 }
 
 // GetMessages returns the Messages field value
-func (o *JudgeConversationRequest) GetMessages() []map[string]interface{} {
+func (o *JudgeConversationRequest) GetMessages() []*map[string]interface{} {
 	if o == nil {
-		var ret []map[string]interface{}
+		var ret []*map[string]interface{}
 		return ret
 	}
 
@@ -57,7 +58,7 @@ func (o *JudgeConversationRequest) GetMessages() []map[string]interface{} {
 
 // GetMessagesOk returns a tuple with the Messages field value
 // and a boolean to check if the value has been set.
-func (o *JudgeConversationRequest) GetMessagesOk() ([]map[string]interface{}, bool) {
+func (o *JudgeConversationRequest) GetMessagesOk() ([]*map[string]interface{}, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -65,7 +66,7 @@ func (o *JudgeConversationRequest) GetMessagesOk() ([]map[string]interface{}, bo
 }
 
 // SetMessages sets field value
-func (o *JudgeConversationRequest) SetMessages(v []map[string]interface{}) {
+func (o *JudgeConversationRequest) SetMessages(v []*map[string]interface{}) {
 	o.Messages = v
 }
 

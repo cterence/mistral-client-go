@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **ErrorCount** | [**ScalarMetric**](ScalarMetric.md) |  | 
 **AverageLatencyMs** | [**ScalarMetric**](ScalarMetric.md) |  | 
 **LatencyOverTime** | [**TimeSeriesMetric**](TimeSeriesMetric.md) |  | 
-**RetryRate** | [**ScalarMetric**](ScalarMetric.md) |  | 
+**RetryRate** | [**ScalarMetric**](ScalarMetric.md) | Deprecated, always -1. Never measured retries; use error_count instead. | 
 
 ## Methods
 

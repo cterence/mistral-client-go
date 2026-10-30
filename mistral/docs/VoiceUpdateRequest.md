@@ -9,6 +9,8 @@ Name | Type | Description | Notes
 **Gender** | Pointer to **NullableString** |  | [optional] 
 **Age** | Pointer to **NullableInt32** |  | [optional] 
 **Tags** | Pointer to **[]string** |  | [optional] 
+**Description** | Pointer to **NullableString** |  | [optional] 
+**RetentionNotice** | Pointer to **NullableInt32** |  | [optional] 
 
 ## Methods
 
@@ -204,6 +206,76 @@ HasTags returns a boolean if a field has been set.
 `func (o *VoiceUpdateRequest) UnsetTags()`
 
 UnsetTags ensures that no value is present for Tags, not even an explicit nil
+### GetDescription
+
+`func (o *VoiceUpdateRequest) GetDescription() string`
+
+GetDescription returns the Description field if non-nil, zero value otherwise.
+
+### GetDescriptionOk
+
+`func (o *VoiceUpdateRequest) GetDescriptionOk() (*string, bool)`
+
+GetDescriptionOk returns a tuple with the Description field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDescription
+
+`func (o *VoiceUpdateRequest) SetDescription(v string)`
+
+SetDescription sets Description field to given value.
+
+### HasDescription
+
+`func (o *VoiceUpdateRequest) HasDescription() bool`
+
+HasDescription returns a boolean if a field has been set.
+
+### SetDescriptionNil
+
+`func (o *VoiceUpdateRequest) SetDescriptionNil(b bool)`
+
+ SetDescriptionNil sets the value for Description to be an explicit nil
+
+### UnsetDescription
+`func (o *VoiceUpdateRequest) UnsetDescription()`
+
+UnsetDescription ensures that no value is present for Description, not even an explicit nil
+### GetRetentionNotice
+
+`func (o *VoiceUpdateRequest) GetRetentionNotice() int32`
+
+GetRetentionNotice returns the RetentionNotice field if non-nil, zero value otherwise.
+
+### GetRetentionNoticeOk
+
+`func (o *VoiceUpdateRequest) GetRetentionNoticeOk() (*int32, bool)`
+
+GetRetentionNoticeOk returns a tuple with the RetentionNotice field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetRetentionNotice
+
+`func (o *VoiceUpdateRequest) SetRetentionNotice(v int32)`
+
+SetRetentionNotice sets RetentionNotice field to given value.
+
+### HasRetentionNotice
+
+`func (o *VoiceUpdateRequest) HasRetentionNotice() bool`
+
+HasRetentionNotice returns a boolean if a field has been set.
+
+### SetRetentionNoticeNil
+
+`func (o *VoiceUpdateRequest) SetRetentionNoticeNil(b bool)`
+
+ SetRetentionNoticeNil sets the value for RetentionNotice to be an explicit nil
+
+### UnsetRetentionNotice
+`func (o *VoiceUpdateRequest) UnsetRetentionNotice()`
+
+UnsetRetentionNotice ensures that no value is present for RetentionNotice, not even an explicit nil
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

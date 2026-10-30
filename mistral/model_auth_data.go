@@ -22,7 +22,8 @@ var _ MappedNullable = &AuthData{}
 // AuthData struct for AuthData
 type AuthData struct {
 	ClientId string `json:"client_id"`
-	ClientSecret string `json:"client_secret"`
+	ClientSecret NullableString `json:"client_secret,omitempty"`
+	ClientScopes []string `json:"client_scopes,omitempty"`
 }
 
 type _AuthData AuthData
@@ -31,10 +32,9 @@ type _AuthData AuthData
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewAuthData(clientId string, clientSecret string) *AuthData {
+func NewAuthData(clientId string) *AuthData {
 	this := AuthData{}
 	this.ClientId = clientId
-	this.ClientSecret = clientSecret
 	return &this
 }
 
@@ -70,28 +70,79 @@ func (o *AuthData) SetClientId(v string) {
 	o.ClientId = v
 }
 
-// GetClientSecret returns the ClientSecret field value
+// GetClientSecret returns the ClientSecret field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *AuthData) GetClientSecret() string {
-	if o == nil {
+	if o == nil || IsNil(o.ClientSecret.Get()) {
 		var ret string
 		return ret
 	}
-
-	return o.ClientSecret
+	return *o.ClientSecret.Get()
 }
 
-// GetClientSecretOk returns a tuple with the ClientSecret field value
+// GetClientSecretOk returns a tuple with the ClientSecret field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *AuthData) GetClientSecretOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.ClientSecret, true
+	return o.ClientSecret.Get(), o.ClientSecret.IsSet()
 }
 
-// SetClientSecret sets field value
+// HasClientSecret returns a boolean if a field has been set.
+func (o *AuthData) HasClientSecret() bool {
+	if o != nil && o.ClientSecret.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetClientSecret gets a reference to the given NullableString and assigns it to the ClientSecret field.
 func (o *AuthData) SetClientSecret(v string) {
-	o.ClientSecret = v
+	o.ClientSecret.Set(&v)
+}
+// SetClientSecretNil sets the value for ClientSecret to be an explicit nil
+func (o *AuthData) SetClientSecretNil() {
+	o.ClientSecret.Set(nil)
+}
+
+// UnsetClientSecret ensures that no value is present for ClientSecret, not even an explicit nil
+func (o *AuthData) UnsetClientSecret() {
+	o.ClientSecret.Unset()
+}
+
+// GetClientScopes returns the ClientScopes field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *AuthData) GetClientScopes() []string {
+	if o == nil {
+		var ret []string
+		return ret
+	}
+	return o.ClientScopes
+}
+
+// GetClientScopesOk returns a tuple with the ClientScopes field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *AuthData) GetClientScopesOk() ([]string, bool) {
+	if o == nil || IsNil(o.ClientScopes) {
+		return nil, false
+	}
+	return o.ClientScopes, true
+}
+
+// HasClientScopes returns a boolean if a field has been set.
+func (o *AuthData) HasClientScopes() bool {
+	if o != nil && !IsNil(o.ClientScopes) {
+		return true
+	}
+
+	return false
+}
+
+// SetClientScopes gets a reference to the given []string and assigns it to the ClientScopes field.
+func (o *AuthData) SetClientScopes(v []string) {
+	o.ClientScopes = v
 }
 
 func (o AuthData) MarshalJSON() ([]byte, error) {
@@ -105,7 +156,12 @@ func (o AuthData) MarshalJSON() ([]byte, error) {
 func (o AuthData) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["client_id"] = o.ClientId
-	toSerialize["client_secret"] = o.ClientSecret
+	if o.ClientSecret.IsSet() {
+		toSerialize["client_secret"] = o.ClientSecret.Get()
+	}
+	if o.ClientScopes != nil {
+		toSerialize["client_scopes"] = o.ClientScopes
+	}
 	return toSerialize, nil
 }
 
@@ -115,7 +171,6 @@ func (o *AuthData) UnmarshalJSON(data []byte) (err error) {
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
 		"client_id",
-		"client_secret",
 	}
 
 	allProperties := make(map[string]interface{})

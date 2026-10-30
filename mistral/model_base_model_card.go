@@ -34,6 +34,8 @@ type BaseModelCard struct {
 	Deprecation NullableTime `json:"deprecation,omitempty"`
 	DeprecationReplacementModel NullableString `json:"deprecation_replacement_model,omitempty"`
 	DefaultModelTemperature NullableFloat32 `json:"default_model_temperature,omitempty"`
+	Internal *bool `json:"internal,omitempty"`
+	BillingModelName NullableString `json:"billing_model_name,omitempty"`
 	Type *string `json:"type,omitempty"`
 }
 
@@ -53,6 +55,8 @@ func NewBaseModelCard(id string, capabilities ModelCapabilities) *BaseModelCard 
 	this.Capabilities = capabilities
 	var maxContextLength int32 = 32768
 	this.MaxContextLength = &maxContextLength
+	var internal bool = false
+	this.Internal = &internal
 	var type_ string = "base"
 	this.Type = &type_
 	return &this
@@ -69,6 +73,8 @@ func NewBaseModelCardWithDefaults() *BaseModelCard {
 	this.OwnedBy = &ownedBy
 	var maxContextLength int32 = 32768
 	this.MaxContextLength = &maxContextLength
+	var internal bool = false
+	this.Internal = &internal
 	var type_ string = "base"
 	this.Type = &type_
 	return &this
@@ -492,6 +498,80 @@ func (o *BaseModelCard) UnsetDefaultModelTemperature() {
 	o.DefaultModelTemperature.Unset()
 }
 
+// GetInternal returns the Internal field value if set, zero value otherwise.
+func (o *BaseModelCard) GetInternal() bool {
+	if o == nil || IsNil(o.Internal) {
+		var ret bool
+		return ret
+	}
+	return *o.Internal
+}
+
+// GetInternalOk returns a tuple with the Internal field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *BaseModelCard) GetInternalOk() (*bool, bool) {
+	if o == nil || IsNil(o.Internal) {
+		return nil, false
+	}
+	return o.Internal, true
+}
+
+// HasInternal returns a boolean if a field has been set.
+func (o *BaseModelCard) HasInternal() bool {
+	if o != nil && !IsNil(o.Internal) {
+		return true
+	}
+
+	return false
+}
+
+// SetInternal gets a reference to the given bool and assigns it to the Internal field.
+func (o *BaseModelCard) SetInternal(v bool) {
+	o.Internal = &v
+}
+
+// GetBillingModelName returns the BillingModelName field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *BaseModelCard) GetBillingModelName() string {
+	if o == nil || IsNil(o.BillingModelName.Get()) {
+		var ret string
+		return ret
+	}
+	return *o.BillingModelName.Get()
+}
+
+// GetBillingModelNameOk returns a tuple with the BillingModelName field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *BaseModelCard) GetBillingModelNameOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.BillingModelName.Get(), o.BillingModelName.IsSet()
+}
+
+// HasBillingModelName returns a boolean if a field has been set.
+func (o *BaseModelCard) HasBillingModelName() bool {
+	if o != nil && o.BillingModelName.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetBillingModelName gets a reference to the given NullableString and assigns it to the BillingModelName field.
+func (o *BaseModelCard) SetBillingModelName(v string) {
+	o.BillingModelName.Set(&v)
+}
+// SetBillingModelNameNil sets the value for BillingModelName to be an explicit nil
+func (o *BaseModelCard) SetBillingModelNameNil() {
+	o.BillingModelName.Set(nil)
+}
+
+// UnsetBillingModelName ensures that no value is present for BillingModelName, not even an explicit nil
+func (o *BaseModelCard) UnsetBillingModelName() {
+	o.BillingModelName.Unset()
+}
+
 // GetType returns the Type field value if set, zero value otherwise.
 func (o *BaseModelCard) GetType() string {
 	if o == nil || IsNil(o.Type) {
@@ -565,6 +645,12 @@ func (o BaseModelCard) ToMap() (map[string]interface{}, error) {
 	}
 	if o.DefaultModelTemperature.IsSet() {
 		toSerialize["default_model_temperature"] = o.DefaultModelTemperature.Get()
+	}
+	if !IsNil(o.Internal) {
+		toSerialize["internal"] = o.Internal
+	}
+	if o.BillingModelName.IsSet() {
+		toSerialize["billing_model_name"] = o.BillingModelName.Get()
 	}
 	if !IsNil(o.Type) {
 		toSerialize["type"] = o.Type

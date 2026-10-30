@@ -5,13 +5,13 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Event** | [**SSETypes**](SSETypes.md) |  | 
-**Data** | [**Data**](Data.md) |  | 
+**Data** | [**Data1**](Data1.md) |  | 
 
 ## Methods
 
 ### NewConversationEvents
 
-`func NewConversationEvents(event SSETypes, data Data, ) *ConversationEvents`
+`func NewConversationEvents(event SSETypes, data Data1, ) *ConversationEvents`
 
 NewConversationEvents instantiates a new ConversationEvents object
 This constructor will assign default values to properties that have it defined,
@@ -48,20 +48,20 @@ SetEvent sets Event field to given value.
 
 ### GetData
 
-`func (o *ConversationEvents) GetData() Data`
+`func (o *ConversationEvents) GetData() Data1`
 
 GetData returns the Data field if non-nil, zero value otherwise.
 
 ### GetDataOk
 
-`func (o *ConversationEvents) GetDataOk() (*Data, bool)`
+`func (o *ConversationEvents) GetDataOk() (*Data1, bool)`
 
 GetDataOk returns a tuple with the Data field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetData
 
-`func (o *ConversationEvents) SetData(v Data)`
+`func (o *ConversationEvents) SetData(v Data1)`
 
 SetData sets Data field to given value.
 

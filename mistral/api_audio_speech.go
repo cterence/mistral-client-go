@@ -40,7 +40,7 @@ func (r ApiSpeechV1AudioSpeechPostRequest) Execute() (*SpeechResponse, *http.Res
 /*
 SpeechV1AudioSpeechPost Speech
 
-Generate speech from text using a saved voice or a reference audio clip.
+Speech
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiSpeechV1AudioSpeechPostRequest

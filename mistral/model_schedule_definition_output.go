@@ -44,6 +44,20 @@ type ScheduleDefinitionOutput struct {
 	Policy *SchedulePolicy `json:"policy,omitempty"`
 	// Unique identifier for the schedule.
 	ScheduleId string `json:"schedule_id"`
+	// Remaining workflow executions before this schedule stops triggering automatically. null means unlimited; 0 means the limit has been reached and the schedule is exhausted.
+	RemainingExecutions NullableInt32 `json:"remaining_executions,omitempty"`
+	// Name of the workflow this schedule triggers.
+	WorkflowName string `json:"workflow_name"`
+	// Name of the deployment this schedule targets.
+	DeploymentName NullableString `json:"deployment_name,omitempty"`
+	// Whether the schedule is currently paused.
+	Paused bool `json:"paused"`
+	// Human-readable note associated with the current pause or resume state.
+	Note NullableString `json:"note,omitempty"`
+	// Upcoming scheduled executions (10 next executions, earliest first).
+	FutureExecutions []ScheduleFutureExecution `json:"future_executions,omitempty"`
+	// Most recent scheduled executions (10 most recent, newest last).
+	RecentExecutions []ScheduleRecentExecution `json:"recent_executions,omitempty"`
 }
 
 type _ScheduleDefinitionOutput ScheduleDefinitionOutput
@@ -52,10 +66,12 @@ type _ScheduleDefinitionOutput ScheduleDefinitionOutput
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewScheduleDefinitionOutput(input interface{}, scheduleId string) *ScheduleDefinitionOutput {
+func NewScheduleDefinitionOutput(input interface{}, scheduleId string, workflowName string, paused bool) *ScheduleDefinitionOutput {
 	this := ScheduleDefinitionOutput{}
 	this.Input = input
 	this.ScheduleId = scheduleId
+	this.WorkflowName = workflowName
+	this.Paused = paused
 	return &this
 }
 
@@ -445,6 +461,244 @@ func (o *ScheduleDefinitionOutput) SetScheduleId(v string) {
 	o.ScheduleId = v
 }
 
+// GetRemainingExecutions returns the RemainingExecutions field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *ScheduleDefinitionOutput) GetRemainingExecutions() int32 {
+	if o == nil || IsNil(o.RemainingExecutions.Get()) {
+		var ret int32
+		return ret
+	}
+	return *o.RemainingExecutions.Get()
+}
+
+// GetRemainingExecutionsOk returns a tuple with the RemainingExecutions field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *ScheduleDefinitionOutput) GetRemainingExecutionsOk() (*int32, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.RemainingExecutions.Get(), o.RemainingExecutions.IsSet()
+}
+
+// HasRemainingExecutions returns a boolean if a field has been set.
+func (o *ScheduleDefinitionOutput) HasRemainingExecutions() bool {
+	if o != nil && o.RemainingExecutions.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetRemainingExecutions gets a reference to the given NullableInt32 and assigns it to the RemainingExecutions field.
+func (o *ScheduleDefinitionOutput) SetRemainingExecutions(v int32) {
+	o.RemainingExecutions.Set(&v)
+}
+// SetRemainingExecutionsNil sets the value for RemainingExecutions to be an explicit nil
+func (o *ScheduleDefinitionOutput) SetRemainingExecutionsNil() {
+	o.RemainingExecutions.Set(nil)
+}
+
+// UnsetRemainingExecutions ensures that no value is present for RemainingExecutions, not even an explicit nil
+func (o *ScheduleDefinitionOutput) UnsetRemainingExecutions() {
+	o.RemainingExecutions.Unset()
+}
+
+// GetWorkflowName returns the WorkflowName field value
+func (o *ScheduleDefinitionOutput) GetWorkflowName() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.WorkflowName
+}
+
+// GetWorkflowNameOk returns a tuple with the WorkflowName field value
+// and a boolean to check if the value has been set.
+func (o *ScheduleDefinitionOutput) GetWorkflowNameOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.WorkflowName, true
+}
+
+// SetWorkflowName sets field value
+func (o *ScheduleDefinitionOutput) SetWorkflowName(v string) {
+	o.WorkflowName = v
+}
+
+// GetDeploymentName returns the DeploymentName field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *ScheduleDefinitionOutput) GetDeploymentName() string {
+	if o == nil || IsNil(o.DeploymentName.Get()) {
+		var ret string
+		return ret
+	}
+	return *o.DeploymentName.Get()
+}
+
+// GetDeploymentNameOk returns a tuple with the DeploymentName field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *ScheduleDefinitionOutput) GetDeploymentNameOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.DeploymentName.Get(), o.DeploymentName.IsSet()
+}
+
+// HasDeploymentName returns a boolean if a field has been set.
+func (o *ScheduleDefinitionOutput) HasDeploymentName() bool {
+	if o != nil && o.DeploymentName.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetDeploymentName gets a reference to the given NullableString and assigns it to the DeploymentName field.
+func (o *ScheduleDefinitionOutput) SetDeploymentName(v string) {
+	o.DeploymentName.Set(&v)
+}
+// SetDeploymentNameNil sets the value for DeploymentName to be an explicit nil
+func (o *ScheduleDefinitionOutput) SetDeploymentNameNil() {
+	o.DeploymentName.Set(nil)
+}
+
+// UnsetDeploymentName ensures that no value is present for DeploymentName, not even an explicit nil
+func (o *ScheduleDefinitionOutput) UnsetDeploymentName() {
+	o.DeploymentName.Unset()
+}
+
+// GetPaused returns the Paused field value
+func (o *ScheduleDefinitionOutput) GetPaused() bool {
+	if o == nil {
+		var ret bool
+		return ret
+	}
+
+	return o.Paused
+}
+
+// GetPausedOk returns a tuple with the Paused field value
+// and a boolean to check if the value has been set.
+func (o *ScheduleDefinitionOutput) GetPausedOk() (*bool, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Paused, true
+}
+
+// SetPaused sets field value
+func (o *ScheduleDefinitionOutput) SetPaused(v bool) {
+	o.Paused = v
+}
+
+// GetNote returns the Note field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *ScheduleDefinitionOutput) GetNote() string {
+	if o == nil || IsNil(o.Note.Get()) {
+		var ret string
+		return ret
+	}
+	return *o.Note.Get()
+}
+
+// GetNoteOk returns a tuple with the Note field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *ScheduleDefinitionOutput) GetNoteOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.Note.Get(), o.Note.IsSet()
+}
+
+// HasNote returns a boolean if a field has been set.
+func (o *ScheduleDefinitionOutput) HasNote() bool {
+	if o != nil && o.Note.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetNote gets a reference to the given NullableString and assigns it to the Note field.
+func (o *ScheduleDefinitionOutput) SetNote(v string) {
+	o.Note.Set(&v)
+}
+// SetNoteNil sets the value for Note to be an explicit nil
+func (o *ScheduleDefinitionOutput) SetNoteNil() {
+	o.Note.Set(nil)
+}
+
+// UnsetNote ensures that no value is present for Note, not even an explicit nil
+func (o *ScheduleDefinitionOutput) UnsetNote() {
+	o.Note.Unset()
+}
+
+// GetFutureExecutions returns the FutureExecutions field value if set, zero value otherwise.
+func (o *ScheduleDefinitionOutput) GetFutureExecutions() []ScheduleFutureExecution {
+	if o == nil || IsNil(o.FutureExecutions) {
+		var ret []ScheduleFutureExecution
+		return ret
+	}
+	return o.FutureExecutions
+}
+
+// GetFutureExecutionsOk returns a tuple with the FutureExecutions field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ScheduleDefinitionOutput) GetFutureExecutionsOk() ([]ScheduleFutureExecution, bool) {
+	if o == nil || IsNil(o.FutureExecutions) {
+		return nil, false
+	}
+	return o.FutureExecutions, true
+}
+
+// HasFutureExecutions returns a boolean if a field has been set.
+func (o *ScheduleDefinitionOutput) HasFutureExecutions() bool {
+	if o != nil && !IsNil(o.FutureExecutions) {
+		return true
+	}
+
+	return false
+}
+
+// SetFutureExecutions gets a reference to the given []ScheduleFutureExecution and assigns it to the FutureExecutions field.
+func (o *ScheduleDefinitionOutput) SetFutureExecutions(v []ScheduleFutureExecution) {
+	o.FutureExecutions = v
+}
+
+// GetRecentExecutions returns the RecentExecutions field value if set, zero value otherwise.
+func (o *ScheduleDefinitionOutput) GetRecentExecutions() []ScheduleRecentExecution {
+	if o == nil || IsNil(o.RecentExecutions) {
+		var ret []ScheduleRecentExecution
+		return ret
+	}
+	return o.RecentExecutions
+}
+
+// GetRecentExecutionsOk returns a tuple with the RecentExecutions field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ScheduleDefinitionOutput) GetRecentExecutionsOk() ([]ScheduleRecentExecution, bool) {
+	if o == nil || IsNil(o.RecentExecutions) {
+		return nil, false
+	}
+	return o.RecentExecutions, true
+}
+
+// HasRecentExecutions returns a boolean if a field has been set.
+func (o *ScheduleDefinitionOutput) HasRecentExecutions() bool {
+	if o != nil && !IsNil(o.RecentExecutions) {
+		return true
+	}
+
+	return false
+}
+
+// SetRecentExecutions gets a reference to the given []ScheduleRecentExecution and assigns it to the RecentExecutions field.
+func (o *ScheduleDefinitionOutput) SetRecentExecutions(v []ScheduleRecentExecution) {
+	o.RecentExecutions = v
+}
+
 func (o ScheduleDefinitionOutput) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -486,6 +740,23 @@ func (o ScheduleDefinitionOutput) ToMap() (map[string]interface{}, error) {
 		toSerialize["policy"] = o.Policy
 	}
 	toSerialize["schedule_id"] = o.ScheduleId
+	if o.RemainingExecutions.IsSet() {
+		toSerialize["remaining_executions"] = o.RemainingExecutions.Get()
+	}
+	toSerialize["workflow_name"] = o.WorkflowName
+	if o.DeploymentName.IsSet() {
+		toSerialize["deployment_name"] = o.DeploymentName.Get()
+	}
+	toSerialize["paused"] = o.Paused
+	if o.Note.IsSet() {
+		toSerialize["note"] = o.Note.Get()
+	}
+	if !IsNil(o.FutureExecutions) {
+		toSerialize["future_executions"] = o.FutureExecutions
+	}
+	if !IsNil(o.RecentExecutions) {
+		toSerialize["recent_executions"] = o.RecentExecutions
+	}
 	return toSerialize, nil
 }
 
@@ -496,6 +767,8 @@ func (o *ScheduleDefinitionOutput) UnmarshalJSON(data []byte) (err error) {
 	requiredProperties := []string{
 		"input",
 		"schedule_id",
+		"workflow_name",
+		"paused",
 	}
 
 	allProperties := make(map[string]interface{})

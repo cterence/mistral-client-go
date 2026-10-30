@@ -16,53 +16,39 @@ import (
 )
 
 
-// Value1 The value of the attribute
+// Value1 struct for Value1
 type Value1 struct {
-	TempoTraceAttributeBoolValue *TempoTraceAttributeBoolValue
-	TempoTraceAttributeIntValue *TempoTraceAttributeIntValue
-	TempoTraceAttributeStringValue *TempoTraceAttributeStringValue
+	Float32 *float32
+	String *string
 }
 
 // Unmarshal JSON data into any of the pointers in the struct
 func (dst *Value1) UnmarshalJSON(data []byte) error {
 	var err error
-	// try to unmarshal JSON data into TempoTraceAttributeBoolValue
-	err = json.Unmarshal(data, &dst.TempoTraceAttributeBoolValue);
+	// try to unmarshal JSON data into Float32
+	err = json.Unmarshal(data, &dst.Float32);
 	if err == nil {
-		jsonTempoTraceAttributeBoolValue, _ := json.Marshal(dst.TempoTraceAttributeBoolValue)
-		if string(jsonTempoTraceAttributeBoolValue) == "{}" { // empty struct
-			dst.TempoTraceAttributeBoolValue = nil
+		jsonFloat32, _ := json.Marshal(dst.Float32)
+		if string(jsonFloat32) == "{}" { // empty struct
+			dst.Float32 = nil
 		} else {
-			return nil // data stored in dst.TempoTraceAttributeBoolValue, return on the first match
+			return nil // data stored in dst.Float32, return on the first match
 		}
 	} else {
-		dst.TempoTraceAttributeBoolValue = nil
+		dst.Float32 = nil
 	}
 
-	// try to unmarshal JSON data into TempoTraceAttributeIntValue
-	err = json.Unmarshal(data, &dst.TempoTraceAttributeIntValue);
+	// try to unmarshal JSON data into String
+	err = json.Unmarshal(data, &dst.String);
 	if err == nil {
-		jsonTempoTraceAttributeIntValue, _ := json.Marshal(dst.TempoTraceAttributeIntValue)
-		if string(jsonTempoTraceAttributeIntValue) == "{}" { // empty struct
-			dst.TempoTraceAttributeIntValue = nil
+		jsonString, _ := json.Marshal(dst.String)
+		if string(jsonString) == "{}" { // empty struct
+			dst.String = nil
 		} else {
-			return nil // data stored in dst.TempoTraceAttributeIntValue, return on the first match
+			return nil // data stored in dst.String, return on the first match
 		}
 	} else {
-		dst.TempoTraceAttributeIntValue = nil
-	}
-
-	// try to unmarshal JSON data into TempoTraceAttributeStringValue
-	err = json.Unmarshal(data, &dst.TempoTraceAttributeStringValue);
-	if err == nil {
-		jsonTempoTraceAttributeStringValue, _ := json.Marshal(dst.TempoTraceAttributeStringValue)
-		if string(jsonTempoTraceAttributeStringValue) == "{}" { // empty struct
-			dst.TempoTraceAttributeStringValue = nil
-		} else {
-			return nil // data stored in dst.TempoTraceAttributeStringValue, return on the first match
-		}
-	} else {
-		dst.TempoTraceAttributeStringValue = nil
+		dst.String = nil
 	}
 
 	return fmt.Errorf("data failed to match schemas in anyOf(Value1)")
@@ -70,16 +56,12 @@ func (dst *Value1) UnmarshalJSON(data []byte) error {
 
 // Marshal data from the first non-nil pointers in the struct to JSON
 func (src Value1) MarshalJSON() ([]byte, error) {
-	if src.TempoTraceAttributeBoolValue != nil {
-		return json.Marshal(&src.TempoTraceAttributeBoolValue)
+	if src.Float32 != nil {
+		return json.Marshal(&src.Float32)
 	}
 
-	if src.TempoTraceAttributeIntValue != nil {
-		return json.Marshal(&src.TempoTraceAttributeIntValue)
-	}
-
-	if src.TempoTraceAttributeStringValue != nil {
-		return json.Marshal(&src.TempoTraceAttributeStringValue)
+	if src.String != nil {
+		return json.Marshal(&src.String)
 	}
 
 	return nil, nil // no data in anyOf schemas

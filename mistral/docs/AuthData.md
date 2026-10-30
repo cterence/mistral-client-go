@@ -5,13 +5,14 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **ClientId** | **string** |  | 
-**ClientSecret** | **string** |  | 
+**ClientSecret** | Pointer to **NullableString** |  | [optional] 
+**ClientScopes** | Pointer to **[]string** |  | [optional] 
 
 ## Methods
 
 ### NewAuthData
 
-`func NewAuthData(clientId string, clientSecret string, ) *AuthData`
+`func NewAuthData(clientId string, ) *AuthData`
 
 NewAuthData instantiates a new AuthData object
 This constructor will assign default values to properties that have it defined,
@@ -65,7 +66,57 @@ and a boolean to check if the value has been set.
 
 SetClientSecret sets ClientSecret field to given value.
 
+### HasClientSecret
 
+`func (o *AuthData) HasClientSecret() bool`
+
+HasClientSecret returns a boolean if a field has been set.
+
+### SetClientSecretNil
+
+`func (o *AuthData) SetClientSecretNil(b bool)`
+
+ SetClientSecretNil sets the value for ClientSecret to be an explicit nil
+
+### UnsetClientSecret
+`func (o *AuthData) UnsetClientSecret()`
+
+UnsetClientSecret ensures that no value is present for ClientSecret, not even an explicit nil
+### GetClientScopes
+
+`func (o *AuthData) GetClientScopes() []string`
+
+GetClientScopes returns the ClientScopes field if non-nil, zero value otherwise.
+
+### GetClientScopesOk
+
+`func (o *AuthData) GetClientScopesOk() (*[]string, bool)`
+
+GetClientScopesOk returns a tuple with the ClientScopes field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetClientScopes
+
+`func (o *AuthData) SetClientScopes(v []string)`
+
+SetClientScopes sets ClientScopes field to given value.
+
+### HasClientScopes
+
+`func (o *AuthData) HasClientScopes() bool`
+
+HasClientScopes returns a boolean if a field has been set.
+
+### SetClientScopesNil
+
+`func (o *AuthData) SetClientScopesNil(b bool)`
+
+ SetClientScopesNil sets the value for ClientScopes to be an explicit nil
+
+### UnsetClientScopes
+`func (o *AuthData) UnsetClientScopes()`
+
+UnsetClientScopes ensures that no value is present for ClientScopes, not even an explicit nil
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

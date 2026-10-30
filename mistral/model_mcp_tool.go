@@ -24,11 +24,12 @@ type MCPTool struct {
 	Title NullableString `json:"title,omitempty"`
 	Description NullableString `json:"description,omitempty"`
 	InputSchema map[string]interface{} `json:"inputSchema"`
+	Execution NullableToolExecution `json:"execution,omitempty"`
+	// Output JSON schema of the query's model
 	OutputSchema map[string]interface{} `json:"outputSchema,omitempty"`
 	Icons []MCPServerIcon `json:"icons,omitempty"`
 	Annotations NullableToolAnnotations `json:"annotations,omitempty"`
 	Meta NullableMCPToolMeta `json:"_meta,omitempty"`
-	Execution NullableToolExecution `json:"execution,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -185,6 +186,48 @@ func (o *MCPTool) SetInputSchema(v map[string]interface{}) {
 	o.InputSchema = v
 }
 
+// GetExecution returns the Execution field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *MCPTool) GetExecution() ToolExecution {
+	if o == nil || IsNil(o.Execution.Get()) {
+		var ret ToolExecution
+		return ret
+	}
+	return *o.Execution.Get()
+}
+
+// GetExecutionOk returns a tuple with the Execution field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *MCPTool) GetExecutionOk() (*ToolExecution, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.Execution.Get(), o.Execution.IsSet()
+}
+
+// HasExecution returns a boolean if a field has been set.
+func (o *MCPTool) HasExecution() bool {
+	if o != nil && o.Execution.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetExecution gets a reference to the given NullableToolExecution and assigns it to the Execution field.
+func (o *MCPTool) SetExecution(v ToolExecution) {
+	o.Execution.Set(&v)
+}
+// SetExecutionNil sets the value for Execution to be an explicit nil
+func (o *MCPTool) SetExecutionNil() {
+	o.Execution.Set(nil)
+}
+
+// UnsetExecution ensures that no value is present for Execution, not even an explicit nil
+func (o *MCPTool) UnsetExecution() {
+	o.Execution.Unset()
+}
+
 // GetOutputSchema returns the OutputSchema field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *MCPTool) GetOutputSchema() map[string]interface{} {
 	if o == nil {
@@ -335,48 +378,6 @@ func (o *MCPTool) UnsetMeta() {
 	o.Meta.Unset()
 }
 
-// GetExecution returns the Execution field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *MCPTool) GetExecution() ToolExecution {
-	if o == nil || IsNil(o.Execution.Get()) {
-		var ret ToolExecution
-		return ret
-	}
-	return *o.Execution.Get()
-}
-
-// GetExecutionOk returns a tuple with the Execution field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *MCPTool) GetExecutionOk() (*ToolExecution, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return o.Execution.Get(), o.Execution.IsSet()
-}
-
-// HasExecution returns a boolean if a field has been set.
-func (o *MCPTool) HasExecution() bool {
-	if o != nil && o.Execution.IsSet() {
-		return true
-	}
-
-	return false
-}
-
-// SetExecution gets a reference to the given NullableToolExecution and assigns it to the Execution field.
-func (o *MCPTool) SetExecution(v ToolExecution) {
-	o.Execution.Set(&v)
-}
-// SetExecutionNil sets the value for Execution to be an explicit nil
-func (o *MCPTool) SetExecutionNil() {
-	o.Execution.Set(nil)
-}
-
-// UnsetExecution ensures that no value is present for Execution, not even an explicit nil
-func (o *MCPTool) UnsetExecution() {
-	o.Execution.Unset()
-}
-
 func (o MCPTool) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -395,6 +396,9 @@ func (o MCPTool) ToMap() (map[string]interface{}, error) {
 		toSerialize["description"] = o.Description.Get()
 	}
 	toSerialize["inputSchema"] = o.InputSchema
+	if o.Execution.IsSet() {
+		toSerialize["execution"] = o.Execution.Get()
+	}
 	if o.OutputSchema != nil {
 		toSerialize["outputSchema"] = o.OutputSchema
 	}
@@ -406,9 +410,6 @@ func (o MCPTool) ToMap() (map[string]interface{}, error) {
 	}
 	if o.Meta.IsSet() {
 		toSerialize["_meta"] = o.Meta.Get()
-	}
-	if o.Execution.IsSet() {
-		toSerialize["execution"] = o.Execution.Get()
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -458,11 +459,11 @@ func (o *MCPTool) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "title")
 		delete(additionalProperties, "description")
 		delete(additionalProperties, "inputSchema")
+		delete(additionalProperties, "execution")
 		delete(additionalProperties, "outputSchema")
 		delete(additionalProperties, "icons")
 		delete(additionalProperties, "annotations")
 		delete(additionalProperties, "_meta")
-		delete(additionalProperties, "execution")
 		o.AdditionalProperties = additionalProperties
 	}
 

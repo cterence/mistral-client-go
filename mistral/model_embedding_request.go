@@ -12,7 +12,6 @@ package mistral
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -24,13 +23,14 @@ type EmbeddingRequest struct {
 	// ID of the model to use.
 	Model string `json:"model"`
 	Metadata map[string]interface{} `json:"metadata,omitempty"`
-	Input Input1 `json:"input"`
+	Input Input2 `json:"input"`
 	// The dimension of the output embeddings when feature available. If not provided, a default output dimension will be used.
 	OutputDimension NullableInt32 `json:"output_dimension,omitempty"`
 	// The data type of the output embeddings when feature available. If not provided, a default output data type will be used.
 	OutputDtype *EmbeddingDtype `json:"output_dtype,omitempty"`
 	// The format of embeddings in the response.
 	EncodingFormat *EncodingFormat `json:"encoding_format,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _EmbeddingRequest EmbeddingRequest
@@ -39,7 +39,7 @@ type _EmbeddingRequest EmbeddingRequest
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewEmbeddingRequest(model string, input Input1) *EmbeddingRequest {
+func NewEmbeddingRequest(model string, input Input2) *EmbeddingRequest {
 	this := EmbeddingRequest{}
 	this.Model = model
 	this.Input = input
@@ -120,9 +120,9 @@ func (o *EmbeddingRequest) SetMetadata(v map[string]interface{}) {
 }
 
 // GetInput returns the Input field value
-func (o *EmbeddingRequest) GetInput() Input1 {
+func (o *EmbeddingRequest) GetInput() Input2 {
 	if o == nil {
-		var ret Input1
+		var ret Input2
 		return ret
 	}
 
@@ -131,7 +131,7 @@ func (o *EmbeddingRequest) GetInput() Input1 {
 
 // GetInputOk returns a tuple with the Input field value
 // and a boolean to check if the value has been set.
-func (o *EmbeddingRequest) GetInputOk() (*Input1, bool) {
+func (o *EmbeddingRequest) GetInputOk() (*Input2, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -139,7 +139,7 @@ func (o *EmbeddingRequest) GetInputOk() (*Input1, bool) {
 }
 
 // SetInput sets field value
-func (o *EmbeddingRequest) SetInput(v Input1) {
+func (o *EmbeddingRequest) SetInput(v Input2) {
 	o.Input = v
 }
 
@@ -273,6 +273,11 @@ func (o EmbeddingRequest) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.EncodingFormat) {
 		toSerialize["encoding_format"] = o.EncodingFormat
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -301,14 +306,25 @@ func (o *EmbeddingRequest) UnmarshalJSON(data []byte) (err error) {
 
 	varEmbeddingRequest := _EmbeddingRequest{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	err = decoder.Decode(&varEmbeddingRequest)
+	err = json.Unmarshal(data, &varEmbeddingRequest)
 
 	if err != nil {
 		return err
 	}
 
 	*o = EmbeddingRequest(varEmbeddingRequest)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "model")
+		delete(additionalProperties, "metadata")
+		delete(additionalProperties, "input")
+		delete(additionalProperties, "output_dimension")
+		delete(additionalProperties, "output_dtype")
+		delete(additionalProperties, "encoding_format")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

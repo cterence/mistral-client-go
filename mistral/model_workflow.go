@@ -43,6 +43,8 @@ type Workflow struct {
 	IsTechnical *bool `json:"is_technical,omitempty"`
 	// Whether the workflow is archived
 	Archived *bool `json:"archived,omitempty"`
+	// Tags for filtering and discovery
+	Tags []string `json:"tags,omitempty"`
 }
 
 type _Workflow Workflow
@@ -406,6 +408,38 @@ func (o *Workflow) SetArchived(v bool) {
 	o.Archived = &v
 }
 
+// GetTags returns the Tags field value if set, zero value otherwise.
+func (o *Workflow) GetTags() []string {
+	if o == nil || IsNil(o.Tags) {
+		var ret []string
+		return ret
+	}
+	return o.Tags
+}
+
+// GetTagsOk returns a tuple with the Tags field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Workflow) GetTagsOk() ([]string, bool) {
+	if o == nil || IsNil(o.Tags) {
+		return nil, false
+	}
+	return o.Tags, true
+}
+
+// HasTags returns a boolean if a field has been set.
+func (o *Workflow) HasTags() bool {
+	if o != nil && !IsNil(o.Tags) {
+		return true
+	}
+
+	return false
+}
+
+// SetTags gets a reference to the given []string and assigns it to the Tags field.
+func (o *Workflow) SetTags(v []string) {
+	o.Tags = v
+}
+
 func (o Workflow) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -436,6 +470,9 @@ func (o Workflow) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.Archived) {
 		toSerialize["archived"] = o.Archived
+	}
+	if !IsNil(o.Tags) {
+		toSerialize["tags"] = o.Tags
 	}
 	return toSerialize, nil
 }

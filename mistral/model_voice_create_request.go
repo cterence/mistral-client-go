@@ -12,6 +12,7 @@ package mistral
 
 import (
 	"encoding/json"
+	"os"
 	"bytes"
 	"fmt"
 )
@@ -28,9 +29,10 @@ type VoiceCreateRequest struct {
 	Age NullableInt32 `json:"age,omitempty"`
 	Tags []string `json:"tags,omitempty"`
 	Color NullableString `json:"color,omitempty"`
+	Description NullableString `json:"description,omitempty"`
 	RetentionNotice *int32 `json:"retention_notice,omitempty"`
 	// Base64-encoded audio file
-	SampleAudio string `json:"sample_audio"`
+	SampleAudio NullableOsFile `json:"sample_audio,omitempty"`
 	// Original filename for extension detection
 	SampleFilename NullableString `json:"sample_filename,omitempty"`
 }
@@ -41,12 +43,11 @@ type _VoiceCreateRequest VoiceCreateRequest
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewVoiceCreateRequest(name string, sampleAudio string) *VoiceCreateRequest {
+func NewVoiceCreateRequest(name string) *VoiceCreateRequest {
 	this := VoiceCreateRequest{}
 	this.Name = name
 	var retentionNotice int32 = 30
 	this.RetentionNotice = &retentionNotice
-	this.SampleAudio = sampleAudio
 	return &this
 }
 
@@ -317,6 +318,48 @@ func (o *VoiceCreateRequest) UnsetColor() {
 	o.Color.Unset()
 }
 
+// GetDescription returns the Description field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *VoiceCreateRequest) GetDescription() string {
+	if o == nil || IsNil(o.Description.Get()) {
+		var ret string
+		return ret
+	}
+	return *o.Description.Get()
+}
+
+// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *VoiceCreateRequest) GetDescriptionOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.Description.Get(), o.Description.IsSet()
+}
+
+// HasDescription returns a boolean if a field has been set.
+func (o *VoiceCreateRequest) HasDescription() bool {
+	if o != nil && o.Description.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetDescription gets a reference to the given NullableString and assigns it to the Description field.
+func (o *VoiceCreateRequest) SetDescription(v string) {
+	o.Description.Set(&v)
+}
+// SetDescriptionNil sets the value for Description to be an explicit nil
+func (o *VoiceCreateRequest) SetDescriptionNil() {
+	o.Description.Set(nil)
+}
+
+// UnsetDescription ensures that no value is present for Description, not even an explicit nil
+func (o *VoiceCreateRequest) UnsetDescription() {
+	o.Description.Unset()
+}
+
 // GetRetentionNotice returns the RetentionNotice field value if set, zero value otherwise.
 func (o *VoiceCreateRequest) GetRetentionNotice() int32 {
 	if o == nil || IsNil(o.RetentionNotice) {
@@ -349,28 +392,46 @@ func (o *VoiceCreateRequest) SetRetentionNotice(v int32) {
 	o.RetentionNotice = &v
 }
 
-// GetSampleAudio returns the SampleAudio field value
-func (o *VoiceCreateRequest) GetSampleAudio() string {
-	if o == nil {
-		var ret string
+// GetSampleAudio returns the SampleAudio field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *VoiceCreateRequest) GetSampleAudio() *os.File {
+	if o == nil || IsNil(o.SampleAudio.Get()) {
+		var ret *os.File
 		return ret
 	}
-
-	return o.SampleAudio
+	return o.SampleAudio.Get()
 }
 
-// GetSampleAudioOk returns a tuple with the SampleAudio field value
+// GetSampleAudioOk returns a tuple with the SampleAudio field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *VoiceCreateRequest) GetSampleAudioOk() (*string, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *VoiceCreateRequest) GetSampleAudioOk() (*os.File, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.SampleAudio, true
+	return o.SampleAudio.Get(), o.SampleAudio.IsSet()
 }
 
-// SetSampleAudio sets field value
-func (o *VoiceCreateRequest) SetSampleAudio(v string) {
-	o.SampleAudio = v
+// HasSampleAudio returns a boolean if a field has been set.
+func (o *VoiceCreateRequest) HasSampleAudio() bool {
+	if o != nil && o.SampleAudio.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetSampleAudio gets a reference to the given NullableOsFile and assigns it to the SampleAudio field.
+func (o *VoiceCreateRequest) SetSampleAudio(v *os.File) {
+	o.SampleAudio.Set(v)
+}
+// SetSampleAudioNil sets the value for SampleAudio to be an explicit nil
+func (o *VoiceCreateRequest) SetSampleAudioNil() {
+	o.SampleAudio.Set(nil)
+}
+
+// UnsetSampleAudio ensures that no value is present for SampleAudio, not even an explicit nil
+func (o *VoiceCreateRequest) UnsetSampleAudio() {
+	o.SampleAudio.Unset()
 }
 
 // GetSampleFilename returns the SampleFilename field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -444,10 +505,15 @@ func (o VoiceCreateRequest) ToMap() (map[string]interface{}, error) {
 	if o.Color.IsSet() {
 		toSerialize["color"] = o.Color.Get()
 	}
+	if o.Description.IsSet() {
+		toSerialize["description"] = o.Description.Get()
+	}
 	if !IsNil(o.RetentionNotice) {
 		toSerialize["retention_notice"] = o.RetentionNotice
 	}
-	toSerialize["sample_audio"] = o.SampleAudio
+	if o.SampleAudio.IsSet() {
+		toSerialize["sample_audio"] = o.SampleAudio.Get()
+	}
 	if o.SampleFilename.IsSet() {
 		toSerialize["sample_filename"] = o.SampleFilename.Get()
 	}
@@ -460,7 +526,6 @@ func (o *VoiceCreateRequest) UnmarshalJSON(data []byte) (err error) {
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
 		"name",
-		"sample_audio",
 	}
 
 	allProperties := make(map[string]interface{})

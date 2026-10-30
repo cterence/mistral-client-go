@@ -29,6 +29,7 @@ jobs:
         id: spec
         run: |
           curl -sL --fail https://docs.mistral.ai/openapi.yaml -o openapi.new.yaml
+          python3 scripts/normalize_spec.py openapi.new.yaml
           echo "sha256=$(sha256sum openapi.new.yaml | cut -d ' ' -f1)" >> "$GITHUB_OUTPUT"
           if cmp -s openapi.new.yaml openapi.yaml; then
             echo "changed=false" >> "$GITHUB_OUTPUT"

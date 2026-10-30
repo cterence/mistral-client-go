@@ -29,6 +29,8 @@ const (
 	MCPSUPPORTEDLANGUAGE_AR MCPSupportedLanguage = "ar"
 	MCPSUPPORTEDLANGUAGE_PT_BR MCPSupportedLanguage = "pt-BR"
 	MCPSUPPORTEDLANGUAGE_NL MCPSupportedLanguage = "nl"
+	MCPSUPPORTEDLANGUAGE_UK MCPSupportedLanguage = "uk"
+	MCPSUPPORTEDLANGUAGE_KO MCPSupportedLanguage = "ko"
 )
 
 // All allowed values of MCPSupportedLanguage enum
@@ -42,6 +44,8 @@ var AllowedMCPSupportedLanguageEnumValues = []MCPSupportedLanguage{
 	"ar",
 	"pt-BR",
 	"nl",
+	"uk",
+	"ko",
 }
 
 func (v *MCPSupportedLanguage) UnmarshalJSON(src []byte) error {

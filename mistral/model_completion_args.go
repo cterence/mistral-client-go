@@ -29,8 +29,7 @@ type CompletionArgs struct {
 	Prediction NullablePrediction `json:"prediction,omitempty"`
 	ResponseFormat NullableResponseFormat `json:"response_format,omitempty"`
 	ToolChoice *ToolChoiceEnum `json:"tool_choice,omitempty"`
-	// Controls the reasoning effort level for reasoning models. \"high\" enables comprehensive reasoning traces, \"none\" disables reasoning effort.
-	ReasoningEffort NullableString `json:"reasoning_effort,omitempty"`
+	ReasoningEffort NullableReasoningEffort `json:"reasoning_effort,omitempty"`
 }
 
 // NewCompletionArgs instantiates a new CompletionArgs object
@@ -465,9 +464,9 @@ func (o *CompletionArgs) SetToolChoice(v ToolChoiceEnum) {
 }
 
 // GetReasoningEffort returns the ReasoningEffort field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *CompletionArgs) GetReasoningEffort() string {
+func (o *CompletionArgs) GetReasoningEffort() ReasoningEffort {
 	if o == nil || IsNil(o.ReasoningEffort.Get()) {
-		var ret string
+		var ret ReasoningEffort
 		return ret
 	}
 	return *o.ReasoningEffort.Get()
@@ -476,7 +475,7 @@ func (o *CompletionArgs) GetReasoningEffort() string {
 // GetReasoningEffortOk returns a tuple with the ReasoningEffort field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *CompletionArgs) GetReasoningEffortOk() (*string, bool) {
+func (o *CompletionArgs) GetReasoningEffortOk() (*ReasoningEffort, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -492,8 +491,8 @@ func (o *CompletionArgs) HasReasoningEffort() bool {
 	return false
 }
 
-// SetReasoningEffort gets a reference to the given NullableString and assigns it to the ReasoningEffort field.
-func (o *CompletionArgs) SetReasoningEffort(v string) {
+// SetReasoningEffort gets a reference to the given NullableReasoningEffort and assigns it to the ReasoningEffort field.
+func (o *CompletionArgs) SetReasoningEffort(v ReasoningEffort) {
 	o.ReasoningEffort.Set(&v)
 }
 // SetReasoningEffortNil sets the value for ReasoningEffort to be an explicit nil

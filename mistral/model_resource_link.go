@@ -12,6 +12,7 @@ package mistral
 
 import (
 	"encoding/json"
+	"bytes"
 	"fmt"
 )
 
@@ -29,8 +30,7 @@ type ResourceLink struct {
 	Icons []MCPServerIcon `json:"icons,omitempty"`
 	Annotations NullableAnnotations `json:"annotations,omitempty"`
 	Meta map[string]interface{} `json:"_meta,omitempty"`
-	Type string `json:"type"`
-	AdditionalProperties map[string]interface{}
+	Type *string `json:"type,omitempty"`
 }
 
 type _ResourceLink ResourceLink
@@ -39,11 +39,12 @@ type _ResourceLink ResourceLink
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewResourceLink(name string, uri string, type_ string) *ResourceLink {
+func NewResourceLink(name string, uri string) *ResourceLink {
 	this := ResourceLink{}
 	this.Name = name
 	this.Uri = uri
-	this.Type = type_
+	var type_ string = "resource_link"
+	this.Type = &type_
 	return &this
 }
 
@@ -52,6 +53,8 @@ func NewResourceLink(name string, uri string, type_ string) *ResourceLink {
 // but it doesn't guarantee that properties required by API are set
 func NewResourceLinkWithDefaults() *ResourceLink {
 	this := ResourceLink{}
+	var type_ string = "resource_link"
+	this.Type = &type_
 	return &this
 }
 
@@ -379,28 +382,36 @@ func (o *ResourceLink) SetMeta(v map[string]interface{}) {
 	o.Meta = v
 }
 
-// GetType returns the Type field value
+// GetType returns the Type field value if set, zero value otherwise.
 func (o *ResourceLink) GetType() string {
-	if o == nil {
+	if o == nil || IsNil(o.Type) {
 		var ret string
 		return ret
 	}
-
-	return o.Type
+	return *o.Type
 }
 
-// GetTypeOk returns a tuple with the Type field value
+// GetTypeOk returns a tuple with the Type field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ResourceLink) GetTypeOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Type) {
 		return nil, false
 	}
-	return &o.Type, true
+	return o.Type, true
 }
 
-// SetType sets field value
+// HasType returns a boolean if a field has been set.
+func (o *ResourceLink) HasType() bool {
+	if o != nil && !IsNil(o.Type) {
+		return true
+	}
+
+	return false
+}
+
+// SetType gets a reference to the given string and assigns it to the Type field.
 func (o *ResourceLink) SetType(v string) {
-	o.Type = v
+	o.Type = &v
 }
 
 func (o ResourceLink) MarshalJSON() ([]byte, error) {
@@ -436,12 +447,9 @@ func (o ResourceLink) ToMap() (map[string]interface{}, error) {
 	if o.Meta != nil {
 		toSerialize["_meta"] = o.Meta
 	}
-	toSerialize["type"] = o.Type
-
-	for key, value := range o.AdditionalProperties {
-		toSerialize[key] = value
+	if !IsNil(o.Type) {
+		toSerialize["type"] = o.Type
 	}
-
 	return toSerialize, nil
 }
 
@@ -452,7 +460,6 @@ func (o *ResourceLink) UnmarshalJSON(data []byte) (err error) {
 	requiredProperties := []string{
 		"name",
 		"uri",
-		"type",
 	}
 
 	allProperties := make(map[string]interface{})
@@ -471,29 +478,14 @@ func (o *ResourceLink) UnmarshalJSON(data []byte) (err error) {
 
 	varResourceLink := _ResourceLink{}
 
-	err = json.Unmarshal(data, &varResourceLink)
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	err = decoder.Decode(&varResourceLink)
 
 	if err != nil {
 		return err
 	}
 
 	*o = ResourceLink(varResourceLink)
-
-	additionalProperties := make(map[string]interface{})
-
-	if err = json.Unmarshal(data, &additionalProperties); err == nil {
-		delete(additionalProperties, "name")
-		delete(additionalProperties, "title")
-		delete(additionalProperties, "uri")
-		delete(additionalProperties, "description")
-		delete(additionalProperties, "mimeType")
-		delete(additionalProperties, "size")
-		delete(additionalProperties, "icons")
-		delete(additionalProperties, "annotations")
-		delete(additionalProperties, "_meta")
-		delete(additionalProperties, "type")
-		o.AdditionalProperties = additionalProperties
-	}
 
 	return err
 }

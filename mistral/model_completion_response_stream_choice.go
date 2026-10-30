@@ -24,6 +24,8 @@ type CompletionResponseStreamChoice struct {
 	Index int32 `json:"index"`
 	Delta DeltaMessage `json:"delta"`
 	FinishReason NullableString `json:"finish_reason"`
+	Logprobs NullableChatCompletionResponseChoiceLogprobs `json:"logprobs,omitempty"`
+	PromptLogprobs NullableChatCompletionResponseChoiceLogprobs `json:"prompt_logprobs,omitempty"`
 }
 
 type _CompletionResponseStreamChoice CompletionResponseStreamChoice
@@ -122,6 +124,90 @@ func (o *CompletionResponseStreamChoice) SetFinishReason(v string) {
 	o.FinishReason.Set(&v)
 }
 
+// GetLogprobs returns the Logprobs field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *CompletionResponseStreamChoice) GetLogprobs() ChatCompletionResponseChoiceLogprobs {
+	if o == nil || IsNil(o.Logprobs.Get()) {
+		var ret ChatCompletionResponseChoiceLogprobs
+		return ret
+	}
+	return *o.Logprobs.Get()
+}
+
+// GetLogprobsOk returns a tuple with the Logprobs field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *CompletionResponseStreamChoice) GetLogprobsOk() (*ChatCompletionResponseChoiceLogprobs, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.Logprobs.Get(), o.Logprobs.IsSet()
+}
+
+// HasLogprobs returns a boolean if a field has been set.
+func (o *CompletionResponseStreamChoice) HasLogprobs() bool {
+	if o != nil && o.Logprobs.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetLogprobs gets a reference to the given NullableChatCompletionResponseChoiceLogprobs and assigns it to the Logprobs field.
+func (o *CompletionResponseStreamChoice) SetLogprobs(v ChatCompletionResponseChoiceLogprobs) {
+	o.Logprobs.Set(&v)
+}
+// SetLogprobsNil sets the value for Logprobs to be an explicit nil
+func (o *CompletionResponseStreamChoice) SetLogprobsNil() {
+	o.Logprobs.Set(nil)
+}
+
+// UnsetLogprobs ensures that no value is present for Logprobs, not even an explicit nil
+func (o *CompletionResponseStreamChoice) UnsetLogprobs() {
+	o.Logprobs.Unset()
+}
+
+// GetPromptLogprobs returns the PromptLogprobs field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *CompletionResponseStreamChoice) GetPromptLogprobs() ChatCompletionResponseChoiceLogprobs {
+	if o == nil || IsNil(o.PromptLogprobs.Get()) {
+		var ret ChatCompletionResponseChoiceLogprobs
+		return ret
+	}
+	return *o.PromptLogprobs.Get()
+}
+
+// GetPromptLogprobsOk returns a tuple with the PromptLogprobs field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *CompletionResponseStreamChoice) GetPromptLogprobsOk() (*ChatCompletionResponseChoiceLogprobs, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.PromptLogprobs.Get(), o.PromptLogprobs.IsSet()
+}
+
+// HasPromptLogprobs returns a boolean if a field has been set.
+func (o *CompletionResponseStreamChoice) HasPromptLogprobs() bool {
+	if o != nil && o.PromptLogprobs.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetPromptLogprobs gets a reference to the given NullableChatCompletionResponseChoiceLogprobs and assigns it to the PromptLogprobs field.
+func (o *CompletionResponseStreamChoice) SetPromptLogprobs(v ChatCompletionResponseChoiceLogprobs) {
+	o.PromptLogprobs.Set(&v)
+}
+// SetPromptLogprobsNil sets the value for PromptLogprobs to be an explicit nil
+func (o *CompletionResponseStreamChoice) SetPromptLogprobsNil() {
+	o.PromptLogprobs.Set(nil)
+}
+
+// UnsetPromptLogprobs ensures that no value is present for PromptLogprobs, not even an explicit nil
+func (o *CompletionResponseStreamChoice) UnsetPromptLogprobs() {
+	o.PromptLogprobs.Unset()
+}
+
 func (o CompletionResponseStreamChoice) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -135,6 +221,12 @@ func (o CompletionResponseStreamChoice) ToMap() (map[string]interface{}, error) 
 	toSerialize["index"] = o.Index
 	toSerialize["delta"] = o.Delta
 	toSerialize["finish_reason"] = o.FinishReason.Get()
+	if o.Logprobs.IsSet() {
+		toSerialize["logprobs"] = o.Logprobs.Get()
+	}
+	if o.PromptLogprobs.IsSet() {
+		toSerialize["prompt_logprobs"] = o.PromptLogprobs.Get()
+	}
 	return toSerialize, nil
 }
 

@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **UpdatedAt** | **time.Time** |  | 
 **DeletedAt** | **NullableTime** |  | 
 **Name** | **string** |  | 
+**Slug** | **string** |  | 
 **Description** | **string** |  | 
 **OwnerId** | **string** |  | 
 **WorkspaceId** | **string** |  | 
@@ -17,7 +18,7 @@ Name | Type | Description | Notes
 
 ### NewDatasetPreview
 
-`func NewDatasetPreview(id string, createdAt time.Time, updatedAt time.Time, deletedAt NullableTime, name string, description string, ownerId string, workspaceId string, ) *DatasetPreview`
+`func NewDatasetPreview(id string, createdAt time.Time, updatedAt time.Time, deletedAt NullableTime, name string, slug string, description string, ownerId string, workspaceId string, ) *DatasetPreview`
 
 NewDatasetPreview instantiates a new DatasetPreview object
 This constructor will assign default values to properties that have it defined,
@@ -140,6 +141,26 @@ and a boolean to check if the value has been set.
 `func (o *DatasetPreview) SetName(v string)`
 
 SetName sets Name field to given value.
+
+
+### GetSlug
+
+`func (o *DatasetPreview) GetSlug() string`
+
+GetSlug returns the Slug field if non-nil, zero value otherwise.
+
+### GetSlugOk
+
+`func (o *DatasetPreview) GetSlugOk() (*string, bool)`
+
+GetSlugOk returns a tuple with the Slug field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSlug
+
+`func (o *DatasetPreview) SetSlug(v string)`
+
+SetSlug sets Slug field to given value.
 
 
 ### GetDescription

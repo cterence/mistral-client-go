@@ -40,6 +40,8 @@ func (r ApiOcrV1OcrPostRequest) Execute() (*OCRResponse, *http.Response, error) 
 /*
 OcrV1OcrPost OCR
 
+OCR
+
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiOcrV1OcrPostRequest
 */

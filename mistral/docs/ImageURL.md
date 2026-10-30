@@ -1,76 +1,86 @@
-# ImageUrl
+# ImageURL
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Url** | **string** |  | 
-**Detail** | Pointer to [**ImageDetail**](ImageDetail.md) |  | [optional] 
+**Detail** | Pointer to [**NullableImageDetail**](ImageDetail.md) |  | [optional] 
 
 ## Methods
 
-### NewImageUrl
+### NewImageURL
 
-`func NewImageUrl(url string, ) *ImageUrl`
+`func NewImageURL(url string, ) *ImageURL`
 
-NewImageUrl instantiates a new ImageUrl object
+NewImageURL instantiates a new ImageURL object
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
 will change when the set of required properties is changed
 
-### NewImageUrlWithDefaults
+### NewImageURLWithDefaults
 
-`func NewImageUrlWithDefaults() *ImageUrl`
+`func NewImageURLWithDefaults() *ImageURL`
 
-NewImageUrlWithDefaults instantiates a new ImageUrl object
+NewImageURLWithDefaults instantiates a new ImageURL object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
 ### GetUrl
 
-`func (o *ImageUrl) GetUrl() string`
+`func (o *ImageURL) GetUrl() string`
 
 GetUrl returns the Url field if non-nil, zero value otherwise.
 
 ### GetUrlOk
 
-`func (o *ImageUrl) GetUrlOk() (*string, bool)`
+`func (o *ImageURL) GetUrlOk() (*string, bool)`
 
 GetUrlOk returns a tuple with the Url field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetUrl
 
-`func (o *ImageUrl) SetUrl(v string)`
+`func (o *ImageURL) SetUrl(v string)`
 
 SetUrl sets Url field to given value.
 
 
 ### GetDetail
 
-`func (o *ImageUrl) GetDetail() ImageDetail`
+`func (o *ImageURL) GetDetail() ImageDetail`
 
 GetDetail returns the Detail field if non-nil, zero value otherwise.
 
 ### GetDetailOk
 
-`func (o *ImageUrl) GetDetailOk() (*ImageDetail, bool)`
+`func (o *ImageURL) GetDetailOk() (*ImageDetail, bool)`
 
 GetDetailOk returns a tuple with the Detail field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetDetail
 
-`func (o *ImageUrl) SetDetail(v ImageDetail)`
+`func (o *ImageURL) SetDetail(v ImageDetail)`
 
 SetDetail sets Detail field to given value.
 
 ### HasDetail
 
-`func (o *ImageUrl) HasDetail() bool`
+`func (o *ImageURL) HasDetail() bool`
 
 HasDetail returns a boolean if a field has been set.
 
+### SetDetailNil
+
+`func (o *ImageURL) SetDetailNil(b bool)`
+
+ SetDetailNil sets the value for Detail to be an explicit nil
+
+### UnsetDetail
+`func (o *ImageURL) UnsetDetail()`
+
+UnsetDetail ensures that no value is present for Detail, not even an explicit nil
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

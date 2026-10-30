@@ -22,8 +22,11 @@ var _ MappedNullable = &ChatCompletionChoice{}
 // ChatCompletionChoice struct for ChatCompletionChoice
 type ChatCompletionChoice struct {
 	Index int32 `json:"index"`
-	Message AssistantMessage `json:"message"`
+	Message *AssistantMessage `json:"message,omitempty"`
+	Messages []DeltaMessage `json:"messages,omitempty"`
 	FinishReason string `json:"finish_reason"`
+	Logprobs NullableChatCompletionResponseChoiceLogprobs `json:"logprobs,omitempty"`
+	PromptLogprobs NullableChatCompletionResponseChoiceLogprobs `json:"prompt_logprobs,omitempty"`
 }
 
 type _ChatCompletionChoice ChatCompletionChoice
@@ -32,10 +35,9 @@ type _ChatCompletionChoice ChatCompletionChoice
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewChatCompletionChoice(index int32, message AssistantMessage, finishReason string) *ChatCompletionChoice {
+func NewChatCompletionChoice(index int32, finishReason string) *ChatCompletionChoice {
 	this := ChatCompletionChoice{}
 	this.Index = index
-	this.Message = message
 	this.FinishReason = finishReason
 	return &this
 }
@@ -72,28 +74,68 @@ func (o *ChatCompletionChoice) SetIndex(v int32) {
 	o.Index = v
 }
 
-// GetMessage returns the Message field value
+// GetMessage returns the Message field value if set, zero value otherwise.
 func (o *ChatCompletionChoice) GetMessage() AssistantMessage {
-	if o == nil {
+	if o == nil || IsNil(o.Message) {
 		var ret AssistantMessage
 		return ret
 	}
-
-	return o.Message
+	return *o.Message
 }
 
-// GetMessageOk returns a tuple with the Message field value
+// GetMessageOk returns a tuple with the Message field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ChatCompletionChoice) GetMessageOk() (*AssistantMessage, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Message) {
 		return nil, false
 	}
-	return &o.Message, true
+	return o.Message, true
 }
 
-// SetMessage sets field value
+// HasMessage returns a boolean if a field has been set.
+func (o *ChatCompletionChoice) HasMessage() bool {
+	if o != nil && !IsNil(o.Message) {
+		return true
+	}
+
+	return false
+}
+
+// SetMessage gets a reference to the given AssistantMessage and assigns it to the Message field.
 func (o *ChatCompletionChoice) SetMessage(v AssistantMessage) {
-	o.Message = v
+	o.Message = &v
+}
+
+// GetMessages returns the Messages field value if set, zero value otherwise.
+func (o *ChatCompletionChoice) GetMessages() []DeltaMessage {
+	if o == nil || IsNil(o.Messages) {
+		var ret []DeltaMessage
+		return ret
+	}
+	return o.Messages
+}
+
+// GetMessagesOk returns a tuple with the Messages field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ChatCompletionChoice) GetMessagesOk() ([]DeltaMessage, bool) {
+	if o == nil || IsNil(o.Messages) {
+		return nil, false
+	}
+	return o.Messages, true
+}
+
+// HasMessages returns a boolean if a field has been set.
+func (o *ChatCompletionChoice) HasMessages() bool {
+	if o != nil && !IsNil(o.Messages) {
+		return true
+	}
+
+	return false
+}
+
+// SetMessages gets a reference to the given []DeltaMessage and assigns it to the Messages field.
+func (o *ChatCompletionChoice) SetMessages(v []DeltaMessage) {
+	o.Messages = v
 }
 
 // GetFinishReason returns the FinishReason field value
@@ -120,6 +162,90 @@ func (o *ChatCompletionChoice) SetFinishReason(v string) {
 	o.FinishReason = v
 }
 
+// GetLogprobs returns the Logprobs field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *ChatCompletionChoice) GetLogprobs() ChatCompletionResponseChoiceLogprobs {
+	if o == nil || IsNil(o.Logprobs.Get()) {
+		var ret ChatCompletionResponseChoiceLogprobs
+		return ret
+	}
+	return *o.Logprobs.Get()
+}
+
+// GetLogprobsOk returns a tuple with the Logprobs field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *ChatCompletionChoice) GetLogprobsOk() (*ChatCompletionResponseChoiceLogprobs, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.Logprobs.Get(), o.Logprobs.IsSet()
+}
+
+// HasLogprobs returns a boolean if a field has been set.
+func (o *ChatCompletionChoice) HasLogprobs() bool {
+	if o != nil && o.Logprobs.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetLogprobs gets a reference to the given NullableChatCompletionResponseChoiceLogprobs and assigns it to the Logprobs field.
+func (o *ChatCompletionChoice) SetLogprobs(v ChatCompletionResponseChoiceLogprobs) {
+	o.Logprobs.Set(&v)
+}
+// SetLogprobsNil sets the value for Logprobs to be an explicit nil
+func (o *ChatCompletionChoice) SetLogprobsNil() {
+	o.Logprobs.Set(nil)
+}
+
+// UnsetLogprobs ensures that no value is present for Logprobs, not even an explicit nil
+func (o *ChatCompletionChoice) UnsetLogprobs() {
+	o.Logprobs.Unset()
+}
+
+// GetPromptLogprobs returns the PromptLogprobs field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *ChatCompletionChoice) GetPromptLogprobs() ChatCompletionResponseChoiceLogprobs {
+	if o == nil || IsNil(o.PromptLogprobs.Get()) {
+		var ret ChatCompletionResponseChoiceLogprobs
+		return ret
+	}
+	return *o.PromptLogprobs.Get()
+}
+
+// GetPromptLogprobsOk returns a tuple with the PromptLogprobs field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *ChatCompletionChoice) GetPromptLogprobsOk() (*ChatCompletionResponseChoiceLogprobs, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.PromptLogprobs.Get(), o.PromptLogprobs.IsSet()
+}
+
+// HasPromptLogprobs returns a boolean if a field has been set.
+func (o *ChatCompletionChoice) HasPromptLogprobs() bool {
+	if o != nil && o.PromptLogprobs.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetPromptLogprobs gets a reference to the given NullableChatCompletionResponseChoiceLogprobs and assigns it to the PromptLogprobs field.
+func (o *ChatCompletionChoice) SetPromptLogprobs(v ChatCompletionResponseChoiceLogprobs) {
+	o.PromptLogprobs.Set(&v)
+}
+// SetPromptLogprobsNil sets the value for PromptLogprobs to be an explicit nil
+func (o *ChatCompletionChoice) SetPromptLogprobsNil() {
+	o.PromptLogprobs.Set(nil)
+}
+
+// UnsetPromptLogprobs ensures that no value is present for PromptLogprobs, not even an explicit nil
+func (o *ChatCompletionChoice) UnsetPromptLogprobs() {
+	o.PromptLogprobs.Unset()
+}
+
 func (o ChatCompletionChoice) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -131,8 +257,19 @@ func (o ChatCompletionChoice) MarshalJSON() ([]byte, error) {
 func (o ChatCompletionChoice) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["index"] = o.Index
-	toSerialize["message"] = o.Message
+	if !IsNil(o.Message) {
+		toSerialize["message"] = o.Message
+	}
+	if !IsNil(o.Messages) {
+		toSerialize["messages"] = o.Messages
+	}
 	toSerialize["finish_reason"] = o.FinishReason
+	if o.Logprobs.IsSet() {
+		toSerialize["logprobs"] = o.Logprobs.Get()
+	}
+	if o.PromptLogprobs.IsSet() {
+		toSerialize["prompt_logprobs"] = o.PromptLogprobs.Get()
+	}
 	return toSerialize, nil
 }
 
@@ -142,7 +279,6 @@ func (o *ChatCompletionChoice) UnmarshalJSON(data []byte) (err error) {
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
 		"index",
-		"message",
 		"finish_reason",
 	}
 

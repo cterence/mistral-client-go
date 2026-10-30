@@ -27,11 +27,11 @@ type BetaAgentsAPIService service
 type ApiAgentsApiV1AgentsCreateRequest struct {
 	ctx context.Context
 	ApiService *BetaAgentsAPIService
-	agentCreationRequest *AgentCreationRequest
+	createAgentRequest *CreateAgentRequest
 }
 
-func (r ApiAgentsApiV1AgentsCreateRequest) AgentCreationRequest(agentCreationRequest AgentCreationRequest) ApiAgentsApiV1AgentsCreateRequest {
-	r.agentCreationRequest = &agentCreationRequest
+func (r ApiAgentsApiV1AgentsCreateRequest) CreateAgentRequest(createAgentRequest CreateAgentRequest) ApiAgentsApiV1AgentsCreateRequest {
+	r.createAgentRequest = &createAgentRequest
 	return r
 }
 
@@ -74,8 +74,8 @@ func (a *BetaAgentsAPIService) AgentsApiV1AgentsCreateExecute(r ApiAgentsApiV1Ag
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.agentCreationRequest == nil {
-		return localVarReturnValue, nil, reportError("agentCreationRequest is required and must be specified")
+	if r.createAgentRequest == nil {
+		return localVarReturnValue, nil, reportError("createAgentRequest is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -96,7 +96,7 @@ func (a *BetaAgentsAPIService) AgentsApiV1AgentsCreateExecute(r ApiAgentsApiV1Ag
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.agentCreationRequest
+	localVarPostBody = r.createAgentRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -295,6 +295,8 @@ func (r ApiAgentsApiV1AgentsDeleteRequest) Execute() (*http.Response, error) {
 
 /*
 AgentsApiV1AgentsDelete Delete an agent entity.
+
+Delete an agent entity.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param agentId
@@ -750,7 +752,7 @@ type ApiAgentsApiV1AgentsListRequest struct {
 	name *string
 	search *string
 	id *string
-	metadata *AnyOfmapnull
+	metadata *AnyOfmapAnyType
 }
 
 // Page number (0-indexed)
@@ -792,7 +794,7 @@ func (r ApiAgentsApiV1AgentsListRequest) Id(id string) ApiAgentsApiV1AgentsListR
 	return r
 }
 
-func (r ApiAgentsApiV1AgentsListRequest) Metadata(metadata AnyOfmapnull) ApiAgentsApiV1AgentsListRequest {
+func (r ApiAgentsApiV1AgentsListRequest) Metadata(metadata AnyOfmapAnyType) ApiAgentsApiV1AgentsListRequest {
 	r.metadata = &metadata
 	return r
 }
@@ -953,7 +955,7 @@ type ApiAgentsApiV1AgentsListPagesRequest struct {
 	name *string
 	search *string
 	id *string
-	metadata *AnyOfmapnull
+	metadata *AnyOfmapAnyType
 	pageToken *string
 }
 
@@ -990,7 +992,7 @@ func (r ApiAgentsApiV1AgentsListPagesRequest) Id(id string) ApiAgentsApiV1Agents
 	return r
 }
 
-func (r ApiAgentsApiV1AgentsListPagesRequest) Metadata(metadata AnyOfmapnull) ApiAgentsApiV1AgentsListPagesRequest {
+func (r ApiAgentsApiV1AgentsListPagesRequest) Metadata(metadata AnyOfmapAnyType) ApiAgentsApiV1AgentsListPagesRequest {
 	r.metadata = &metadata
 	return r
 }
@@ -1399,11 +1401,11 @@ type ApiAgentsApiV1AgentsUpdateRequest struct {
 	ctx context.Context
 	ApiService *BetaAgentsAPIService
 	agentId string
-	agentUpdateRequest *AgentUpdateRequest
+	updateAgentRequest *UpdateAgentRequest
 }
 
-func (r ApiAgentsApiV1AgentsUpdateRequest) AgentUpdateRequest(agentUpdateRequest AgentUpdateRequest) ApiAgentsApiV1AgentsUpdateRequest {
-	r.agentUpdateRequest = &agentUpdateRequest
+func (r ApiAgentsApiV1AgentsUpdateRequest) UpdateAgentRequest(updateAgentRequest UpdateAgentRequest) ApiAgentsApiV1AgentsUpdateRequest {
+	r.updateAgentRequest = &updateAgentRequest
 	return r
 }
 
@@ -1449,8 +1451,8 @@ func (a *BetaAgentsAPIService) AgentsApiV1AgentsUpdateExecute(r ApiAgentsApiV1Ag
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.agentUpdateRequest == nil {
-		return localVarReturnValue, nil, reportError("agentUpdateRequest is required and must be specified")
+	if r.updateAgentRequest == nil {
+		return localVarReturnValue, nil, reportError("updateAgentRequest is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -1471,7 +1473,7 @@ func (a *BetaAgentsAPIService) AgentsApiV1AgentsUpdateExecute(r ApiAgentsApiV1Ag
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.agentUpdateRequest
+	localVarPostBody = r.updateAgentRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err

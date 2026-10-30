@@ -27,7 +27,14 @@ type DeploymentWorkerResponse struct {
 	// When the worker first registered
 	CreatedAt time.Time `json:"created_at"`
 	// When the worker last registered
+	LastHeartbeat time.Time `json:"last_heartbeat"`
+	// Deprecated alias of last_heartbeat
+	// Deprecated
 	UpdatedAt time.Time `json:"updated_at"`
+	// Whether this worker's liveness key is currently alive
+	IsActive bool `json:"is_active"`
+	// Where the worker is running; null if the worker did not report a location
+	Location NullableDeploymentLocation `json:"location,omitempty"`
 }
 
 type _DeploymentWorkerResponse DeploymentWorkerResponse
@@ -36,11 +43,13 @@ type _DeploymentWorkerResponse DeploymentWorkerResponse
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewDeploymentWorkerResponse(name string, createdAt time.Time, updatedAt time.Time) *DeploymentWorkerResponse {
+func NewDeploymentWorkerResponse(name string, createdAt time.Time, lastHeartbeat time.Time, updatedAt time.Time, isActive bool) *DeploymentWorkerResponse {
 	this := DeploymentWorkerResponse{}
 	this.Name = name
 	this.CreatedAt = createdAt
+	this.LastHeartbeat = lastHeartbeat
 	this.UpdatedAt = updatedAt
+	this.IsActive = isActive
 	return &this
 }
 
@@ -100,7 +109,32 @@ func (o *DeploymentWorkerResponse) SetCreatedAt(v time.Time) {
 	o.CreatedAt = v
 }
 
+// GetLastHeartbeat returns the LastHeartbeat field value
+func (o *DeploymentWorkerResponse) GetLastHeartbeat() time.Time {
+	if o == nil {
+		var ret time.Time
+		return ret
+	}
+
+	return o.LastHeartbeat
+}
+
+// GetLastHeartbeatOk returns a tuple with the LastHeartbeat field value
+// and a boolean to check if the value has been set.
+func (o *DeploymentWorkerResponse) GetLastHeartbeatOk() (*time.Time, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.LastHeartbeat, true
+}
+
+// SetLastHeartbeat sets field value
+func (o *DeploymentWorkerResponse) SetLastHeartbeat(v time.Time) {
+	o.LastHeartbeat = v
+}
+
 // GetUpdatedAt returns the UpdatedAt field value
+// Deprecated
 func (o *DeploymentWorkerResponse) GetUpdatedAt() time.Time {
 	if o == nil {
 		var ret time.Time
@@ -112,6 +146,7 @@ func (o *DeploymentWorkerResponse) GetUpdatedAt() time.Time {
 
 // GetUpdatedAtOk returns a tuple with the UpdatedAt field value
 // and a boolean to check if the value has been set.
+// Deprecated
 func (o *DeploymentWorkerResponse) GetUpdatedAtOk() (*time.Time, bool) {
 	if o == nil {
 		return nil, false
@@ -120,8 +155,75 @@ func (o *DeploymentWorkerResponse) GetUpdatedAtOk() (*time.Time, bool) {
 }
 
 // SetUpdatedAt sets field value
+// Deprecated
 func (o *DeploymentWorkerResponse) SetUpdatedAt(v time.Time) {
 	o.UpdatedAt = v
+}
+
+// GetIsActive returns the IsActive field value
+func (o *DeploymentWorkerResponse) GetIsActive() bool {
+	if o == nil {
+		var ret bool
+		return ret
+	}
+
+	return o.IsActive
+}
+
+// GetIsActiveOk returns a tuple with the IsActive field value
+// and a boolean to check if the value has been set.
+func (o *DeploymentWorkerResponse) GetIsActiveOk() (*bool, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.IsActive, true
+}
+
+// SetIsActive sets field value
+func (o *DeploymentWorkerResponse) SetIsActive(v bool) {
+	o.IsActive = v
+}
+
+// GetLocation returns the Location field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *DeploymentWorkerResponse) GetLocation() DeploymentLocation {
+	if o == nil || IsNil(o.Location.Get()) {
+		var ret DeploymentLocation
+		return ret
+	}
+	return *o.Location.Get()
+}
+
+// GetLocationOk returns a tuple with the Location field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *DeploymentWorkerResponse) GetLocationOk() (*DeploymentLocation, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.Location.Get(), o.Location.IsSet()
+}
+
+// HasLocation returns a boolean if a field has been set.
+func (o *DeploymentWorkerResponse) HasLocation() bool {
+	if o != nil && o.Location.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetLocation gets a reference to the given NullableDeploymentLocation and assigns it to the Location field.
+func (o *DeploymentWorkerResponse) SetLocation(v DeploymentLocation) {
+	o.Location.Set(&v)
+}
+// SetLocationNil sets the value for Location to be an explicit nil
+func (o *DeploymentWorkerResponse) SetLocationNil() {
+	o.Location.Set(nil)
+}
+
+// UnsetLocation ensures that no value is present for Location, not even an explicit nil
+func (o *DeploymentWorkerResponse) UnsetLocation() {
+	o.Location.Unset()
 }
 
 func (o DeploymentWorkerResponse) MarshalJSON() ([]byte, error) {
@@ -136,7 +238,12 @@ func (o DeploymentWorkerResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["name"] = o.Name
 	toSerialize["created_at"] = o.CreatedAt
+	toSerialize["last_heartbeat"] = o.LastHeartbeat
 	toSerialize["updated_at"] = o.UpdatedAt
+	toSerialize["is_active"] = o.IsActive
+	if o.Location.IsSet() {
+		toSerialize["location"] = o.Location.Get()
+	}
 	return toSerialize, nil
 }
 
@@ -147,7 +254,9 @@ func (o *DeploymentWorkerResponse) UnmarshalJSON(data []byte) (err error) {
 	requiredProperties := []string{
 		"name",
 		"created_at",
+		"last_heartbeat",
 		"updated_at",
+		"is_active",
 	}
 
 	allProperties := make(map[string]interface{})

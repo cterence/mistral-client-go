@@ -28,10 +28,27 @@ type DeploymentResponse struct {
 	Name string `json:"name"`
 	// Whether at least one worker is currently live
 	IsActive bool `json:"is_active"`
+	// Whether the deployment only accepts registrations from authorized principals
+	IsHardened *bool `json:"is_hardened,omitempty"`
 	// When the deployment was first registered
 	CreatedAt time.Time `json:"created_at"`
-	// When the deployment was last updated
+	// When the deployment last saw a worker registration
+	LastHeartbeat time.Time `json:"last_heartbeat"`
+	// Deprecated alias of last_heartbeat
+	// Deprecated
 	UpdatedAt time.Time `json:"updated_at"`
+	// User id that owns the deployment, or null when it is administrator-managed
+	Owner NullableString `json:"owner,omitempty"`
+	// Where the deployment is running
+	Location NullableDeploymentLocation `json:"location,omitempty"`
+	// Number of workers registered to the deployment
+	WorkerCount *int32 `json:"worker_count,omitempty"`
+	// Number of workers currently live within the liveness cutoff
+	ActiveWorkerCount *int32 `json:"active_worker_count,omitempty"`
+	// Distinct location types reported by the deployment's workers
+	Locations []LocationType `json:"locations,omitempty"`
+	// Live managed service state for managed deployments; null for self-hosted deployments or when managed services are unavailable
+	Managed NullableManagedDeploymentResponse `json:"managed,omitempty"`
 }
 
 type _DeploymentResponse DeploymentResponse
@@ -40,13 +57,20 @@ type _DeploymentResponse DeploymentResponse
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewDeploymentResponse(id string, name string, isActive bool, createdAt time.Time, updatedAt time.Time) *DeploymentResponse {
+func NewDeploymentResponse(id string, name string, isActive bool, createdAt time.Time, lastHeartbeat time.Time, updatedAt time.Time) *DeploymentResponse {
 	this := DeploymentResponse{}
 	this.Id = id
 	this.Name = name
 	this.IsActive = isActive
+	var isHardened bool = false
+	this.IsHardened = &isHardened
 	this.CreatedAt = createdAt
+	this.LastHeartbeat = lastHeartbeat
 	this.UpdatedAt = updatedAt
+	var workerCount int32 = 0
+	this.WorkerCount = &workerCount
+	var activeWorkerCount int32 = 0
+	this.ActiveWorkerCount = &activeWorkerCount
 	return &this
 }
 
@@ -55,6 +79,12 @@ func NewDeploymentResponse(id string, name string, isActive bool, createdAt time
 // but it doesn't guarantee that properties required by API are set
 func NewDeploymentResponseWithDefaults() *DeploymentResponse {
 	this := DeploymentResponse{}
+	var isHardened bool = false
+	this.IsHardened = &isHardened
+	var workerCount int32 = 0
+	this.WorkerCount = &workerCount
+	var activeWorkerCount int32 = 0
+	this.ActiveWorkerCount = &activeWorkerCount
 	return &this
 }
 
@@ -130,6 +160,38 @@ func (o *DeploymentResponse) SetIsActive(v bool) {
 	o.IsActive = v
 }
 
+// GetIsHardened returns the IsHardened field value if set, zero value otherwise.
+func (o *DeploymentResponse) GetIsHardened() bool {
+	if o == nil || IsNil(o.IsHardened) {
+		var ret bool
+		return ret
+	}
+	return *o.IsHardened
+}
+
+// GetIsHardenedOk returns a tuple with the IsHardened field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *DeploymentResponse) GetIsHardenedOk() (*bool, bool) {
+	if o == nil || IsNil(o.IsHardened) {
+		return nil, false
+	}
+	return o.IsHardened, true
+}
+
+// HasIsHardened returns a boolean if a field has been set.
+func (o *DeploymentResponse) HasIsHardened() bool {
+	if o != nil && !IsNil(o.IsHardened) {
+		return true
+	}
+
+	return false
+}
+
+// SetIsHardened gets a reference to the given bool and assigns it to the IsHardened field.
+func (o *DeploymentResponse) SetIsHardened(v bool) {
+	o.IsHardened = &v
+}
+
 // GetCreatedAt returns the CreatedAt field value
 func (o *DeploymentResponse) GetCreatedAt() time.Time {
 	if o == nil {
@@ -154,7 +216,32 @@ func (o *DeploymentResponse) SetCreatedAt(v time.Time) {
 	o.CreatedAt = v
 }
 
+// GetLastHeartbeat returns the LastHeartbeat field value
+func (o *DeploymentResponse) GetLastHeartbeat() time.Time {
+	if o == nil {
+		var ret time.Time
+		return ret
+	}
+
+	return o.LastHeartbeat
+}
+
+// GetLastHeartbeatOk returns a tuple with the LastHeartbeat field value
+// and a boolean to check if the value has been set.
+func (o *DeploymentResponse) GetLastHeartbeatOk() (*time.Time, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.LastHeartbeat, true
+}
+
+// SetLastHeartbeat sets field value
+func (o *DeploymentResponse) SetLastHeartbeat(v time.Time) {
+	o.LastHeartbeat = v
+}
+
 // GetUpdatedAt returns the UpdatedAt field value
+// Deprecated
 func (o *DeploymentResponse) GetUpdatedAt() time.Time {
 	if o == nil {
 		var ret time.Time
@@ -166,6 +253,7 @@ func (o *DeploymentResponse) GetUpdatedAt() time.Time {
 
 // GetUpdatedAtOk returns a tuple with the UpdatedAt field value
 // and a boolean to check if the value has been set.
+// Deprecated
 func (o *DeploymentResponse) GetUpdatedAtOk() (*time.Time, bool) {
 	if o == nil {
 		return nil, false
@@ -174,8 +262,231 @@ func (o *DeploymentResponse) GetUpdatedAtOk() (*time.Time, bool) {
 }
 
 // SetUpdatedAt sets field value
+// Deprecated
 func (o *DeploymentResponse) SetUpdatedAt(v time.Time) {
 	o.UpdatedAt = v
+}
+
+// GetOwner returns the Owner field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *DeploymentResponse) GetOwner() string {
+	if o == nil || IsNil(o.Owner.Get()) {
+		var ret string
+		return ret
+	}
+	return *o.Owner.Get()
+}
+
+// GetOwnerOk returns a tuple with the Owner field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *DeploymentResponse) GetOwnerOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.Owner.Get(), o.Owner.IsSet()
+}
+
+// HasOwner returns a boolean if a field has been set.
+func (o *DeploymentResponse) HasOwner() bool {
+	if o != nil && o.Owner.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetOwner gets a reference to the given NullableString and assigns it to the Owner field.
+func (o *DeploymentResponse) SetOwner(v string) {
+	o.Owner.Set(&v)
+}
+// SetOwnerNil sets the value for Owner to be an explicit nil
+func (o *DeploymentResponse) SetOwnerNil() {
+	o.Owner.Set(nil)
+}
+
+// UnsetOwner ensures that no value is present for Owner, not even an explicit nil
+func (o *DeploymentResponse) UnsetOwner() {
+	o.Owner.Unset()
+}
+
+// GetLocation returns the Location field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *DeploymentResponse) GetLocation() DeploymentLocation {
+	if o == nil || IsNil(o.Location.Get()) {
+		var ret DeploymentLocation
+		return ret
+	}
+	return *o.Location.Get()
+}
+
+// GetLocationOk returns a tuple with the Location field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *DeploymentResponse) GetLocationOk() (*DeploymentLocation, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.Location.Get(), o.Location.IsSet()
+}
+
+// HasLocation returns a boolean if a field has been set.
+func (o *DeploymentResponse) HasLocation() bool {
+	if o != nil && o.Location.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetLocation gets a reference to the given NullableDeploymentLocation and assigns it to the Location field.
+func (o *DeploymentResponse) SetLocation(v DeploymentLocation) {
+	o.Location.Set(&v)
+}
+// SetLocationNil sets the value for Location to be an explicit nil
+func (o *DeploymentResponse) SetLocationNil() {
+	o.Location.Set(nil)
+}
+
+// UnsetLocation ensures that no value is present for Location, not even an explicit nil
+func (o *DeploymentResponse) UnsetLocation() {
+	o.Location.Unset()
+}
+
+// GetWorkerCount returns the WorkerCount field value if set, zero value otherwise.
+func (o *DeploymentResponse) GetWorkerCount() int32 {
+	if o == nil || IsNil(o.WorkerCount) {
+		var ret int32
+		return ret
+	}
+	return *o.WorkerCount
+}
+
+// GetWorkerCountOk returns a tuple with the WorkerCount field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *DeploymentResponse) GetWorkerCountOk() (*int32, bool) {
+	if o == nil || IsNil(o.WorkerCount) {
+		return nil, false
+	}
+	return o.WorkerCount, true
+}
+
+// HasWorkerCount returns a boolean if a field has been set.
+func (o *DeploymentResponse) HasWorkerCount() bool {
+	if o != nil && !IsNil(o.WorkerCount) {
+		return true
+	}
+
+	return false
+}
+
+// SetWorkerCount gets a reference to the given int32 and assigns it to the WorkerCount field.
+func (o *DeploymentResponse) SetWorkerCount(v int32) {
+	o.WorkerCount = &v
+}
+
+// GetActiveWorkerCount returns the ActiveWorkerCount field value if set, zero value otherwise.
+func (o *DeploymentResponse) GetActiveWorkerCount() int32 {
+	if o == nil || IsNil(o.ActiveWorkerCount) {
+		var ret int32
+		return ret
+	}
+	return *o.ActiveWorkerCount
+}
+
+// GetActiveWorkerCountOk returns a tuple with the ActiveWorkerCount field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *DeploymentResponse) GetActiveWorkerCountOk() (*int32, bool) {
+	if o == nil || IsNil(o.ActiveWorkerCount) {
+		return nil, false
+	}
+	return o.ActiveWorkerCount, true
+}
+
+// HasActiveWorkerCount returns a boolean if a field has been set.
+func (o *DeploymentResponse) HasActiveWorkerCount() bool {
+	if o != nil && !IsNil(o.ActiveWorkerCount) {
+		return true
+	}
+
+	return false
+}
+
+// SetActiveWorkerCount gets a reference to the given int32 and assigns it to the ActiveWorkerCount field.
+func (o *DeploymentResponse) SetActiveWorkerCount(v int32) {
+	o.ActiveWorkerCount = &v
+}
+
+// GetLocations returns the Locations field value if set, zero value otherwise.
+func (o *DeploymentResponse) GetLocations() []LocationType {
+	if o == nil || IsNil(o.Locations) {
+		var ret []LocationType
+		return ret
+	}
+	return o.Locations
+}
+
+// GetLocationsOk returns a tuple with the Locations field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *DeploymentResponse) GetLocationsOk() ([]LocationType, bool) {
+	if o == nil || IsNil(o.Locations) {
+		return nil, false
+	}
+	return o.Locations, true
+}
+
+// HasLocations returns a boolean if a field has been set.
+func (o *DeploymentResponse) HasLocations() bool {
+	if o != nil && !IsNil(o.Locations) {
+		return true
+	}
+
+	return false
+}
+
+// SetLocations gets a reference to the given []LocationType and assigns it to the Locations field.
+func (o *DeploymentResponse) SetLocations(v []LocationType) {
+	o.Locations = v
+}
+
+// GetManaged returns the Managed field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *DeploymentResponse) GetManaged() ManagedDeploymentResponse {
+	if o == nil || IsNil(o.Managed.Get()) {
+		var ret ManagedDeploymentResponse
+		return ret
+	}
+	return *o.Managed.Get()
+}
+
+// GetManagedOk returns a tuple with the Managed field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *DeploymentResponse) GetManagedOk() (*ManagedDeploymentResponse, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.Managed.Get(), o.Managed.IsSet()
+}
+
+// HasManaged returns a boolean if a field has been set.
+func (o *DeploymentResponse) HasManaged() bool {
+	if o != nil && o.Managed.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetManaged gets a reference to the given NullableManagedDeploymentResponse and assigns it to the Managed field.
+func (o *DeploymentResponse) SetManaged(v ManagedDeploymentResponse) {
+	o.Managed.Set(&v)
+}
+// SetManagedNil sets the value for Managed to be an explicit nil
+func (o *DeploymentResponse) SetManagedNil() {
+	o.Managed.Set(nil)
+}
+
+// UnsetManaged ensures that no value is present for Managed, not even an explicit nil
+func (o *DeploymentResponse) UnsetManaged() {
+	o.Managed.Unset()
 }
 
 func (o DeploymentResponse) MarshalJSON() ([]byte, error) {
@@ -191,8 +502,30 @@ func (o DeploymentResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize["id"] = o.Id
 	toSerialize["name"] = o.Name
 	toSerialize["is_active"] = o.IsActive
+	if !IsNil(o.IsHardened) {
+		toSerialize["is_hardened"] = o.IsHardened
+	}
 	toSerialize["created_at"] = o.CreatedAt
+	toSerialize["last_heartbeat"] = o.LastHeartbeat
 	toSerialize["updated_at"] = o.UpdatedAt
+	if o.Owner.IsSet() {
+		toSerialize["owner"] = o.Owner.Get()
+	}
+	if o.Location.IsSet() {
+		toSerialize["location"] = o.Location.Get()
+	}
+	if !IsNil(o.WorkerCount) {
+		toSerialize["worker_count"] = o.WorkerCount
+	}
+	if !IsNil(o.ActiveWorkerCount) {
+		toSerialize["active_worker_count"] = o.ActiveWorkerCount
+	}
+	if !IsNil(o.Locations) {
+		toSerialize["locations"] = o.Locations
+	}
+	if o.Managed.IsSet() {
+		toSerialize["managed"] = o.Managed.Get()
+	}
 	return toSerialize, nil
 }
 
@@ -205,6 +538,7 @@ func (o *DeploymentResponse) UnmarshalJSON(data []byte) (err error) {
 		"name",
 		"is_active",
 		"created_at",
+		"last_heartbeat",
 		"updated_at",
 	}
 

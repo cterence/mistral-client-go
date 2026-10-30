@@ -23,6 +23,10 @@ var _ MappedNullable = &DeploymentListResponse{}
 type DeploymentListResponse struct {
 	// List of deployments
 	Deployments []DeploymentResponse `json:"deployments"`
+	// Cursor for the next page of results
+	NextCursor NullableString `json:"next_cursor"`
+	// Workspace ID the results are scoped to
+	WorkspaceId string `json:"workspace_id"`
 }
 
 type _DeploymentListResponse DeploymentListResponse
@@ -31,9 +35,11 @@ type _DeploymentListResponse DeploymentListResponse
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewDeploymentListResponse(deployments []DeploymentResponse) *DeploymentListResponse {
+func NewDeploymentListResponse(deployments []DeploymentResponse, nextCursor NullableString, workspaceId string) *DeploymentListResponse {
 	this := DeploymentListResponse{}
 	this.Deployments = deployments
+	this.NextCursor = nextCursor
+	this.WorkspaceId = workspaceId
 	return &this
 }
 
@@ -69,6 +75,56 @@ func (o *DeploymentListResponse) SetDeployments(v []DeploymentResponse) {
 	o.Deployments = v
 }
 
+// GetNextCursor returns the NextCursor field value
+// If the value is explicit nil, the zero value for string will be returned
+func (o *DeploymentListResponse) GetNextCursor() string {
+	if o == nil || o.NextCursor.Get() == nil {
+		var ret string
+		return ret
+	}
+
+	return *o.NextCursor.Get()
+}
+
+// GetNextCursorOk returns a tuple with the NextCursor field value
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *DeploymentListResponse) GetNextCursorOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.NextCursor.Get(), o.NextCursor.IsSet()
+}
+
+// SetNextCursor sets field value
+func (o *DeploymentListResponse) SetNextCursor(v string) {
+	o.NextCursor.Set(&v)
+}
+
+// GetWorkspaceId returns the WorkspaceId field value
+func (o *DeploymentListResponse) GetWorkspaceId() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.WorkspaceId
+}
+
+// GetWorkspaceIdOk returns a tuple with the WorkspaceId field value
+// and a boolean to check if the value has been set.
+func (o *DeploymentListResponse) GetWorkspaceIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.WorkspaceId, true
+}
+
+// SetWorkspaceId sets field value
+func (o *DeploymentListResponse) SetWorkspaceId(v string) {
+	o.WorkspaceId = v
+}
+
 func (o DeploymentListResponse) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -80,6 +136,8 @@ func (o DeploymentListResponse) MarshalJSON() ([]byte, error) {
 func (o DeploymentListResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["deployments"] = o.Deployments
+	toSerialize["next_cursor"] = o.NextCursor.Get()
+	toSerialize["workspace_id"] = o.WorkspaceId
 	return toSerialize, nil
 }
 
@@ -89,6 +147,8 @@ func (o *DeploymentListResponse) UnmarshalJSON(data []byte) (err error) {
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
 		"deployments",
+		"next_cursor",
+		"workspace_id",
 	}
 
 	allProperties := make(map[string]interface{})

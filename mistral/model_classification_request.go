@@ -12,7 +12,6 @@ package mistral
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -25,6 +24,7 @@ type ClassificationRequest struct {
 	Model string `json:"model"`
 	Metadata map[string]interface{} `json:"metadata,omitempty"`
 	Input Input1 `json:"input"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _ClassificationRequest ClassificationRequest
@@ -144,6 +144,11 @@ func (o ClassificationRequest) ToMap() (map[string]interface{}, error) {
 		toSerialize["metadata"] = o.Metadata
 	}
 	toSerialize["input"] = o.Input
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -172,14 +177,22 @@ func (o *ClassificationRequest) UnmarshalJSON(data []byte) (err error) {
 
 	varClassificationRequest := _ClassificationRequest{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	err = decoder.Decode(&varClassificationRequest)
+	err = json.Unmarshal(data, &varClassificationRequest)
 
 	if err != nil {
 		return err
 	}
 
 	*o = ClassificationRequest(varClassificationRequest)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "model")
+		delete(additionalProperties, "metadata")
+		delete(additionalProperties, "input")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

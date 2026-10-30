@@ -21,7 +21,7 @@ var _ MappedNullable = &ScalarMetric{}
 
 // ScalarMetric Scalar metric with a single value.
 type ScalarMetric struct {
-	Value Value `json:"value"`
+	Value Value3 `json:"value"`
 }
 
 type _ScalarMetric ScalarMetric
@@ -30,7 +30,7 @@ type _ScalarMetric ScalarMetric
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewScalarMetric(value Value) *ScalarMetric {
+func NewScalarMetric(value Value3) *ScalarMetric {
 	this := ScalarMetric{}
 	this.Value = value
 	return &this
@@ -45,9 +45,9 @@ func NewScalarMetricWithDefaults() *ScalarMetric {
 }
 
 // GetValue returns the Value field value
-func (o *ScalarMetric) GetValue() Value {
+func (o *ScalarMetric) GetValue() Value3 {
 	if o == nil {
-		var ret Value
+		var ret Value3
 		return ret
 	}
 
@@ -56,7 +56,7 @@ func (o *ScalarMetric) GetValue() Value {
 
 // GetValueOk returns a tuple with the Value field value
 // and a boolean to check if the value has been set.
-func (o *ScalarMetric) GetValueOk() (*Value, bool) {
+func (o *ScalarMetric) GetValueOk() (*Value3, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -64,7 +64,7 @@ func (o *ScalarMetric) GetValueOk() (*Value, bool) {
 }
 
 // SetValue sets field value
-func (o *ScalarMetric) SetValue(v Value) {
+func (o *ScalarMetric) SetValue(v Value3) {
 	o.Value = v
 }
 

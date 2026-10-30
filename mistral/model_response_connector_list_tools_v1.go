@@ -18,25 +18,24 @@ import (
 
 // ResponseConnectorListToolsV1 struct for ResponseConnectorListToolsV1
 type ResponseConnectorListToolsV1 struct {
-	ArrayOfIntegrationsSchemasApiToolTool *[]IntegrationsSchemasApiToolTool
+	ArrayOfMapmapOfStringAny *[]*map[string]interface{}
 	ArrayOfMCPTool *[]MCPTool
-	ArrayOfMapmapOfStringAny *[]map[string]interface{}
 }
 
 // Unmarshal JSON data into any of the pointers in the struct
 func (dst *ResponseConnectorListToolsV1) UnmarshalJSON(data []byte) error {
 	var err error
-	// try to unmarshal JSON data into ArrayOfIntegrationsSchemasApiToolTool
-	err = json.Unmarshal(data, &dst.ArrayOfIntegrationsSchemasApiToolTool);
+	// try to unmarshal JSON data into ArrayOfMapmapOfStringAny
+	err = json.Unmarshal(data, &dst.ArrayOfMapmapOfStringAny);
 	if err == nil {
-		jsonArrayOfIntegrationsSchemasApiToolTool, _ := json.Marshal(dst.ArrayOfIntegrationsSchemasApiToolTool)
-		if string(jsonArrayOfIntegrationsSchemasApiToolTool) == "{}" { // empty struct
-			dst.ArrayOfIntegrationsSchemasApiToolTool = nil
+		jsonArrayOfMapmapOfStringAny, _ := json.Marshal(dst.ArrayOfMapmapOfStringAny)
+		if string(jsonArrayOfMapmapOfStringAny) == "{}" { // empty struct
+			dst.ArrayOfMapmapOfStringAny = nil
 		} else {
-			return nil // data stored in dst.ArrayOfIntegrationsSchemasApiToolTool, return on the first match
+			return nil // data stored in dst.ArrayOfMapmapOfStringAny, return on the first match
 		}
 	} else {
-		dst.ArrayOfIntegrationsSchemasApiToolTool = nil
+		dst.ArrayOfMapmapOfStringAny = nil
 	}
 
 	// try to unmarshal JSON data into ArrayOfMCPTool
@@ -52,34 +51,17 @@ func (dst *ResponseConnectorListToolsV1) UnmarshalJSON(data []byte) error {
 		dst.ArrayOfMCPTool = nil
 	}
 
-	// try to unmarshal JSON data into ArrayOfMapmapOfStringAny
-	err = json.Unmarshal(data, &dst.ArrayOfMapmapOfStringAny);
-	if err == nil {
-		jsonArrayOfMapmapOfStringAny, _ := json.Marshal(dst.ArrayOfMapmapOfStringAny)
-		if string(jsonArrayOfMapmapOfStringAny) == "{}" { // empty struct
-			dst.ArrayOfMapmapOfStringAny = nil
-		} else {
-			return nil // data stored in dst.ArrayOfMapmapOfStringAny, return on the first match
-		}
-	} else {
-		dst.ArrayOfMapmapOfStringAny = nil
-	}
-
 	return fmt.Errorf("data failed to match schemas in anyOf(ResponseConnectorListToolsV1)")
 }
 
 // Marshal data from the first non-nil pointers in the struct to JSON
 func (src ResponseConnectorListToolsV1) MarshalJSON() ([]byte, error) {
-	if src.ArrayOfIntegrationsSchemasApiToolTool != nil {
-		return json.Marshal(&src.ArrayOfIntegrationsSchemasApiToolTool)
+	if src.ArrayOfMapmapOfStringAny != nil {
+		return json.Marshal(&src.ArrayOfMapmapOfStringAny)
 	}
 
 	if src.ArrayOfMCPTool != nil {
 		return json.Marshal(&src.ArrayOfMCPTool)
-	}
-
-	if src.ArrayOfMapmapOfStringAny != nil {
-		return json.Marshal(&src.ArrayOfMapmapOfStringAny)
 	}
 
 	return nil, nil // no data in anyOf schemas

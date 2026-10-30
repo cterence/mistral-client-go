@@ -12,6 +12,7 @@ package mistral
 
 import (
 	"encoding/json"
+	"bytes"
 	"fmt"
 )
 
@@ -24,7 +25,6 @@ type TextResourceContents struct {
 	MimeType NullableString `json:"mimeType,omitempty"`
 	Meta map[string]interface{} `json:"_meta,omitempty"`
 	Text string `json:"text"`
-	AdditionalProperties map[string]interface{}
 }
 
 type _TextResourceContents TextResourceContents
@@ -189,11 +189,6 @@ func (o TextResourceContents) ToMap() (map[string]interface{}, error) {
 		toSerialize["_meta"] = o.Meta
 	}
 	toSerialize["text"] = o.Text
-
-	for key, value := range o.AdditionalProperties {
-		toSerialize[key] = value
-	}
-
 	return toSerialize, nil
 }
 
@@ -222,23 +217,14 @@ func (o *TextResourceContents) UnmarshalJSON(data []byte) (err error) {
 
 	varTextResourceContents := _TextResourceContents{}
 
-	err = json.Unmarshal(data, &varTextResourceContents)
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	err = decoder.Decode(&varTextResourceContents)
 
 	if err != nil {
 		return err
 	}
 
 	*o = TextResourceContents(varTextResourceContents)
-
-	additionalProperties := make(map[string]interface{})
-
-	if err = json.Unmarshal(data, &additionalProperties); err == nil {
-		delete(additionalProperties, "uri")
-		delete(additionalProperties, "mimeType")
-		delete(additionalProperties, "_meta")
-		delete(additionalProperties, "text")
-		o.AdditionalProperties = additionalProperties
-	}
 
 	return err
 }

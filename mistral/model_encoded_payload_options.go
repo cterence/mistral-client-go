@@ -23,6 +23,7 @@ const (
 	ENCODEDPAYLOADOPTIONS_OFFLOADED EncodedPayloadOptions = "offloaded"
 	ENCODEDPAYLOADOPTIONS_ENCRYPTED EncodedPayloadOptions = "encrypted"
 	ENCODEDPAYLOADOPTIONS_ENCRYPTED_PARTIAL EncodedPayloadOptions = "encrypted-partial"
+	ENCODEDPAYLOADOPTIONS_COMPRESSED EncodedPayloadOptions = "compressed"
 )
 
 // All allowed values of EncodedPayloadOptions enum
@@ -30,6 +31,7 @@ var AllowedEncodedPayloadOptionsEnumValues = []EncodedPayloadOptions{
 	"offloaded",
 	"encrypted",
 	"encrypted-partial",
+	"compressed",
 }
 
 func (v *EncodedPayloadOptions) UnmarshalJSON(src []byte) error {

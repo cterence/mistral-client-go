@@ -12,6 +12,7 @@ package mistral
 
 import (
 	"encoding/json"
+	"bytes"
 	"fmt"
 )
 
@@ -24,7 +25,6 @@ type BlobResourceContents struct {
 	MimeType NullableString `json:"mimeType,omitempty"`
 	Meta map[string]interface{} `json:"_meta,omitempty"`
 	Blob string `json:"blob"`
-	AdditionalProperties map[string]interface{}
 }
 
 type _BlobResourceContents BlobResourceContents
@@ -189,11 +189,6 @@ func (o BlobResourceContents) ToMap() (map[string]interface{}, error) {
 		toSerialize["_meta"] = o.Meta
 	}
 	toSerialize["blob"] = o.Blob
-
-	for key, value := range o.AdditionalProperties {
-		toSerialize[key] = value
-	}
-
 	return toSerialize, nil
 }
 
@@ -222,23 +217,14 @@ func (o *BlobResourceContents) UnmarshalJSON(data []byte) (err error) {
 
 	varBlobResourceContents := _BlobResourceContents{}
 
-	err = json.Unmarshal(data, &varBlobResourceContents)
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	err = decoder.Decode(&varBlobResourceContents)
 
 	if err != nil {
 		return err
 	}
 
 	*o = BlobResourceContents(varBlobResourceContents)
-
-	additionalProperties := make(map[string]interface{})
-
-	if err = json.Unmarshal(data, &additionalProperties); err == nil {
-		delete(additionalProperties, "uri")
-		delete(additionalProperties, "mimeType")
-		delete(additionalProperties, "_meta")
-		delete(additionalProperties, "blob")
-		o.AdditionalProperties = additionalProperties
-	}
 
 	return err
 }

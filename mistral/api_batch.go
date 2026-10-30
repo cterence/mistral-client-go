@@ -31,7 +31,7 @@ type ApiJobsApiRoutesBatchCancelBatchJobRequest struct {
 	jobId string
 }
 
-func (r ApiJobsApiRoutesBatchCancelBatchJobRequest) Execute() (*BatchJobOut, *http.Response, error) {
+func (r ApiJobsApiRoutesBatchCancelBatchJobRequest) Execute() (*BatchJob, *http.Response, error) {
 	return r.ApiService.JobsApiRoutesBatchCancelBatchJobExecute(r)
 }
 
@@ -53,13 +53,13 @@ func (a *BatchAPIService) JobsApiRoutesBatchCancelBatchJob(ctx context.Context, 
 }
 
 // Execute executes the request
-//  @return BatchJobOut
-func (a *BatchAPIService) JobsApiRoutesBatchCancelBatchJobExecute(r ApiJobsApiRoutesBatchCancelBatchJobRequest) (*BatchJobOut, *http.Response, error) {
+//  @return BatchJob
+func (a *BatchAPIService) JobsApiRoutesBatchCancelBatchJobExecute(r ApiJobsApiRoutesBatchCancelBatchJobRequest) (*BatchJob, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *BatchJobOut
+		localVarReturnValue  *BatchJob
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BatchAPIService.JobsApiRoutesBatchCancelBatchJob")
@@ -131,15 +131,15 @@ func (a *BatchAPIService) JobsApiRoutesBatchCancelBatchJobExecute(r ApiJobsApiRo
 type ApiJobsApiRoutesBatchCreateBatchJobRequest struct {
 	ctx context.Context
 	ApiService *BatchAPIService
-	batchJobIn *BatchJobIn
+	createBatchJobRequest *CreateBatchJobRequest
 }
 
-func (r ApiJobsApiRoutesBatchCreateBatchJobRequest) BatchJobIn(batchJobIn BatchJobIn) ApiJobsApiRoutesBatchCreateBatchJobRequest {
-	r.batchJobIn = &batchJobIn
+func (r ApiJobsApiRoutesBatchCreateBatchJobRequest) CreateBatchJobRequest(createBatchJobRequest CreateBatchJobRequest) ApiJobsApiRoutesBatchCreateBatchJobRequest {
+	r.createBatchJobRequest = &createBatchJobRequest
 	return r
 }
 
-func (r ApiJobsApiRoutesBatchCreateBatchJobRequest) Execute() (*BatchJobOut, *http.Response, error) {
+func (r ApiJobsApiRoutesBatchCreateBatchJobRequest) Execute() (*BatchJob, *http.Response, error) {
 	return r.ApiService.JobsApiRoutesBatchCreateBatchJobExecute(r)
 }
 
@@ -159,13 +159,13 @@ func (a *BatchAPIService) JobsApiRoutesBatchCreateBatchJob(ctx context.Context) 
 }
 
 // Execute executes the request
-//  @return BatchJobOut
-func (a *BatchAPIService) JobsApiRoutesBatchCreateBatchJobExecute(r ApiJobsApiRoutesBatchCreateBatchJobRequest) (*BatchJobOut, *http.Response, error) {
+//  @return BatchJob
+func (a *BatchAPIService) JobsApiRoutesBatchCreateBatchJobExecute(r ApiJobsApiRoutesBatchCreateBatchJobRequest) (*BatchJob, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *BatchJobOut
+		localVarReturnValue  *BatchJob
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BatchAPIService.JobsApiRoutesBatchCreateBatchJob")
@@ -178,8 +178,8 @@ func (a *BatchAPIService) JobsApiRoutesBatchCreateBatchJobExecute(r ApiJobsApiRo
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.batchJobIn == nil {
-		return localVarReturnValue, nil, reportError("batchJobIn is required and must be specified")
+	if r.createBatchJobRequest == nil {
+		return localVarReturnValue, nil, reportError("createBatchJobRequest is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -200,7 +200,110 @@ func (a *BatchAPIService) JobsApiRoutesBatchCreateBatchJobExecute(r ApiJobsApiRo
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.batchJobIn
+	localVarPostBody = r.createBatchJobRequest
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiJobsApiRoutesBatchDeleteBatchJobRequest struct {
+	ctx context.Context
+	ApiService *BatchAPIService
+	jobId string
+}
+
+func (r ApiJobsApiRoutesBatchDeleteBatchJobRequest) Execute() (*DeleteBatchJobResponse, *http.Response, error) {
+	return r.ApiService.JobsApiRoutesBatchDeleteBatchJobExecute(r)
+}
+
+/*
+JobsApiRoutesBatchDeleteBatchJob Delete Batch Job
+
+Request the deletion of a batch job.
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param jobId
+ @return ApiJobsApiRoutesBatchDeleteBatchJobRequest
+*/
+func (a *BatchAPIService) JobsApiRoutesBatchDeleteBatchJob(ctx context.Context, jobId string) ApiJobsApiRoutesBatchDeleteBatchJobRequest {
+	return ApiJobsApiRoutesBatchDeleteBatchJobRequest{
+		ApiService: a,
+		ctx: ctx,
+		jobId: jobId,
+	}
+}
+
+// Execute executes the request
+//  @return DeleteBatchJobResponse
+func (a *BatchAPIService) JobsApiRoutesBatchDeleteBatchJobExecute(r ApiJobsApiRoutesBatchDeleteBatchJobRequest) (*DeleteBatchJobResponse, *http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodDelete
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *DeleteBatchJobResponse
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BatchAPIService.JobsApiRoutesBatchDeleteBatchJob")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/batch/jobs/{job_id}"
+	localVarPath = strings.Replace(localVarPath, "{"+"job_id"+"}", url.PathEscape(parameterValueToString(r.jobId, "jobId")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -250,7 +353,7 @@ func (r ApiJobsApiRoutesBatchGetBatchJobRequest) Inline(inline bool) ApiJobsApiR
 	return r
 }
 
-func (r ApiJobsApiRoutesBatchGetBatchJobRequest) Execute() (*BatchJobOut, *http.Response, error) {
+func (r ApiJobsApiRoutesBatchGetBatchJobRequest) Execute() (*BatchJob, *http.Response, error) {
 	return r.ApiService.JobsApiRoutesBatchGetBatchJobExecute(r)
 }
 
@@ -275,13 +378,13 @@ func (a *BatchAPIService) JobsApiRoutesBatchGetBatchJob(ctx context.Context, job
 }
 
 // Execute executes the request
-//  @return BatchJobOut
-func (a *BatchAPIService) JobsApiRoutesBatchGetBatchJobExecute(r ApiJobsApiRoutesBatchGetBatchJobRequest) (*BatchJobOut, *http.Response, error) {
+//  @return BatchJob
+func (a *BatchAPIService) JobsApiRoutesBatchGetBatchJobExecute(r ApiJobsApiRoutesBatchGetBatchJobRequest) (*BatchJob, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *BatchJobOut
+		localVarReturnValue  *BatchJob
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BatchAPIService.JobsApiRoutesBatchGetBatchJob")
@@ -412,7 +515,7 @@ func (r ApiJobsApiRoutesBatchGetBatchJobsRequest) OrderBy(orderBy string) ApiJob
 	return r
 }
 
-func (r ApiJobsApiRoutesBatchGetBatchJobsRequest) Execute() (*BatchJobsOut, *http.Response, error) {
+func (r ApiJobsApiRoutesBatchGetBatchJobsRequest) Execute() (*ListBatchJobsResponse, *http.Response, error) {
 	return r.ApiService.JobsApiRoutesBatchGetBatchJobsExecute(r)
 }
 
@@ -432,13 +535,13 @@ func (a *BatchAPIService) JobsApiRoutesBatchGetBatchJobs(ctx context.Context) Ap
 }
 
 // Execute executes the request
-//  @return BatchJobsOut
-func (a *BatchAPIService) JobsApiRoutesBatchGetBatchJobsExecute(r ApiJobsApiRoutesBatchGetBatchJobsRequest) (*BatchJobsOut, *http.Response, error) {
+//  @return ListBatchJobsResponse
+func (a *BatchAPIService) JobsApiRoutesBatchGetBatchJobsExecute(r ApiJobsApiRoutesBatchGetBatchJobsRequest) (*ListBatchJobsResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *BatchJobsOut
+		localVarReturnValue  *ListBatchJobsResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BatchAPIService.JobsApiRoutesBatchGetBatchJobs")

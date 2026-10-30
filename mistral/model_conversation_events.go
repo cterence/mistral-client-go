@@ -22,7 +22,7 @@ var _ MappedNullable = &ConversationEvents{}
 // ConversationEvents struct for ConversationEvents
 type ConversationEvents struct {
 	Event SSETypes `json:"event"`
-	Data Data `json:"data"`
+	Data Data1 `json:"data"`
 }
 
 type _ConversationEvents ConversationEvents
@@ -31,7 +31,7 @@ type _ConversationEvents ConversationEvents
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewConversationEvents(event SSETypes, data Data) *ConversationEvents {
+func NewConversationEvents(event SSETypes, data Data1) *ConversationEvents {
 	this := ConversationEvents{}
 	this.Event = event
 	this.Data = data
@@ -71,9 +71,9 @@ func (o *ConversationEvents) SetEvent(v SSETypes) {
 }
 
 // GetData returns the Data field value
-func (o *ConversationEvents) GetData() Data {
+func (o *ConversationEvents) GetData() Data1 {
 	if o == nil {
-		var ret Data
+		var ret Data1
 		return ret
 	}
 
@@ -82,7 +82,7 @@ func (o *ConversationEvents) GetData() Data {
 
 // GetDataOk returns a tuple with the Data field value
 // and a boolean to check if the value has been set.
-func (o *ConversationEvents) GetDataOk() (*Data, bool) {
+func (o *ConversationEvents) GetDataOk() (*Data1, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -90,7 +90,7 @@ func (o *ConversationEvents) GetDataOk() (*Data, bool) {
 }
 
 // SetData sets field value
-func (o *ConversationEvents) SetData(v Data) {
+func (o *ConversationEvents) SetData(v Data1) {
 	o.Data = v
 }
 

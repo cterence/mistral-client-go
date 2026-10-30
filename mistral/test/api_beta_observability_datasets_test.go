@@ -144,20 +144,6 @@ func Test_mistral_BetaObservabilityDatasetsAPIService(t *testing.T) {
 
 	})
 
-	t.Run("Test BetaObservabilityDatasetsAPIService PostDatasetRecordsFromCampaignV1ObservabilityDatasetsDatasetIdImportsFromCampaignPost", func(t *testing.T) {
-
-		t.Skip("skip test")  // remove to run test
-
-		var datasetId string
-
-		resp, httpRes, err := apiClient.BetaObservabilityDatasetsAPI.PostDatasetRecordsFromCampaignV1ObservabilityDatasetsDatasetIdImportsFromCampaignPost(context.Background(), datasetId).Execute()
-
-		require.Nil(t, err)
-		require.NotNil(t, resp)
-		assert.Equal(t, 200, httpRes.StatusCode)
-
-	})
-
 	t.Run("Test BetaObservabilityDatasetsAPIService PostDatasetRecordsFromDatasetV1ObservabilityDatasetsDatasetIdImportsFromDatasetPost", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
@@ -165,20 +151,6 @@ func Test_mistral_BetaObservabilityDatasetsAPIService(t *testing.T) {
 		var datasetId string
 
 		resp, httpRes, err := apiClient.BetaObservabilityDatasetsAPI.PostDatasetRecordsFromDatasetV1ObservabilityDatasetsDatasetIdImportsFromDatasetPost(context.Background(), datasetId).Execute()
-
-		require.Nil(t, err)
-		require.NotNil(t, resp)
-		assert.Equal(t, 200, httpRes.StatusCode)
-
-	})
-
-	t.Run("Test BetaObservabilityDatasetsAPIService PostDatasetRecordsFromExplorerV1ObservabilityDatasetsDatasetIdImportsFromExplorerPost", func(t *testing.T) {
-
-		t.Skip("skip test")  // remove to run test
-
-		var datasetId string
-
-		resp, httpRes, err := apiClient.BetaObservabilityDatasetsAPI.PostDatasetRecordsFromExplorerV1ObservabilityDatasetsDatasetIdImportsFromExplorerPost(context.Background(), datasetId).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)
@@ -207,6 +179,20 @@ func Test_mistral_BetaObservabilityDatasetsAPIService(t *testing.T) {
 		var datasetId string
 
 		resp, httpRes, err := apiClient.BetaObservabilityDatasetsAPI.PostDatasetRecordsFromPlaygroundV1ObservabilityDatasetsDatasetIdImportsFromPlaygroundPost(context.Background(), datasetId).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
+	t.Run("Test BetaObservabilityDatasetsAPIService PostDatasetRecordsFromSpansV1ObservabilityDatasetsDatasetIdImportsFromSpansPost", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		var datasetId string
+
+		resp, httpRes, err := apiClient.BetaObservabilityDatasetsAPI.PostDatasetRecordsFromSpansV1ObservabilityDatasetsDatasetIdImportsFromSpansPost(context.Background(), datasetId).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)

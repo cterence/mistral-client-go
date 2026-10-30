@@ -4,8 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Active** | Pointer to **NullableBool** | Filter for active connectors for a given user, workspace and organization. | [optional] 
-**FetchConnectionSecrets** | Pointer to **bool** | Fetch connection secrets. | [optional] [default to false]
+**SupportsMcp** | Pointer to **NullableBool** | Filter connectors by whether they expose an MCP-compatible tool interface. | [optional] 
 
 ## Methods
 
@@ -26,66 +25,41 @@ NewConnectorsQueryFiltersWithDefaults instantiates a new ConnectorsQueryFilters 
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
-### GetActive
+### GetSupportsMcp
 
-`func (o *ConnectorsQueryFilters) GetActive() bool`
+`func (o *ConnectorsQueryFilters) GetSupportsMcp() bool`
 
-GetActive returns the Active field if non-nil, zero value otherwise.
+GetSupportsMcp returns the SupportsMcp field if non-nil, zero value otherwise.
 
-### GetActiveOk
+### GetSupportsMcpOk
 
-`func (o *ConnectorsQueryFilters) GetActiveOk() (*bool, bool)`
+`func (o *ConnectorsQueryFilters) GetSupportsMcpOk() (*bool, bool)`
 
-GetActiveOk returns a tuple with the Active field if it's non-nil, zero value otherwise
+GetSupportsMcpOk returns a tuple with the SupportsMcp field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetActive
+### SetSupportsMcp
 
-`func (o *ConnectorsQueryFilters) SetActive(v bool)`
+`func (o *ConnectorsQueryFilters) SetSupportsMcp(v bool)`
 
-SetActive sets Active field to given value.
+SetSupportsMcp sets SupportsMcp field to given value.
 
-### HasActive
+### HasSupportsMcp
 
-`func (o *ConnectorsQueryFilters) HasActive() bool`
+`func (o *ConnectorsQueryFilters) HasSupportsMcp() bool`
 
-HasActive returns a boolean if a field has been set.
+HasSupportsMcp returns a boolean if a field has been set.
 
-### SetActiveNil
+### SetSupportsMcpNil
 
-`func (o *ConnectorsQueryFilters) SetActiveNil(b bool)`
+`func (o *ConnectorsQueryFilters) SetSupportsMcpNil(b bool)`
 
- SetActiveNil sets the value for Active to be an explicit nil
+ SetSupportsMcpNil sets the value for SupportsMcp to be an explicit nil
 
-### UnsetActive
-`func (o *ConnectorsQueryFilters) UnsetActive()`
+### UnsetSupportsMcp
+`func (o *ConnectorsQueryFilters) UnsetSupportsMcp()`
 
-UnsetActive ensures that no value is present for Active, not even an explicit nil
-### GetFetchConnectionSecrets
-
-`func (o *ConnectorsQueryFilters) GetFetchConnectionSecrets() bool`
-
-GetFetchConnectionSecrets returns the FetchConnectionSecrets field if non-nil, zero value otherwise.
-
-### GetFetchConnectionSecretsOk
-
-`func (o *ConnectorsQueryFilters) GetFetchConnectionSecretsOk() (*bool, bool)`
-
-GetFetchConnectionSecretsOk returns a tuple with the FetchConnectionSecrets field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetFetchConnectionSecrets
-
-`func (o *ConnectorsQueryFilters) SetFetchConnectionSecrets(v bool)`
-
-SetFetchConnectionSecrets sets FetchConnectionSecrets field to given value.
-
-### HasFetchConnectionSecrets
-
-`func (o *ConnectorsQueryFilters) HasFetchConnectionSecrets() bool`
-
-HasFetchConnectionSecrets returns a boolean if a field has been set.
-
+UnsetSupportsMcp ensures that no value is present for SupportsMcp, not even an explicit nil
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

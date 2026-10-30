@@ -18,6 +18,7 @@ import (
 
 // WorkflowExecutionTraceSummaryAttributesValues struct for WorkflowExecutionTraceSummaryAttributesValues
 type WorkflowExecutionTraceSummaryAttributesValues struct {
+	ArrayOfAny *[]interface{}
 	Bool *bool
 	Float32 *float32
 	Int32 *int32
@@ -30,6 +31,19 @@ func (dst *WorkflowExecutionTraceSummaryAttributesValues) UnmarshalJSON(data []b
 	// this object is nullable so check if the payload is null or empty string
 	if string(data) == "" || string(data) == "{}" {
 		return nil
+	}
+
+	// try to unmarshal JSON data into ArrayOfAny
+	err = json.Unmarshal(data, &dst.ArrayOfAny);
+	if err == nil {
+		jsonArrayOfAny, _ := json.Marshal(dst.ArrayOfAny)
+		if string(jsonArrayOfAny) == "{}" { // empty struct
+			dst.ArrayOfAny = nil
+		} else {
+			return nil // data stored in dst.ArrayOfAny, return on the first match
+		}
+	} else {
+		dst.ArrayOfAny = nil
 	}
 
 	// try to unmarshal JSON data into Bool
@@ -89,6 +103,10 @@ func (dst *WorkflowExecutionTraceSummaryAttributesValues) UnmarshalJSON(data []b
 
 // Marshal data from the first non-nil pointers in the struct to JSON
 func (src WorkflowExecutionTraceSummaryAttributesValues) MarshalJSON() ([]byte, error) {
+	if src.ArrayOfAny != nil {
+		return json.Marshal(&src.ArrayOfAny)
+	}
+
 	if src.Bool != nil {
 		return json.Marshal(&src.Bool)
 	}

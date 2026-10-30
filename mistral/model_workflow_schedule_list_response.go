@@ -23,6 +23,8 @@ var _ MappedNullable = &WorkflowScheduleListResponse{}
 type WorkflowScheduleListResponse struct {
 	// A list of workflow schedules
 	Schedules []ScheduleDefinitionOutput `json:"schedules"`
+	// Token for the next page of results
+	NextPageToken NullableString `json:"next_page_token,omitempty"`
 }
 
 type _WorkflowScheduleListResponse WorkflowScheduleListResponse
@@ -69,6 +71,48 @@ func (o *WorkflowScheduleListResponse) SetSchedules(v []ScheduleDefinitionOutput
 	o.Schedules = v
 }
 
+// GetNextPageToken returns the NextPageToken field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *WorkflowScheduleListResponse) GetNextPageToken() string {
+	if o == nil || IsNil(o.NextPageToken.Get()) {
+		var ret string
+		return ret
+	}
+	return *o.NextPageToken.Get()
+}
+
+// GetNextPageTokenOk returns a tuple with the NextPageToken field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *WorkflowScheduleListResponse) GetNextPageTokenOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.NextPageToken.Get(), o.NextPageToken.IsSet()
+}
+
+// HasNextPageToken returns a boolean if a field has been set.
+func (o *WorkflowScheduleListResponse) HasNextPageToken() bool {
+	if o != nil && o.NextPageToken.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetNextPageToken gets a reference to the given NullableString and assigns it to the NextPageToken field.
+func (o *WorkflowScheduleListResponse) SetNextPageToken(v string) {
+	o.NextPageToken.Set(&v)
+}
+// SetNextPageTokenNil sets the value for NextPageToken to be an explicit nil
+func (o *WorkflowScheduleListResponse) SetNextPageTokenNil() {
+	o.NextPageToken.Set(nil)
+}
+
+// UnsetNextPageToken ensures that no value is present for NextPageToken, not even an explicit nil
+func (o *WorkflowScheduleListResponse) UnsetNextPageToken() {
+	o.NextPageToken.Unset()
+}
+
 func (o WorkflowScheduleListResponse) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -80,6 +124,9 @@ func (o WorkflowScheduleListResponse) MarshalJSON() ([]byte, error) {
 func (o WorkflowScheduleListResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["schedules"] = o.Schedules
+	if o.NextPageToken.IsSet() {
+		toSerialize["next_page_token"] = o.NextPageToken.Get()
+	}
 	return toSerialize, nil
 }
 

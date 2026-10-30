@@ -26,6 +26,8 @@ type WorkflowMetrics struct {
 	ErrorCount ScalarMetric `json:"error_count"`
 	AverageLatencyMs ScalarMetric `json:"average_latency_ms"`
 	LatencyOverTime TimeSeriesMetric `json:"latency_over_time"`
+	// Deprecated, always -1. Never measured retries; use error_count instead.
+	// Deprecated
 	RetryRate ScalarMetric `json:"retry_rate"`
 }
 
@@ -175,6 +177,7 @@ func (o *WorkflowMetrics) SetLatencyOverTime(v TimeSeriesMetric) {
 }
 
 // GetRetryRate returns the RetryRate field value
+// Deprecated
 func (o *WorkflowMetrics) GetRetryRate() ScalarMetric {
 	if o == nil {
 		var ret ScalarMetric
@@ -186,6 +189,7 @@ func (o *WorkflowMetrics) GetRetryRate() ScalarMetric {
 
 // GetRetryRateOk returns a tuple with the RetryRate field value
 // and a boolean to check if the value has been set.
+// Deprecated
 func (o *WorkflowMetrics) GetRetryRateOk() (*ScalarMetric, bool) {
 	if o == nil {
 		return nil, false
@@ -194,6 +198,7 @@ func (o *WorkflowMetrics) GetRetryRateOk() (*ScalarMetric, bool) {
 }
 
 // SetRetryRate sets field value
+// Deprecated
 func (o *WorkflowMetrics) SetRetryRate(v ScalarMetric) {
 	o.RetryRate = v
 }

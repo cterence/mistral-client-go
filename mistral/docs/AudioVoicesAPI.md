@@ -4,6 +4,7 @@ All URIs are relative to *https://api.mistral.ai*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**AudioV2VoicesList**](AudioVoicesAPI.md#AudioV2VoicesList) | **Get** /v2/audio/voices | List voices, cursor-paginated
 [**CreateVoiceV1AudioVoicesPost**](AudioVoicesAPI.md#CreateVoiceV1AudioVoicesPost) | **Post** /v1/audio/voices | Create a new voice
 [**DeleteVoiceV1AudioVoicesVoiceIdDelete**](AudioVoicesAPI.md#DeleteVoiceV1AudioVoicesVoiceIdDelete) | **Delete** /v1/audio/voices/{voice_id} | Delete a custom voice
 [**GetVoiceSampleAudioV1AudioVoicesVoiceIdSampleGet**](AudioVoicesAPI.md#GetVoiceSampleAudioV1AudioVoicesVoiceIdSampleGet) | **Get** /v1/audio/voices/{voice_id}/sample | Get voice sample audio
@@ -11,6 +12,82 @@ Method | HTTP request | Description
 [**ListVoicesV1AudioVoicesGet**](AudioVoicesAPI.md#ListVoicesV1AudioVoicesGet) | **Get** /v1/audio/voices | List all voices
 [**UpdateVoiceV1AudioVoicesVoiceIdPatch**](AudioVoicesAPI.md#UpdateVoiceV1AudioVoicesVoiceIdPatch) | **Patch** /v1/audio/voices/{voice_id} | Update voice metadata
 
+
+
+## AudioV2VoicesList
+
+> VoiceListPage AudioV2VoicesList(ctx).PageSize(pageSize).PageToken(pageToken).Type_(type_).Gender(gender).Language(language).Query(query).Execute()
+
+List voices, cursor-paginated
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/cterence/mistral-client-go"
+)
+
+func main() {
+	pageSize := int32(56) // int32 | Maximum number of voices to return (optional) (default to 10)
+	pageToken := "pageToken_example" // string | Cursor returned as next_page_token by the previous page (optional)
+	type_ := "type__example" // string | Filter the voices between customs and presets (optional) (default to "all")
+	gender := []openapiclient.VoiceGender{openapiclient.VoiceGender("female")} // []VoiceGender | Keep voices matching any of these genders (optional)
+	language := []string{"Inner_example"} // []string | Keep voices supporting any of these languages (optional)
+	query := "query_example" // string | Case-insensitive match on voice name (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AudioVoicesAPI.AudioV2VoicesList(context.Background()).PageSize(pageSize).PageToken(pageToken).Type_(type_).Gender(gender).Language(language).Query(query).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AudioVoicesAPI.AudioV2VoicesList``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `AudioV2VoicesList`: VoiceListPage
+	fmt.Fprintf(os.Stdout, "Response from `AudioVoicesAPI.AudioV2VoicesList`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiAudioV2VoicesListRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **pageSize** | **int32** | Maximum number of voices to return | [default to 10]
+ **pageToken** | **string** | Cursor returned as next_page_token by the previous page | 
+ **type_** | **string** | Filter the voices between customs and presets | [default to &quot;all&quot;]
+ **gender** | [**[]VoiceGender**](VoiceGender.md) | Keep voices matching any of these genders | 
+ **language** | **[]string** | Keep voices supporting any of these languages | 
+ **query** | **string** | Case-insensitive match on voice name | 
+
+### Return type
+
+[**VoiceListPage**](VoiceListPage.md)
+
+### Authorization
+
+[ApiKey](../README.md#ApiKey)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
 
 ## CreateVoiceV1AudioVoicesPost
@@ -34,7 +111,7 @@ import (
 )
 
 func main() {
-	voiceCreateRequest := *openapiclient.NewVoiceCreateRequest("Name_example", "SampleAudio_example") // VoiceCreateRequest | 
+	voiceCreateRequest := *openapiclient.NewVoiceCreateRequest("Name_example") // VoiceCreateRequest | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -151,7 +228,7 @@ Name | Type | Description  | Notes
 
 ## GetVoiceSampleAudioV1AudioVoicesVoiceIdSampleGet
 
-> string GetVoiceSampleAudioV1AudioVoicesVoiceIdSampleGet(ctx, voiceId).Execute()
+> *os.File GetVoiceSampleAudioV1AudioVoicesVoiceIdSampleGet(ctx, voiceId).Execute()
 
 Get voice sample audio
 
@@ -179,7 +256,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `AudioVoicesAPI.GetVoiceSampleAudioV1AudioVoicesVoiceIdSampleGet``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetVoiceSampleAudioV1AudioVoicesVoiceIdSampleGet`: string
+	// response from `GetVoiceSampleAudioV1AudioVoicesVoiceIdSampleGet`: *os.File
 	fmt.Fprintf(os.Stdout, "Response from `AudioVoicesAPI.GetVoiceSampleAudioV1AudioVoicesVoiceIdSampleGet`: %v\n", resp)
 }
 ```
@@ -203,7 +280,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**string**
+[***os.File**](*os.File.md)
 
 ### Authorization
 
@@ -212,7 +289,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, audio/wav
+- **Accept**: audio/wav, application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -291,7 +368,7 @@ Name | Type | Description  | Notes
 
 ## ListVoicesV1AudioVoicesGet
 
-> VoiceListResponse ListVoicesV1AudioVoicesGet(ctx).Limit(limit).Offset(offset).Execute()
+> VoiceListResponse ListVoicesV1AudioVoicesGet(ctx).Limit(limit).Offset(offset).Type_(type_).Execute()
 
 List all voices
 
@@ -312,10 +389,11 @@ import (
 func main() {
 	limit := int32(56) // int32 | Maximum number of voices to return (optional) (default to 10)
 	offset := int32(56) // int32 | Offset for pagination (optional) (default to 0)
+	type_ := "type__example" // string | Filter the voices between customs and presets (optional) (default to "all")
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AudioVoicesAPI.ListVoicesV1AudioVoicesGet(context.Background()).Limit(limit).Offset(offset).Execute()
+	resp, r, err := apiClient.AudioVoicesAPI.ListVoicesV1AudioVoicesGet(context.Background()).Limit(limit).Offset(offset).Type_(type_).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AudioVoicesAPI.ListVoicesV1AudioVoicesGet``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -338,6 +416,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **limit** | **int32** | Maximum number of voices to return | [default to 10]
  **offset** | **int32** | Offset for pagination | [default to 0]
+ **type_** | **string** | Filter the voices between customs and presets | [default to &quot;all&quot;]
 
 ### Return type
 

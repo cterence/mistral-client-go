@@ -25,9 +25,8 @@ type UsageInfo struct {
 	CompletionTokens int32 `json:"completion_tokens"`
 	TotalTokens int32 `json:"total_tokens"`
 	PromptAudioSeconds NullableInt32 `json:"prompt_audio_seconds,omitempty"`
-	NumCachedTokens NullableInt32 `json:"num_cached_tokens,omitempty"`
-	PromptTokensDetails NullablePromptTokensDetails `json:"prompt_tokens_details,omitempty"`
-	PromptTokenDetails NullablePromptTokensDetails `json:"prompt_token_details,omitempty"`
+	// The service tier at which the request was processed: standard or priority.
+	ServiceTier NullableString `json:"service_tier,omitempty"`
 }
 
 type _UsageInfo UsageInfo
@@ -172,130 +171,46 @@ func (o *UsageInfo) UnsetPromptAudioSeconds() {
 	o.PromptAudioSeconds.Unset()
 }
 
-// GetNumCachedTokens returns the NumCachedTokens field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *UsageInfo) GetNumCachedTokens() int32 {
-	if o == nil || IsNil(o.NumCachedTokens.Get()) {
-		var ret int32
+// GetServiceTier returns the ServiceTier field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *UsageInfo) GetServiceTier() string {
+	if o == nil || IsNil(o.ServiceTier.Get()) {
+		var ret string
 		return ret
 	}
-	return *o.NumCachedTokens.Get()
+	return *o.ServiceTier.Get()
 }
 
-// GetNumCachedTokensOk returns a tuple with the NumCachedTokens field value if set, nil otherwise
+// GetServiceTierOk returns a tuple with the ServiceTier field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *UsageInfo) GetNumCachedTokensOk() (*int32, bool) {
+func (o *UsageInfo) GetServiceTierOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return o.NumCachedTokens.Get(), o.NumCachedTokens.IsSet()
+	return o.ServiceTier.Get(), o.ServiceTier.IsSet()
 }
 
-// HasNumCachedTokens returns a boolean if a field has been set.
-func (o *UsageInfo) HasNumCachedTokens() bool {
-	if o != nil && o.NumCachedTokens.IsSet() {
+// HasServiceTier returns a boolean if a field has been set.
+func (o *UsageInfo) HasServiceTier() bool {
+	if o != nil && o.ServiceTier.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetNumCachedTokens gets a reference to the given NullableInt32 and assigns it to the NumCachedTokens field.
-func (o *UsageInfo) SetNumCachedTokens(v int32) {
-	o.NumCachedTokens.Set(&v)
+// SetServiceTier gets a reference to the given NullableString and assigns it to the ServiceTier field.
+func (o *UsageInfo) SetServiceTier(v string) {
+	o.ServiceTier.Set(&v)
 }
-// SetNumCachedTokensNil sets the value for NumCachedTokens to be an explicit nil
-func (o *UsageInfo) SetNumCachedTokensNil() {
-	o.NumCachedTokens.Set(nil)
-}
-
-// UnsetNumCachedTokens ensures that no value is present for NumCachedTokens, not even an explicit nil
-func (o *UsageInfo) UnsetNumCachedTokens() {
-	o.NumCachedTokens.Unset()
+// SetServiceTierNil sets the value for ServiceTier to be an explicit nil
+func (o *UsageInfo) SetServiceTierNil() {
+	o.ServiceTier.Set(nil)
 }
 
-// GetPromptTokensDetails returns the PromptTokensDetails field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *UsageInfo) GetPromptTokensDetails() PromptTokensDetails {
-	if o == nil || IsNil(o.PromptTokensDetails.Get()) {
-		var ret PromptTokensDetails
-		return ret
-	}
-	return *o.PromptTokensDetails.Get()
-}
-
-// GetPromptTokensDetailsOk returns a tuple with the PromptTokensDetails field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *UsageInfo) GetPromptTokensDetailsOk() (*PromptTokensDetails, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return o.PromptTokensDetails.Get(), o.PromptTokensDetails.IsSet()
-}
-
-// HasPromptTokensDetails returns a boolean if a field has been set.
-func (o *UsageInfo) HasPromptTokensDetails() bool {
-	if o != nil && o.PromptTokensDetails.IsSet() {
-		return true
-	}
-
-	return false
-}
-
-// SetPromptTokensDetails gets a reference to the given NullablePromptTokensDetails and assigns it to the PromptTokensDetails field.
-func (o *UsageInfo) SetPromptTokensDetails(v PromptTokensDetails) {
-	o.PromptTokensDetails.Set(&v)
-}
-// SetPromptTokensDetailsNil sets the value for PromptTokensDetails to be an explicit nil
-func (o *UsageInfo) SetPromptTokensDetailsNil() {
-	o.PromptTokensDetails.Set(nil)
-}
-
-// UnsetPromptTokensDetails ensures that no value is present for PromptTokensDetails, not even an explicit nil
-func (o *UsageInfo) UnsetPromptTokensDetails() {
-	o.PromptTokensDetails.Unset()
-}
-
-// GetPromptTokenDetails returns the PromptTokenDetails field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *UsageInfo) GetPromptTokenDetails() PromptTokensDetails {
-	if o == nil || IsNil(o.PromptTokenDetails.Get()) {
-		var ret PromptTokensDetails
-		return ret
-	}
-	return *o.PromptTokenDetails.Get()
-}
-
-// GetPromptTokenDetailsOk returns a tuple with the PromptTokenDetails field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *UsageInfo) GetPromptTokenDetailsOk() (*PromptTokensDetails, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return o.PromptTokenDetails.Get(), o.PromptTokenDetails.IsSet()
-}
-
-// HasPromptTokenDetails returns a boolean if a field has been set.
-func (o *UsageInfo) HasPromptTokenDetails() bool {
-	if o != nil && o.PromptTokenDetails.IsSet() {
-		return true
-	}
-
-	return false
-}
-
-// SetPromptTokenDetails gets a reference to the given NullablePromptTokensDetails and assigns it to the PromptTokenDetails field.
-func (o *UsageInfo) SetPromptTokenDetails(v PromptTokensDetails) {
-	o.PromptTokenDetails.Set(&v)
-}
-// SetPromptTokenDetailsNil sets the value for PromptTokenDetails to be an explicit nil
-func (o *UsageInfo) SetPromptTokenDetailsNil() {
-	o.PromptTokenDetails.Set(nil)
-}
-
-// UnsetPromptTokenDetails ensures that no value is present for PromptTokenDetails, not even an explicit nil
-func (o *UsageInfo) UnsetPromptTokenDetails() {
-	o.PromptTokenDetails.Unset()
+// UnsetServiceTier ensures that no value is present for ServiceTier, not even an explicit nil
+func (o *UsageInfo) UnsetServiceTier() {
+	o.ServiceTier.Unset()
 }
 
 func (o UsageInfo) MarshalJSON() ([]byte, error) {
@@ -314,14 +229,8 @@ func (o UsageInfo) ToMap() (map[string]interface{}, error) {
 	if o.PromptAudioSeconds.IsSet() {
 		toSerialize["prompt_audio_seconds"] = o.PromptAudioSeconds.Get()
 	}
-	if o.NumCachedTokens.IsSet() {
-		toSerialize["num_cached_tokens"] = o.NumCachedTokens.Get()
-	}
-	if o.PromptTokensDetails.IsSet() {
-		toSerialize["prompt_tokens_details"] = o.PromptTokensDetails.Get()
-	}
-	if o.PromptTokenDetails.IsSet() {
-		toSerialize["prompt_token_details"] = o.PromptTokenDetails.Get()
+	if o.ServiceTier.IsSet() {
+		toSerialize["service_tier"] = o.ServiceTier.Get()
 	}
 	return toSerialize, nil
 }

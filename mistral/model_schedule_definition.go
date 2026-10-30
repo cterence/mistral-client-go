@@ -42,6 +42,8 @@ type ScheduleDefinition struct {
 	TimeZoneName NullableString `json:"time_zone_name,omitempty"`
 	// Policy for the schedule.
 	Policy *SchedulePolicy `json:"policy,omitempty"`
+	// Maximum number of times this schedule will trigger a workflow execution. Once this limit is reached, no further executions are triggered automatically. null means unlimited.
+	MaxExecutions NullableInt32 `json:"max_executions,omitempty"`
 	// Unique identifier for the schedule.
 	ScheduleId NullableString `json:"schedule_id,omitempty"`
 }
@@ -420,6 +422,48 @@ func (o *ScheduleDefinition) SetPolicy(v SchedulePolicy) {
 	o.Policy = &v
 }
 
+// GetMaxExecutions returns the MaxExecutions field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *ScheduleDefinition) GetMaxExecutions() int32 {
+	if o == nil || IsNil(o.MaxExecutions.Get()) {
+		var ret int32
+		return ret
+	}
+	return *o.MaxExecutions.Get()
+}
+
+// GetMaxExecutionsOk returns a tuple with the MaxExecutions field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *ScheduleDefinition) GetMaxExecutionsOk() (*int32, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.MaxExecutions.Get(), o.MaxExecutions.IsSet()
+}
+
+// HasMaxExecutions returns a boolean if a field has been set.
+func (o *ScheduleDefinition) HasMaxExecutions() bool {
+	if o != nil && o.MaxExecutions.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetMaxExecutions gets a reference to the given NullableInt32 and assigns it to the MaxExecutions field.
+func (o *ScheduleDefinition) SetMaxExecutions(v int32) {
+	o.MaxExecutions.Set(&v)
+}
+// SetMaxExecutionsNil sets the value for MaxExecutions to be an explicit nil
+func (o *ScheduleDefinition) SetMaxExecutionsNil() {
+	o.MaxExecutions.Set(nil)
+}
+
+// UnsetMaxExecutions ensures that no value is present for MaxExecutions, not even an explicit nil
+func (o *ScheduleDefinition) UnsetMaxExecutions() {
+	o.MaxExecutions.Unset()
+}
+
 // GetScheduleId returns the ScheduleId field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *ScheduleDefinition) GetScheduleId() string {
 	if o == nil || IsNil(o.ScheduleId.Get()) {
@@ -501,6 +545,9 @@ func (o ScheduleDefinition) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.Policy) {
 		toSerialize["policy"] = o.Policy
+	}
+	if o.MaxExecutions.IsSet() {
+		toSerialize["max_executions"] = o.MaxExecutions.Get()
 	}
 	if o.ScheduleId.IsSet() {
 		toSerialize["schedule_id"] = o.ScheduleId.Get()

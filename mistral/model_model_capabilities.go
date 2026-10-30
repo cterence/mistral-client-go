@@ -17,10 +17,11 @@ import (
 // checks if the ModelCapabilities type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &ModelCapabilities{}
 
-// ModelCapabilities struct for ModelCapabilities
+// ModelCapabilities This is populated by Harmattan, but some fields have a name that we don't want to expose in the API.
 type ModelCapabilities struct {
 	CompletionChat *bool `json:"completion_chat,omitempty"`
 	FunctionCalling *bool `json:"function_calling,omitempty"`
+	Reasoning *bool `json:"reasoning,omitempty"`
 	CompletionFim *bool `json:"completion_fim,omitempty"`
 	FineTuning *bool `json:"fine_tuning,omitempty"`
 	Vision *bool `json:"vision,omitempty"`
@@ -29,6 +30,9 @@ type ModelCapabilities struct {
 	Moderation *bool `json:"moderation,omitempty"`
 	Audio *bool `json:"audio,omitempty"`
 	AudioTranscription *bool `json:"audio_transcription,omitempty"`
+	AudioTranscriptionRealtime *bool `json:"audio_transcription_realtime,omitempty"`
+	AudioSpeech *bool `json:"audio_speech,omitempty"`
+	UnifiedResources *bool `json:"unified_resources,omitempty"`
 }
 
 // NewModelCapabilities instantiates a new ModelCapabilities object
@@ -41,6 +45,8 @@ func NewModelCapabilities() *ModelCapabilities {
 	this.CompletionChat = &completionChat
 	var functionCalling bool = false
 	this.FunctionCalling = &functionCalling
+	var reasoning bool = false
+	this.Reasoning = &reasoning
 	var completionFim bool = false
 	this.CompletionFim = &completionFim
 	var fineTuning bool = false
@@ -57,6 +63,12 @@ func NewModelCapabilities() *ModelCapabilities {
 	this.Audio = &audio
 	var audioTranscription bool = false
 	this.AudioTranscription = &audioTranscription
+	var audioTranscriptionRealtime bool = false
+	this.AudioTranscriptionRealtime = &audioTranscriptionRealtime
+	var audioSpeech bool = false
+	this.AudioSpeech = &audioSpeech
+	var unifiedResources bool = false
+	this.UnifiedResources = &unifiedResources
 	return &this
 }
 
@@ -69,6 +81,8 @@ func NewModelCapabilitiesWithDefaults() *ModelCapabilities {
 	this.CompletionChat = &completionChat
 	var functionCalling bool = false
 	this.FunctionCalling = &functionCalling
+	var reasoning bool = false
+	this.Reasoning = &reasoning
 	var completionFim bool = false
 	this.CompletionFim = &completionFim
 	var fineTuning bool = false
@@ -85,6 +99,12 @@ func NewModelCapabilitiesWithDefaults() *ModelCapabilities {
 	this.Audio = &audio
 	var audioTranscription bool = false
 	this.AudioTranscription = &audioTranscription
+	var audioTranscriptionRealtime bool = false
+	this.AudioTranscriptionRealtime = &audioTranscriptionRealtime
+	var audioSpeech bool = false
+	this.AudioSpeech = &audioSpeech
+	var unifiedResources bool = false
+	this.UnifiedResources = &unifiedResources
 	return &this
 }
 
@@ -150,6 +170,38 @@ func (o *ModelCapabilities) HasFunctionCalling() bool {
 // SetFunctionCalling gets a reference to the given bool and assigns it to the FunctionCalling field.
 func (o *ModelCapabilities) SetFunctionCalling(v bool) {
 	o.FunctionCalling = &v
+}
+
+// GetReasoning returns the Reasoning field value if set, zero value otherwise.
+func (o *ModelCapabilities) GetReasoning() bool {
+	if o == nil || IsNil(o.Reasoning) {
+		var ret bool
+		return ret
+	}
+	return *o.Reasoning
+}
+
+// GetReasoningOk returns a tuple with the Reasoning field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ModelCapabilities) GetReasoningOk() (*bool, bool) {
+	if o == nil || IsNil(o.Reasoning) {
+		return nil, false
+	}
+	return o.Reasoning, true
+}
+
+// HasReasoning returns a boolean if a field has been set.
+func (o *ModelCapabilities) HasReasoning() bool {
+	if o != nil && !IsNil(o.Reasoning) {
+		return true
+	}
+
+	return false
+}
+
+// SetReasoning gets a reference to the given bool and assigns it to the Reasoning field.
+func (o *ModelCapabilities) SetReasoning(v bool) {
+	o.Reasoning = &v
 }
 
 // GetCompletionFim returns the CompletionFim field value if set, zero value otherwise.
@@ -408,6 +460,102 @@ func (o *ModelCapabilities) SetAudioTranscription(v bool) {
 	o.AudioTranscription = &v
 }
 
+// GetAudioTranscriptionRealtime returns the AudioTranscriptionRealtime field value if set, zero value otherwise.
+func (o *ModelCapabilities) GetAudioTranscriptionRealtime() bool {
+	if o == nil || IsNil(o.AudioTranscriptionRealtime) {
+		var ret bool
+		return ret
+	}
+	return *o.AudioTranscriptionRealtime
+}
+
+// GetAudioTranscriptionRealtimeOk returns a tuple with the AudioTranscriptionRealtime field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ModelCapabilities) GetAudioTranscriptionRealtimeOk() (*bool, bool) {
+	if o == nil || IsNil(o.AudioTranscriptionRealtime) {
+		return nil, false
+	}
+	return o.AudioTranscriptionRealtime, true
+}
+
+// HasAudioTranscriptionRealtime returns a boolean if a field has been set.
+func (o *ModelCapabilities) HasAudioTranscriptionRealtime() bool {
+	if o != nil && !IsNil(o.AudioTranscriptionRealtime) {
+		return true
+	}
+
+	return false
+}
+
+// SetAudioTranscriptionRealtime gets a reference to the given bool and assigns it to the AudioTranscriptionRealtime field.
+func (o *ModelCapabilities) SetAudioTranscriptionRealtime(v bool) {
+	o.AudioTranscriptionRealtime = &v
+}
+
+// GetAudioSpeech returns the AudioSpeech field value if set, zero value otherwise.
+func (o *ModelCapabilities) GetAudioSpeech() bool {
+	if o == nil || IsNil(o.AudioSpeech) {
+		var ret bool
+		return ret
+	}
+	return *o.AudioSpeech
+}
+
+// GetAudioSpeechOk returns a tuple with the AudioSpeech field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ModelCapabilities) GetAudioSpeechOk() (*bool, bool) {
+	if o == nil || IsNil(o.AudioSpeech) {
+		return nil, false
+	}
+	return o.AudioSpeech, true
+}
+
+// HasAudioSpeech returns a boolean if a field has been set.
+func (o *ModelCapabilities) HasAudioSpeech() bool {
+	if o != nil && !IsNil(o.AudioSpeech) {
+		return true
+	}
+
+	return false
+}
+
+// SetAudioSpeech gets a reference to the given bool and assigns it to the AudioSpeech field.
+func (o *ModelCapabilities) SetAudioSpeech(v bool) {
+	o.AudioSpeech = &v
+}
+
+// GetUnifiedResources returns the UnifiedResources field value if set, zero value otherwise.
+func (o *ModelCapabilities) GetUnifiedResources() bool {
+	if o == nil || IsNil(o.UnifiedResources) {
+		var ret bool
+		return ret
+	}
+	return *o.UnifiedResources
+}
+
+// GetUnifiedResourcesOk returns a tuple with the UnifiedResources field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ModelCapabilities) GetUnifiedResourcesOk() (*bool, bool) {
+	if o == nil || IsNil(o.UnifiedResources) {
+		return nil, false
+	}
+	return o.UnifiedResources, true
+}
+
+// HasUnifiedResources returns a boolean if a field has been set.
+func (o *ModelCapabilities) HasUnifiedResources() bool {
+	if o != nil && !IsNil(o.UnifiedResources) {
+		return true
+	}
+
+	return false
+}
+
+// SetUnifiedResources gets a reference to the given bool and assigns it to the UnifiedResources field.
+func (o *ModelCapabilities) SetUnifiedResources(v bool) {
+	o.UnifiedResources = &v
+}
+
 func (o ModelCapabilities) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -423,6 +571,9 @@ func (o ModelCapabilities) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.FunctionCalling) {
 		toSerialize["function_calling"] = o.FunctionCalling
+	}
+	if !IsNil(o.Reasoning) {
+		toSerialize["reasoning"] = o.Reasoning
 	}
 	if !IsNil(o.CompletionFim) {
 		toSerialize["completion_fim"] = o.CompletionFim
@@ -447,6 +598,15 @@ func (o ModelCapabilities) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.AudioTranscription) {
 		toSerialize["audio_transcription"] = o.AudioTranscription
+	}
+	if !IsNil(o.AudioTranscriptionRealtime) {
+		toSerialize["audio_transcription_realtime"] = o.AudioTranscriptionRealtime
+	}
+	if !IsNil(o.AudioSpeech) {
+		toSerialize["audio_speech"] = o.AudioSpeech
+	}
+	if !IsNil(o.UnifiedResources) {
+		toSerialize["unified_resources"] = o.UnifiedResources
 	}
 	return toSerialize, nil
 }

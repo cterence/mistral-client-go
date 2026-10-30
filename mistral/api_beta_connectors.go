@@ -23,17 +23,134 @@ import (
 // BetaConnectorsAPIService BetaConnectorsAPI service
 type BetaConnectorsAPIService service
 
+type ApiConnectorActivateForConsumerV1Request struct {
+	ctx context.Context
+	ApiService *BetaConnectorsAPIService
+	connectorId string
+	consumerScope string
+}
+
+func (r ApiConnectorActivateForConsumerV1Request) Execute() (*MessageResponse, *http.Response, error) {
+	return r.ApiService.ConnectorActivateForConsumerV1Execute(r)
+}
+
+/*
+ConnectorActivateForConsumerV1 Activate a connector for the given consumer (organization, workspace, user).
+
+Enable a connector for the consumer.
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param connectorId
+ @param consumerScope
+ @return ApiConnectorActivateForConsumerV1Request
+*/
+func (a *BetaConnectorsAPIService) ConnectorActivateForConsumerV1(ctx context.Context, connectorId string, consumerScope string) ApiConnectorActivateForConsumerV1Request {
+	return ApiConnectorActivateForConsumerV1Request{
+		ApiService: a,
+		ctx: ctx,
+		connectorId: connectorId,
+		consumerScope: consumerScope,
+	}
+}
+
+// Execute executes the request
+//  @return MessageResponse
+func (a *BetaConnectorsAPIService) ConnectorActivateForConsumerV1Execute(r ApiConnectorActivateForConsumerV1Request) (*MessageResponse, *http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodPost
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *MessageResponse
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BetaConnectorsAPIService.ConnectorActivateForConsumerV1")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/connectors/{connector_id}/{consumer_scope}/activate"
+	localVarPath = strings.Replace(localVarPath, "{"+"connector_id"+"}", url.PathEscape(parameterValueToString(r.connectorId, "connectorId")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"consumer_scope"+"}", url.PathEscape(parameterValueToString(r.consumerScope, "consumerScope")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 422 {
+			var v HTTPValidationError
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
 type ApiConnectorCallToolV1Request struct {
 	ctx context.Context
 	ApiService *BetaConnectorsAPIService
 	toolName string
-	connectorIdOrName string
-	mCPToolCallRequest *MCPToolCallRequest
+	connectorIdOrName ConnectorIdOrName1
+	connectorCallToolRequest *ConnectorCallToolRequest
 	credentialsName *string
 }
 
-func (r ApiConnectorCallToolV1Request) MCPToolCallRequest(mCPToolCallRequest MCPToolCallRequest) ApiConnectorCallToolV1Request {
-	r.mCPToolCallRequest = &mCPToolCallRequest
+func (r ApiConnectorCallToolV1Request) ConnectorCallToolRequest(connectorCallToolRequest ConnectorCallToolRequest) ApiConnectorCallToolV1Request {
+	r.connectorCallToolRequest = &connectorCallToolRequest
 	return r
 }
 
@@ -42,7 +159,7 @@ func (r ApiConnectorCallToolV1Request) CredentialsName(credentialsName string) A
 	return r
 }
 
-func (r ApiConnectorCallToolV1Request) Execute() (*MCPToolCallResponse, *http.Response, error) {
+func (r ApiConnectorCallToolV1Request) Execute() (*ConnectorToolCallResponse, *http.Response, error) {
 	return r.ApiService.ConnectorCallToolV1Execute(r)
 }
 
@@ -55,8 +172,10 @@ Call a tool on an MCP connector.
  @param toolName
  @param connectorIdOrName
  @return ApiConnectorCallToolV1Request
+
+Deprecated
 */
-func (a *BetaConnectorsAPIService) ConnectorCallToolV1(ctx context.Context, toolName string, connectorIdOrName string) ApiConnectorCallToolV1Request {
+func (a *BetaConnectorsAPIService) ConnectorCallToolV1(ctx context.Context, toolName string, connectorIdOrName ConnectorIdOrName1) ApiConnectorCallToolV1Request {
 	return ApiConnectorCallToolV1Request{
 		ApiService: a,
 		ctx: ctx,
@@ -66,13 +185,14 @@ func (a *BetaConnectorsAPIService) ConnectorCallToolV1(ctx context.Context, tool
 }
 
 // Execute executes the request
-//  @return MCPToolCallResponse
-func (a *BetaConnectorsAPIService) ConnectorCallToolV1Execute(r ApiConnectorCallToolV1Request) (*MCPToolCallResponse, *http.Response, error) {
+//  @return ConnectorToolCallResponse
+// Deprecated
+func (a *BetaConnectorsAPIService) ConnectorCallToolV1Execute(r ApiConnectorCallToolV1Request) (*ConnectorToolCallResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *MCPToolCallResponse
+		localVarReturnValue  *ConnectorToolCallResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BetaConnectorsAPIService.ConnectorCallToolV1")
@@ -87,8 +207,8 @@ func (a *BetaConnectorsAPIService) ConnectorCallToolV1Execute(r ApiConnectorCall
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.mCPToolCallRequest == nil {
-		return localVarReturnValue, nil, reportError("mCPToolCallRequest is required and must be specified")
+	if r.connectorCallToolRequest == nil {
+		return localVarReturnValue, nil, reportError("connectorCallToolRequest is required and must be specified")
 	}
 
 	if r.credentialsName != nil {
@@ -112,7 +232,7 @@ func (a *BetaConnectorsAPIService) ConnectorCallToolV1Execute(r ApiConnectorCall
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.mCPToolCallRequest
+	localVarPostBody = r.connectorCallToolRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -160,42 +280,45 @@ func (a *BetaConnectorsAPIService) ConnectorCallToolV1Execute(r ApiConnectorCall
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiConnectorCreateOrUpdateOrganizationCredentialsV1Request struct {
+type ApiConnectorCreateCredentialsV1Request struct {
 	ctx context.Context
 	ApiService *BetaConnectorsAPIService
-	connectorIdOrName string
+	connectorIdOrName ConnectorIdOrName1
+	consumerScope string
 	credentialsCreateOrUpdate *CredentialsCreateOrUpdate
 }
 
-func (r ApiConnectorCreateOrUpdateOrganizationCredentialsV1Request) CredentialsCreateOrUpdate(credentialsCreateOrUpdate CredentialsCreateOrUpdate) ApiConnectorCreateOrUpdateOrganizationCredentialsV1Request {
+func (r ApiConnectorCreateCredentialsV1Request) CredentialsCreateOrUpdate(credentialsCreateOrUpdate CredentialsCreateOrUpdate) ApiConnectorCreateCredentialsV1Request {
 	r.credentialsCreateOrUpdate = &credentialsCreateOrUpdate
 	return r
 }
 
-func (r ApiConnectorCreateOrUpdateOrganizationCredentialsV1Request) Execute() (*MessageResponse, *http.Response, error) {
-	return r.ApiService.ConnectorCreateOrUpdateOrganizationCredentialsV1Execute(r)
+func (r ApiConnectorCreateCredentialsV1Request) Execute() (*MessageResponse, *http.Response, error) {
+	return r.ApiService.ConnectorCreateCredentialsV1Execute(r)
 }
 
 /*
-ConnectorCreateOrUpdateOrganizationCredentialsV1 Create or update organization credentials for a connector.
+ConnectorCreateCredentialsV1 Create consumer credentials for a connector.
 
-Create or update credentials at the organization level for a given connector.
+Create consumer credentials for a given connector and consumer scope (organization, workspace, user)
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param connectorIdOrName
- @return ApiConnectorCreateOrUpdateOrganizationCredentialsV1Request
+ @param consumerScope
+ @return ApiConnectorCreateCredentialsV1Request
 */
-func (a *BetaConnectorsAPIService) ConnectorCreateOrUpdateOrganizationCredentialsV1(ctx context.Context, connectorIdOrName string) ApiConnectorCreateOrUpdateOrganizationCredentialsV1Request {
-	return ApiConnectorCreateOrUpdateOrganizationCredentialsV1Request{
+func (a *BetaConnectorsAPIService) ConnectorCreateCredentialsV1(ctx context.Context, connectorIdOrName ConnectorIdOrName1, consumerScope string) ApiConnectorCreateCredentialsV1Request {
+	return ApiConnectorCreateCredentialsV1Request{
 		ApiService: a,
 		ctx: ctx,
 		connectorIdOrName: connectorIdOrName,
+		consumerScope: consumerScope,
 	}
 }
 
 // Execute executes the request
 //  @return MessageResponse
-func (a *BetaConnectorsAPIService) ConnectorCreateOrUpdateOrganizationCredentialsV1Execute(r ApiConnectorCreateOrUpdateOrganizationCredentialsV1Request) (*MessageResponse, *http.Response, error) {
+func (a *BetaConnectorsAPIService) ConnectorCreateCredentialsV1Execute(r ApiConnectorCreateCredentialsV1Request) (*MessageResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
@@ -203,261 +326,14 @@ func (a *BetaConnectorsAPIService) ConnectorCreateOrUpdateOrganizationCredential
 		localVarReturnValue  *MessageResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BetaConnectorsAPIService.ConnectorCreateOrUpdateOrganizationCredentialsV1")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BetaConnectorsAPIService.ConnectorCreateCredentialsV1")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/connectors/{connector_id_or_name}/organization/credentials"
+	localVarPath := localBasePath + "/v1/connectors/{connector_id_or_name}/{consumer_scope}/credentials"
 	localVarPath = strings.Replace(localVarPath, "{"+"connector_id_or_name"+"}", url.PathEscape(parameterValueToString(r.connectorIdOrName, "connectorIdOrName")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-	if r.credentialsCreateOrUpdate == nil {
-		return localVarReturnValue, nil, reportError("credentialsCreateOrUpdate is required and must be specified")
-	}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	// body params
-	localVarPostBody = r.credentialsCreateOrUpdate
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		if localVarHTTPResponse.StatusCode == 422 {
-			var v HTTPValidationError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type ApiConnectorCreateOrUpdateUserCredentialsV1Request struct {
-	ctx context.Context
-	ApiService *BetaConnectorsAPIService
-	connectorIdOrName string
-	credentialsCreateOrUpdate *CredentialsCreateOrUpdate
-}
-
-func (r ApiConnectorCreateOrUpdateUserCredentialsV1Request) CredentialsCreateOrUpdate(credentialsCreateOrUpdate CredentialsCreateOrUpdate) ApiConnectorCreateOrUpdateUserCredentialsV1Request {
-	r.credentialsCreateOrUpdate = &credentialsCreateOrUpdate
-	return r
-}
-
-func (r ApiConnectorCreateOrUpdateUserCredentialsV1Request) Execute() (*MessageResponse, *http.Response, error) {
-	return r.ApiService.ConnectorCreateOrUpdateUserCredentialsV1Execute(r)
-}
-
-/*
-ConnectorCreateOrUpdateUserCredentialsV1 Create or update user credentials for a connector.
-
-Create or update credentials at the user level for a given connector.
-
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param connectorIdOrName
- @return ApiConnectorCreateOrUpdateUserCredentialsV1Request
-*/
-func (a *BetaConnectorsAPIService) ConnectorCreateOrUpdateUserCredentialsV1(ctx context.Context, connectorIdOrName string) ApiConnectorCreateOrUpdateUserCredentialsV1Request {
-	return ApiConnectorCreateOrUpdateUserCredentialsV1Request{
-		ApiService: a,
-		ctx: ctx,
-		connectorIdOrName: connectorIdOrName,
-	}
-}
-
-// Execute executes the request
-//  @return MessageResponse
-func (a *BetaConnectorsAPIService) ConnectorCreateOrUpdateUserCredentialsV1Execute(r ApiConnectorCreateOrUpdateUserCredentialsV1Request) (*MessageResponse, *http.Response, error) {
-	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *MessageResponse
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BetaConnectorsAPIService.ConnectorCreateOrUpdateUserCredentialsV1")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/connectors/{connector_id_or_name}/user/credentials"
-	localVarPath = strings.Replace(localVarPath, "{"+"connector_id_or_name"+"}", url.PathEscape(parameterValueToString(r.connectorIdOrName, "connectorIdOrName")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-	if r.credentialsCreateOrUpdate == nil {
-		return localVarReturnValue, nil, reportError("credentialsCreateOrUpdate is required and must be specified")
-	}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	// body params
-	localVarPostBody = r.credentialsCreateOrUpdate
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		if localVarHTTPResponse.StatusCode == 422 {
-			var v HTTPValidationError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type ApiConnectorCreateOrUpdateWorkspaceCredentialsV1Request struct {
-	ctx context.Context
-	ApiService *BetaConnectorsAPIService
-	connectorIdOrName string
-	credentialsCreateOrUpdate *CredentialsCreateOrUpdate
-}
-
-func (r ApiConnectorCreateOrUpdateWorkspaceCredentialsV1Request) CredentialsCreateOrUpdate(credentialsCreateOrUpdate CredentialsCreateOrUpdate) ApiConnectorCreateOrUpdateWorkspaceCredentialsV1Request {
-	r.credentialsCreateOrUpdate = &credentialsCreateOrUpdate
-	return r
-}
-
-func (r ApiConnectorCreateOrUpdateWorkspaceCredentialsV1Request) Execute() (*MessageResponse, *http.Response, error) {
-	return r.ApiService.ConnectorCreateOrUpdateWorkspaceCredentialsV1Execute(r)
-}
-
-/*
-ConnectorCreateOrUpdateWorkspaceCredentialsV1 Create or update workspace credentials for a connector.
-
-Create or update credentials at the workspace level for a given connector.
-
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param connectorIdOrName
- @return ApiConnectorCreateOrUpdateWorkspaceCredentialsV1Request
-*/
-func (a *BetaConnectorsAPIService) ConnectorCreateOrUpdateWorkspaceCredentialsV1(ctx context.Context, connectorIdOrName string) ApiConnectorCreateOrUpdateWorkspaceCredentialsV1Request {
-	return ApiConnectorCreateOrUpdateWorkspaceCredentialsV1Request{
-		ApiService: a,
-		ctx: ctx,
-		connectorIdOrName: connectorIdOrName,
-	}
-}
-
-// Execute executes the request
-//  @return MessageResponse
-func (a *BetaConnectorsAPIService) ConnectorCreateOrUpdateWorkspaceCredentialsV1Execute(r ApiConnectorCreateOrUpdateWorkspaceCredentialsV1Request) (*MessageResponse, *http.Response, error) {
-	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *MessageResponse
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BetaConnectorsAPIService.ConnectorCreateOrUpdateWorkspaceCredentialsV1")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/connectors/{connector_id_or_name}/workspace/credentials"
-	localVarPath = strings.Replace(localVarPath, "{"+"connector_id_or_name"+"}", url.PathEscape(parameterValueToString(r.connectorIdOrName, "connectorIdOrName")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"consumer_scope"+"}", url.PathEscape(parameterValueToString(r.consumerScope, "consumerScope")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -535,11 +411,11 @@ func (a *BetaConnectorsAPIService) ConnectorCreateOrUpdateWorkspaceCredentialsV1
 type ApiConnectorCreateV1Request struct {
 	ctx context.Context
 	ApiService *BetaConnectorsAPIService
-	connectorMCPCreate *ConnectorMCPCreate
+	payload *Payload
 }
 
-func (r ApiConnectorCreateV1Request) ConnectorMCPCreate(connectorMCPCreate ConnectorMCPCreate) ApiConnectorCreateV1Request {
-	r.connectorMCPCreate = &connectorMCPCreate
+func (r ApiConnectorCreateV1Request) Payload(payload Payload) ApiConnectorCreateV1Request {
+	r.payload = &payload
 	return r
 }
 
@@ -550,7 +426,7 @@ func (r ApiConnectorCreateV1Request) Execute() (*Connector, *http.Response, erro
 /*
 ConnectorCreateV1 Create a new connector.
 
-Create a new MCP connector. You can customize its visibility, url and auth type.
+Create a new MCP or HTTP connector. You can customize its visibility, URL, and auth type.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiConnectorCreateV1Request
@@ -582,8 +458,8 @@ func (a *BetaConnectorsAPIService) ConnectorCreateV1Execute(r ApiConnectorCreate
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.connectorMCPCreate == nil {
-		return localVarReturnValue, nil, reportError("connectorMCPCreate is required and must be specified")
+	if r.payload == nil {
+		return localVarReturnValue, nil, reportError("payload is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -604,7 +480,7 @@ func (a *BetaConnectorsAPIService) ConnectorCreateV1Execute(r ApiConnectorCreate
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.connectorMCPCreate
+	localVarPostBody = r.payload
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -652,39 +528,153 @@ func (a *BetaConnectorsAPIService) ConnectorCreateV1Execute(r ApiConnectorCreate
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiConnectorDeleteOrganizationCredentialsV1Request struct {
+type ApiConnectorDeactivateForConsumerV1Request struct {
 	ctx context.Context
 	ApiService *BetaConnectorsAPIService
-	credentialsName string
-	connectorIdOrName string
+	connectorId string
+	consumerScope string
 }
 
-func (r ApiConnectorDeleteOrganizationCredentialsV1Request) Execute() (*MessageResponse, *http.Response, error) {
-	return r.ApiService.ConnectorDeleteOrganizationCredentialsV1Execute(r)
+func (r ApiConnectorDeactivateForConsumerV1Request) Execute() (*MessageResponse, *http.Response, error) {
+	return r.ApiService.ConnectorDeactivateForConsumerV1Execute(r)
 }
 
 /*
-ConnectorDeleteOrganizationCredentialsV1 Delete organization credentials for a connector.
+ConnectorDeactivateForConsumerV1 Deactivate a connector for the current consumer (at organization, workspace or user level).
 
-Delete credentials at the organization level for a given connector.
+Disable a connector for the calling consumer only.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param credentialsName
- @param connectorIdOrName
- @return ApiConnectorDeleteOrganizationCredentialsV1Request
+ @param connectorId
+ @param consumerScope
+ @return ApiConnectorDeactivateForConsumerV1Request
 */
-func (a *BetaConnectorsAPIService) ConnectorDeleteOrganizationCredentialsV1(ctx context.Context, credentialsName string, connectorIdOrName string) ApiConnectorDeleteOrganizationCredentialsV1Request {
-	return ApiConnectorDeleteOrganizationCredentialsV1Request{
+func (a *BetaConnectorsAPIService) ConnectorDeactivateForConsumerV1(ctx context.Context, connectorId string, consumerScope string) ApiConnectorDeactivateForConsumerV1Request {
+	return ApiConnectorDeactivateForConsumerV1Request{
 		ApiService: a,
 		ctx: ctx,
-		credentialsName: credentialsName,
+		connectorId: connectorId,
+		consumerScope: consumerScope,
+	}
+}
+
+// Execute executes the request
+//  @return MessageResponse
+func (a *BetaConnectorsAPIService) ConnectorDeactivateForConsumerV1Execute(r ApiConnectorDeactivateForConsumerV1Request) (*MessageResponse, *http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodPost
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *MessageResponse
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BetaConnectorsAPIService.ConnectorDeactivateForConsumerV1")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/connectors/{connector_id}/{consumer_scope}/deactivate"
+	localVarPath = strings.Replace(localVarPath, "{"+"connector_id"+"}", url.PathEscape(parameterValueToString(r.connectorId, "connectorId")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"consumer_scope"+"}", url.PathEscape(parameterValueToString(r.consumerScope, "consumerScope")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 422 {
+			var v HTTPValidationError
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiConnectorDeleteAllUserCredentialsV1Request struct {
+	ctx context.Context
+	ApiService *BetaConnectorsAPIService
+	connectorIdOrName ConnectorIdOrName1
+}
+
+func (r ApiConnectorDeleteAllUserCredentialsV1Request) Execute() (*MessageResponse, *http.Response, error) {
+	return r.ApiService.ConnectorDeleteAllUserCredentialsV1Execute(r)
+}
+
+/*
+ConnectorDeleteAllUserCredentialsV1 Delete all user credentials for a connector.
+
+Delete all credentials configured at the user level for a given connector.
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param connectorIdOrName
+ @return ApiConnectorDeleteAllUserCredentialsV1Request
+*/
+func (a *BetaConnectorsAPIService) ConnectorDeleteAllUserCredentialsV1(ctx context.Context, connectorIdOrName ConnectorIdOrName1) ApiConnectorDeleteAllUserCredentialsV1Request {
+	return ApiConnectorDeleteAllUserCredentialsV1Request{
+		ApiService: a,
+		ctx: ctx,
 		connectorIdOrName: connectorIdOrName,
 	}
 }
 
 // Execute executes the request
 //  @return MessageResponse
-func (a *BetaConnectorsAPIService) ConnectorDeleteOrganizationCredentialsV1Execute(r ApiConnectorDeleteOrganizationCredentialsV1Request) (*MessageResponse, *http.Response, error) {
+func (a *BetaConnectorsAPIService) ConnectorDeleteAllUserCredentialsV1Execute(r ApiConnectorDeleteAllUserCredentialsV1Request) (*MessageResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodDelete
 		localVarPostBody     interface{}
@@ -692,13 +682,12 @@ func (a *BetaConnectorsAPIService) ConnectorDeleteOrganizationCredentialsV1Execu
 		localVarReturnValue  *MessageResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BetaConnectorsAPIService.ConnectorDeleteOrganizationCredentialsV1")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BetaConnectorsAPIService.ConnectorDeleteAllUserCredentialsV1")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/connectors/{connector_id_or_name}/organization/credentials/{credentials_name}"
-	localVarPath = strings.Replace(localVarPath, "{"+"credentials_name"+"}", url.PathEscape(parameterValueToString(r.credentialsName, "credentialsName")), -1)
+	localVarPath := localBasePath + "/v1/connectors/{connector_id_or_name}/user/credentials"
 	localVarPath = strings.Replace(localVarPath, "{"+"connector_id_or_name"+"}", url.PathEscape(parameterValueToString(r.connectorIdOrName, "connectorIdOrName")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -769,39 +758,42 @@ func (a *BetaConnectorsAPIService) ConnectorDeleteOrganizationCredentialsV1Execu
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiConnectorDeleteUserCredentialsV1Request struct {
+type ApiConnectorDeleteCredentialsRequest struct {
 	ctx context.Context
 	ApiService *BetaConnectorsAPIService
 	credentialsName string
-	connectorIdOrName string
+	connectorIdOrName ConnectorIdOrName1
+	consumerScope string
 }
 
-func (r ApiConnectorDeleteUserCredentialsV1Request) Execute() (*MessageResponse, *http.Response, error) {
-	return r.ApiService.ConnectorDeleteUserCredentialsV1Execute(r)
+func (r ApiConnectorDeleteCredentialsRequest) Execute() (*MessageResponse, *http.Response, error) {
+	return r.ApiService.ConnectorDeleteCredentialsExecute(r)
 }
 
 /*
-ConnectorDeleteUserCredentialsV1 Delete user credentials for a connector.
+ConnectorDeleteCredentials Delete credentials for a consumer.
 
-Delete credentials at the user level for a given connector.
+Delete connector credentials for a given consumer.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param credentialsName
  @param connectorIdOrName
- @return ApiConnectorDeleteUserCredentialsV1Request
+ @param consumerScope
+ @return ApiConnectorDeleteCredentialsRequest
 */
-func (a *BetaConnectorsAPIService) ConnectorDeleteUserCredentialsV1(ctx context.Context, credentialsName string, connectorIdOrName string) ApiConnectorDeleteUserCredentialsV1Request {
-	return ApiConnectorDeleteUserCredentialsV1Request{
+func (a *BetaConnectorsAPIService) ConnectorDeleteCredentials(ctx context.Context, credentialsName string, connectorIdOrName ConnectorIdOrName1, consumerScope string) ApiConnectorDeleteCredentialsRequest {
+	return ApiConnectorDeleteCredentialsRequest{
 		ApiService: a,
 		ctx: ctx,
 		credentialsName: credentialsName,
 		connectorIdOrName: connectorIdOrName,
+		consumerScope: consumerScope,
 	}
 }
 
 // Execute executes the request
 //  @return MessageResponse
-func (a *BetaConnectorsAPIService) ConnectorDeleteUserCredentialsV1Execute(r ApiConnectorDeleteUserCredentialsV1Request) (*MessageResponse, *http.Response, error) {
+func (a *BetaConnectorsAPIService) ConnectorDeleteCredentialsExecute(r ApiConnectorDeleteCredentialsRequest) (*MessageResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodDelete
 		localVarPostBody     interface{}
@@ -809,14 +801,15 @@ func (a *BetaConnectorsAPIService) ConnectorDeleteUserCredentialsV1Execute(r Api
 		localVarReturnValue  *MessageResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BetaConnectorsAPIService.ConnectorDeleteUserCredentialsV1")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BetaConnectorsAPIService.ConnectorDeleteCredentials")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/connectors/{connector_id_or_name}/user/credentials/{credentials_name}"
+	localVarPath := localBasePath + "/v1/connectors/{connector_id_or_name}/{consumer_scope}/credentials/{credentials_name}"
 	localVarPath = strings.Replace(localVarPath, "{"+"credentials_name"+"}", url.PathEscape(parameterValueToString(r.credentialsName, "credentialsName")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"connector_id_or_name"+"}", url.PathEscape(parameterValueToString(r.connectorIdOrName, "connectorIdOrName")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"consumer_scope"+"}", url.PathEscape(parameterValueToString(r.consumerScope, "consumerScope")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -999,129 +992,15 @@ func (a *BetaConnectorsAPIService) ConnectorDeleteV1Execute(r ApiConnectorDelete
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiConnectorDeleteWorkspaceCredentialsV1Request struct {
-	ctx context.Context
-	ApiService *BetaConnectorsAPIService
-	credentialsName string
-	connectorIdOrName string
-}
-
-func (r ApiConnectorDeleteWorkspaceCredentialsV1Request) Execute() (*MessageResponse, *http.Response, error) {
-	return r.ApiService.ConnectorDeleteWorkspaceCredentialsV1Execute(r)
-}
-
-/*
-ConnectorDeleteWorkspaceCredentialsV1 Delete workspace credentials for a connector.
-
-Delete credentials at the workspace level for a given connector.
-
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param credentialsName
- @param connectorIdOrName
- @return ApiConnectorDeleteWorkspaceCredentialsV1Request
-*/
-func (a *BetaConnectorsAPIService) ConnectorDeleteWorkspaceCredentialsV1(ctx context.Context, credentialsName string, connectorIdOrName string) ApiConnectorDeleteWorkspaceCredentialsV1Request {
-	return ApiConnectorDeleteWorkspaceCredentialsV1Request{
-		ApiService: a,
-		ctx: ctx,
-		credentialsName: credentialsName,
-		connectorIdOrName: connectorIdOrName,
-	}
-}
-
-// Execute executes the request
-//  @return MessageResponse
-func (a *BetaConnectorsAPIService) ConnectorDeleteWorkspaceCredentialsV1Execute(r ApiConnectorDeleteWorkspaceCredentialsV1Request) (*MessageResponse, *http.Response, error) {
-	var (
-		localVarHTTPMethod   = http.MethodDelete
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *MessageResponse
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BetaConnectorsAPIService.ConnectorDeleteWorkspaceCredentialsV1")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/connectors/{connector_id_or_name}/workspace/credentials/{credentials_name}"
-	localVarPath = strings.Replace(localVarPath, "{"+"credentials_name"+"}", url.PathEscape(parameterValueToString(r.credentialsName, "credentialsName")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"connector_id_or_name"+"}", url.PathEscape(parameterValueToString(r.connectorIdOrName, "connectorIdOrName")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		if localVarHTTPResponse.StatusCode == 422 {
-			var v HTTPValidationError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
 type ApiConnectorGetAuthUrlV1Request struct {
 	ctx context.Context
 	ApiService *BetaConnectorsAPIService
-	connectorIdOrName string
+	connectorIdOrName ConnectorIdOrName
 	appReturnUrl *string
+	methodType *AuthenticationType
 	credentialsName *string
+	credentialsTitle *string
+	githubInstallationLink *bool
 }
 
 func (r ApiConnectorGetAuthUrlV1Request) AppReturnUrl(appReturnUrl string) ApiConnectorGetAuthUrlV1Request {
@@ -1129,8 +1008,25 @@ func (r ApiConnectorGetAuthUrlV1Request) AppReturnUrl(appReturnUrl string) ApiCo
 	return r
 }
 
+// Auth method type to use for the authorization URL. Required when the connector supports multiple interactive auth methods; otherwise the sole method is selected automatically. Use this to pick a specific method (e.g. &#39;oauth2&#39; vs &#39;github_app&#39;).
+func (r ApiConnectorGetAuthUrlV1Request) MethodType(methodType AuthenticationType) ApiConnectorGetAuthUrlV1Request {
+	r.methodType = &methodType
+	return r
+}
+
 func (r ApiConnectorGetAuthUrlV1Request) CredentialsName(credentialsName string) ApiConnectorGetAuthUrlV1Request {
 	r.credentialsName = &credentialsName
+	return r
+}
+
+func (r ApiConnectorGetAuthUrlV1Request) CredentialsTitle(credentialsTitle string) ApiConnectorGetAuthUrlV1Request {
+	r.credentialsTitle = &credentialsTitle
+	return r
+}
+
+// Only valid with method_type&#x3D;oauth2. When true, returns a GitHub App installation URL (https://github.com/apps/&lt;slug&gt;/installations/new) if the connector has the proper configuration The Github application needs to have &#39;Request user authorization (OAuth) during installation&#39; enabled to perform the proper auth loop.
+func (r ApiConnectorGetAuthUrlV1Request) GithubInstallationLink(githubInstallationLink bool) ApiConnectorGetAuthUrlV1Request {
+	r.githubInstallationLink = &githubInstallationLink
 	return r
 }
 
@@ -1147,7 +1043,7 @@ Get the OAuth2 authorization URL for a connector to initiate user authentication
  @param connectorIdOrName
  @return ApiConnectorGetAuthUrlV1Request
 */
-func (a *BetaConnectorsAPIService) ConnectorGetAuthUrlV1(ctx context.Context, connectorIdOrName string) ApiConnectorGetAuthUrlV1Request {
+func (a *BetaConnectorsAPIService) ConnectorGetAuthUrlV1(ctx context.Context, connectorIdOrName ConnectorIdOrName) ApiConnectorGetAuthUrlV1Request {
 	return ApiConnectorGetAuthUrlV1Request{
 		ApiService: a,
 		ctx: ctx,
@@ -1180,8 +1076,25 @@ func (a *BetaConnectorsAPIService) ConnectorGetAuthUrlV1Execute(r ApiConnectorGe
 	if r.appReturnUrl != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "app_return_url", r.appReturnUrl, "form", "")
 	}
+	if r.methodType != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "method_type", r.methodType, "form", "")
+	} else {
+		var defaultValue AuthenticationType = "oauth2"
+		parameterAddToHeaderOrQuery(localVarQueryParams, "method_type", defaultValue, "form", "")
+		r.methodType = &defaultValue
+	}
 	if r.credentialsName != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "credentials_name", r.credentialsName, "form", "")
+	}
+	if r.credentialsTitle != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "credentials_title", r.credentialsTitle, "form", "")
+	}
+	if r.githubInstallationLink != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "github_installation_link", r.githubInstallationLink, "form", "")
+	} else {
+		var defaultValue bool = false
+		parameterAddToHeaderOrQuery(localVarQueryParams, "github_installation_link", defaultValue, "form", "")
+		r.githubInstallationLink = &defaultValue
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -1250,7 +1163,7 @@ func (a *BetaConnectorsAPIService) ConnectorGetAuthUrlV1Execute(r ApiConnectorGe
 type ApiConnectorGetAuthenticationMethodsV1Request struct {
 	ctx context.Context
 	ApiService *BetaConnectorsAPIService
-	connectorIdOrName string
+	connectorIdOrName ConnectorIdOrName1
 }
 
 func (r ApiConnectorGetAuthenticationMethodsV1Request) Execute() ([]PublicAuthenticationMethod, *http.Response, error) {
@@ -1266,7 +1179,7 @@ Get the authentication schema for a connector. Returns the list of supported aut
  @param connectorIdOrName
  @return ApiConnectorGetAuthenticationMethodsV1Request
 */
-func (a *BetaConnectorsAPIService) ConnectorGetAuthenticationMethodsV1(ctx context.Context, connectorIdOrName string) ApiConnectorGetAuthenticationMethodsV1Request {
+func (a *BetaConnectorsAPIService) ConnectorGetAuthenticationMethodsV1(ctx context.Context, connectorIdOrName ConnectorIdOrName1) ApiConnectorGetAuthenticationMethodsV1Request {
 	return ApiConnectorGetAuthenticationMethodsV1Request{
 		ApiService: a,
 		ctx: ctx,
@@ -1335,6 +1248,16 @@ func (a *BetaConnectorsAPIService) ConnectorGetAuthenticationMethodsV1Execute(r 
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		if localVarHTTPResponse.StatusCode == 422 {
+			var v HTTPValidationError
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1353,20 +1276,13 @@ func (a *BetaConnectorsAPIService) ConnectorGetAuthenticationMethodsV1Execute(r 
 type ApiConnectorGetV1Request struct {
 	ctx context.Context
 	ApiService *BetaConnectorsAPIService
-	connectorIdOrName string
-	fetchCustomerData *bool
-	fetchConnectionSecrets *bool
+	connectorIdOrName ConnectorIdOrName1
+	fetchUserData *bool
 }
 
-// Fetch the customer data associated with the connector (e.g. customer secrets / config).
-func (r ApiConnectorGetV1Request) FetchCustomerData(fetchCustomerData bool) ApiConnectorGetV1Request {
-	r.fetchCustomerData = &fetchCustomerData
-	return r
-}
-
-// Fetch the general connection secrets associated with the connector.
-func (r ApiConnectorGetV1Request) FetchConnectionSecrets(fetchConnectionSecrets bool) ApiConnectorGetV1Request {
-	r.fetchConnectionSecrets = &fetchConnectionSecrets
+// Fetch the user-level data associated with the connector (e.g. connection credentials).
+func (r ApiConnectorGetV1Request) FetchUserData(fetchUserData bool) ApiConnectorGetV1Request {
+	r.fetchUserData = &fetchUserData
 	return r
 }
 
@@ -1383,7 +1299,7 @@ Get a connector by its ID or name.
  @param connectorIdOrName
  @return ApiConnectorGetV1Request
 */
-func (a *BetaConnectorsAPIService) ConnectorGetV1(ctx context.Context, connectorIdOrName string) ApiConnectorGetV1Request {
+func (a *BetaConnectorsAPIService) ConnectorGetV1(ctx context.Context, connectorIdOrName ConnectorIdOrName1) ApiConnectorGetV1Request {
 	return ApiConnectorGetV1Request{
 		ApiService: a,
 		ctx: ctx,
@@ -1413,19 +1329,12 @@ func (a *BetaConnectorsAPIService) ConnectorGetV1Execute(r ApiConnectorGetV1Requ
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
-	if r.fetchCustomerData != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "fetch_customer_data", r.fetchCustomerData, "form", "")
+	if r.fetchUserData != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "fetch_user_data", r.fetchUserData, "form", "")
 	} else {
 		var defaultValue bool = false
-		parameterAddToHeaderOrQuery(localVarQueryParams, "fetch_customer_data", defaultValue, "form", "")
-		r.fetchCustomerData = &defaultValue
-	}
-	if r.fetchConnectionSecrets != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "fetch_connection_secrets", r.fetchConnectionSecrets, "form", "")
-	} else {
-		var defaultValue bool = false
-		parameterAddToHeaderOrQuery(localVarQueryParams, "fetch_connection_secrets", defaultValue, "form", "")
-		r.fetchConnectionSecrets = &defaultValue
+		parameterAddToHeaderOrQuery(localVarQueryParams, "fetch_user_data", defaultValue, "form", "")
+		r.fetchUserData = &defaultValue
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -1494,12 +1403,12 @@ func (a *BetaConnectorsAPIService) ConnectorGetV1Execute(r ApiConnectorGetV1Requ
 type ApiConnectorListOrganizationCredentialsV1Request struct {
 	ctx context.Context
 	ApiService *BetaConnectorsAPIService
-	connectorIdOrName string
-	authType *OutboundAuthenticationType
+	connectorIdOrName ConnectorIdOrName1
+	authType *AuthenticationType
 	fetchDefault *bool
 }
 
-func (r ApiConnectorListOrganizationCredentialsV1Request) AuthType(authType OutboundAuthenticationType) ApiConnectorListOrganizationCredentialsV1Request {
+func (r ApiConnectorListOrganizationCredentialsV1Request) AuthType(authType AuthenticationType) ApiConnectorListOrganizationCredentialsV1Request {
 	r.authType = &authType
 	return r
 }
@@ -1522,7 +1431,7 @@ List all credentials configured at the organization level for a given connector.
  @param connectorIdOrName
  @return ApiConnectorListOrganizationCredentialsV1Request
 */
-func (a *BetaConnectorsAPIService) ConnectorListOrganizationCredentialsV1(ctx context.Context, connectorIdOrName string) ApiConnectorListOrganizationCredentialsV1Request {
+func (a *BetaConnectorsAPIService) ConnectorListOrganizationCredentialsV1(ctx context.Context, connectorIdOrName ConnectorIdOrName1) ApiConnectorListOrganizationCredentialsV1Request {
 	return ApiConnectorListOrganizationCredentialsV1Request{
 		ApiService: a,
 		ctx: ctx,
@@ -1629,17 +1538,11 @@ func (a *BetaConnectorsAPIService) ConnectorListOrganizationCredentialsV1Execute
 type ApiConnectorListToolsV1Request struct {
 	ctx context.Context
 	ApiService *BetaConnectorsAPIService
-	connectorIdOrName string
-	page *int32
+	connectorIdOrName ConnectorIdOrName1
 	pageSize *int32
 	refresh *bool
 	pretty *bool
 	credentialsName *string
-}
-
-func (r ApiConnectorListToolsV1Request) Page(page int32) ApiConnectorListToolsV1Request {
-	r.page = &page
-	return r
 }
 
 func (r ApiConnectorListToolsV1Request) PageSize(pageSize int32) ApiConnectorListToolsV1Request {
@@ -1676,7 +1579,7 @@ List all tools available for an MCP connector.
  @param connectorIdOrName
  @return ApiConnectorListToolsV1Request
 */
-func (a *BetaConnectorsAPIService) ConnectorListToolsV1(ctx context.Context, connectorIdOrName string) ApiConnectorListToolsV1Request {
+func (a *BetaConnectorsAPIService) ConnectorListToolsV1(ctx context.Context, connectorIdOrName ConnectorIdOrName1) ApiConnectorListToolsV1Request {
 	return ApiConnectorListToolsV1Request{
 		ApiService: a,
 		ctx: ctx,
@@ -1706,13 +1609,6 @@ func (a *BetaConnectorsAPIService) ConnectorListToolsV1Execute(r ApiConnectorLis
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
-	if r.page != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "page", r.page, "form", "")
-	} else {
-		var defaultValue int32 = 1
-		parameterAddToHeaderOrQuery(localVarQueryParams, "page", defaultValue, "form", "")
-		r.page = &defaultValue
-	}
 	if r.pageSize != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "page_size", r.pageSize, "form", "")
 	} else {
@@ -1804,12 +1700,12 @@ func (a *BetaConnectorsAPIService) ConnectorListToolsV1Execute(r ApiConnectorLis
 type ApiConnectorListUserCredentialsV1Request struct {
 	ctx context.Context
 	ApiService *BetaConnectorsAPIService
-	connectorIdOrName string
-	authType *OutboundAuthenticationType
+	connectorIdOrName ConnectorIdOrName1
+	authType *AuthenticationType
 	fetchDefault *bool
 }
 
-func (r ApiConnectorListUserCredentialsV1Request) AuthType(authType OutboundAuthenticationType) ApiConnectorListUserCredentialsV1Request {
+func (r ApiConnectorListUserCredentialsV1Request) AuthType(authType AuthenticationType) ApiConnectorListUserCredentialsV1Request {
 	r.authType = &authType
 	return r
 }
@@ -1832,7 +1728,7 @@ List all credentials configured at the user level for a given connector.
  @param connectorIdOrName
  @return ApiConnectorListUserCredentialsV1Request
 */
-func (a *BetaConnectorsAPIService) ConnectorListUserCredentialsV1(ctx context.Context, connectorIdOrName string) ApiConnectorListUserCredentialsV1Request {
+func (a *BetaConnectorsAPIService) ConnectorListUserCredentialsV1(ctx context.Context, connectorIdOrName ConnectorIdOrName1) ApiConnectorListUserCredentialsV1Request {
 	return ApiConnectorListUserCredentialsV1Request{
 		ApiService: a,
 		ctx: ctx,
@@ -2080,12 +1976,12 @@ func (a *BetaConnectorsAPIService) ConnectorListV1Execute(r ApiConnectorListV1Re
 type ApiConnectorListWorkspaceCredentialsV1Request struct {
 	ctx context.Context
 	ApiService *BetaConnectorsAPIService
-	connectorIdOrName string
-	authType *OutboundAuthenticationType
+	connectorIdOrName ConnectorIdOrName1
+	authType *AuthenticationType
 	fetchDefault *bool
 }
 
-func (r ApiConnectorListWorkspaceCredentialsV1Request) AuthType(authType OutboundAuthenticationType) ApiConnectorListWorkspaceCredentialsV1Request {
+func (r ApiConnectorListWorkspaceCredentialsV1Request) AuthType(authType AuthenticationType) ApiConnectorListWorkspaceCredentialsV1Request {
 	r.authType = &authType
 	return r
 }
@@ -2108,7 +2004,7 @@ List all credentials configured at the workspace level for a given connector.
  @param connectorIdOrName
  @return ApiConnectorListWorkspaceCredentialsV1Request
 */
-func (a *BetaConnectorsAPIService) ConnectorListWorkspaceCredentialsV1(ctx context.Context, connectorIdOrName string) ApiConnectorListWorkspaceCredentialsV1Request {
+func (a *BetaConnectorsAPIService) ConnectorListWorkspaceCredentialsV1(ctx context.Context, connectorIdOrName ConnectorIdOrName1) ApiConnectorListWorkspaceCredentialsV1Request {
 	return ApiConnectorListWorkspaceCredentialsV1Request{
 		ApiService: a,
 		ctx: ctx,
@@ -2212,15 +2108,595 @@ func (a *BetaConnectorsAPIService) ConnectorListWorkspaceCredentialsV1Execute(r 
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+type ApiConnectorShareToOrganizationV1Request struct {
+	ctx context.Context
+	ApiService *BetaConnectorsAPIService
+	connectorId string
+}
+
+func (r ApiConnectorShareToOrganizationV1Request) Execute() (*MessageResponse, *http.Response, error) {
+	return r.ApiService.ConnectorShareToOrganizationV1Execute(r)
+}
+
+/*
+ConnectorShareToOrganizationV1 Share a connector to the current organization.
+
+Transfers ownership of a private user-owned connector to the current organization, making it available to all organization members. The creator can later revert this via the unshare endpoint. Any authentication flows that rely on the original owner's identity (e.g. OAuth on-behalf-of) will be affected and must be reconfigured after sharing. Requires the ShareConnectorToOrg organization permission.
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param connectorId
+ @return ApiConnectorShareToOrganizationV1Request
+*/
+func (a *BetaConnectorsAPIService) ConnectorShareToOrganizationV1(ctx context.Context, connectorId string) ApiConnectorShareToOrganizationV1Request {
+	return ApiConnectorShareToOrganizationV1Request{
+		ApiService: a,
+		ctx: ctx,
+		connectorId: connectorId,
+	}
+}
+
+// Execute executes the request
+//  @return MessageResponse
+func (a *BetaConnectorsAPIService) ConnectorShareToOrganizationV1Execute(r ApiConnectorShareToOrganizationV1Request) (*MessageResponse, *http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodPut
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *MessageResponse
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BetaConnectorsAPIService.ConnectorShareToOrganizationV1")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/connectors/{connector_id}/organization/share"
+	localVarPath = strings.Replace(localVarPath, "{"+"connector_id"+"}", url.PathEscape(parameterValueToString(r.connectorId, "connectorId")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 422 {
+			var v HTTPValidationError
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiConnectorShareV1Request struct {
+	ctx context.Context
+	ApiService *BetaConnectorsAPIService
+	connectorId string
+}
+
+func (r ApiConnectorShareV1Request) Execute() (*MessageResponse, *http.Response, error) {
+	return r.ApiService.ConnectorShareV1Execute(r)
+}
+
+/*
+ConnectorShareV1 Share a private connector to the current workspace.
+
+Transfers ownership of a private user-owned connector to the current workspace, making it available to all workspace members. The creator can later revert this via the unshare endpoint. Any authentication flows that rely on the original owner's identity (e.g. OAuth on-behalf-of) will be affected and must be reconfigured after sharing. Only the connector's creator can call this endpoint. Requires the ShareConnectorToWorkspace workspace permission.
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param connectorId
+ @return ApiConnectorShareV1Request
+*/
+func (a *BetaConnectorsAPIService) ConnectorShareV1(ctx context.Context, connectorId string) ApiConnectorShareV1Request {
+	return ApiConnectorShareV1Request{
+		ApiService: a,
+		ctx: ctx,
+		connectorId: connectorId,
+	}
+}
+
+// Execute executes the request
+//  @return MessageResponse
+func (a *BetaConnectorsAPIService) ConnectorShareV1Execute(r ApiConnectorShareV1Request) (*MessageResponse, *http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodPut
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *MessageResponse
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BetaConnectorsAPIService.ConnectorShareV1")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/connectors/{connector_id}/share"
+	localVarPath = strings.Replace(localVarPath, "{"+"connector_id"+"}", url.PathEscape(parameterValueToString(r.connectorId, "connectorId")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 422 {
+			var v HTTPValidationError
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiConnectorUnshareFromOrganizationV1Request struct {
+	ctx context.Context
+	ApiService *BetaConnectorsAPIService
+	connectorId string
+}
+
+func (r ApiConnectorUnshareFromOrganizationV1Request) Execute() (*MessageResponse, *http.Response, error) {
+	return r.ApiService.ConnectorUnshareFromOrganizationV1Execute(r)
+}
+
+/*
+ConnectorUnshareFromOrganizationV1 Unshare a connector from the current organization.
+
+Reverts an organization-shared connector back to a private, creator-owned connector. Organization-scoped connections and other members' connections are removed; the creator's own connection is preserved. Requires the ShareConnectorToOrg organization permission.
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param connectorId
+ @return ApiConnectorUnshareFromOrganizationV1Request
+*/
+func (a *BetaConnectorsAPIService) ConnectorUnshareFromOrganizationV1(ctx context.Context, connectorId string) ApiConnectorUnshareFromOrganizationV1Request {
+	return ApiConnectorUnshareFromOrganizationV1Request{
+		ApiService: a,
+		ctx: ctx,
+		connectorId: connectorId,
+	}
+}
+
+// Execute executes the request
+//  @return MessageResponse
+func (a *BetaConnectorsAPIService) ConnectorUnshareFromOrganizationV1Execute(r ApiConnectorUnshareFromOrganizationV1Request) (*MessageResponse, *http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodDelete
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *MessageResponse
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BetaConnectorsAPIService.ConnectorUnshareFromOrganizationV1")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/connectors/{connector_id}/organization/share"
+	localVarPath = strings.Replace(localVarPath, "{"+"connector_id"+"}", url.PathEscape(parameterValueToString(r.connectorId, "connectorId")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 422 {
+			var v HTTPValidationError
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiConnectorUnshareV1Request struct {
+	ctx context.Context
+	ApiService *BetaConnectorsAPIService
+	connectorId string
+}
+
+func (r ApiConnectorUnshareV1Request) Execute() (*MessageResponse, *http.Response, error) {
+	return r.ApiService.ConnectorUnshareV1Execute(r)
+}
+
+/*
+ConnectorUnshareV1 Unshare a connector from the current workspace.
+
+Reverts a workspace-shared connector back to a private, creator-owned connector. Workspace-scoped connections and other members' connections are removed; the creator's own connection is preserved. Only the connector's creator can call this endpoint. Requires the ShareConnectorToWorkspace workspace permission.
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param connectorId
+ @return ApiConnectorUnshareV1Request
+*/
+func (a *BetaConnectorsAPIService) ConnectorUnshareV1(ctx context.Context, connectorId string) ApiConnectorUnshareV1Request {
+	return ApiConnectorUnshareV1Request{
+		ApiService: a,
+		ctx: ctx,
+		connectorId: connectorId,
+	}
+}
+
+// Execute executes the request
+//  @return MessageResponse
+func (a *BetaConnectorsAPIService) ConnectorUnshareV1Execute(r ApiConnectorUnshareV1Request) (*MessageResponse, *http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodDelete
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *MessageResponse
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BetaConnectorsAPIService.ConnectorUnshareV1")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/connectors/{connector_id}/share"
+	localVarPath = strings.Replace(localVarPath, "{"+"connector_id"+"}", url.PathEscape(parameterValueToString(r.connectorId, "connectorId")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 422 {
+			var v HTTPValidationError
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiConnectorUpdateCredentialsRequest struct {
+	ctx context.Context
+	ApiService *BetaConnectorsAPIService
+	connectorIdOrName ConnectorIdOrName1
+	consumerScope string
+	credentialsCreateOrUpdate *CredentialsCreateOrUpdate
+}
+
+func (r ApiConnectorUpdateCredentialsRequest) CredentialsCreateOrUpdate(credentialsCreateOrUpdate CredentialsCreateOrUpdate) ApiConnectorUpdateCredentialsRequest {
+	r.credentialsCreateOrUpdate = &credentialsCreateOrUpdate
+	return r
+}
+
+func (r ApiConnectorUpdateCredentialsRequest) Execute() (*MessageResponse, *http.Response, error) {
+	return r.ApiService.ConnectorUpdateCredentialsExecute(r)
+}
+
+/*
+ConnectorUpdateCredentials Create or update consumer credentials for a connector.
+
+Create or update consumer credentials for a given connector.
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param connectorIdOrName
+ @param consumerScope
+ @return ApiConnectorUpdateCredentialsRequest
+*/
+func (a *BetaConnectorsAPIService) ConnectorUpdateCredentials(ctx context.Context, connectorIdOrName ConnectorIdOrName1, consumerScope string) ApiConnectorUpdateCredentialsRequest {
+	return ApiConnectorUpdateCredentialsRequest{
+		ApiService: a,
+		ctx: ctx,
+		connectorIdOrName: connectorIdOrName,
+		consumerScope: consumerScope,
+	}
+}
+
+// Execute executes the request
+//  @return MessageResponse
+func (a *BetaConnectorsAPIService) ConnectorUpdateCredentialsExecute(r ApiConnectorUpdateCredentialsRequest) (*MessageResponse, *http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodPatch
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *MessageResponse
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BetaConnectorsAPIService.ConnectorUpdateCredentials")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/connectors/{connector_id_or_name}/{consumer_scope}/credentials"
+	localVarPath = strings.Replace(localVarPath, "{"+"connector_id_or_name"+"}", url.PathEscape(parameterValueToString(r.connectorIdOrName, "connectorIdOrName")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"consumer_scope"+"}", url.PathEscape(parameterValueToString(r.consumerScope, "consumerScope")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.credentialsCreateOrUpdate == nil {
+		return localVarReturnValue, nil, reportError("credentialsCreateOrUpdate is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.credentialsCreateOrUpdate
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 422 {
+			var v HTTPValidationError
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
 type ApiConnectorUpdateV1Request struct {
 	ctx context.Context
 	ApiService *BetaConnectorsAPIService
 	connectorId string
-	connectorMCPUpdate *ConnectorMCPUpdate
+	payload1 *Payload1
 }
 
-func (r ApiConnectorUpdateV1Request) ConnectorMCPUpdate(connectorMCPUpdate ConnectorMCPUpdate) ApiConnectorUpdateV1Request {
-	r.connectorMCPUpdate = &connectorMCPUpdate
+func (r ApiConnectorUpdateV1Request) Payload1(payload1 Payload1) ApiConnectorUpdateV1Request {
+	r.payload1 = &payload1
 	return r
 }
 
@@ -2266,8 +2742,8 @@ func (a *BetaConnectorsAPIService) ConnectorUpdateV1Execute(r ApiConnectorUpdate
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.connectorMCPUpdate == nil {
-		return localVarReturnValue, nil, reportError("connectorMCPUpdate is required and must be specified")
+	if r.payload1 == nil {
+		return localVarReturnValue, nil, reportError("payload1 is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -2288,7 +2764,7 @@ func (a *BetaConnectorsAPIService) ConnectorUpdateV1Execute(r ApiConnectorUpdate
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.connectorMCPUpdate
+	localVarPostBody = r.payload1
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err

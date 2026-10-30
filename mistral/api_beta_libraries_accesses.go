@@ -27,15 +27,15 @@ type ApiLibrariesShareCreateV1Request struct {
 	ctx context.Context
 	ApiService *BetaLibrariesAccessesAPIService
 	libraryId string
-	sharingIn *SharingIn
+	sharingRequest *SharingRequest
 }
 
-func (r ApiLibrariesShareCreateV1Request) SharingIn(sharingIn SharingIn) ApiLibrariesShareCreateV1Request {
-	r.sharingIn = &sharingIn
+func (r ApiLibrariesShareCreateV1Request) SharingRequest(sharingRequest SharingRequest) ApiLibrariesShareCreateV1Request {
+	r.sharingRequest = &sharingRequest
 	return r
 }
 
-func (r ApiLibrariesShareCreateV1Request) Execute() (*SharingOut, *http.Response, error) {
+func (r ApiLibrariesShareCreateV1Request) Execute() (*Sharing, *http.Response, error) {
 	return r.ApiService.LibrariesShareCreateV1Execute(r)
 }
 
@@ -57,13 +57,13 @@ func (a *BetaLibrariesAccessesAPIService) LibrariesShareCreateV1(ctx context.Con
 }
 
 // Execute executes the request
-//  @return SharingOut
-func (a *BetaLibrariesAccessesAPIService) LibrariesShareCreateV1Execute(r ApiLibrariesShareCreateV1Request) (*SharingOut, *http.Response, error) {
+//  @return Sharing
+func (a *BetaLibrariesAccessesAPIService) LibrariesShareCreateV1Execute(r ApiLibrariesShareCreateV1Request) (*Sharing, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPut
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *SharingOut
+		localVarReturnValue  *Sharing
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BetaLibrariesAccessesAPIService.LibrariesShareCreateV1")
@@ -77,8 +77,8 @@ func (a *BetaLibrariesAccessesAPIService) LibrariesShareCreateV1Execute(r ApiLib
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.sharingIn == nil {
-		return localVarReturnValue, nil, reportError("sharingIn is required and must be specified")
+	if r.sharingRequest == nil {
+		return localVarReturnValue, nil, reportError("sharingRequest is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -99,7 +99,7 @@ func (a *BetaLibrariesAccessesAPIService) LibrariesShareCreateV1Execute(r ApiLib
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.sharingIn
+	localVarPostBody = r.sharingRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -159,14 +159,14 @@ func (r ApiLibrariesShareDeleteV1Request) SharingDelete(sharingDelete SharingDel
 	return r
 }
 
-func (r ApiLibrariesShareDeleteV1Request) Execute() (*SharingOut, *http.Response, error) {
+func (r ApiLibrariesShareDeleteV1Request) Execute() (*Sharing, *http.Response, error) {
 	return r.ApiService.LibrariesShareDeleteV1Execute(r)
 }
 
 /*
 LibrariesShareDeleteV1 Delete an access level.
 
-Given a library id, you can delete the access level of an entity. An owner cannot delete it's own access. You have to be the owner of the library to delete an acces other than yours.
+Given a library id, you can delete the access level of an entity. An owner cannot delete their own access. You have to be the owner of the library to delete an access other than yours. Warning: the response will change from 200 (returning the deleted sharing) to 204 No Content in a future version.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param libraryId
@@ -181,13 +181,13 @@ func (a *BetaLibrariesAccessesAPIService) LibrariesShareDeleteV1(ctx context.Con
 }
 
 // Execute executes the request
-//  @return SharingOut
-func (a *BetaLibrariesAccessesAPIService) LibrariesShareDeleteV1Execute(r ApiLibrariesShareDeleteV1Request) (*SharingOut, *http.Response, error) {
+//  @return Sharing
+func (a *BetaLibrariesAccessesAPIService) LibrariesShareDeleteV1Execute(r ApiLibrariesShareDeleteV1Request) (*Sharing, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodDelete
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *SharingOut
+		localVarReturnValue  *Sharing
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BetaLibrariesAccessesAPIService.LibrariesShareDeleteV1")
@@ -277,7 +277,7 @@ type ApiLibrariesShareListV1Request struct {
 	libraryId string
 }
 
-func (r ApiLibrariesShareListV1Request) Execute() (*ListSharingOut, *http.Response, error) {
+func (r ApiLibrariesShareListV1Request) Execute() (*ListSharingResponse, *http.Response, error) {
 	return r.ApiService.LibrariesShareListV1Execute(r)
 }
 
@@ -299,13 +299,13 @@ func (a *BetaLibrariesAccessesAPIService) LibrariesShareListV1(ctx context.Conte
 }
 
 // Execute executes the request
-//  @return ListSharingOut
-func (a *BetaLibrariesAccessesAPIService) LibrariesShareListV1Execute(r ApiLibrariesShareListV1Request) (*ListSharingOut, *http.Response, error) {
+//  @return ListSharingResponse
+func (a *BetaLibrariesAccessesAPIService) LibrariesShareListV1Execute(r ApiLibrariesShareListV1Request) (*ListSharingResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *ListSharingOut
+		localVarReturnValue  *ListSharingResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BetaLibrariesAccessesAPIService.LibrariesShareListV1")

@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Name** | **string** | The name of the update to request | 
-**Input** | Pointer to [**NullableInput2**](Input2.md) |  | [optional] 
+**Input** | Pointer to [**NullableInput3**](Input3.md) |  | [optional] 
 
 ## Methods
 
@@ -48,20 +48,20 @@ SetName sets Name field to given value.
 
 ### GetInput
 
-`func (o *UpdateInvocationBody) GetInput() Input2`
+`func (o *UpdateInvocationBody) GetInput() Input3`
 
 GetInput returns the Input field if non-nil, zero value otherwise.
 
 ### GetInputOk
 
-`func (o *UpdateInvocationBody) GetInputOk() (*Input2, bool)`
+`func (o *UpdateInvocationBody) GetInputOk() (*Input3, bool)`
 
 GetInputOk returns a tuple with the Input field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetInput
 
-`func (o *UpdateInvocationBody) SetInput(v Input2)`
+`func (o *UpdateInvocationBody) SetInput(v Input3)`
 
 SetInput sets Input field to given value.
 

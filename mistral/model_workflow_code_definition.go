@@ -33,8 +33,12 @@ type WorkflowCodeDefinition struct {
 	Updates []UpdateDefinition `json:"updates,omitempty"`
 	// Whether the workflow enforces deterministic execution
 	EnforceDeterminism *bool `json:"enforce_determinism,omitempty"`
+	// Whether the workflow must run associated to a user's identity
+	OnBehalfOf *bool `json:"on_behalf_of,omitempty"`
 	// Maximum total execution time including retries and continue-as-new
 	ExecutionTimeout *float32 `json:"execution_timeout,omitempty"`
+	// Output JSON schema of the query's model
+	PluginMetadata map[string]interface{} `json:"plugin_metadata,omitempty"`
 }
 
 type _WorkflowCodeDefinition WorkflowCodeDefinition
@@ -48,6 +52,8 @@ func NewWorkflowCodeDefinition(inputSchema map[string]interface{}) *WorkflowCode
 	this.InputSchema = inputSchema
 	var enforceDeterminism bool = false
 	this.EnforceDeterminism = &enforceDeterminism
+	var onBehalfOf bool = false
+	this.OnBehalfOf = &onBehalfOf
 	return &this
 }
 
@@ -58,6 +64,8 @@ func NewWorkflowCodeDefinitionWithDefaults() *WorkflowCodeDefinition {
 	this := WorkflowCodeDefinition{}
 	var enforceDeterminism bool = false
 	this.EnforceDeterminism = &enforceDeterminism
+	var onBehalfOf bool = false
+	this.OnBehalfOf = &onBehalfOf
 	return &this
 }
 
@@ -246,6 +254,38 @@ func (o *WorkflowCodeDefinition) SetEnforceDeterminism(v bool) {
 	o.EnforceDeterminism = &v
 }
 
+// GetOnBehalfOf returns the OnBehalfOf field value if set, zero value otherwise.
+func (o *WorkflowCodeDefinition) GetOnBehalfOf() bool {
+	if o == nil || IsNil(o.OnBehalfOf) {
+		var ret bool
+		return ret
+	}
+	return *o.OnBehalfOf
+}
+
+// GetOnBehalfOfOk returns a tuple with the OnBehalfOf field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *WorkflowCodeDefinition) GetOnBehalfOfOk() (*bool, bool) {
+	if o == nil || IsNil(o.OnBehalfOf) {
+		return nil, false
+	}
+	return o.OnBehalfOf, true
+}
+
+// HasOnBehalfOf returns a boolean if a field has been set.
+func (o *WorkflowCodeDefinition) HasOnBehalfOf() bool {
+	if o != nil && !IsNil(o.OnBehalfOf) {
+		return true
+	}
+
+	return false
+}
+
+// SetOnBehalfOf gets a reference to the given bool and assigns it to the OnBehalfOf field.
+func (o *WorkflowCodeDefinition) SetOnBehalfOf(v bool) {
+	o.OnBehalfOf = &v
+}
+
 // GetExecutionTimeout returns the ExecutionTimeout field value if set, zero value otherwise.
 func (o *WorkflowCodeDefinition) GetExecutionTimeout() float32 {
 	if o == nil || IsNil(o.ExecutionTimeout) {
@@ -278,6 +318,39 @@ func (o *WorkflowCodeDefinition) SetExecutionTimeout(v float32) {
 	o.ExecutionTimeout = &v
 }
 
+// GetPluginMetadata returns the PluginMetadata field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *WorkflowCodeDefinition) GetPluginMetadata() map[string]interface{} {
+	if o == nil {
+		var ret map[string]interface{}
+		return ret
+	}
+	return o.PluginMetadata
+}
+
+// GetPluginMetadataOk returns a tuple with the PluginMetadata field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *WorkflowCodeDefinition) GetPluginMetadataOk() (map[string]interface{}, bool) {
+	if o == nil || IsNil(o.PluginMetadata) {
+		return map[string]interface{}{}, false
+	}
+	return o.PluginMetadata, true
+}
+
+// HasPluginMetadata returns a boolean if a field has been set.
+func (o *WorkflowCodeDefinition) HasPluginMetadata() bool {
+	if o != nil && !IsNil(o.PluginMetadata) {
+		return true
+	}
+
+	return false
+}
+
+// SetPluginMetadata gets a reference to the given map[string]interface{} and assigns it to the PluginMetadata field.
+func (o *WorkflowCodeDefinition) SetPluginMetadata(v map[string]interface{}) {
+	o.PluginMetadata = v
+}
+
 func (o WorkflowCodeDefinition) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -304,8 +377,14 @@ func (o WorkflowCodeDefinition) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.EnforceDeterminism) {
 		toSerialize["enforce_determinism"] = o.EnforceDeterminism
 	}
+	if !IsNil(o.OnBehalfOf) {
+		toSerialize["on_behalf_of"] = o.OnBehalfOf
+	}
 	if !IsNil(o.ExecutionTimeout) {
 		toSerialize["execution_timeout"] = o.ExecutionTimeout
+	}
+	if o.PluginMetadata != nil {
+		toSerialize["plugin_metadata"] = o.PluginMetadata
 	}
 	return toSerialize, nil
 }

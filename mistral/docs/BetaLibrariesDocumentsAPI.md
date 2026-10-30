@@ -11,6 +11,7 @@ Method | HTTP request | Description
 [**LibrariesDocumentsGetTextContentV1**](BetaLibrariesDocumentsAPI.md#LibrariesDocumentsGetTextContentV1) | **Get** /v1/libraries/{library_id}/documents/{document_id}/text_content | Retrieve the text content of a specific document.
 [**LibrariesDocumentsGetV1**](BetaLibrariesDocumentsAPI.md#LibrariesDocumentsGetV1) | **Get** /v1/libraries/{library_id}/documents/{document_id} | Retrieve the metadata of a specific document.
 [**LibrariesDocumentsListV1**](BetaLibrariesDocumentsAPI.md#LibrariesDocumentsListV1) | **Get** /v1/libraries/{library_id}/documents | List documents in a given library.
+[**LibrariesDocumentsPatchV1**](BetaLibrariesDocumentsAPI.md#LibrariesDocumentsPatchV1) | **Patch** /v1/libraries/{library_id}/documents/{document_id} | Update the metadata of a specific document.
 [**LibrariesDocumentsReprocessV1**](BetaLibrariesDocumentsAPI.md#LibrariesDocumentsReprocessV1) | **Post** /v1/libraries/{library_id}/documents/{document_id}/reprocess | Reprocess a document.
 [**LibrariesDocumentsUpdateV1**](BetaLibrariesDocumentsAPI.md#LibrariesDocumentsUpdateV1) | **Put** /v1/libraries/{library_id}/documents/{document_id} | Update the metadata of a specific document.
 [**LibrariesDocumentsUploadV1**](BetaLibrariesDocumentsAPI.md#LibrariesDocumentsUploadV1) | **Post** /v1/libraries/{library_id}/documents | Upload a new document.
@@ -236,7 +237,7 @@ Name | Type | Description  | Notes
 
 ## LibrariesDocumentsGetStatusV1
 
-> ProcessingStatusOut LibrariesDocumentsGetStatusV1(ctx, libraryId, documentId).Execute()
+> ProcessingStatus LibrariesDocumentsGetStatusV1(ctx, libraryId, documentId).Execute()
 
 Retrieve the processing status of a specific document.
 
@@ -265,7 +266,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `BetaLibrariesDocumentsAPI.LibrariesDocumentsGetStatusV1``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `LibrariesDocumentsGetStatusV1`: ProcessingStatusOut
+	// response from `LibrariesDocumentsGetStatusV1`: ProcessingStatus
 	fmt.Fprintf(os.Stdout, "Response from `BetaLibrariesDocumentsAPI.LibrariesDocumentsGetStatusV1`: %v\n", resp)
 }
 ```
@@ -291,7 +292,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ProcessingStatusOut**](ProcessingStatusOut.md)
+[**ProcessingStatus**](ProcessingStatus.md)
 
 ### Authorization
 
@@ -309,7 +310,7 @@ Name | Type | Description  | Notes
 
 ## LibrariesDocumentsGetTextContentV1
 
-> DocumentTextContent LibrariesDocumentsGetTextContentV1(ctx, libraryId, documentId).Execute()
+> DocumentTextContent LibrariesDocumentsGetTextContentV1(ctx, libraryId, documentId).PageStart(pageStart).PageEnd(pageEnd).Execute()
 
 Retrieve the text content of a specific document.
 
@@ -330,10 +331,12 @@ import (
 func main() {
 	libraryId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | 
 	documentId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | 
+	pageStart := int32(56) // int32 |  (optional)
+	pageEnd := int32(56) // int32 |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.BetaLibrariesDocumentsAPI.LibrariesDocumentsGetTextContentV1(context.Background(), libraryId, documentId).Execute()
+	resp, r, err := apiClient.BetaLibrariesDocumentsAPI.LibrariesDocumentsGetTextContentV1(context.Background(), libraryId, documentId).PageStart(pageStart).PageEnd(pageEnd).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `BetaLibrariesDocumentsAPI.LibrariesDocumentsGetTextContentV1``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -361,6 +364,8 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
+ **pageStart** | **int32** |  | 
+ **pageEnd** | **int32** |  | 
 
 ### Return type
 
@@ -382,7 +387,7 @@ Name | Type | Description  | Notes
 
 ## LibrariesDocumentsGetV1
 
-> DocumentOut LibrariesDocumentsGetV1(ctx, libraryId, documentId).Execute()
+> Document LibrariesDocumentsGetV1(ctx, libraryId, documentId).Execute()
 
 Retrieve the metadata of a specific document.
 
@@ -411,7 +416,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `BetaLibrariesDocumentsAPI.LibrariesDocumentsGetV1``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `LibrariesDocumentsGetV1`: DocumentOut
+	// response from `LibrariesDocumentsGetV1`: Document
 	fmt.Fprintf(os.Stdout, "Response from `BetaLibrariesDocumentsAPI.LibrariesDocumentsGetV1`: %v\n", resp)
 }
 ```
@@ -437,7 +442,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DocumentOut**](DocumentOut.md)
+[**Document**](Document.md)
 
 ### Authorization
 
@@ -455,7 +460,7 @@ Name | Type | Description  | Notes
 
 ## LibrariesDocumentsListV1
 
-> ListDocumentOut LibrariesDocumentsListV1(ctx, libraryId).Search(search).PageSize(pageSize).Page(page).FiltersAttributes(filtersAttributes).SortBy(sortBy).SortOrder(sortOrder).Execute()
+> ListDocumentsResponse LibrariesDocumentsListV1(ctx, libraryId).Search(search).PageSize(pageSize).Page(page).FiltersAttributes(filtersAttributes).SortBy(sortBy).SortOrder(sortOrder).Execute()
 
 List documents in a given library.
 
@@ -478,7 +483,7 @@ func main() {
 	search := "search_example" // string |  (optional)
 	pageSize := int32(56) // int32 |  (optional) (default to 100)
 	page := int32(56) // int32 |  (optional) (default to 0)
-	filtersAttributes := "filtersAttributes_example" // string |  (optional)
+	filtersAttributes := "filtersAttributes_example" // string | Deprecated: this parameter will be removed in a future version. (optional)
 	sortBy := "sortBy_example" // string |  (optional) (default to "created_at")
 	sortOrder := "sortOrder_example" // string |  (optional) (default to "desc")
 
@@ -489,7 +494,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `BetaLibrariesDocumentsAPI.LibrariesDocumentsListV1``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `LibrariesDocumentsListV1`: ListDocumentOut
+	// response from `LibrariesDocumentsListV1`: ListDocumentsResponse
 	fmt.Fprintf(os.Stdout, "Response from `BetaLibrariesDocumentsAPI.LibrariesDocumentsListV1`: %v\n", resp)
 }
 ```
@@ -513,13 +518,13 @@ Name | Type | Description  | Notes
  **search** | **string** |  | 
  **pageSize** | **int32** |  | [default to 100]
  **page** | **int32** |  | [default to 0]
- **filtersAttributes** | **string** |  | 
+ **filtersAttributes** | **string** | Deprecated: this parameter will be removed in a future version. | 
  **sortBy** | **string** |  | [default to &quot;created_at&quot;]
  **sortOrder** | **string** |  | [default to &quot;desc&quot;]
 
 ### Return type
 
-[**ListDocumentOut**](ListDocumentOut.md)
+[**ListDocumentsResponse**](ListDocumentsResponse.md)
 
 ### Authorization
 
@@ -528,6 +533,81 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## LibrariesDocumentsPatchV1
+
+> Document LibrariesDocumentsPatchV1(ctx, libraryId, documentId).UpdateDocumentRequest(updateDocumentRequest).Execute()
+
+Update the metadata of a specific document.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/cterence/mistral-client-go"
+)
+
+func main() {
+	libraryId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | 
+	documentId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | 
+	updateDocumentRequest := *openapiclient.NewUpdateDocumentRequest() // UpdateDocumentRequest | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.BetaLibrariesDocumentsAPI.LibrariesDocumentsPatchV1(context.Background(), libraryId, documentId).UpdateDocumentRequest(updateDocumentRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `BetaLibrariesDocumentsAPI.LibrariesDocumentsPatchV1``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `LibrariesDocumentsPatchV1`: Document
+	fmt.Fprintf(os.Stdout, "Response from `BetaLibrariesDocumentsAPI.LibrariesDocumentsPatchV1`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**libraryId** | **string** |  | 
+**documentId** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiLibrariesDocumentsPatchV1Request struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+ **updateDocumentRequest** | [**UpdateDocumentRequest**](UpdateDocumentRequest.md) |  | 
+
+### Return type
+
+[**Document**](Document.md)
+
+### Authorization
+
+[ApiKey](../README.md#ApiKey)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
@@ -608,7 +688,7 @@ Name | Type | Description  | Notes
 
 ## LibrariesDocumentsUpdateV1
 
-> DocumentOut LibrariesDocumentsUpdateV1(ctx, libraryId, documentId).DocumentUpdateIn(documentUpdateIn).Execute()
+> Document LibrariesDocumentsUpdateV1(ctx, libraryId, documentId).UpdateDocumentRequest(updateDocumentRequest).Execute()
 
 Update the metadata of a specific document.
 
@@ -629,16 +709,16 @@ import (
 func main() {
 	libraryId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | 
 	documentId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | 
-	documentUpdateIn := *openapiclient.NewDocumentUpdateIn() // DocumentUpdateIn | 
+	updateDocumentRequest := *openapiclient.NewUpdateDocumentRequest() // UpdateDocumentRequest | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.BetaLibrariesDocumentsAPI.LibrariesDocumentsUpdateV1(context.Background(), libraryId, documentId).DocumentUpdateIn(documentUpdateIn).Execute()
+	resp, r, err := apiClient.BetaLibrariesDocumentsAPI.LibrariesDocumentsUpdateV1(context.Background(), libraryId, documentId).UpdateDocumentRequest(updateDocumentRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `BetaLibrariesDocumentsAPI.LibrariesDocumentsUpdateV1``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `LibrariesDocumentsUpdateV1`: DocumentOut
+	// response from `LibrariesDocumentsUpdateV1`: Document
 	fmt.Fprintf(os.Stdout, "Response from `BetaLibrariesDocumentsAPI.LibrariesDocumentsUpdateV1`: %v\n", resp)
 }
 ```
@@ -661,11 +741,11 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **documentUpdateIn** | [**DocumentUpdateIn**](DocumentUpdateIn.md) |  | 
+ **updateDocumentRequest** | [**UpdateDocumentRequest**](UpdateDocumentRequest.md) |  | 
 
 ### Return type
 
-[**DocumentOut**](DocumentOut.md)
+[**Document**](Document.md)
 
 ### Authorization
 
@@ -683,7 +763,7 @@ Name | Type | Description  | Notes
 
 ## LibrariesDocumentsUploadV1
 
-> DocumentOut LibrariesDocumentsUploadV1(ctx, libraryId).File(file).Execute()
+> Document LibrariesDocumentsUploadV1(ctx, libraryId).File(file).Execute()
 
 Upload a new document.
 
@@ -712,7 +792,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `BetaLibrariesDocumentsAPI.LibrariesDocumentsUploadV1``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `LibrariesDocumentsUploadV1`: DocumentOut
+	// response from `LibrariesDocumentsUploadV1`: Document
 	fmt.Fprintf(os.Stdout, "Response from `BetaLibrariesDocumentsAPI.LibrariesDocumentsUploadV1`: %v\n", resp)
 }
 ```
@@ -737,7 +817,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DocumentOut**](DocumentOut.md)
+[**Document**](Document.md)
 
 ### Authorization
 

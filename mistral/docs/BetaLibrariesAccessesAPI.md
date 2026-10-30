@@ -12,7 +12,7 @@ Method | HTTP request | Description
 
 ## LibrariesShareCreateV1
 
-> SharingOut LibrariesShareCreateV1(ctx, libraryId).SharingIn(sharingIn).Execute()
+> Sharing LibrariesShareCreateV1(ctx, libraryId).SharingRequest(sharingRequest).Execute()
 
 Create or update an access level.
 
@@ -32,16 +32,16 @@ import (
 
 func main() {
 	libraryId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | 
-	sharingIn := *openapiclient.NewSharingIn(openapiclient.ShareEnum("Viewer"), "ShareWithUuid_example", openapiclient.EntityType("User")) // SharingIn | 
+	sharingRequest := *openapiclient.NewSharingRequest(openapiclient.ShareEnum("Viewer"), "ShareWithUuid_example", openapiclient.EntityType("User")) // SharingRequest | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.BetaLibrariesAccessesAPI.LibrariesShareCreateV1(context.Background(), libraryId).SharingIn(sharingIn).Execute()
+	resp, r, err := apiClient.BetaLibrariesAccessesAPI.LibrariesShareCreateV1(context.Background(), libraryId).SharingRequest(sharingRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `BetaLibrariesAccessesAPI.LibrariesShareCreateV1``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `LibrariesShareCreateV1`: SharingOut
+	// response from `LibrariesShareCreateV1`: Sharing
 	fmt.Fprintf(os.Stdout, "Response from `BetaLibrariesAccessesAPI.LibrariesShareCreateV1`: %v\n", resp)
 }
 ```
@@ -62,11 +62,11 @@ Other parameters are passed through a pointer to a apiLibrariesShareCreateV1Requ
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **sharingIn** | [**SharingIn**](SharingIn.md) |  | 
+ **sharingRequest** | [**SharingRequest**](SharingRequest.md) |  | 
 
 ### Return type
 
-[**SharingOut**](SharingOut.md)
+[**Sharing**](Sharing.md)
 
 ### Authorization
 
@@ -84,7 +84,7 @@ Name | Type | Description  | Notes
 
 ## LibrariesShareDeleteV1
 
-> SharingOut LibrariesShareDeleteV1(ctx, libraryId).SharingDelete(sharingDelete).Execute()
+> Sharing LibrariesShareDeleteV1(ctx, libraryId).SharingDelete(sharingDelete).Execute()
 
 Delete an access level.
 
@@ -113,7 +113,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `BetaLibrariesAccessesAPI.LibrariesShareDeleteV1``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `LibrariesShareDeleteV1`: SharingOut
+	// response from `LibrariesShareDeleteV1`: Sharing
 	fmt.Fprintf(os.Stdout, "Response from `BetaLibrariesAccessesAPI.LibrariesShareDeleteV1`: %v\n", resp)
 }
 ```
@@ -138,7 +138,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**SharingOut**](SharingOut.md)
+[**Sharing**](Sharing.md)
 
 ### Authorization
 
@@ -156,7 +156,7 @@ Name | Type | Description  | Notes
 
 ## LibrariesShareListV1
 
-> ListSharingOut LibrariesShareListV1(ctx, libraryId).Execute()
+> ListSharingResponse LibrariesShareListV1(ctx, libraryId).Execute()
 
 List all of the access to this library.
 
@@ -184,7 +184,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `BetaLibrariesAccessesAPI.LibrariesShareListV1``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `LibrariesShareListV1`: ListSharingOut
+	// response from `LibrariesShareListV1`: ListSharingResponse
 	fmt.Fprintf(os.Stdout, "Response from `BetaLibrariesAccessesAPI.LibrariesShareListV1`: %v\n", resp)
 }
 ```
@@ -208,7 +208,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ListSharingOut**](ListSharingOut.md)
+[**ListSharingResponse**](ListSharingResponse.md)
 
 ### Authorization
 

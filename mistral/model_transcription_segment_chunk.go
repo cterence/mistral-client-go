@@ -23,8 +23,8 @@ var _ MappedNullable = &TranscriptionSegmentChunk{}
 type TranscriptionSegmentChunk struct {
 	Type *string `json:"type,omitempty"`
 	Text string `json:"text"`
-	Start float32 `json:"start"`
-	End float32 `json:"end"`
+	Start NullableFloat32 `json:"start"`
+	End NullableFloat32 `json:"end"`
 	Score NullableFloat32 `json:"score,omitempty"`
 	SpeakerId NullableString `json:"speaker_id,omitempty"`
 }
@@ -35,7 +35,7 @@ type _TranscriptionSegmentChunk TranscriptionSegmentChunk
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewTranscriptionSegmentChunk(text string, start float32, end float32) *TranscriptionSegmentChunk {
+func NewTranscriptionSegmentChunk(text string, start NullableFloat32, end NullableFloat32) *TranscriptionSegmentChunk {
 	this := TranscriptionSegmentChunk{}
 	var type_ string = "transcription_segment"
 	this.Type = &type_
@@ -112,51 +112,55 @@ func (o *TranscriptionSegmentChunk) SetText(v string) {
 }
 
 // GetStart returns the Start field value
+// If the value is explicit nil, the zero value for float32 will be returned
 func (o *TranscriptionSegmentChunk) GetStart() float32 {
-	if o == nil {
+	if o == nil || o.Start.Get() == nil {
 		var ret float32
 		return ret
 	}
 
-	return o.Start
+	return *o.Start.Get()
 }
 
 // GetStartOk returns a tuple with the Start field value
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *TranscriptionSegmentChunk) GetStartOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Start, true
+	return o.Start.Get(), o.Start.IsSet()
 }
 
 // SetStart sets field value
 func (o *TranscriptionSegmentChunk) SetStart(v float32) {
-	o.Start = v
+	o.Start.Set(&v)
 }
 
 // GetEnd returns the End field value
+// If the value is explicit nil, the zero value for float32 will be returned
 func (o *TranscriptionSegmentChunk) GetEnd() float32 {
-	if o == nil {
+	if o == nil || o.End.Get() == nil {
 		var ret float32
 		return ret
 	}
 
-	return o.End
+	return *o.End.Get()
 }
 
 // GetEndOk returns a tuple with the End field value
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *TranscriptionSegmentChunk) GetEndOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.End, true
+	return o.End.Get(), o.End.IsSet()
 }
 
 // SetEnd sets field value
 func (o *TranscriptionSegmentChunk) SetEnd(v float32) {
-	o.End = v
+	o.End.Set(&v)
 }
 
 // GetScore returns the Score field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -257,8 +261,8 @@ func (o TranscriptionSegmentChunk) ToMap() (map[string]interface{}, error) {
 		toSerialize["type"] = o.Type
 	}
 	toSerialize["text"] = o.Text
-	toSerialize["start"] = o.Start
-	toSerialize["end"] = o.End
+	toSerialize["start"] = o.Start.Get()
+	toSerialize["end"] = o.End.Get()
 	if o.Score.IsSet() {
 		toSerialize["score"] = o.Score.Get()
 	}

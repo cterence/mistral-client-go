@@ -22,6 +22,11 @@ type DeltaMessage struct {
 	Role NullableString `json:"role,omitempty"`
 	Content NullableDeltaMessageContent `json:"content,omitempty"`
 	ToolCalls []ToolCall `json:"tool_calls,omitempty"`
+	ToolCallId NullableString `json:"tool_call_id,omitempty"`
+	// If the completion returns multiple messages, this is to specify which message this delta is for.
+	Index NullableInt32 `json:"index,omitempty"`
+	// Output JSON schema of the query's model
+	Metadata map[string]interface{} `json:"metadata,omitempty"`
 }
 
 // NewDeltaMessage instantiates a new DeltaMessage object
@@ -158,6 +163,123 @@ func (o *DeltaMessage) SetToolCalls(v []ToolCall) {
 	o.ToolCalls = v
 }
 
+// GetToolCallId returns the ToolCallId field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *DeltaMessage) GetToolCallId() string {
+	if o == nil || IsNil(o.ToolCallId.Get()) {
+		var ret string
+		return ret
+	}
+	return *o.ToolCallId.Get()
+}
+
+// GetToolCallIdOk returns a tuple with the ToolCallId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *DeltaMessage) GetToolCallIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.ToolCallId.Get(), o.ToolCallId.IsSet()
+}
+
+// HasToolCallId returns a boolean if a field has been set.
+func (o *DeltaMessage) HasToolCallId() bool {
+	if o != nil && o.ToolCallId.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetToolCallId gets a reference to the given NullableString and assigns it to the ToolCallId field.
+func (o *DeltaMessage) SetToolCallId(v string) {
+	o.ToolCallId.Set(&v)
+}
+// SetToolCallIdNil sets the value for ToolCallId to be an explicit nil
+func (o *DeltaMessage) SetToolCallIdNil() {
+	o.ToolCallId.Set(nil)
+}
+
+// UnsetToolCallId ensures that no value is present for ToolCallId, not even an explicit nil
+func (o *DeltaMessage) UnsetToolCallId() {
+	o.ToolCallId.Unset()
+}
+
+// GetIndex returns the Index field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *DeltaMessage) GetIndex() int32 {
+	if o == nil || IsNil(o.Index.Get()) {
+		var ret int32
+		return ret
+	}
+	return *o.Index.Get()
+}
+
+// GetIndexOk returns a tuple with the Index field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *DeltaMessage) GetIndexOk() (*int32, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.Index.Get(), o.Index.IsSet()
+}
+
+// HasIndex returns a boolean if a field has been set.
+func (o *DeltaMessage) HasIndex() bool {
+	if o != nil && o.Index.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetIndex gets a reference to the given NullableInt32 and assigns it to the Index field.
+func (o *DeltaMessage) SetIndex(v int32) {
+	o.Index.Set(&v)
+}
+// SetIndexNil sets the value for Index to be an explicit nil
+func (o *DeltaMessage) SetIndexNil() {
+	o.Index.Set(nil)
+}
+
+// UnsetIndex ensures that no value is present for Index, not even an explicit nil
+func (o *DeltaMessage) UnsetIndex() {
+	o.Index.Unset()
+}
+
+// GetMetadata returns the Metadata field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *DeltaMessage) GetMetadata() map[string]interface{} {
+	if o == nil {
+		var ret map[string]interface{}
+		return ret
+	}
+	return o.Metadata
+}
+
+// GetMetadataOk returns a tuple with the Metadata field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *DeltaMessage) GetMetadataOk() (map[string]interface{}, bool) {
+	if o == nil || IsNil(o.Metadata) {
+		return map[string]interface{}{}, false
+	}
+	return o.Metadata, true
+}
+
+// HasMetadata returns a boolean if a field has been set.
+func (o *DeltaMessage) HasMetadata() bool {
+	if o != nil && !IsNil(o.Metadata) {
+		return true
+	}
+
+	return false
+}
+
+// SetMetadata gets a reference to the given map[string]interface{} and assigns it to the Metadata field.
+func (o *DeltaMessage) SetMetadata(v map[string]interface{}) {
+	o.Metadata = v
+}
+
 func (o DeltaMessage) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -176,6 +298,15 @@ func (o DeltaMessage) ToMap() (map[string]interface{}, error) {
 	}
 	if o.ToolCalls != nil {
 		toSerialize["tool_calls"] = o.ToolCalls
+	}
+	if o.ToolCallId.IsSet() {
+		toSerialize["tool_call_id"] = o.ToolCallId.Get()
+	}
+	if o.Index.IsSet() {
+		toSerialize["index"] = o.Index.Get()
+	}
+	if o.Metadata != nil {
+		toSerialize["metadata"] = o.Metadata
 	}
 	return toSerialize, nil
 }

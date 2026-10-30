@@ -27,20 +27,22 @@ type BetaObservabilityJudgesAPIService service
 type ApiCreateJudgeV1ObservabilityJudgesPostRequest struct {
 	ctx context.Context
 	ApiService *BetaObservabilityJudgesAPIService
-	postJudgeInSchema *PostJudgeInSchema
+	createJudgeRequest *CreateJudgeRequest
 }
 
-func (r ApiCreateJudgeV1ObservabilityJudgesPostRequest) PostJudgeInSchema(postJudgeInSchema PostJudgeInSchema) ApiCreateJudgeV1ObservabilityJudgesPostRequest {
-	r.postJudgeInSchema = &postJudgeInSchema
+func (r ApiCreateJudgeV1ObservabilityJudgesPostRequest) CreateJudgeRequest(createJudgeRequest CreateJudgeRequest) ApiCreateJudgeV1ObservabilityJudgesPostRequest {
+	r.createJudgeRequest = &createJudgeRequest
 	return r
 }
 
-func (r ApiCreateJudgeV1ObservabilityJudgesPostRequest) Execute() (*JudgePreview, *http.Response, error) {
+func (r ApiCreateJudgeV1ObservabilityJudgesPostRequest) Execute() (*Judge, *http.Response, error) {
 	return r.ApiService.CreateJudgeV1ObservabilityJudgesPostExecute(r)
 }
 
 /*
 CreateJudgeV1ObservabilityJudgesPost Create a new judge
+
+Create a new judge
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiCreateJudgeV1ObservabilityJudgesPostRequest
@@ -53,13 +55,13 @@ func (a *BetaObservabilityJudgesAPIService) CreateJudgeV1ObservabilityJudgesPost
 }
 
 // Execute executes the request
-//  @return JudgePreview
-func (a *BetaObservabilityJudgesAPIService) CreateJudgeV1ObservabilityJudgesPostExecute(r ApiCreateJudgeV1ObservabilityJudgesPostRequest) (*JudgePreview, *http.Response, error) {
+//  @return Judge
+func (a *BetaObservabilityJudgesAPIService) CreateJudgeV1ObservabilityJudgesPostExecute(r ApiCreateJudgeV1ObservabilityJudgesPostRequest) (*Judge, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *JudgePreview
+		localVarReturnValue  *Judge
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BetaObservabilityJudgesAPIService.CreateJudgeV1ObservabilityJudgesPost")
@@ -72,8 +74,8 @@ func (a *BetaObservabilityJudgesAPIService) CreateJudgeV1ObservabilityJudgesPost
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.postJudgeInSchema == nil {
-		return localVarReturnValue, nil, reportError("postJudgeInSchema is required and must be specified")
+	if r.createJudgeRequest == nil {
+		return localVarReturnValue, nil, reportError("createJudgeRequest is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -94,7 +96,7 @@ func (a *BetaObservabilityJudgesAPIService) CreateJudgeV1ObservabilityJudgesPost
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.postJudgeInSchema
+	localVarPostBody = r.createJudgeRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -198,6 +200,8 @@ func (r ApiDeleteJudgeV1ObservabilityJudgesJudgeIdDeleteRequest) Execute() (*htt
 
 /*
 DeleteJudgeV1ObservabilityJudgesJudgeIdDelete Delete a judge
+
+Delete a judge
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param judgeId
@@ -336,12 +340,14 @@ type ApiGetJudgeByIdV1ObservabilityJudgesJudgeIdGetRequest struct {
 	judgeId string
 }
 
-func (r ApiGetJudgeByIdV1ObservabilityJudgesJudgeIdGetRequest) Execute() (*JudgePreview, *http.Response, error) {
+func (r ApiGetJudgeByIdV1ObservabilityJudgesJudgeIdGetRequest) Execute() (*Judge, *http.Response, error) {
 	return r.ApiService.GetJudgeByIdV1ObservabilityJudgesJudgeIdGetExecute(r)
 }
 
 /*
 GetJudgeByIdV1ObservabilityJudgesJudgeIdGet Get judge by id
+
+Get judge by id
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param judgeId
@@ -356,13 +362,13 @@ func (a *BetaObservabilityJudgesAPIService) GetJudgeByIdV1ObservabilityJudgesJud
 }
 
 // Execute executes the request
-//  @return JudgePreview
-func (a *BetaObservabilityJudgesAPIService) GetJudgeByIdV1ObservabilityJudgesJudgeIdGetExecute(r ApiGetJudgeByIdV1ObservabilityJudgesJudgeIdGetRequest) (*JudgePreview, *http.Response, error) {
+//  @return Judge
+func (a *BetaObservabilityJudgesAPIService) GetJudgeByIdV1ObservabilityJudgesJudgeIdGetExecute(r ApiGetJudgeByIdV1ObservabilityJudgesJudgeIdGetRequest) (*Judge, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *JudgePreview
+		localVarReturnValue  *Judge
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BetaObservabilityJudgesAPIService.GetJudgeByIdV1ObservabilityJudgesJudgeIdGet")
@@ -522,12 +528,14 @@ func (r ApiGetJudgesV1ObservabilityJudgesGetRequest) Q(q string) ApiGetJudgesV1O
 	return r
 }
 
-func (r ApiGetJudgesV1ObservabilityJudgesGetRequest) Execute() (*JudgePreviews, *http.Response, error) {
+func (r ApiGetJudgesV1ObservabilityJudgesGetRequest) Execute() (*ListJudgesResponse, *http.Response, error) {
 	return r.ApiService.GetJudgesV1ObservabilityJudgesGetExecute(r)
 }
 
 /*
 GetJudgesV1ObservabilityJudgesGet Get judges with optional filtering and search
+
+Get judges with optional filtering and search
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiGetJudgesV1ObservabilityJudgesGetRequest
@@ -540,13 +548,13 @@ func (a *BetaObservabilityJudgesAPIService) GetJudgesV1ObservabilityJudgesGet(ct
 }
 
 // Execute executes the request
-//  @return JudgePreviews
-func (a *BetaObservabilityJudgesAPIService) GetJudgesV1ObservabilityJudgesGetExecute(r ApiGetJudgesV1ObservabilityJudgesGetRequest) (*JudgePreviews, *http.Response, error) {
+//  @return ListJudgesResponse
+func (a *BetaObservabilityJudgesAPIService) GetJudgesV1ObservabilityJudgesGetExecute(r ApiGetJudgesV1ObservabilityJudgesGetRequest) (*ListJudgesResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *JudgePreviews
+		localVarReturnValue  *ListJudgesResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BetaObservabilityJudgesAPIService.GetJudgesV1ObservabilityJudgesGet")
@@ -726,6 +734,8 @@ func (r ApiJudgeConversationV1ObservabilityJudgesJudgeIdLiveJudgingPostRequest) 
 /*
 JudgeConversationV1ObservabilityJudgesJudgeIdLiveJudgingPost Run a saved judge on a conversation
 
+Run a saved judge on a conversation
+
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param judgeId
  @return ApiJudgeConversationV1ObservabilityJudgesJudgeIdLiveJudgingPostRequest
@@ -877,11 +887,11 @@ type ApiUpdateJudgeV1ObservabilityJudgesJudgeIdPutRequest struct {
 	ctx context.Context
 	ApiService *BetaObservabilityJudgesAPIService
 	judgeId string
-	putJudgeInSchema *PutJudgeInSchema
+	updateJudgeRequest *UpdateJudgeRequest
 }
 
-func (r ApiUpdateJudgeV1ObservabilityJudgesJudgeIdPutRequest) PutJudgeInSchema(putJudgeInSchema PutJudgeInSchema) ApiUpdateJudgeV1ObservabilityJudgesJudgeIdPutRequest {
-	r.putJudgeInSchema = &putJudgeInSchema
+func (r ApiUpdateJudgeV1ObservabilityJudgesJudgeIdPutRequest) UpdateJudgeRequest(updateJudgeRequest UpdateJudgeRequest) ApiUpdateJudgeV1ObservabilityJudgesJudgeIdPutRequest {
+	r.updateJudgeRequest = &updateJudgeRequest
 	return r
 }
 
@@ -891,6 +901,8 @@ func (r ApiUpdateJudgeV1ObservabilityJudgesJudgeIdPutRequest) Execute() (*http.R
 
 /*
 UpdateJudgeV1ObservabilityJudgesJudgeIdPut Update a judge
+
+Update a judge
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param judgeId
@@ -923,8 +935,8 @@ func (a *BetaObservabilityJudgesAPIService) UpdateJudgeV1ObservabilityJudgesJudg
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.putJudgeInSchema == nil {
-		return nil, reportError("putJudgeInSchema is required and must be specified")
+	if r.updateJudgeRequest == nil {
+		return nil, reportError("updateJudgeRequest is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -945,7 +957,7 @@ func (a *BetaObservabilityJudgesAPIService) UpdateJudgeV1ObservabilityJudgesJudg
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.putJudgeInSchema
+	localVarPostBody = r.updateJudgeRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err

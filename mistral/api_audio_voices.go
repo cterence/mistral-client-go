@@ -17,11 +17,206 @@ import (
 	"net/http"
 	"net/url"
 	"strings"
+	"reflect"
+	"os"
 )
 
 
 // AudioVoicesAPIService AudioVoicesAPI service
 type AudioVoicesAPIService service
+
+type ApiAudioV2VoicesListRequest struct {
+	ctx context.Context
+	ApiService *AudioVoicesAPIService
+	pageSize *int32
+	pageToken *string
+	type_ *string
+	gender *[]VoiceGender
+	language *[]string
+	query *string
+}
+
+// Maximum number of voices to return
+func (r ApiAudioV2VoicesListRequest) PageSize(pageSize int32) ApiAudioV2VoicesListRequest {
+	r.pageSize = &pageSize
+	return r
+}
+
+// Cursor returned as next_page_token by the previous page
+func (r ApiAudioV2VoicesListRequest) PageToken(pageToken string) ApiAudioV2VoicesListRequest {
+	r.pageToken = &pageToken
+	return r
+}
+
+// Filter the voices between customs and presets
+func (r ApiAudioV2VoicesListRequest) Type_(type_ string) ApiAudioV2VoicesListRequest {
+	r.type_ = &type_
+	return r
+}
+
+// Keep voices matching any of these genders
+func (r ApiAudioV2VoicesListRequest) Gender(gender []VoiceGender) ApiAudioV2VoicesListRequest {
+	r.gender = &gender
+	return r
+}
+
+// Keep voices supporting any of these languages
+func (r ApiAudioV2VoicesListRequest) Language(language []string) ApiAudioV2VoicesListRequest {
+	r.language = &language
+	return r
+}
+
+// Case-insensitive match on voice name
+func (r ApiAudioV2VoicesListRequest) Query(query string) ApiAudioV2VoicesListRequest {
+	r.query = &query
+	return r
+}
+
+func (r ApiAudioV2VoicesListRequest) Execute() (*VoiceListPage, *http.Response, error) {
+	return r.ApiService.AudioV2VoicesListExecute(r)
+}
+
+/*
+AudioV2VoicesList List voices, cursor-paginated
+
+List voices, cursor-paginated
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiAudioV2VoicesListRequest
+*/
+func (a *AudioVoicesAPIService) AudioV2VoicesList(ctx context.Context) ApiAudioV2VoicesListRequest {
+	return ApiAudioV2VoicesListRequest{
+		ApiService: a,
+		ctx: ctx,
+	}
+}
+
+// Execute executes the request
+//  @return VoiceListPage
+func (a *AudioVoicesAPIService) AudioV2VoicesListExecute(r ApiAudioV2VoicesListRequest) (*VoiceListPage, *http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *VoiceListPage
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AudioVoicesAPIService.AudioV2VoicesList")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v2/audio/voices"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	if r.pageSize != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "page_size", r.pageSize, "form", "")
+	} else {
+		var defaultValue int32 = 10
+		parameterAddToHeaderOrQuery(localVarQueryParams, "page_size", defaultValue, "form", "")
+		r.pageSize = &defaultValue
+	}
+	if r.pageToken != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "page_token", r.pageToken, "form", "")
+	}
+	if r.type_ != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "type", r.type_, "form", "")
+	} else {
+		var defaultValue string = "all"
+		parameterAddToHeaderOrQuery(localVarQueryParams, "type", defaultValue, "form", "")
+		r.type_ = &defaultValue
+	}
+	if r.gender != nil {
+		t := *r.gender
+		if reflect.TypeOf(t).Kind() == reflect.Slice {
+			s := reflect.ValueOf(t)
+			for i := 0; i < s.Len(); i++ {
+				parameterAddToHeaderOrQuery(localVarQueryParams, "gender", s.Index(i).Interface(), "form", "multi")
+			}
+		} else {
+			parameterAddToHeaderOrQuery(localVarQueryParams, "gender", t, "form", "multi")
+		}
+	}
+	if r.language != nil {
+		t := *r.language
+		if reflect.TypeOf(t).Kind() == reflect.Slice {
+			s := reflect.ValueOf(t)
+			for i := 0; i < s.Len(); i++ {
+				parameterAddToHeaderOrQuery(localVarQueryParams, "language", s.Index(i).Interface(), "form", "multi")
+			}
+		} else {
+			parameterAddToHeaderOrQuery(localVarQueryParams, "language", t, "form", "multi")
+		}
+	}
+	if r.query != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "query", r.query, "form", "")
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 422 {
+			var v HTTPValidationError
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
 
 type ApiCreateVoiceV1AudioVoicesPostRequest struct {
 	ctx context.Context
@@ -262,7 +457,7 @@ type ApiGetVoiceSampleAudioV1AudioVoicesVoiceIdSampleGetRequest struct {
 	voiceId string
 }
 
-func (r ApiGetVoiceSampleAudioV1AudioVoicesVoiceIdSampleGetRequest) Execute() (string, *http.Response, error) {
+func (r ApiGetVoiceSampleAudioV1AudioVoicesVoiceIdSampleGetRequest) Execute() (*os.File, *http.Response, error) {
 	return r.ApiService.GetVoiceSampleAudioV1AudioVoicesVoiceIdSampleGetExecute(r)
 }
 
@@ -284,13 +479,13 @@ func (a *AudioVoicesAPIService) GetVoiceSampleAudioV1AudioVoicesVoiceIdSampleGet
 }
 
 // Execute executes the request
-//  @return string
-func (a *AudioVoicesAPIService) GetVoiceSampleAudioV1AudioVoicesVoiceIdSampleGetExecute(r ApiGetVoiceSampleAudioV1AudioVoicesVoiceIdSampleGetRequest) (string, *http.Response, error) {
+//  @return *os.File
+func (a *AudioVoicesAPIService) GetVoiceSampleAudioV1AudioVoicesVoiceIdSampleGetExecute(r ApiGetVoiceSampleAudioV1AudioVoicesVoiceIdSampleGetRequest) (*os.File, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  string
+		localVarReturnValue  *os.File
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AudioVoicesAPIService.GetVoiceSampleAudioV1AudioVoicesVoiceIdSampleGet")
@@ -315,7 +510,7 @@ func (a *AudioVoicesAPIService) GetVoiceSampleAudioV1AudioVoicesVoiceIdSampleGet
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json", "audio/wav"}
+	localVarHTTPHeaderAccepts := []string{"audio/wav", "application/json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -487,6 +682,7 @@ type ApiListVoicesV1AudioVoicesGetRequest struct {
 	ApiService *AudioVoicesAPIService
 	limit *int32
 	offset *int32
+	type_ *string
 }
 
 // Maximum number of voices to return
@@ -501,6 +697,12 @@ func (r ApiListVoicesV1AudioVoicesGetRequest) Offset(offset int32) ApiListVoices
 	return r
 }
 
+// Filter the voices between customs and presets
+func (r ApiListVoicesV1AudioVoicesGetRequest) Type_(type_ string) ApiListVoicesV1AudioVoicesGetRequest {
+	r.type_ = &type_
+	return r
+}
+
 func (r ApiListVoicesV1AudioVoicesGetRequest) Execute() (*VoiceListResponse, *http.Response, error) {
 	return r.ApiService.ListVoicesV1AudioVoicesGetExecute(r)
 }
@@ -508,10 +710,12 @@ func (r ApiListVoicesV1AudioVoicesGetRequest) Execute() (*VoiceListResponse, *ht
 /*
 ListVoicesV1AudioVoicesGet List all voices
 
-List all voices (excluding sample data)
+Offset pagination will not be supported anymore. Use GET /v2/audio/voices instead.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiListVoicesV1AudioVoicesGetRequest
+
+Deprecated
 */
 func (a *AudioVoicesAPIService) ListVoicesV1AudioVoicesGet(ctx context.Context) ApiListVoicesV1AudioVoicesGetRequest {
 	return ApiListVoicesV1AudioVoicesGetRequest{
@@ -522,6 +726,7 @@ func (a *AudioVoicesAPIService) ListVoicesV1AudioVoicesGet(ctx context.Context) 
 
 // Execute executes the request
 //  @return VoiceListResponse
+// Deprecated
 func (a *AudioVoicesAPIService) ListVoicesV1AudioVoicesGetExecute(r ApiListVoicesV1AudioVoicesGetRequest) (*VoiceListResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -554,6 +759,13 @@ func (a *AudioVoicesAPIService) ListVoicesV1AudioVoicesGetExecute(r ApiListVoice
 		var defaultValue int32 = 0
 		parameterAddToHeaderOrQuery(localVarQueryParams, "offset", defaultValue, "form", "")
 		r.offset = &defaultValue
+	}
+	if r.type_ != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "type", r.type_, "form", "")
+	} else {
+		var defaultValue string = "all"
+		parameterAddToHeaderOrQuery(localVarQueryParams, "type", defaultValue, "form", "")
+		r.type_ = &defaultValue
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -638,7 +850,7 @@ func (r ApiUpdateVoiceV1AudioVoicesVoiceIdPatchRequest) Execute() (*VoiceRespons
 /*
 UpdateVoiceV1AudioVoicesVoiceIdPatch Update voice metadata
 
-Update voice metadata (name, gender, languages, age, tags).
+Update voice metadata (name, gender, languages, age, tags, retention notice).
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param voiceId

@@ -22,8 +22,7 @@ var _ MappedNullable = &OCRRequest{}
 // OCRRequest struct for OCRRequest
 type OCRRequest struct {
 	Model NullableString `json:"model"`
-	Id *string `json:"id,omitempty"`
-	Document Document `json:"document"`
+	Document Document1 `json:"document"`
 	Pages NullablePages `json:"pages,omitempty"`
 	// Include image URLs in response
 	IncludeImageBase64 NullableBool `json:"include_image_base64,omitempty"`
@@ -38,11 +37,13 @@ type OCRRequest struct {
 	// Optional prompt to guide the model in extracting structured output from the entire document. A document_annotation_format must be provided.
 	DocumentAnnotationPrompt NullableString `json:"document_annotation_prompt,omitempty"`
 	TableFormat NullableString `json:"table_format,omitempty"`
+	// Extract the page header into the response's `header` field and remove it from the markdown content
 	ExtractHeader *bool `json:"extract_header,omitempty"`
+	// Extract the page footer into the response's `footer` field and remove it from the markdown content
 	ExtractFooter *bool `json:"extract_footer,omitempty"`
 	// Return paragraph-level bounding boxes for all content blocks in the response
 	IncludeBlocks *bool `json:"include_blocks,omitempty"`
-	// Granularity for confidence scores: 'word' (per-word scores) or 'page' (aggregate only). Defaults to None (no confidence scores) to keep response payload small.
+	// Granularity for confidence scores: 'page' (aggregate only), 'word' (per-word scores), or 'block' (per-block scores). Defaults to None (no confidence scores) to keep response payload small.
 	ConfidenceScoresGranularity NullableString `json:"confidence_scores_granularity,omitempty"`
 }
 
@@ -52,7 +53,7 @@ type _OCRRequest OCRRequest
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewOCRRequest(model NullableString, document Document) *OCRRequest {
+func NewOCRRequest(model NullableString, document Document1) *OCRRequest {
 	this := OCRRequest{}
 	this.Model = model
 	this.Document = document
@@ -60,7 +61,7 @@ func NewOCRRequest(model NullableString, document Document) *OCRRequest {
 	this.ExtractHeader = &extractHeader
 	var extractFooter bool = false
 	this.ExtractFooter = &extractFooter
-	var includeBlocks bool = false
+	var includeBlocks bool = true
 	this.IncludeBlocks = &includeBlocks
 	return &this
 }
@@ -74,7 +75,7 @@ func NewOCRRequestWithDefaults() *OCRRequest {
 	this.ExtractHeader = &extractHeader
 	var extractFooter bool = false
 	this.ExtractFooter = &extractFooter
-	var includeBlocks bool = false
+	var includeBlocks bool = true
 	this.IncludeBlocks = &includeBlocks
 	return &this
 }
@@ -105,42 +106,10 @@ func (o *OCRRequest) SetModel(v string) {
 	o.Model.Set(&v)
 }
 
-// GetId returns the Id field value if set, zero value otherwise.
-func (o *OCRRequest) GetId() string {
-	if o == nil || IsNil(o.Id) {
-		var ret string
-		return ret
-	}
-	return *o.Id
-}
-
-// GetIdOk returns a tuple with the Id field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *OCRRequest) GetIdOk() (*string, bool) {
-	if o == nil || IsNil(o.Id) {
-		return nil, false
-	}
-	return o.Id, true
-}
-
-// HasId returns a boolean if a field has been set.
-func (o *OCRRequest) HasId() bool {
-	if o != nil && !IsNil(o.Id) {
-		return true
-	}
-
-	return false
-}
-
-// SetId gets a reference to the given string and assigns it to the Id field.
-func (o *OCRRequest) SetId(v string) {
-	o.Id = &v
-}
-
 // GetDocument returns the Document field value
-func (o *OCRRequest) GetDocument() Document {
+func (o *OCRRequest) GetDocument() Document1 {
 	if o == nil {
-		var ret Document
+		var ret Document1
 		return ret
 	}
 
@@ -149,7 +118,7 @@ func (o *OCRRequest) GetDocument() Document {
 
 // GetDocumentOk returns a tuple with the Document field value
 // and a boolean to check if the value has been set.
-func (o *OCRRequest) GetDocumentOk() (*Document, bool) {
+func (o *OCRRequest) GetDocumentOk() (*Document1, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -157,7 +126,7 @@ func (o *OCRRequest) GetDocumentOk() (*Document, bool) {
 }
 
 // SetDocument sets field value
-func (o *OCRRequest) SetDocument(v Document) {
+func (o *OCRRequest) SetDocument(v Document1) {
 	o.Document = v
 }
 
@@ -646,9 +615,6 @@ func (o OCRRequest) MarshalJSON() ([]byte, error) {
 func (o OCRRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["model"] = o.Model.Get()
-	if !IsNil(o.Id) {
-		toSerialize["id"] = o.Id
-	}
 	toSerialize["document"] = o.Document
 	if o.Pages.IsSet() {
 		toSerialize["pages"] = o.Pages.Get()

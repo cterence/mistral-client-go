@@ -15,7 +15,7 @@ Method | HTTP request | Description
 
 ## DeleteModelV1ModelsModelIdDelete
 
-> DeleteModelOut DeleteModelV1ModelsModelIdDelete(ctx, modelId).Execute()
+> DeleteModelResponse DeleteModelV1ModelsModelIdDelete(ctx, modelId).Execute()
 
 Delete Model
 
@@ -34,7 +34,7 @@ import (
 )
 
 func main() {
-	modelId := "ft:open-mistral-7b:587a6b29:20240514:7e773925" // string | The ID of the model to delete.
+	modelId := "modelId_example" // string | The ID of the model to delete.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -43,7 +43,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `ModelsAPI.DeleteModelV1ModelsModelIdDelete``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `DeleteModelV1ModelsModelIdDelete`: DeleteModelOut
+	// response from `DeleteModelV1ModelsModelIdDelete`: DeleteModelResponse
 	fmt.Fprintf(os.Stdout, "Response from `ModelsAPI.DeleteModelV1ModelsModelIdDelete`: %v\n", resp)
 }
 ```
@@ -67,7 +67,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DeleteModelOut**](DeleteModelOut.md)
+[**DeleteModelResponse**](DeleteModelResponse.md)
 
 ### Authorization
 
@@ -85,7 +85,7 @@ Name | Type | Description  | Notes
 
 ## JobsApiRoutesFineTuningArchiveFineTunedModel
 
-> ArchiveFTModelOut JobsApiRoutesFineTuningArchiveFineTunedModel(ctx, modelId).Execute()
+> ArchiveModelResponse JobsApiRoutesFineTuningArchiveFineTunedModel(ctx, modelId).Execute()
 
 Archive Fine Tuned Model
 
@@ -113,7 +113,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `ModelsAPI.JobsApiRoutesFineTuningArchiveFineTunedModel``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `JobsApiRoutesFineTuningArchiveFineTunedModel`: ArchiveFTModelOut
+	// response from `JobsApiRoutesFineTuningArchiveFineTunedModel`: ArchiveModelResponse
 	fmt.Fprintf(os.Stdout, "Response from `ModelsAPI.JobsApiRoutesFineTuningArchiveFineTunedModel`: %v\n", resp)
 }
 ```
@@ -137,7 +137,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ArchiveFTModelOut**](ArchiveFTModelOut.md)
+[**ArchiveModelResponse**](ArchiveModelResponse.md)
 
 ### Authorization
 
@@ -155,7 +155,7 @@ Name | Type | Description  | Notes
 
 ## JobsApiRoutesFineTuningUnarchiveFineTunedModel
 
-> UnarchiveFTModelOut JobsApiRoutesFineTuningUnarchiveFineTunedModel(ctx, modelId).Execute()
+> UnarchiveModelResponse JobsApiRoutesFineTuningUnarchiveFineTunedModel(ctx, modelId).Execute()
 
 Unarchive Fine Tuned Model
 
@@ -183,7 +183,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `ModelsAPI.JobsApiRoutesFineTuningUnarchiveFineTunedModel``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `JobsApiRoutesFineTuningUnarchiveFineTunedModel`: UnarchiveFTModelOut
+	// response from `JobsApiRoutesFineTuningUnarchiveFineTunedModel`: UnarchiveModelResponse
 	fmt.Fprintf(os.Stdout, "Response from `ModelsAPI.JobsApiRoutesFineTuningUnarchiveFineTunedModel`: %v\n", resp)
 }
 ```
@@ -207,7 +207,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**UnarchiveFTModelOut**](UnarchiveFTModelOut.md)
+[**UnarchiveModelResponse**](UnarchiveModelResponse.md)
 
 ### Authorization
 
@@ -225,7 +225,7 @@ Name | Type | Description  | Notes
 
 ## JobsApiRoutesFineTuningUpdateFineTunedModel
 
-> Response2 JobsApiRoutesFineTuningUpdateFineTunedModel(ctx, modelId).UpdateFTModelIn(updateFTModelIn).Execute()
+> Response JobsApiRoutesFineTuningUpdateFineTunedModel(ctx, modelId).UpdateModelRequest(updateModelRequest).Execute()
 
 Update Fine Tuned Model
 
@@ -245,16 +245,16 @@ import (
 
 func main() {
 	modelId := "ft:open-mistral-7b:587a6b29:20240514:7e773925" // string | The ID of the model to update.
-	updateFTModelIn := *openapiclient.NewUpdateFTModelIn() // UpdateFTModelIn | 
+	updateModelRequest := *openapiclient.NewUpdateModelRequest() // UpdateModelRequest | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ModelsAPI.JobsApiRoutesFineTuningUpdateFineTunedModel(context.Background(), modelId).UpdateFTModelIn(updateFTModelIn).Execute()
+	resp, r, err := apiClient.ModelsAPI.JobsApiRoutesFineTuningUpdateFineTunedModel(context.Background(), modelId).UpdateModelRequest(updateModelRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ModelsAPI.JobsApiRoutesFineTuningUpdateFineTunedModel``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `JobsApiRoutesFineTuningUpdateFineTunedModel`: Response2
+	// response from `JobsApiRoutesFineTuningUpdateFineTunedModel`: Response
 	fmt.Fprintf(os.Stdout, "Response from `ModelsAPI.JobsApiRoutesFineTuningUpdateFineTunedModel`: %v\n", resp)
 }
 ```
@@ -275,11 +275,11 @@ Other parameters are passed through a pointer to a apiJobsApiRoutesFineTuningUpd
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **updateFTModelIn** | [**UpdateFTModelIn**](UpdateFTModelIn.md) |  | 
+ **updateModelRequest** | [**UpdateModelRequest**](UpdateModelRequest.md) |  | 
 
 ### Return type
 
-[**Response2**](Response2.md)
+[**Response**](Response.md)
 
 ### Authorization
 
@@ -384,7 +384,7 @@ import (
 )
 
 func main() {
-	modelId := "ft:open-mistral-7b:587a6b29:20240514:7e773925" // string | The ID of the model to retrieve.
+	modelId := "modelId_example" // string | The ID of the model to retrieve.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)

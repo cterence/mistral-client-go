@@ -24,6 +24,8 @@ type VoiceUpdateRequest struct {
 	Gender NullableString `json:"gender,omitempty"`
 	Age NullableInt32 `json:"age,omitempty"`
 	Tags []string `json:"tags,omitempty"`
+	Description NullableString `json:"description,omitempty"`
+	RetentionNotice NullableInt32 `json:"retention_notice,omitempty"`
 }
 
 // NewVoiceUpdateRequest instantiates a new VoiceUpdateRequest object
@@ -235,6 +237,90 @@ func (o *VoiceUpdateRequest) SetTags(v []string) {
 	o.Tags = v
 }
 
+// GetDescription returns the Description field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *VoiceUpdateRequest) GetDescription() string {
+	if o == nil || IsNil(o.Description.Get()) {
+		var ret string
+		return ret
+	}
+	return *o.Description.Get()
+}
+
+// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *VoiceUpdateRequest) GetDescriptionOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.Description.Get(), o.Description.IsSet()
+}
+
+// HasDescription returns a boolean if a field has been set.
+func (o *VoiceUpdateRequest) HasDescription() bool {
+	if o != nil && o.Description.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetDescription gets a reference to the given NullableString and assigns it to the Description field.
+func (o *VoiceUpdateRequest) SetDescription(v string) {
+	o.Description.Set(&v)
+}
+// SetDescriptionNil sets the value for Description to be an explicit nil
+func (o *VoiceUpdateRequest) SetDescriptionNil() {
+	o.Description.Set(nil)
+}
+
+// UnsetDescription ensures that no value is present for Description, not even an explicit nil
+func (o *VoiceUpdateRequest) UnsetDescription() {
+	o.Description.Unset()
+}
+
+// GetRetentionNotice returns the RetentionNotice field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *VoiceUpdateRequest) GetRetentionNotice() int32 {
+	if o == nil || IsNil(o.RetentionNotice.Get()) {
+		var ret int32
+		return ret
+	}
+	return *o.RetentionNotice.Get()
+}
+
+// GetRetentionNoticeOk returns a tuple with the RetentionNotice field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *VoiceUpdateRequest) GetRetentionNoticeOk() (*int32, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.RetentionNotice.Get(), o.RetentionNotice.IsSet()
+}
+
+// HasRetentionNotice returns a boolean if a field has been set.
+func (o *VoiceUpdateRequest) HasRetentionNotice() bool {
+	if o != nil && o.RetentionNotice.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetRetentionNotice gets a reference to the given NullableInt32 and assigns it to the RetentionNotice field.
+func (o *VoiceUpdateRequest) SetRetentionNotice(v int32) {
+	o.RetentionNotice.Set(&v)
+}
+// SetRetentionNoticeNil sets the value for RetentionNotice to be an explicit nil
+func (o *VoiceUpdateRequest) SetRetentionNoticeNil() {
+	o.RetentionNotice.Set(nil)
+}
+
+// UnsetRetentionNotice ensures that no value is present for RetentionNotice, not even an explicit nil
+func (o *VoiceUpdateRequest) UnsetRetentionNotice() {
+	o.RetentionNotice.Unset()
+}
+
 func (o VoiceUpdateRequest) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -259,6 +345,12 @@ func (o VoiceUpdateRequest) ToMap() (map[string]interface{}, error) {
 	}
 	if o.Tags != nil {
 		toSerialize["tags"] = o.Tags
+	}
+	if o.Description.IsSet() {
+		toSerialize["description"] = o.Description.Get()
+	}
+	if o.RetentionNotice.IsSet() {
+		toSerialize["retention_notice"] = o.RetentionNotice.Get()
 	}
 	return toSerialize, nil
 }

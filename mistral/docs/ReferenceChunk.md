@@ -5,13 +5,13 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Type** | Pointer to **string** |  | [optional] [default to "reference"]
-**ReferenceIds** | **[]int32** |  | 
+**ReferenceIds** | [**[]ReferenceIdsInner**](ReferenceIdsInner.md) |  | 
 
 ## Methods
 
 ### NewReferenceChunk
 
-`func NewReferenceChunk(referenceIds []int32, ) *ReferenceChunk`
+`func NewReferenceChunk(referenceIds []ReferenceIdsInner, ) *ReferenceChunk`
 
 NewReferenceChunk instantiates a new ReferenceChunk object
 This constructor will assign default values to properties that have it defined,
@@ -53,20 +53,20 @@ HasType returns a boolean if a field has been set.
 
 ### GetReferenceIds
 
-`func (o *ReferenceChunk) GetReferenceIds() []int32`
+`func (o *ReferenceChunk) GetReferenceIds() []ReferenceIdsInner`
 
 GetReferenceIds returns the ReferenceIds field if non-nil, zero value otherwise.
 
 ### GetReferenceIdsOk
 
-`func (o *ReferenceChunk) GetReferenceIdsOk() (*[]int32, bool)`
+`func (o *ReferenceChunk) GetReferenceIdsOk() (*[]ReferenceIdsInner, bool)`
 
 GetReferenceIdsOk returns a tuple with the ReferenceIds field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetReferenceIds
 
-`func (o *ReferenceChunk) SetReferenceIds(v []int32)`
+`func (o *ReferenceChunk) SetReferenceIds(v []ReferenceIdsInner)`
 
 SetReferenceIds sets ReferenceIds field to given value.
 

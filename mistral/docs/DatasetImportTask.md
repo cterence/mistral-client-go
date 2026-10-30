@@ -14,6 +14,7 @@ Name | Type | Description | Notes
 **Status** | [**BaseTaskStatus**](BaseTaskStatus.md) |  | 
 **Progress** | Pointer to **NullableInt32** |  | [optional] 
 **Message** | Pointer to **NullableString** |  | [optional] 
+**Result** | Pointer to [**NullableDatasetImportResult**](DatasetImportResult.md) |  | [optional] 
 
 ## Methods
 
@@ -274,6 +275,41 @@ HasMessage returns a boolean if a field has been set.
 `func (o *DatasetImportTask) UnsetMessage()`
 
 UnsetMessage ensures that no value is present for Message, not even an explicit nil
+### GetResult
+
+`func (o *DatasetImportTask) GetResult() DatasetImportResult`
+
+GetResult returns the Result field if non-nil, zero value otherwise.
+
+### GetResultOk
+
+`func (o *DatasetImportTask) GetResultOk() (*DatasetImportResult, bool)`
+
+GetResultOk returns a tuple with the Result field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetResult
+
+`func (o *DatasetImportTask) SetResult(v DatasetImportResult)`
+
+SetResult sets Result field to given value.
+
+### HasResult
+
+`func (o *DatasetImportTask) HasResult() bool`
+
+HasResult returns a boolean if a field has been set.
+
+### SetResultNil
+
+`func (o *DatasetImportTask) SetResultNil(b bool)`
+
+ SetResultNil sets the value for Result to be an explicit nil
+
+### UnsetResult
+`func (o *DatasetImportTask) UnsetResult()`
+
+UnsetResult ensures that no value is present for Result, not even an explicit nil
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

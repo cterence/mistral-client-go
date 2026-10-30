@@ -32,6 +32,7 @@ type DatasetImportTask struct {
 	Status BaseTaskStatus `json:"status"`
 	Progress NullableInt32 `json:"progress,omitempty"`
 	Message NullableString `json:"message,omitempty"`
+	Result NullableDatasetImportResult `json:"result,omitempty"`
 }
 
 type _DatasetImportTask DatasetImportTask
@@ -339,6 +340,48 @@ func (o *DatasetImportTask) UnsetMessage() {
 	o.Message.Unset()
 }
 
+// GetResult returns the Result field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *DatasetImportTask) GetResult() DatasetImportResult {
+	if o == nil || IsNil(o.Result.Get()) {
+		var ret DatasetImportResult
+		return ret
+	}
+	return *o.Result.Get()
+}
+
+// GetResultOk returns a tuple with the Result field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *DatasetImportTask) GetResultOk() (*DatasetImportResult, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.Result.Get(), o.Result.IsSet()
+}
+
+// HasResult returns a boolean if a field has been set.
+func (o *DatasetImportTask) HasResult() bool {
+	if o != nil && o.Result.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetResult gets a reference to the given NullableDatasetImportResult and assigns it to the Result field.
+func (o *DatasetImportTask) SetResult(v DatasetImportResult) {
+	o.Result.Set(&v)
+}
+// SetResultNil sets the value for Result to be an explicit nil
+func (o *DatasetImportTask) SetResultNil() {
+	o.Result.Set(nil)
+}
+
+// UnsetResult ensures that no value is present for Result, not even an explicit nil
+func (o *DatasetImportTask) UnsetResult() {
+	o.Result.Unset()
+}
+
 func (o DatasetImportTask) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -362,6 +405,9 @@ func (o DatasetImportTask) ToMap() (map[string]interface{}, error) {
 	}
 	if o.Message.IsSet() {
 		toSerialize["message"] = o.Message.Get()
+	}
+	if o.Result.IsSet() {
+		toSerialize["result"] = o.Result.Get()
 	}
 	return toSerialize, nil
 }

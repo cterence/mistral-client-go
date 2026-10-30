@@ -19,12 +19,14 @@ import (
 // checks if the JSONPayloadResponse type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &JSONPayloadResponse{}
 
-// JSONPayloadResponse A payload containing arbitrary JSON data.  Used for complete state snapshots or final results.
+// JSONPayloadResponse A payload containing arbitrary JSON data.  Used for complete state snapshots or final results. When encrypted, the value field contains base64-encoded encrypted data and encoding_options indicates the type of encryption applied.
 type JSONPayloadResponse struct {
 	// Discriminator indicating this is a raw JSON payload.
 	Type string `json:"type"`
-	// The JSON-serializable payload value.
+	// The JSON-serializable payload value. When encrypted, contains base64-encoded data.
 	Value interface{} `json:"value"`
+	// Encoding options applied to the payload.
+	EncodingOptions []EncodedPayloadOptions `json:"encoding_options,omitempty"`
 }
 
 type _JSONPayloadResponse JSONPayloadResponse
@@ -100,6 +102,39 @@ func (o *JSONPayloadResponse) SetValue(v interface{}) {
 	o.Value = v
 }
 
+// GetEncodingOptions returns the EncodingOptions field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *JSONPayloadResponse) GetEncodingOptions() []EncodedPayloadOptions {
+	if o == nil {
+		var ret []EncodedPayloadOptions
+		return ret
+	}
+	return o.EncodingOptions
+}
+
+// GetEncodingOptionsOk returns a tuple with the EncodingOptions field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *JSONPayloadResponse) GetEncodingOptionsOk() ([]EncodedPayloadOptions, bool) {
+	if o == nil || IsNil(o.EncodingOptions) {
+		return nil, false
+	}
+	return o.EncodingOptions, true
+}
+
+// HasEncodingOptions returns a boolean if a field has been set.
+func (o *JSONPayloadResponse) HasEncodingOptions() bool {
+	if o != nil && !IsNil(o.EncodingOptions) {
+		return true
+	}
+
+	return false
+}
+
+// SetEncodingOptions gets a reference to the given []EncodedPayloadOptions and assigns it to the EncodingOptions field.
+func (o *JSONPayloadResponse) SetEncodingOptions(v []EncodedPayloadOptions) {
+	o.EncodingOptions = v
+}
+
 func (o JSONPayloadResponse) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -113,6 +148,9 @@ func (o JSONPayloadResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize["type"] = o.Type
 	if o.Value != nil {
 		toSerialize["value"] = o.Value
+	}
+	if o.EncodingOptions != nil {
+		toSerialize["encoding_options"] = o.EncodingOptions
 	}
 	return toSerialize, nil
 }

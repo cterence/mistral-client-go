@@ -19,7 +19,7 @@ import (
 // checks if the OCRPageConfidenceScores type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &OCRPageConfidenceScores{}
 
-// OCRPageConfidenceScores Confidence scores for an OCR page at various granularities.
+// OCRPageConfidenceScores Confidence scores for an OCR page at various granularities.  Note on page-level stats: - For 'page' and 'block' granularity: average/minimum are computed from per-token   exp(logprob). Neither ``word_confidence_scores`` nor ``token_scores`` is populated.   Per-block scores are attached to response blocks separately for 'block' granularity. - For 'word' granularity: average/minimum are computed from per-word confidence, where   each word's confidence is exp(mean(token_logprobs)) — a geometric mean over the   word's subword tokens. ``word_confidence_scores`` is populated. - For 'token' granularity (internal): average/minimum are computed from   ``token_scores``; ``token_scores`` is populated.
 type OCRPageConfidenceScores struct {
 	// Word-level confidence scores (populated only for 'word' granularity)
 	WordConfidenceScores []OCRConfidenceScore `json:"word_confidence_scores,omitempty"`

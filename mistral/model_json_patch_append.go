@@ -23,8 +23,7 @@ var _ MappedNullable = &JSONPatchAppend{}
 type JSONPatchAppend struct {
 	// A JSON Pointer (RFC 6901) identifying the target location within the document. Can be a string path (e.g., '/foo/bar'), '/', '', or an empty list [] for root-level operations.
 	Path string `json:"path"`
-	// The value to use for the operation. A string to append to the existing value
-	Value string `json:"value"`
+	Value Value2 `json:"value"`
 	// 'append' is an extension for efficient string concatenation in streaming scenarios.
 	Op string `json:"op"`
 }
@@ -35,7 +34,7 @@ type _JSONPatchAppend JSONPatchAppend
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewJSONPatchAppend(path string, value string, op string) *JSONPatchAppend {
+func NewJSONPatchAppend(path string, value Value2, op string) *JSONPatchAppend {
 	this := JSONPatchAppend{}
 	this.Path = path
 	this.Value = value
@@ -76,9 +75,9 @@ func (o *JSONPatchAppend) SetPath(v string) {
 }
 
 // GetValue returns the Value field value
-func (o *JSONPatchAppend) GetValue() string {
+func (o *JSONPatchAppend) GetValue() Value2 {
 	if o == nil {
-		var ret string
+		var ret Value2
 		return ret
 	}
 
@@ -87,7 +86,7 @@ func (o *JSONPatchAppend) GetValue() string {
 
 // GetValueOk returns a tuple with the Value field value
 // and a boolean to check if the value has been set.
-func (o *JSONPatchAppend) GetValueOk() (*string, bool) {
+func (o *JSONPatchAppend) GetValueOk() (*Value2, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -95,7 +94,7 @@ func (o *JSONPatchAppend) GetValueOk() (*string, bool) {
 }
 
 // SetValue sets field value
-func (o *JSONPatchAppend) SetValue(v string) {
+func (o *JSONPatchAppend) SetValue(v Value2) {
 	o.Value = v
 }
 

@@ -604,7 +604,7 @@ type ApiAgentsApiV1ConversationsListRequest struct {
 	ApiService *BetaConversationsAPIService
 	page *int32
 	pageSize *int32
-	metadata *AnyOfmapnull
+	metadata *AnyOfmapAnyType
 }
 
 func (r ApiAgentsApiV1ConversationsListRequest) Page(page int32) ApiAgentsApiV1ConversationsListRequest {
@@ -617,7 +617,7 @@ func (r ApiAgentsApiV1ConversationsListRequest) PageSize(pageSize int32) ApiAgen
 	return r
 }
 
-func (r ApiAgentsApiV1ConversationsListRequest) Metadata(metadata AnyOfmapnull) ApiAgentsApiV1ConversationsListRequest {
+func (r ApiAgentsApiV1ConversationsListRequest) Metadata(metadata AnyOfmapAnyType) ApiAgentsApiV1ConversationsListRequest {
 	r.metadata = &metadata
 	return r
 }

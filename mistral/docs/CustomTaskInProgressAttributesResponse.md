@@ -6,13 +6,13 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **CustomTaskId** | **string** | Unique identifier for the custom task within the workflow. | 
 **CustomTaskType** | **string** | The type/category of the custom task (e.g., &#39;llm_call&#39;, &#39;api_request&#39;). | 
-**Payload** | [**Payload**](Payload.md) |  | 
+**Payload** | [**Payload2**](Payload2.md) |  | 
 
 ## Methods
 
 ### NewCustomTaskInProgressAttributesResponse
 
-`func NewCustomTaskInProgressAttributesResponse(customTaskId string, customTaskType string, payload Payload, ) *CustomTaskInProgressAttributesResponse`
+`func NewCustomTaskInProgressAttributesResponse(customTaskId string, customTaskType string, payload Payload2, ) *CustomTaskInProgressAttributesResponse`
 
 NewCustomTaskInProgressAttributesResponse instantiates a new CustomTaskInProgressAttributesResponse object
 This constructor will assign default values to properties that have it defined,
@@ -69,20 +69,20 @@ SetCustomTaskType sets CustomTaskType field to given value.
 
 ### GetPayload
 
-`func (o *CustomTaskInProgressAttributesResponse) GetPayload() Payload`
+`func (o *CustomTaskInProgressAttributesResponse) GetPayload() Payload2`
 
 GetPayload returns the Payload field if non-nil, zero value otherwise.
 
 ### GetPayloadOk
 
-`func (o *CustomTaskInProgressAttributesResponse) GetPayloadOk() (*Payload, bool)`
+`func (o *CustomTaskInProgressAttributesResponse) GetPayloadOk() (*Payload2, bool)`
 
 GetPayloadOk returns a tuple with the Payload field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetPayload
 
-`func (o *CustomTaskInProgressAttributesResponse) SetPayload(v Payload)`
+`func (o *CustomTaskInProgressAttributesResponse) SetPayload(v Payload2)`
 
 SetPayload sets Payload field to given value.
 

@@ -23,7 +23,7 @@ var _ MappedNullable = &TempoTraceAttribute{}
 type TempoTraceAttribute struct {
 	// The key of the attribute
 	Key string `json:"key"`
-	Value Value1 `json:"value"`
+	Value Value4 `json:"value"`
 }
 
 type _TempoTraceAttribute TempoTraceAttribute
@@ -32,7 +32,7 @@ type _TempoTraceAttribute TempoTraceAttribute
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewTempoTraceAttribute(key string, value Value1) *TempoTraceAttribute {
+func NewTempoTraceAttribute(key string, value Value4) *TempoTraceAttribute {
 	this := TempoTraceAttribute{}
 	this.Key = key
 	this.Value = value
@@ -72,9 +72,9 @@ func (o *TempoTraceAttribute) SetKey(v string) {
 }
 
 // GetValue returns the Value field value
-func (o *TempoTraceAttribute) GetValue() Value1 {
+func (o *TempoTraceAttribute) GetValue() Value4 {
 	if o == nil {
-		var ret Value1
+		var ret Value4
 		return ret
 	}
 
@@ -83,7 +83,7 @@ func (o *TempoTraceAttribute) GetValue() Value1 {
 
 // GetValueOk returns a tuple with the Value field value
 // and a boolean to check if the value has been set.
-func (o *TempoTraceAttribute) GetValueOk() (*Value1, bool) {
+func (o *TempoTraceAttribute) GetValueOk() (*Value4, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -91,7 +91,7 @@ func (o *TempoTraceAttribute) GetValueOk() (*Value1, bool) {
 }
 
 // SetValue sets field value
-func (o *TempoTraceAttribute) SetValue(v Value1) {
+func (o *TempoTraceAttribute) SetValue(v Value4) {
 	o.Value = v
 }
 

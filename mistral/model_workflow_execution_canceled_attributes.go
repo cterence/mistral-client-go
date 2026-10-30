@@ -25,6 +25,8 @@ type WorkflowExecutionCanceledAttributes struct {
 	TaskId string `json:"task_id"`
 	// Optional reason provided for the cancellation.
 	Reason NullableString `json:"reason,omitempty"`
+	// Workflow retry attempt number. 1 on first run and CAN; >1 on workflow-level retries.
+	Attempt *int32 `json:"attempt,omitempty"`
 }
 
 type _WorkflowExecutionCanceledAttributes WorkflowExecutionCanceledAttributes
@@ -36,6 +38,8 @@ type _WorkflowExecutionCanceledAttributes WorkflowExecutionCanceledAttributes
 func NewWorkflowExecutionCanceledAttributes(taskId string) *WorkflowExecutionCanceledAttributes {
 	this := WorkflowExecutionCanceledAttributes{}
 	this.TaskId = taskId
+	var attempt int32 = 1
+	this.Attempt = &attempt
 	return &this
 }
 
@@ -44,6 +48,8 @@ func NewWorkflowExecutionCanceledAttributes(taskId string) *WorkflowExecutionCan
 // but it doesn't guarantee that properties required by API are set
 func NewWorkflowExecutionCanceledAttributesWithDefaults() *WorkflowExecutionCanceledAttributes {
 	this := WorkflowExecutionCanceledAttributes{}
+	var attempt int32 = 1
+	this.Attempt = &attempt
 	return &this
 }
 
@@ -113,6 +119,38 @@ func (o *WorkflowExecutionCanceledAttributes) UnsetReason() {
 	o.Reason.Unset()
 }
 
+// GetAttempt returns the Attempt field value if set, zero value otherwise.
+func (o *WorkflowExecutionCanceledAttributes) GetAttempt() int32 {
+	if o == nil || IsNil(o.Attempt) {
+		var ret int32
+		return ret
+	}
+	return *o.Attempt
+}
+
+// GetAttemptOk returns a tuple with the Attempt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *WorkflowExecutionCanceledAttributes) GetAttemptOk() (*int32, bool) {
+	if o == nil || IsNil(o.Attempt) {
+		return nil, false
+	}
+	return o.Attempt, true
+}
+
+// HasAttempt returns a boolean if a field has been set.
+func (o *WorkflowExecutionCanceledAttributes) HasAttempt() bool {
+	if o != nil && !IsNil(o.Attempt) {
+		return true
+	}
+
+	return false
+}
+
+// SetAttempt gets a reference to the given int32 and assigns it to the Attempt field.
+func (o *WorkflowExecutionCanceledAttributes) SetAttempt(v int32) {
+	o.Attempt = &v
+}
+
 func (o WorkflowExecutionCanceledAttributes) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -126,6 +164,9 @@ func (o WorkflowExecutionCanceledAttributes) ToMap() (map[string]interface{}, er
 	toSerialize["task_id"] = o.TaskId
 	if o.Reason.IsSet() {
 		toSerialize["reason"] = o.Reason.Get()
+	}
+	if !IsNil(o.Attempt) {
+		toSerialize["attempt"] = o.Attempt
 	}
 	return toSerialize, nil
 }

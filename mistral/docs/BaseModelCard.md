@@ -16,6 +16,8 @@ Name | Type | Description | Notes
 **Deprecation** | Pointer to **NullableTime** |  | [optional] 
 **DeprecationReplacementModel** | Pointer to **NullableString** |  | [optional] 
 **DefaultModelTemperature** | Pointer to **NullableFloat32** |  | [optional] 
+**Internal** | Pointer to **bool** |  | [optional] [default to false]
+**BillingModelName** | Pointer to **NullableString** |  | [optional] 
 **Type** | Pointer to **string** |  | [optional] [default to "base"]
 
 ## Methods
@@ -377,6 +379,66 @@ HasDefaultModelTemperature returns a boolean if a field has been set.
 `func (o *BaseModelCard) UnsetDefaultModelTemperature()`
 
 UnsetDefaultModelTemperature ensures that no value is present for DefaultModelTemperature, not even an explicit nil
+### GetInternal
+
+`func (o *BaseModelCard) GetInternal() bool`
+
+GetInternal returns the Internal field if non-nil, zero value otherwise.
+
+### GetInternalOk
+
+`func (o *BaseModelCard) GetInternalOk() (*bool, bool)`
+
+GetInternalOk returns a tuple with the Internal field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetInternal
+
+`func (o *BaseModelCard) SetInternal(v bool)`
+
+SetInternal sets Internal field to given value.
+
+### HasInternal
+
+`func (o *BaseModelCard) HasInternal() bool`
+
+HasInternal returns a boolean if a field has been set.
+
+### GetBillingModelName
+
+`func (o *BaseModelCard) GetBillingModelName() string`
+
+GetBillingModelName returns the BillingModelName field if non-nil, zero value otherwise.
+
+### GetBillingModelNameOk
+
+`func (o *BaseModelCard) GetBillingModelNameOk() (*string, bool)`
+
+GetBillingModelNameOk returns a tuple with the BillingModelName field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetBillingModelName
+
+`func (o *BaseModelCard) SetBillingModelName(v string)`
+
+SetBillingModelName sets BillingModelName field to given value.
+
+### HasBillingModelName
+
+`func (o *BaseModelCard) HasBillingModelName() bool`
+
+HasBillingModelName returns a boolean if a field has been set.
+
+### SetBillingModelNameNil
+
+`func (o *BaseModelCard) SetBillingModelNameNil(b bool)`
+
+ SetBillingModelNameNil sets the value for BillingModelName to be an explicit nil
+
+### UnsetBillingModelName
+`func (o *BaseModelCard) UnsetBillingModelName()`
+
+UnsetBillingModelName ensures that no value is present for BillingModelName, not even an explicit nil
 ### GetType
 
 `func (o *BaseModelCard) GetType() string`

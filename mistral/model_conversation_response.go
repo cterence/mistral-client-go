@@ -12,7 +12,6 @@ package mistral
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -26,6 +25,7 @@ type ConversationResponse struct {
 	Outputs []OutputsInner `json:"outputs"`
 	Usage ConversationUsageInfo `json:"usage"`
 	Guardrails []map[string]interface{} `json:"guardrails,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _ConversationResponse ConversationResponse
@@ -210,6 +210,11 @@ func (o ConversationResponse) ToMap() (map[string]interface{}, error) {
 	if o.Guardrails != nil {
 		toSerialize["guardrails"] = o.Guardrails
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -239,14 +244,24 @@ func (o *ConversationResponse) UnmarshalJSON(data []byte) (err error) {
 
 	varConversationResponse := _ConversationResponse{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	err = decoder.Decode(&varConversationResponse)
+	err = json.Unmarshal(data, &varConversationResponse)
 
 	if err != nil {
 		return err
 	}
 
 	*o = ConversationResponse(varConversationResponse)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "object")
+		delete(additionalProperties, "conversation_id")
+		delete(additionalProperties, "outputs")
+		delete(additionalProperties, "usage")
+		delete(additionalProperties, "guardrails")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

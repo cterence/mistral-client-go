@@ -5,14 +5,19 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **WorkflowName** | **string** | Name of the workflow that was executed | 
+**WorkflowId** | Pointer to **string** | The ID of the workflow | [optional] 
+**DeploymentName** | Pointer to **string** | The name of the deployment that ran this execution | [optional] 
 **ExecutionId** | **string** | ID of the workflow execution | 
 **ParentExecutionId** | Pointer to **string** | The parent execution ID of the workflow execution | [optional] 
 **RootExecutionId** | **string** | The root execution ID of the workflow execution | 
+**RunId** | Pointer to **string** | The unique run identifier (database UUID) | [optional] 
+**UserId** | Pointer to **string** | The ID of the user who triggered the execution | [optional] 
 **Status** | [**WorkflowExecutionStatus**](WorkflowExecutionStatus.md) | The status of the workflow execution | 
 **StartTime** | **time.Time** | The start time of the workflow execution | 
 **EndTime** | **time.Time** | The end time of the workflow execution, if available | 
 **TotalDurationMs** | Pointer to **int32** | The total duration of the trace in milliseconds | [optional] 
 **Result** | **interface{}** | The result of the workflow execution | 
+**SearchKeys** | Pointer to **map[string]string** | The execution&#39;s search keys (metadata), if requested via include_search_keys. | [optional] 
 
 ## Methods
 
@@ -52,6 +57,56 @@ and a boolean to check if the value has been set.
 
 SetWorkflowName sets WorkflowName field to given value.
 
+
+### GetWorkflowId
+
+`func (o *ResponseExecuteWorkflowRegistrationV1WorkflowsRegistrationsWorkflowRegistrationIdExecutePost) GetWorkflowId() string`
+
+GetWorkflowId returns the WorkflowId field if non-nil, zero value otherwise.
+
+### GetWorkflowIdOk
+
+`func (o *ResponseExecuteWorkflowRegistrationV1WorkflowsRegistrationsWorkflowRegistrationIdExecutePost) GetWorkflowIdOk() (*string, bool)`
+
+GetWorkflowIdOk returns a tuple with the WorkflowId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetWorkflowId
+
+`func (o *ResponseExecuteWorkflowRegistrationV1WorkflowsRegistrationsWorkflowRegistrationIdExecutePost) SetWorkflowId(v string)`
+
+SetWorkflowId sets WorkflowId field to given value.
+
+### HasWorkflowId
+
+`func (o *ResponseExecuteWorkflowRegistrationV1WorkflowsRegistrationsWorkflowRegistrationIdExecutePost) HasWorkflowId() bool`
+
+HasWorkflowId returns a boolean if a field has been set.
+
+### GetDeploymentName
+
+`func (o *ResponseExecuteWorkflowRegistrationV1WorkflowsRegistrationsWorkflowRegistrationIdExecutePost) GetDeploymentName() string`
+
+GetDeploymentName returns the DeploymentName field if non-nil, zero value otherwise.
+
+### GetDeploymentNameOk
+
+`func (o *ResponseExecuteWorkflowRegistrationV1WorkflowsRegistrationsWorkflowRegistrationIdExecutePost) GetDeploymentNameOk() (*string, bool)`
+
+GetDeploymentNameOk returns a tuple with the DeploymentName field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDeploymentName
+
+`func (o *ResponseExecuteWorkflowRegistrationV1WorkflowsRegistrationsWorkflowRegistrationIdExecutePost) SetDeploymentName(v string)`
+
+SetDeploymentName sets DeploymentName field to given value.
+
+### HasDeploymentName
+
+`func (o *ResponseExecuteWorkflowRegistrationV1WorkflowsRegistrationsWorkflowRegistrationIdExecutePost) HasDeploymentName() bool`
+
+HasDeploymentName returns a boolean if a field has been set.
 
 ### GetExecutionId
 
@@ -117,6 +172,56 @@ and a boolean to check if the value has been set.
 
 SetRootExecutionId sets RootExecutionId field to given value.
 
+
+### GetRunId
+
+`func (o *ResponseExecuteWorkflowRegistrationV1WorkflowsRegistrationsWorkflowRegistrationIdExecutePost) GetRunId() string`
+
+GetRunId returns the RunId field if non-nil, zero value otherwise.
+
+### GetRunIdOk
+
+`func (o *ResponseExecuteWorkflowRegistrationV1WorkflowsRegistrationsWorkflowRegistrationIdExecutePost) GetRunIdOk() (*string, bool)`
+
+GetRunIdOk returns a tuple with the RunId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetRunId
+
+`func (o *ResponseExecuteWorkflowRegistrationV1WorkflowsRegistrationsWorkflowRegistrationIdExecutePost) SetRunId(v string)`
+
+SetRunId sets RunId field to given value.
+
+### HasRunId
+
+`func (o *ResponseExecuteWorkflowRegistrationV1WorkflowsRegistrationsWorkflowRegistrationIdExecutePost) HasRunId() bool`
+
+HasRunId returns a boolean if a field has been set.
+
+### GetUserId
+
+`func (o *ResponseExecuteWorkflowRegistrationV1WorkflowsRegistrationsWorkflowRegistrationIdExecutePost) GetUserId() string`
+
+GetUserId returns the UserId field if non-nil, zero value otherwise.
+
+### GetUserIdOk
+
+`func (o *ResponseExecuteWorkflowRegistrationV1WorkflowsRegistrationsWorkflowRegistrationIdExecutePost) GetUserIdOk() (*string, bool)`
+
+GetUserIdOk returns a tuple with the UserId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetUserId
+
+`func (o *ResponseExecuteWorkflowRegistrationV1WorkflowsRegistrationsWorkflowRegistrationIdExecutePost) SetUserId(v string)`
+
+SetUserId sets UserId field to given value.
+
+### HasUserId
+
+`func (o *ResponseExecuteWorkflowRegistrationV1WorkflowsRegistrationsWorkflowRegistrationIdExecutePost) HasUserId() bool`
+
+HasUserId returns a boolean if a field has been set.
 
 ### GetStatus
 
@@ -233,6 +338,31 @@ SetResult sets Result field to given value.
 `func (o *ResponseExecuteWorkflowRegistrationV1WorkflowsRegistrationsWorkflowRegistrationIdExecutePost) UnsetResult()`
 
 UnsetResult ensures that no value is present for Result, not even an explicit nil
+### GetSearchKeys
+
+`func (o *ResponseExecuteWorkflowRegistrationV1WorkflowsRegistrationsWorkflowRegistrationIdExecutePost) GetSearchKeys() map[string]string`
+
+GetSearchKeys returns the SearchKeys field if non-nil, zero value otherwise.
+
+### GetSearchKeysOk
+
+`func (o *ResponseExecuteWorkflowRegistrationV1WorkflowsRegistrationsWorkflowRegistrationIdExecutePost) GetSearchKeysOk() (*map[string]string, bool)`
+
+GetSearchKeysOk returns a tuple with the SearchKeys field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSearchKeys
+
+`func (o *ResponseExecuteWorkflowRegistrationV1WorkflowsRegistrationsWorkflowRegistrationIdExecutePost) SetSearchKeys(v map[string]string)`
+
+SetSearchKeys sets SearchKeys field to given value.
+
+### HasSearchKeys
+
+`func (o *ResponseExecuteWorkflowRegistrationV1WorkflowsRegistrationsWorkflowRegistrationIdExecutePost) HasSearchKeys() bool`
+
+HasSearchKeys returns a boolean if a field has been set.
+
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

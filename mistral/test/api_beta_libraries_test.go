@@ -74,6 +74,20 @@ func Test_mistral_BetaLibrariesAPIService(t *testing.T) {
 
 	})
 
+	t.Run("Test BetaLibrariesAPIService LibrariesPatchV1", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		var libraryId string
+
+		resp, httpRes, err := apiClient.BetaLibrariesAPI.LibrariesPatchV1(context.Background(), libraryId).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
 	t.Run("Test BetaLibrariesAPIService LibrariesUpdateV1", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test

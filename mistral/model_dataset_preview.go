@@ -27,6 +27,7 @@ type DatasetPreview struct {
 	UpdatedAt time.Time `json:"updated_at"`
 	DeletedAt NullableTime `json:"deleted_at"`
 	Name string `json:"name"`
+	Slug string `json:"slug"`
 	Description string `json:"description"`
 	OwnerId string `json:"owner_id"`
 	WorkspaceId string `json:"workspace_id"`
@@ -38,13 +39,14 @@ type _DatasetPreview DatasetPreview
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewDatasetPreview(id string, createdAt time.Time, updatedAt time.Time, deletedAt NullableTime, name string, description string, ownerId string, workspaceId string) *DatasetPreview {
+func NewDatasetPreview(id string, createdAt time.Time, updatedAt time.Time, deletedAt NullableTime, name string, slug string, description string, ownerId string, workspaceId string) *DatasetPreview {
 	this := DatasetPreview{}
 	this.Id = id
 	this.CreatedAt = createdAt
 	this.UpdatedAt = updatedAt
 	this.DeletedAt = deletedAt
 	this.Name = name
+	this.Slug = slug
 	this.Description = description
 	this.OwnerId = ownerId
 	this.WorkspaceId = workspaceId
@@ -181,6 +183,30 @@ func (o *DatasetPreview) SetName(v string) {
 	o.Name = v
 }
 
+// GetSlug returns the Slug field value
+func (o *DatasetPreview) GetSlug() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Slug
+}
+
+// GetSlugOk returns a tuple with the Slug field value
+// and a boolean to check if the value has been set.
+func (o *DatasetPreview) GetSlugOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Slug, true
+}
+
+// SetSlug sets field value
+func (o *DatasetPreview) SetSlug(v string) {
+	o.Slug = v
+}
+
 // GetDescription returns the Description field value
 func (o *DatasetPreview) GetDescription() string {
 	if o == nil {
@@ -268,6 +294,7 @@ func (o DatasetPreview) ToMap() (map[string]interface{}, error) {
 	toSerialize["updated_at"] = o.UpdatedAt
 	toSerialize["deleted_at"] = o.DeletedAt.Get()
 	toSerialize["name"] = o.Name
+	toSerialize["slug"] = o.Slug
 	toSerialize["description"] = o.Description
 	toSerialize["owner_id"] = o.OwnerId
 	toSerialize["workspace_id"] = o.WorkspaceId
@@ -284,6 +311,7 @@ func (o *DatasetPreview) UnmarshalJSON(data []byte) (err error) {
 		"updated_at",
 		"deleted_at",
 		"name",
+		"slug",
 		"description",
 		"owner_id",
 		"workspace_id",

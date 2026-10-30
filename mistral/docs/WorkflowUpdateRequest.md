@@ -7,6 +7,7 @@ Name | Type | Description | Notes
 **DisplayName** | Pointer to **NullableString** | New display name value | [optional] 
 **Description** | Pointer to **NullableString** | New description value | [optional] 
 **AvailableInChatAssistant** | Pointer to **NullableBool** | Whether to make the workflow available in the chat assistant | [optional] 
+**Tags** | Pointer to **[]string** | New tags. Replaces the existing tag list. | [optional] 
 
 ## Methods
 
@@ -132,6 +133,41 @@ HasAvailableInChatAssistant returns a boolean if a field has been set.
 `func (o *WorkflowUpdateRequest) UnsetAvailableInChatAssistant()`
 
 UnsetAvailableInChatAssistant ensures that no value is present for AvailableInChatAssistant, not even an explicit nil
+### GetTags
+
+`func (o *WorkflowUpdateRequest) GetTags() []string`
+
+GetTags returns the Tags field if non-nil, zero value otherwise.
+
+### GetTagsOk
+
+`func (o *WorkflowUpdateRequest) GetTagsOk() (*[]string, bool)`
+
+GetTagsOk returns a tuple with the Tags field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetTags
+
+`func (o *WorkflowUpdateRequest) SetTags(v []string)`
+
+SetTags sets Tags field to given value.
+
+### HasTags
+
+`func (o *WorkflowUpdateRequest) HasTags() bool`
+
+HasTags returns a boolean if a field has been set.
+
+### SetTagsNil
+
+`func (o *WorkflowUpdateRequest) SetTagsNil(b bool)`
+
+ SetTagsNil sets the value for Tags to be an explicit nil
+
+### UnsetTags
+`func (o *WorkflowUpdateRequest) UnsetTags()`
+
+UnsetTags ensures that no value is present for Tags, not even an explicit nil
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

@@ -7,6 +7,7 @@ Name | Type | Description | Notes
 **Type** | Pointer to **string** |  | [optional] [default to "text"]
 **Text** | **string** |  | 
 **Thinking** | [**[]ThinkingInner**](ThinkingInner.md) |  | 
+**Signature** | Pointer to **string** | Signature to replay some reasoning blocks across turns. | [optional] 
 **Closed** | Pointer to **bool** | Whether the thinking chunk is closed or not. Currently only used for prefixing. | [optional] [default to true]
 
 ## Methods
@@ -92,6 +93,31 @@ and a boolean to check if the value has been set.
 
 SetThinking sets Thinking field to given value.
 
+
+### GetSignature
+
+`func (o *SystemMessageContentChunks) GetSignature() string`
+
+GetSignature returns the Signature field if non-nil, zero value otherwise.
+
+### GetSignatureOk
+
+`func (o *SystemMessageContentChunks) GetSignatureOk() (*string, bool)`
+
+GetSignatureOk returns a tuple with the Signature field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSignature
+
+`func (o *SystemMessageContentChunks) SetSignature(v string)`
+
+SetSignature sets Signature field to given value.
+
+### HasSignature
+
+`func (o *SystemMessageContentChunks) HasSignature() bool`
+
+HasSignature returns a boolean if a field has been set.
 
 ### GetClosed
 
