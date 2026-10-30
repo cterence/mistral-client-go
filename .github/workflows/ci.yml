@@ -18,7 +18,7 @@ jobs:
 
       - uses: DeterminateSystems/nix-installer-action@v23
 
-      - uses: DeterminateSystems/magic-nix-cache-action@v15
+      - uses: Mic92/hestia@v3
 
       - name: Build
         run: nix develop -c make build

@@ -14,7 +14,7 @@ generate:
 	rm -rf $(GEN_DIR) $(SDK_DIR)/api $(SDK_DIR)/docs $(SDK_DIR)/test $(GEN_GO)
 	nix develop -c openapi-generator-cli generate -g go -i openapi.yaml -o $(GEN_DIR) \
 		--git-user-id $(USER_ID) --git-repo-id $(REPO_ID) \
-		--additional-properties=packageName=mistral,packageVersion=0.1.0,enumClassPrefix=true
+		--additional-properties=packageName=mistral,packageVersion=0.2.0,enumClassPrefix=true
 	rm -f $(GEN_DIR)/git_push.sh $(GEN_DIR)/.travis.yml
 	mv $(GEN_DIR)/go.mod go.mod
 	mv $(GEN_DIR)/* $(SDK_DIR)/
