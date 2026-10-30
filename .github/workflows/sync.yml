@@ -27,7 +27,8 @@ jobs:
       - name: Check upstream OpenAPI spec for changes
         id: spec
         run: |
-          curl -sL --fail https://raw.githubusercontent.com/mistralai/platform-docs-public/main/openapi.yaml -o openapi.new.yaml
+          curl -sL --fail https://docs.mistral.ai/openapi.yaml -o openapi.new.yaml
+          echo "sha256=$(sha256sum openapi.new.yaml | cut -d ' ' -f1)" >> "$GITHUB_OUTPUT"
           if cmp -s openapi.new.yaml openapi.yaml; then
             echo "changed=false" >> "$GITHUB_OUTPUT"
           else
@@ -53,6 +54,7 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
           LIVE_TESTS: ${{ steps.test.outputs.live }}
+          SPEC_SHA256: ${{ steps.spec.outputs.sha256 }}
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
@@ -63,5 +65,5 @@ jobs:
           git push --force origin "$BRANCH"
           if ! gh pr view "$BRANCH" --json url -q .url > /dev/null 2>&1; then
             gh pr create --head "$BRANCH" --title "chore: sync SDK from upstream openapi.yaml" \
-              --body "Regenerated from the latest mistralai/platform-docs-public spec. Tests: go test ./... (live streaming test $LIVE_TESTS)."
+              --body "Regenerated from the published Mistral spec at docs.mistral.ai/openapi.yaml (spec sha256: $SPEC_SHA256). Tests: go test ./... (live streaming test $LIVE_TESTS)."
           fi
