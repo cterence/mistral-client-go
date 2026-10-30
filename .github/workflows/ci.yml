@@ -1,0 +1,35 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: DeterminateSystems/nix-installer-action@v23
+
+      - uses: DeterminateSystems/magic-nix-cache-action@v15
+
+      - name: Build
+        run: nix develop -c make build
+
+      - name: Test
+        run: nix develop -c make test
+        env:
+          MISTRAL_API_KEY: ${{ secrets.MISTRAL_API_KEY }}
+
+      - name: Regeneration is reproducible
+        run: |
+          nix develop -c make generate
+          git diff --exit-code -- mistral go.mod go.sum \
+            || { echo "::error::make generate produced uncommitted changes; commit the regenerated SDK"; exit 1; }
