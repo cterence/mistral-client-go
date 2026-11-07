@@ -35,7 +35,7 @@ fixup:
 	nix develop -c sed -i 's/\*OsFile/OsFile/g' $(SDK_DIR)/model_*.go
 	nix develop -c sed -i 's/ArrayOf\*mapmapOfStringAny/ArrayOfMapmapOfStringAny/g' $(SDK_DIR)/model_*.go
 	nix develop -c sed -i 's/Nullable\*os\.File/NullableOsFile/g' $(SDK_DIR)/model_*.go
-	nix develop -c sed -i -z 's/var toolChoice \(ToolChoice[0-9]*\) = auto\n\tthis.ToolChoice = \&toolChoice/var toolChoice \1\n\tauto := \&\1{String: nil}\n\ttoolChoice = *auto\n\tthis.ToolChoice = \&toolChoice/g' $(SDK_DIR)/model_*.go
+	nix develop -c sed -i -z 's/var toolChoice \(ToolChoice[0-9]*\) = auto\n\tthis.ToolChoice = \&toolChoice/var toolChoice \1\n\t_ = toolChoice.UnmarshalJSON([]byte(`"auto"`))\n\tthis.ToolChoice = \&toolChoice/g' $(SDK_DIR)/model_*.go
 	# live API sends undocumented fields; strict decoding breaks on spec lag
 	nix develop -c sed -i '/decoder.DisallowUnknownFields()/d' $(SDK_DIR)/model_*.go
 
