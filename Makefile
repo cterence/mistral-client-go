@@ -12,7 +12,7 @@ MOD_PATH := github.com/$(USER_ID)/$(REPO_ID)
 
 generate:
 	rm -rf $(GEN_DIR) $(SDK_DIR)/api $(SDK_DIR)/docs $(SDK_DIR)/test $(GEN_GO)
-	nix develop -c openapi-generator-cli generate -g go -i openapi.yaml -o $(GEN_DIR) \
+	openapi-generator-cli generate -g go -i openapi.yaml -o $(GEN_DIR) \
 		--git-user-id $(USER_ID) --git-repo-id $(REPO_ID) \
 		--additional-properties=packageName=mistral,packageVersion=0.2.0,enumClassPrefix=true
 	rm -f $(GEN_DIR)/git_push.sh $(GEN_DIR)/.travis.yml
@@ -21,26 +21,26 @@ generate:
 	# ImageURL.md/ImageUrl.md collide on case-insensitive filesystems
 	rm -rf $(SDK_DIR)/docs
 	# tests import the module root; the package lives in $(SDK_DIR)
-	nix develop -c sed -i 's|"$(MOD_PATH)"|"$(MOD_PATH)/$(SDK_DIR)"|g' $(SDK_DIR)/test/*.go $(SDK_DIR)/README.md
+	sed -i 's|"$(MOD_PATH)"|"$(MOD_PATH)/$(SDK_DIR)"|g' $(SDK_DIR)/test/*.go $(SDK_DIR)/README.md
 	$(MAKE) fixup
-	nix develop -c sh -c 'go mod tidy && go build ./...'
+	sh -c 'go mod tidy && go build ./...'
 
 fixup:
-	nix develop -c sed -i -z 's/return \*o.SampleAudio.Get()\n/return o.SampleAudio.Get()\n/g; s/o.SampleAudio.Set(\&v)/o.SampleAudio.Set(v)/g; s/GetSampleAudioOk() (\*\*os.File, bool)/GetSampleAudioOk() (*os.File, bool)/g' $(SDK_DIR)/model_voice_create_request.go
-	nix develop -c sed -i -z \
+	sed -i -z 's/return \*o.SampleAudio.Get()\n/return o.SampleAudio.Get()\n/g; s/o.SampleAudio.Set(\&v)/o.SampleAudio.Set(v)/g; s/GetSampleAudioOk() (\*\*os.File, bool)/GetSampleAudioOk() (*os.File, bool)/g' $(SDK_DIR)/model_voice_create_request.go
+	sed -i -z \
 		-e 's/\t\tvar defaultValue ConnectorsQueryFilters = {[^}]*}\n\t\tparameterAddToHeaderOrQuery(localVarQueryParams, "query_filters", defaultValue, "form", "")\n\t\tr.queryFilters = \&defaultValue\n//g' \
 		-e 's/\tvar toolChoice ToolChoice = auto\n\tthis.ToolChoice = \&toolChoice/\tvar toolChoice ToolChoice\n\tauto := TOOLCHOICEENUM_AUTO\n\ttoolChoice.ToolChoiceEnum = \&auto\n\tthis.ToolChoice = \&toolChoice/g' \
 		-e 's/\tvar prediction Prediction = {type=content, content=}\n\tthis.Prediction = \&prediction\n//g' \
 		$(SDK_DIR)/api_beta_connectors.go $(SDK_DIR)/model_chat_completion_request.go $(SDK_DIR)/model_agents_completion_request.go
-	nix develop -c sed -i 's/\*OsFile/OsFile/g' $(SDK_DIR)/model_*.go
-	nix develop -c sed -i 's/ArrayOf\*mapmapOfStringAny/ArrayOfMapmapOfStringAny/g' $(SDK_DIR)/model_*.go
-	nix develop -c sed -i 's/Nullable\*os\.File/NullableOsFile/g' $(SDK_DIR)/model_*.go
-	nix develop -c sed -i -z 's/var toolChoice \(ToolChoice[0-9]*\) = auto\n\tthis.ToolChoice = \&toolChoice/var toolChoice \1\n\t_ = toolChoice.UnmarshalJSON([]byte(`"auto"`))\n\tthis.ToolChoice = \&toolChoice/g' $(SDK_DIR)/model_*.go
+	sed -i 's/\*OsFile/OsFile/g' $(SDK_DIR)/model_*.go
+	sed -i 's/ArrayOf\*mapmapOfStringAny/ArrayOfMapmapOfStringAny/g' $(SDK_DIR)/model_*.go
+	sed -i 's/Nullable\*os\.File/NullableOsFile/g' $(SDK_DIR)/model_*.go
+	sed -i -z 's/var toolChoice \(ToolChoice[0-9]*\) = auto\n\tthis.ToolChoice = \&toolChoice/var toolChoice \1\n\t_ = toolChoice.UnmarshalJSON([]byte(`"auto"`))\n\tthis.ToolChoice = \&toolChoice/g' $(SDK_DIR)/model_*.go
 	# live API sends undocumented fields; strict decoding breaks on spec lag
-	nix develop -c sed -i '/decoder.DisallowUnknownFields()/d' $(SDK_DIR)/model_*.go
+	sed -i '/decoder.DisallowUnknownFields()/d' $(SDK_DIR)/model_*.go
 
 build:
-	nix develop -c go build ./...
+	go build ./...
 
 test:
-	nix develop -c go test ./...
+	go test ./...

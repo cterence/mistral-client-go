@@ -45,6 +45,8 @@ jobs:
       - name: Test
         id: test
         if: steps.spec.outputs.changed == 'true'
+        # tests may reference regenerated code; still open the PR with the diff
+        continue-on-error: true
         run: |
           nix develop -c make test
           echo "live=$([ -n "$MISTRAL_API_KEY" ] && echo ran || echo skipped)" >> "$GITHUB_OUTPUT"
@@ -57,15 +59,25 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           LIVE_TESTS: ${{ steps.test.outputs.live }}
           SPEC_SHA256: ${{ steps.spec.outputs.sha256 }}
+          TESTS: ${{ steps.test.outcome }}
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           BRANCH=sync/upstream-openapi
+          BODY="Regenerated from the published Mistral spec at docs.mistral.ai/openapi.yaml (spec sha256: $SPEC_SHA256). Tests: $TESTS${LIVE_TESTS:+ (live streaming test $LIVE_TESTS)}."
           git checkout -B "$BRANCH"
           git add -A
           git commit -m "chore: sync SDK from upstream openapi.yaml"
           git push --force origin "$BRANCH"
           if ! gh pr view "$BRANCH" --json url -q .url > /dev/null 2>&1; then
             gh pr create --head "$BRANCH" --title "chore: sync SDK from upstream openapi.yaml" \
-              --body "Regenerated from the published Mistral spec at docs.mistral.ai/openapi.yaml (spec sha256: $SPEC_SHA256). Tests: go test ./... (live streaming test $LIVE_TESTS)."
+              --body "$BODY"
+          else
+            gh pr edit "$BRANCH" --body "$BODY"
           fi
+
+      - name: Fail job if tests failed
+        if: steps.spec.outputs.changed == 'true' && steps.test.outcome == 'failure'
+        run: |
+          echo "Regeneration broke tests; see the sync PR for the diff."
+          exit 1
