@@ -50,8 +50,7 @@ func NewCountResponseInputTokensRequest(model string, input Input6) *CountRespon
 	var truncation string = "disabled"
 	this.Truncation = &truncation
 	var toolChoice ToolChoice2
-	auto := &ToolChoice2{String: nil}
-	toolChoice = *auto
+	_ = toolChoice.UnmarshalJSON([]byte(`"auto"`))
 	this.ToolChoice = &toolChoice
 	return &this
 }
@@ -66,8 +65,7 @@ func NewCountResponseInputTokensRequestWithDefaults() *CountResponseInputTokensR
 	var truncation string = "disabled"
 	this.Truncation = &truncation
 	var toolChoice ToolChoice2
-	auto := &ToolChoice2{String: nil}
-	toolChoice = *auto
+	_ = toolChoice.UnmarshalJSON([]byte(`"auto"`))
 	this.ToolChoice = &toolChoice
 	return &this
 }

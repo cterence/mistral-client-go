@@ -61,8 +61,7 @@ func NewCreateResponseRequest(model string, input Input6) *CreateResponseRequest
 	var truncation string = "disabled"
 	this.Truncation = &truncation
 	var toolChoice ToolChoice2
-	auto := &ToolChoice2{String: nil}
-	toolChoice = *auto
+	_ = toolChoice.UnmarshalJSON([]byte(`"auto"`))
 	this.ToolChoice = &toolChoice
 	var background bool = false
 	this.Background = &background
@@ -81,8 +80,7 @@ func NewCreateResponseRequestWithDefaults() *CreateResponseRequest {
 	var truncation string = "disabled"
 	this.Truncation = &truncation
 	var toolChoice ToolChoice2
-	auto := &ToolChoice2{String: nil}
-	toolChoice = *auto
+	_ = toolChoice.UnmarshalJSON([]byte(`"auto"`))
 	this.ToolChoice = &toolChoice
 	var background bool = false
 	this.Background = &background
