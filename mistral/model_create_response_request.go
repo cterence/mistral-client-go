@@ -21,13 +21,13 @@ var _ MappedNullable = &CreateResponseRequest{}
 // CreateResponseRequest struct for CreateResponseRequest
 type CreateResponseRequest struct {
 	Model string `json:"model"`
-	Input Input6 `json:"input"`
+	Input Input `json:"input"`
 	Instructions NullableString `json:"instructions,omitempty"`
 	ParallelToolCalls *bool `json:"parallel_tool_calls,omitempty"`
 	PreviousResponseId interface{} `json:"previous_response_id,omitempty"`
 	Truncation *string `json:"truncation,omitempty"`
-	Tools []Tools1Inner `json:"tools,omitempty"`
-	ToolChoice *ToolChoice2 `json:"tool_choice,omitempty"`
+	Tools []ToolsInner `json:"tools,omitempty"`
+	ToolChoice *ToolChoice1 `json:"tool_choice,omitempty"`
 	Reasoning NullableResponsesSupportedReasoning `json:"reasoning,omitempty"`
 	Conversation interface{} `json:"conversation,omitempty"`
 	Prompt interface{} `json:"prompt,omitempty"`
@@ -52,7 +52,7 @@ type _CreateResponseRequest CreateResponseRequest
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCreateResponseRequest(model string, input Input6) *CreateResponseRequest {
+func NewCreateResponseRequest(model string, input Input) *CreateResponseRequest {
 	this := CreateResponseRequest{}
 	this.Model = model
 	this.Input = input
@@ -60,7 +60,7 @@ func NewCreateResponseRequest(model string, input Input6) *CreateResponseRequest
 	this.ParallelToolCalls = &parallelToolCalls
 	var truncation string = "disabled"
 	this.Truncation = &truncation
-	var toolChoice ToolChoice2
+	var toolChoice ToolChoice1
 	_ = toolChoice.UnmarshalJSON([]byte(`"auto"`))
 	this.ToolChoice = &toolChoice
 	var background bool = false
@@ -79,7 +79,7 @@ func NewCreateResponseRequestWithDefaults() *CreateResponseRequest {
 	this.ParallelToolCalls = &parallelToolCalls
 	var truncation string = "disabled"
 	this.Truncation = &truncation
-	var toolChoice ToolChoice2
+	var toolChoice ToolChoice1
 	_ = toolChoice.UnmarshalJSON([]byte(`"auto"`))
 	this.ToolChoice = &toolChoice
 	var background bool = false
@@ -114,9 +114,9 @@ func (o *CreateResponseRequest) SetModel(v string) {
 }
 
 // GetInput returns the Input field value
-func (o *CreateResponseRequest) GetInput() Input6 {
+func (o *CreateResponseRequest) GetInput() Input {
 	if o == nil {
-		var ret Input6
+		var ret Input
 		return ret
 	}
 
@@ -125,7 +125,7 @@ func (o *CreateResponseRequest) GetInput() Input6 {
 
 // GetInputOk returns a tuple with the Input field value
 // and a boolean to check if the value has been set.
-func (o *CreateResponseRequest) GetInputOk() (*Input6, bool) {
+func (o *CreateResponseRequest) GetInputOk() (*Input, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -133,7 +133,7 @@ func (o *CreateResponseRequest) GetInputOk() (*Input6, bool) {
 }
 
 // SetInput sets field value
-func (o *CreateResponseRequest) SetInput(v Input6) {
+func (o *CreateResponseRequest) SetInput(v Input) {
 	o.Input = v
 }
 
@@ -277,9 +277,9 @@ func (o *CreateResponseRequest) SetTruncation(v string) {
 }
 
 // GetTools returns the Tools field value if set, zero value otherwise.
-func (o *CreateResponseRequest) GetTools() []Tools1Inner {
+func (o *CreateResponseRequest) GetTools() []ToolsInner {
 	if o == nil || IsNil(o.Tools) {
-		var ret []Tools1Inner
+		var ret []ToolsInner
 		return ret
 	}
 	return o.Tools
@@ -287,7 +287,7 @@ func (o *CreateResponseRequest) GetTools() []Tools1Inner {
 
 // GetToolsOk returns a tuple with the Tools field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CreateResponseRequest) GetToolsOk() ([]Tools1Inner, bool) {
+func (o *CreateResponseRequest) GetToolsOk() ([]ToolsInner, bool) {
 	if o == nil || IsNil(o.Tools) {
 		return nil, false
 	}
@@ -303,15 +303,15 @@ func (o *CreateResponseRequest) HasTools() bool {
 	return false
 }
 
-// SetTools gets a reference to the given []Tools1Inner and assigns it to the Tools field.
-func (o *CreateResponseRequest) SetTools(v []Tools1Inner) {
+// SetTools gets a reference to the given []ToolsInner and assigns it to the Tools field.
+func (o *CreateResponseRequest) SetTools(v []ToolsInner) {
 	o.Tools = v
 }
 
 // GetToolChoice returns the ToolChoice field value if set, zero value otherwise.
-func (o *CreateResponseRequest) GetToolChoice() ToolChoice2 {
+func (o *CreateResponseRequest) GetToolChoice() ToolChoice1 {
 	if o == nil || IsNil(o.ToolChoice) {
-		var ret ToolChoice2
+		var ret ToolChoice1
 		return ret
 	}
 	return *o.ToolChoice
@@ -319,7 +319,7 @@ func (o *CreateResponseRequest) GetToolChoice() ToolChoice2 {
 
 // GetToolChoiceOk returns a tuple with the ToolChoice field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CreateResponseRequest) GetToolChoiceOk() (*ToolChoice2, bool) {
+func (o *CreateResponseRequest) GetToolChoiceOk() (*ToolChoice1, bool) {
 	if o == nil || IsNil(o.ToolChoice) {
 		return nil, false
 	}
@@ -335,8 +335,8 @@ func (o *CreateResponseRequest) HasToolChoice() bool {
 	return false
 }
 
-// SetToolChoice gets a reference to the given ToolChoice2 and assigns it to the ToolChoice field.
-func (o *CreateResponseRequest) SetToolChoice(v ToolChoice2) {
+// SetToolChoice gets a reference to the given ToolChoice1 and assigns it to the ToolChoice field.
+func (o *CreateResponseRequest) SetToolChoice(v ToolChoice1) {
 	o.ToolChoice = &v
 }
 

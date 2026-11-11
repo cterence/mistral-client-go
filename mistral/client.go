@@ -51,6 +51,10 @@ type APIClient struct {
 
 	AgentsAPI *AgentsAPIService
 
+	AudioAgentsAPI *AudioAgentsAPIService
+
+	AudioSessionsAPI *AudioSessionsAPIService
+
 	AudioSpeechAPI *AudioSpeechAPIService
 
 	AudioTranscriptionsAPI *AudioTranscriptionsAPIService
@@ -79,7 +83,11 @@ type APIClient struct {
 
 	BetaAgentsAPI *BetaAgentsAPIService
 
+	BetaBillingAPI *BetaBillingAPIService
+
 	BetaConnectorsAPI *BetaConnectorsAPIService
+
+	BetaContextSearchIndexesAPI *BetaContextSearchIndexesAPIService
 
 	BetaConversationsAPI *BetaConversationsAPIService
 
@@ -115,15 +123,17 @@ type APIClient struct {
 
 	BetaRagIngestionPipelineConfigurationsAPI *BetaRagIngestionPipelineConfigurationsAPIService
 
-	BetaRagManagedIndexesAPI *BetaRagManagedIndexesAPIService
-
 	BetaRagSearchIndexesAPI *BetaRagSearchIndexesAPIService
 
 	BetaServiceAccountsAPI *BetaServiceAccountsAPIService
 
 	BetaSkillsAPI *BetaSkillsAPIService
 
+	BetaTriggersAPI *BetaTriggersAPIService
+
 	BetaUsersAPI *BetaUsersAPIService
+
+	BetaWebhooksAPI *BetaWebhooksAPIService
 
 	ChatAPI *ChatAPIService
 
@@ -175,6 +185,8 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 
 	// API Services
 	c.AgentsAPI = (*AgentsAPIService)(&c.common)
+	c.AudioAgentsAPI = (*AudioAgentsAPIService)(&c.common)
+	c.AudioSessionsAPI = (*AudioSessionsAPIService)(&c.common)
 	c.AudioSpeechAPI = (*AudioSpeechAPIService)(&c.common)
 	c.AudioTranscriptionsAPI = (*AudioTranscriptionsAPIService)(&c.common)
 	c.AudioVoicesAPI = (*AudioVoicesAPIService)(&c.common)
@@ -189,7 +201,9 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.BetaAdminVibeWorkAnalyticsAPI = (*BetaAdminVibeWorkAnalyticsAPIService)(&c.common)
 	c.BetaAdminWorkspacesAPI = (*BetaAdminWorkspacesAPIService)(&c.common)
 	c.BetaAgentsAPI = (*BetaAgentsAPIService)(&c.common)
+	c.BetaBillingAPI = (*BetaBillingAPIService)(&c.common)
 	c.BetaConnectorsAPI = (*BetaConnectorsAPIService)(&c.common)
+	c.BetaContextSearchIndexesAPI = (*BetaContextSearchIndexesAPIService)(&c.common)
 	c.BetaConversationsAPI = (*BetaConversationsAPIService)(&c.common)
 	c.BetaLibrariesAPI = (*BetaLibrariesAPIService)(&c.common)
 	c.BetaLibrariesAccessesAPI = (*BetaLibrariesAccessesAPIService)(&c.common)
@@ -207,11 +221,12 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.BetaObservabilityTracesAPI = (*BetaObservabilityTracesAPIService)(&c.common)
 	c.BetaPromptsAPI = (*BetaPromptsAPIService)(&c.common)
 	c.BetaRagIngestionPipelineConfigurationsAPI = (*BetaRagIngestionPipelineConfigurationsAPIService)(&c.common)
-	c.BetaRagManagedIndexesAPI = (*BetaRagManagedIndexesAPIService)(&c.common)
 	c.BetaRagSearchIndexesAPI = (*BetaRagSearchIndexesAPIService)(&c.common)
 	c.BetaServiceAccountsAPI = (*BetaServiceAccountsAPIService)(&c.common)
 	c.BetaSkillsAPI = (*BetaSkillsAPIService)(&c.common)
+	c.BetaTriggersAPI = (*BetaTriggersAPIService)(&c.common)
 	c.BetaUsersAPI = (*BetaUsersAPIService)(&c.common)
+	c.BetaWebhooksAPI = (*BetaWebhooksAPIService)(&c.common)
 	c.ChatAPI = (*ChatAPIService)(&c.common)
 	c.ClassifiersAPI = (*ClassifiersAPIService)(&c.common)
 	c.EmbeddingsAPI = (*EmbeddingsAPIService)(&c.common)

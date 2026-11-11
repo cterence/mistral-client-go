@@ -22,15 +22,21 @@ type UsageInfo1 struct {
 	PromptAudioSeconds NullableInt32 `json:"prompt_audio_seconds,omitempty"`
 	PromptTokens *int32 `json:"prompt_tokens,omitempty"`
 	TotalTokens *int32 `json:"total_tokens,omitempty"`
+	// Total usage value for this row.
 	CompletionTokens NullableInt32 `json:"completion_tokens,omitempty"`
+	// Total usage value for this row.
 	RequestCount NullableInt32 `json:"request_count,omitempty"`
 	PromptTokensDetails NullablePromptTokensDetails `json:"prompt_tokens_details,omitempty"`
 	CompletionTokensDetails NullableCompletionTokensDetails `json:"completion_tokens_details,omitempty"`
 	// The service tier at which the request was processed: standard or priority.
 	ServiceTier NullableString `json:"service_tier,omitempty"`
 	PromptTokenDetails NullablePromptTokensDetails `json:"prompt_token_details,omitempty"`
+	// Total usage value for this row.
 	NumCachedTokens NullableInt32 `json:"num_cached_tokens,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _UsageInfo1 UsageInfo1
 
 // NewUsageInfo1 instantiates a new UsageInfo1 object
 // This constructor will assign default values to properties that have it defined,
@@ -497,7 +503,42 @@ func (o UsageInfo1) ToMap() (map[string]interface{}, error) {
 	if o.NumCachedTokens.IsSet() {
 		toSerialize["num_cached_tokens"] = o.NumCachedTokens.Get()
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *UsageInfo1) UnmarshalJSON(data []byte) (err error) {
+	varUsageInfo1 := _UsageInfo1{}
+
+	err = json.Unmarshal(data, &varUsageInfo1)
+
+	if err != nil {
+		return err
+	}
+
+	*o = UsageInfo1(varUsageInfo1)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "prompt_audio_seconds")
+		delete(additionalProperties, "prompt_tokens")
+		delete(additionalProperties, "total_tokens")
+		delete(additionalProperties, "completion_tokens")
+		delete(additionalProperties, "request_count")
+		delete(additionalProperties, "prompt_tokens_details")
+		delete(additionalProperties, "completion_tokens_details")
+		delete(additionalProperties, "service_tier")
+		delete(additionalProperties, "prompt_token_details")
+		delete(additionalProperties, "num_cached_tokens")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableUsageInfo1 struct {

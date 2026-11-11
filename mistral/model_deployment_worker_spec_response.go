@@ -21,12 +21,16 @@ var _ MappedNullable = &DeploymentWorkerSpecResponse{}
 
 // DeploymentWorkerSpecResponse struct for DeploymentWorkerSpecResponse
 type DeploymentWorkerSpecResponse struct {
+	// GitHub repository the worker builds from. Empty for a worker built from an archive.
 	GithubUrl string `json:"github_url"`
 	Type *string `json:"type,omitempty"`
 	Revision NullableString `json:"revision,omitempty"`
+	// Archive the worker builds from, if any.
+	ArchiveId NullableString `json:"archive_id,omitempty"`
 	BackendSpec BackendSpec `json:"backend_spec"`
 	RestartedAt NullableString `json:"restarted_at,omitempty"`
 	Commit NullableGitCommitMetadata `json:"commit,omitempty"`
+	RequestedRoles []string `json:"requested_roles,omitempty"`
 }
 
 type _DeploymentWorkerSpecResponse DeploymentWorkerSpecResponse
@@ -152,6 +156,48 @@ func (o *DeploymentWorkerSpecResponse) UnsetRevision() {
 	o.Revision.Unset()
 }
 
+// GetArchiveId returns the ArchiveId field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *DeploymentWorkerSpecResponse) GetArchiveId() string {
+	if o == nil || IsNil(o.ArchiveId.Get()) {
+		var ret string
+		return ret
+	}
+	return *o.ArchiveId.Get()
+}
+
+// GetArchiveIdOk returns a tuple with the ArchiveId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *DeploymentWorkerSpecResponse) GetArchiveIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.ArchiveId.Get(), o.ArchiveId.IsSet()
+}
+
+// HasArchiveId returns a boolean if a field has been set.
+func (o *DeploymentWorkerSpecResponse) HasArchiveId() bool {
+	if o != nil && o.ArchiveId.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetArchiveId gets a reference to the given NullableString and assigns it to the ArchiveId field.
+func (o *DeploymentWorkerSpecResponse) SetArchiveId(v string) {
+	o.ArchiveId.Set(&v)
+}
+// SetArchiveIdNil sets the value for ArchiveId to be an explicit nil
+func (o *DeploymentWorkerSpecResponse) SetArchiveIdNil() {
+	o.ArchiveId.Set(nil)
+}
+
+// UnsetArchiveId ensures that no value is present for ArchiveId, not even an explicit nil
+func (o *DeploymentWorkerSpecResponse) UnsetArchiveId() {
+	o.ArchiveId.Unset()
+}
+
 // GetBackendSpec returns the BackendSpec field value
 func (o *DeploymentWorkerSpecResponse) GetBackendSpec() BackendSpec {
 	if o == nil {
@@ -260,6 +306,39 @@ func (o *DeploymentWorkerSpecResponse) UnsetCommit() {
 	o.Commit.Unset()
 }
 
+// GetRequestedRoles returns the RequestedRoles field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *DeploymentWorkerSpecResponse) GetRequestedRoles() []string {
+	if o == nil {
+		var ret []string
+		return ret
+	}
+	return o.RequestedRoles
+}
+
+// GetRequestedRolesOk returns a tuple with the RequestedRoles field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *DeploymentWorkerSpecResponse) GetRequestedRolesOk() ([]string, bool) {
+	if o == nil || IsNil(o.RequestedRoles) {
+		return nil, false
+	}
+	return o.RequestedRoles, true
+}
+
+// HasRequestedRoles returns a boolean if a field has been set.
+func (o *DeploymentWorkerSpecResponse) HasRequestedRoles() bool {
+	if o != nil && !IsNil(o.RequestedRoles) {
+		return true
+	}
+
+	return false
+}
+
+// SetRequestedRoles gets a reference to the given []string and assigns it to the RequestedRoles field.
+func (o *DeploymentWorkerSpecResponse) SetRequestedRoles(v []string) {
+	o.RequestedRoles = v
+}
+
 func (o DeploymentWorkerSpecResponse) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -277,12 +356,18 @@ func (o DeploymentWorkerSpecResponse) ToMap() (map[string]interface{}, error) {
 	if o.Revision.IsSet() {
 		toSerialize["revision"] = o.Revision.Get()
 	}
+	if o.ArchiveId.IsSet() {
+		toSerialize["archive_id"] = o.ArchiveId.Get()
+	}
 	toSerialize["backend_spec"] = o.BackendSpec
 	if o.RestartedAt.IsSet() {
 		toSerialize["restarted_at"] = o.RestartedAt.Get()
 	}
 	if o.Commit.IsSet() {
 		toSerialize["commit"] = o.Commit.Get()
+	}
+	if o.RequestedRoles != nil {
+		toSerialize["requested_roles"] = o.RequestedRoles
 	}
 	return toSerialize, nil
 }

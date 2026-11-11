@@ -13,128 +13,60 @@ package mistral
 import (
 	"encoding/json"
 	"fmt"
-	"gopkg.in/validator.v2"
 )
 
-// Output - struct for Output
+
+// Output struct for Output
 type Output struct {
-	JudgeClassificationOutput *JudgeClassificationOutput
-	JudgeRegressionOutput *JudgeRegressionOutput
+	ArrayOfOutputAnyOfInner *[]OutputAnyOfInner
+	String *string
 }
 
-// JudgeClassificationOutputAsOutput is a convenience function that returns JudgeClassificationOutput wrapped in Output
-func JudgeClassificationOutputAsOutput(v *JudgeClassificationOutput) Output {
-	return Output{
-		JudgeClassificationOutput: v,
-	}
-}
-
-// JudgeRegressionOutputAsOutput is a convenience function that returns JudgeRegressionOutput wrapped in Output
-func JudgeRegressionOutputAsOutput(v *JudgeRegressionOutput) Output {
-	return Output{
-		JudgeRegressionOutput: v,
-	}
-}
-
-
-// Unmarshal JSON data into one of the pointers in the struct
+// Unmarshal JSON data into any of the pointers in the struct
 func (dst *Output) UnmarshalJSON(data []byte) error {
 	var err error
-	match := 0
-	// try to unmarshal data into JudgeClassificationOutput
-	err = newStrictDecoder(data).Decode(&dst.JudgeClassificationOutput)
+	// try to unmarshal JSON data into ArrayOfOutputAnyOfInner
+	err = json.Unmarshal(data, &dst.ArrayOfOutputAnyOfInner);
 	if err == nil {
-		jsonJudgeClassificationOutput, _ := json.Marshal(dst.JudgeClassificationOutput)
-		if string(jsonJudgeClassificationOutput) == "{}" { // empty struct
-			dst.JudgeClassificationOutput = nil
+		jsonArrayOfOutputAnyOfInner, _ := json.Marshal(dst.ArrayOfOutputAnyOfInner)
+		if string(jsonArrayOfOutputAnyOfInner) == "{}" { // empty struct
+			dst.ArrayOfOutputAnyOfInner = nil
 		} else {
-			if err = validator.Validate(dst.JudgeClassificationOutput); err != nil {
-				dst.JudgeClassificationOutput = nil
-			} else {
-				match++
-			}
+			return nil // data stored in dst.ArrayOfOutputAnyOfInner, return on the first match
 		}
 	} else {
-		dst.JudgeClassificationOutput = nil
+		dst.ArrayOfOutputAnyOfInner = nil
 	}
 
-	// try to unmarshal data into JudgeRegressionOutput
-	err = newStrictDecoder(data).Decode(&dst.JudgeRegressionOutput)
+	// try to unmarshal JSON data into String
+	err = json.Unmarshal(data, &dst.String);
 	if err == nil {
-		jsonJudgeRegressionOutput, _ := json.Marshal(dst.JudgeRegressionOutput)
-		if string(jsonJudgeRegressionOutput) == "{}" { // empty struct
-			dst.JudgeRegressionOutput = nil
+		jsonString, _ := json.Marshal(dst.String)
+		if string(jsonString) == "{}" { // empty struct
+			dst.String = nil
 		} else {
-			if err = validator.Validate(dst.JudgeRegressionOutput); err != nil {
-				dst.JudgeRegressionOutput = nil
-			} else {
-				match++
-			}
+			return nil // data stored in dst.String, return on the first match
 		}
 	} else {
-		dst.JudgeRegressionOutput = nil
+		dst.String = nil
 	}
 
-	if match > 1 { // more than 1 match
-		// reset to nil
-		dst.JudgeClassificationOutput = nil
-		dst.JudgeRegressionOutput = nil
-
-		return fmt.Errorf("data matches more than one schema in oneOf(Output)")
-	} else if match == 1 {
-		return nil // exactly one match
-	} else { // no match
-		if err != nil {
-			return fmt.Errorf("data failed to match schemas in oneOf(Output): %v", err)
-		}
-
-		return fmt.Errorf("data failed to match schemas in oneOf(Output)")
-	}
+	return fmt.Errorf("data failed to match schemas in anyOf(Output)")
 }
 
 // Marshal data from the first non-nil pointers in the struct to JSON
 func (src Output) MarshalJSON() ([]byte, error) {
-	if src.JudgeClassificationOutput != nil {
-		return json.Marshal(&src.JudgeClassificationOutput)
+	if src.ArrayOfOutputAnyOfInner != nil {
+		return json.Marshal(&src.ArrayOfOutputAnyOfInner)
 	}
 
-	if src.JudgeRegressionOutput != nil {
-		return json.Marshal(&src.JudgeRegressionOutput)
+	if src.String != nil {
+		return json.Marshal(&src.String)
 	}
 
-	return nil, nil // no data in oneOf schemas
+	return nil, nil // no data in anyOf schemas
 }
 
-// Get the actual instance
-func (obj *Output) GetActualInstance() (interface{}) {
-	if obj == nil {
-		return nil
-	}
-	if obj.JudgeClassificationOutput != nil {
-		return obj.JudgeClassificationOutput
-	}
-
-	if obj.JudgeRegressionOutput != nil {
-		return obj.JudgeRegressionOutput
-	}
-
-	// all schemas are nil
-	return nil
-}
-
-// Get the actual instance value
-func (obj Output) GetActualInstanceValue() (interface{}) {
-	if obj.JudgeClassificationOutput != nil {
-		return *obj.JudgeClassificationOutput
-	}
-
-	if obj.JudgeRegressionOutput != nil {
-		return *obj.JudgeRegressionOutput
-	}
-
-	// all schemas are nil
-	return nil
-}
 
 type NullableOutput struct {
 	value *Output

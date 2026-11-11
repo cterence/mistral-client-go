@@ -37,6 +37,8 @@ type BaseModelCard struct {
 	Internal *bool `json:"internal,omitempty"`
 	BillingModelName NullableString `json:"billing_model_name,omitempty"`
 	Type *string `json:"type,omitempty"`
+	AudioTranscriptionCapabilities NullableAudioTranscriptionCapabilities `json:"audio_transcription_capabilities,omitempty"`
+	AudioSpeechCapabilities NullableAudioSpeechCapabilities `json:"audio_speech_capabilities,omitempty"`
 }
 
 type _BaseModelCard BaseModelCard
@@ -604,6 +606,90 @@ func (o *BaseModelCard) SetType(v string) {
 	o.Type = &v
 }
 
+// GetAudioTranscriptionCapabilities returns the AudioTranscriptionCapabilities field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *BaseModelCard) GetAudioTranscriptionCapabilities() AudioTranscriptionCapabilities {
+	if o == nil || IsNil(o.AudioTranscriptionCapabilities.Get()) {
+		var ret AudioTranscriptionCapabilities
+		return ret
+	}
+	return *o.AudioTranscriptionCapabilities.Get()
+}
+
+// GetAudioTranscriptionCapabilitiesOk returns a tuple with the AudioTranscriptionCapabilities field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *BaseModelCard) GetAudioTranscriptionCapabilitiesOk() (*AudioTranscriptionCapabilities, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.AudioTranscriptionCapabilities.Get(), o.AudioTranscriptionCapabilities.IsSet()
+}
+
+// HasAudioTranscriptionCapabilities returns a boolean if a field has been set.
+func (o *BaseModelCard) HasAudioTranscriptionCapabilities() bool {
+	if o != nil && o.AudioTranscriptionCapabilities.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetAudioTranscriptionCapabilities gets a reference to the given NullableAudioTranscriptionCapabilities and assigns it to the AudioTranscriptionCapabilities field.
+func (o *BaseModelCard) SetAudioTranscriptionCapabilities(v AudioTranscriptionCapabilities) {
+	o.AudioTranscriptionCapabilities.Set(&v)
+}
+// SetAudioTranscriptionCapabilitiesNil sets the value for AudioTranscriptionCapabilities to be an explicit nil
+func (o *BaseModelCard) SetAudioTranscriptionCapabilitiesNil() {
+	o.AudioTranscriptionCapabilities.Set(nil)
+}
+
+// UnsetAudioTranscriptionCapabilities ensures that no value is present for AudioTranscriptionCapabilities, not even an explicit nil
+func (o *BaseModelCard) UnsetAudioTranscriptionCapabilities() {
+	o.AudioTranscriptionCapabilities.Unset()
+}
+
+// GetAudioSpeechCapabilities returns the AudioSpeechCapabilities field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *BaseModelCard) GetAudioSpeechCapabilities() AudioSpeechCapabilities {
+	if o == nil || IsNil(o.AudioSpeechCapabilities.Get()) {
+		var ret AudioSpeechCapabilities
+		return ret
+	}
+	return *o.AudioSpeechCapabilities.Get()
+}
+
+// GetAudioSpeechCapabilitiesOk returns a tuple with the AudioSpeechCapabilities field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *BaseModelCard) GetAudioSpeechCapabilitiesOk() (*AudioSpeechCapabilities, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.AudioSpeechCapabilities.Get(), o.AudioSpeechCapabilities.IsSet()
+}
+
+// HasAudioSpeechCapabilities returns a boolean if a field has been set.
+func (o *BaseModelCard) HasAudioSpeechCapabilities() bool {
+	if o != nil && o.AudioSpeechCapabilities.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetAudioSpeechCapabilities gets a reference to the given NullableAudioSpeechCapabilities and assigns it to the AudioSpeechCapabilities field.
+func (o *BaseModelCard) SetAudioSpeechCapabilities(v AudioSpeechCapabilities) {
+	o.AudioSpeechCapabilities.Set(&v)
+}
+// SetAudioSpeechCapabilitiesNil sets the value for AudioSpeechCapabilities to be an explicit nil
+func (o *BaseModelCard) SetAudioSpeechCapabilitiesNil() {
+	o.AudioSpeechCapabilities.Set(nil)
+}
+
+// UnsetAudioSpeechCapabilities ensures that no value is present for AudioSpeechCapabilities, not even an explicit nil
+func (o *BaseModelCard) UnsetAudioSpeechCapabilities() {
+	o.AudioSpeechCapabilities.Unset()
+}
+
 func (o BaseModelCard) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -654,6 +740,12 @@ func (o BaseModelCard) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.Type) {
 		toSerialize["type"] = o.Type
+	}
+	if o.AudioTranscriptionCapabilities.IsSet() {
+		toSerialize["audio_transcription_capabilities"] = o.AudioTranscriptionCapabilities.Get()
+	}
+	if o.AudioSpeechCapabilities.IsSet() {
+		toSerialize["audio_speech_capabilities"] = o.AudioSpeechCapabilities.Get()
 	}
 	return toSerialize, nil
 }

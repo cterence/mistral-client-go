@@ -19,11 +19,12 @@ import (
 // checks if the KeywordRetriever type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &KeywordRetriever{}
 
-// KeywordRetriever Retrieve document chunks with similar keywords to the given query.
+// KeywordRetriever Retrieve document chunks with similar keywords to the given query.  Uses the default settings for the index on the field.
 type KeywordRetriever struct {
 	TopK *int32 `json:"top_k,omitempty"`
 	Type *string `json:"type,omitempty"`
 	Query string `json:"query"`
+	Operator *string `json:"operator,omitempty"`
 	Filter NullableKeywordRetrieverFilter `json:"filter,omitempty"`
 	Field NullableString `json:"field,omitempty"`
 }
@@ -41,6 +42,8 @@ func NewKeywordRetriever(query string) *KeywordRetriever {
 	var type_ string = "keyword"
 	this.Type = &type_
 	this.Query = query
+	var operator string = "or"
+	this.Operator = &operator
 	return &this
 }
 
@@ -53,6 +56,8 @@ func NewKeywordRetrieverWithDefaults() *KeywordRetriever {
 	this.TopK = &topK
 	var type_ string = "keyword"
 	this.Type = &type_
+	var operator string = "or"
+	this.Operator = &operator
 	return &this
 }
 
@@ -142,6 +147,38 @@ func (o *KeywordRetriever) GetQueryOk() (*string, bool) {
 // SetQuery sets field value
 func (o *KeywordRetriever) SetQuery(v string) {
 	o.Query = v
+}
+
+// GetOperator returns the Operator field value if set, zero value otherwise.
+func (o *KeywordRetriever) GetOperator() string {
+	if o == nil || IsNil(o.Operator) {
+		var ret string
+		return ret
+	}
+	return *o.Operator
+}
+
+// GetOperatorOk returns a tuple with the Operator field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *KeywordRetriever) GetOperatorOk() (*string, bool) {
+	if o == nil || IsNil(o.Operator) {
+		return nil, false
+	}
+	return o.Operator, true
+}
+
+// HasOperator returns a boolean if a field has been set.
+func (o *KeywordRetriever) HasOperator() bool {
+	if o != nil && !IsNil(o.Operator) {
+		return true
+	}
+
+	return false
+}
+
+// SetOperator gets a reference to the given string and assigns it to the Operator field.
+func (o *KeywordRetriever) SetOperator(v string) {
+	o.Operator = &v
 }
 
 // GetFilter returns the Filter field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -245,6 +282,9 @@ func (o KeywordRetriever) ToMap() (map[string]interface{}, error) {
 		toSerialize["type"] = o.Type
 	}
 	toSerialize["query"] = o.Query
+	if !IsNil(o.Operator) {
+		toSerialize["operator"] = o.Operator
+	}
 	if o.Filter.IsSet() {
 		toSerialize["filter"] = o.Filter.Get()
 	}

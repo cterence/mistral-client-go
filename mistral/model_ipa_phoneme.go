@@ -70,6 +70,33 @@ const (
 	IPAPHONEME_21 IPAPhoneme = "ʒ"
 	IPAPHONEME_22 IPAPhoneme = "ʔ"
 	IPAPHONEME_23 IPAPhoneme = "θ"
+	IPAPHONEME_24 IPAPhoneme = "ʁ"
+	IPAPHONEME_R IPAPhoneme = "r"
+	IPAPHONEME_25 IPAPhoneme = "ɑ̃"
+	IPAPHONEME_26 IPAPhoneme = "ʀ"
+	IPAPHONEME_X IPAPhoneme = "x"
+	IPAPHONEME_Y IPAPhoneme = "y"
+	IPAPHONEME_27 IPAPhoneme = "ɔ̃"
+	IPAPHONEME_28 IPAPhoneme = "ɐ"
+	IPAPHONEME_29 IPAPhoneme = "œ"
+	IPAPHONEME_30 IPAPhoneme = "ɛ̃"
+	IPAPHONEME_31 IPAPhoneme = "ʝ"
+	IPAPHONEME_32 IPAPhoneme = "ɲ"
+	IPAPHONEME_TS IPAPhoneme = "ts"
+	IPAPHONEME_33 IPAPhoneme = "ɥ"
+	IPAPHONEME_34 IPAPhoneme = "ʏ"
+	IPAPHONEME_35 IPAPhoneme = "ø"
+	IPAPHONEME_36 IPAPhoneme = "β"
+	IPAPHONEME_37 IPAPhoneme = "ɦ"
+	IPAPHONEME_PF IPAPhoneme = "pf"
+	IPAPHONEME_38 IPAPhoneme = "ʎ"
+	IPAPHONEME_39 IPAPhoneme = "ɣ"
+	IPAPHONEME_40 IPAPhoneme = "ɳ"
+	IPAPHONEME_41 IPAPhoneme = "ɔʏ"
+	IPAPHONEME_42 IPAPhoneme = "œ̃"
+	IPAPHONEME_43 IPAPhoneme = "ɟʝ"
+	IPAPHONEME_44 IPAPhoneme = "ɬ"
+	IPAPHONEME_Q IPAPhoneme = "q"
 )
 
 // All allowed values of IPAPhoneme enum
@@ -124,6 +151,33 @@ var AllowedIPAPhonemeEnumValues = []IPAPhoneme{
 	"ʒ",
 	"ʔ",
 	"θ",
+	"ʁ",
+	"r",
+	"ɑ̃",
+	"ʀ",
+	"x",
+	"y",
+	"ɔ̃",
+	"ɐ",
+	"œ",
+	"ɛ̃",
+	"ʝ",
+	"ɲ",
+	"ts",
+	"ɥ",
+	"ʏ",
+	"ø",
+	"β",
+	"ɦ",
+	"pf",
+	"ʎ",
+	"ɣ",
+	"ɳ",
+	"ɔʏ",
+	"œ̃",
+	"ɟʝ",
+	"ɬ",
+	"q",
 }
 
 func (v *IPAPhoneme) UnmarshalJSON(src []byte) error {

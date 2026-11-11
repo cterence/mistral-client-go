@@ -27,7 +27,7 @@ type ConnectorMCPPublicUpdate struct {
 	Description NullableString `json:"description,omitempty"`
 	// The optional url of the icon you want to associate to the connector.
 	IconUrl NullableString `json:"icon_url,omitempty"`
-	// New connector server URL.
+	// New connector server URL. Only private connectors can change it; for shared connectors, it must equal the current server URL.
 	Server NullableString `json:"server,omitempty"`
 	// Authentication methods supported by the connector.
 	AuthMethods []ConnectorMCPPublicUpdateAuthMethodsInner `json:"auth_methods,omitempty"`

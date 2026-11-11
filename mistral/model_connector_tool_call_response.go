@@ -20,7 +20,7 @@ var _ MappedNullable = &ConnectorToolCallResponse{}
 
 // ConnectorToolCallResponse Response from calling an MCP tool.  We override mcp_types.CallToolResult because: - Models only support `content`, not `structuredContent` at top level - Downstream consumers (le-chat, etc.) need structuredContent/isError/_meta via metadata  SYNC: Keep in sync with Harmattan (orchestrator) for harmonized tool result processing.
 type ConnectorToolCallResponse struct {
-	Content []Content6Inner `json:"content"`
+	Content []Content7Inner `json:"content"`
 	Metadata NullableConnectorToolCallMetadata `json:"metadata,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
@@ -31,7 +31,7 @@ type _ConnectorToolCallResponse ConnectorToolCallResponse
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewConnectorToolCallResponse(content []Content6Inner) *ConnectorToolCallResponse {
+func NewConnectorToolCallResponse(content []Content7Inner) *ConnectorToolCallResponse {
 	this := ConnectorToolCallResponse{}
 	this.Content = content
 	return &this
@@ -46,9 +46,9 @@ func NewConnectorToolCallResponseWithDefaults() *ConnectorToolCallResponse {
 }
 
 // GetContent returns the Content field value
-func (o *ConnectorToolCallResponse) GetContent() []Content6Inner {
+func (o *ConnectorToolCallResponse) GetContent() []Content7Inner {
 	if o == nil {
-		var ret []Content6Inner
+		var ret []Content7Inner
 		return ret
 	}
 
@@ -57,7 +57,7 @@ func (o *ConnectorToolCallResponse) GetContent() []Content6Inner {
 
 // GetContentOk returns a tuple with the Content field value
 // and a boolean to check if the value has been set.
-func (o *ConnectorToolCallResponse) GetContentOk() ([]Content6Inner, bool) {
+func (o *ConnectorToolCallResponse) GetContentOk() ([]Content7Inner, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -65,7 +65,7 @@ func (o *ConnectorToolCallResponse) GetContentOk() ([]Content6Inner, bool) {
 }
 
 // SetContent sets field value
-func (o *ConnectorToolCallResponse) SetContent(v []Content6Inner) {
+func (o *ConnectorToolCallResponse) SetContent(v []Content7Inner) {
 	o.Content = v
 }
 

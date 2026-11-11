@@ -20,7 +20,7 @@ var _ MappedNullable = &AssistantMessage{}
 // AssistantMessage struct for AssistantMessage
 type AssistantMessage struct {
 	Role *string `json:"role,omitempty"`
-	Content NullableContent3 `json:"content,omitempty"`
+	Content NullableContent4 `json:"content,omitempty"`
 	ToolCalls []ToolCall `json:"tool_calls,omitempty"`
 	// Set this to `true` when adding an assistant message as prefix to condition the model response. The role of the prefix message is to force the model to start its answer by the content of the message.
 	Prefix *bool `json:"prefix,omitempty"`
@@ -84,9 +84,9 @@ func (o *AssistantMessage) SetRole(v string) {
 }
 
 // GetContent returns the Content field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *AssistantMessage) GetContent() Content3 {
+func (o *AssistantMessage) GetContent() Content4 {
 	if o == nil || IsNil(o.Content.Get()) {
-		var ret Content3
+		var ret Content4
 		return ret
 	}
 	return *o.Content.Get()
@@ -95,7 +95,7 @@ func (o *AssistantMessage) GetContent() Content3 {
 // GetContentOk returns a tuple with the Content field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *AssistantMessage) GetContentOk() (*Content3, bool) {
+func (o *AssistantMessage) GetContentOk() (*Content4, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -111,8 +111,8 @@ func (o *AssistantMessage) HasContent() bool {
 	return false
 }
 
-// SetContent gets a reference to the given NullableContent3 and assigns it to the Content field.
-func (o *AssistantMessage) SetContent(v Content3) {
+// SetContent gets a reference to the given NullableContent4 and assigns it to the Content field.
+func (o *AssistantMessage) SetContent(v Content4) {
 	o.Content.Set(&v)
 }
 // SetContentNil sets the value for Content to be an explicit nil

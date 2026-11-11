@@ -26,6 +26,7 @@ const (
 	REASONINGEFFORT_MEDIUM ReasoningEffort = "medium"
 	REASONINGEFFORT_HIGH ReasoningEffort = "high"
 	REASONINGEFFORT_XHIGH ReasoningEffort = "xhigh"
+	REASONINGEFFORT_MAX ReasoningEffort = "max"
 )
 
 // All allowed values of ReasoningEffort enum
@@ -36,6 +37,7 @@ var AllowedReasoningEffortEnumValues = []ReasoningEffort{
 	"medium",
 	"high",
 	"xhigh",
+	"max",
 }
 
 func (v *ReasoningEffort) UnmarshalJSON(src []byte) error {

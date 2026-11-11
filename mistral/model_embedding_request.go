@@ -23,7 +23,7 @@ type EmbeddingRequest struct {
 	// ID of the model to use.
 	Model string `json:"model"`
 	Metadata map[string]interface{} `json:"metadata,omitempty"`
-	Input Input2 `json:"input"`
+	Input Input3 `json:"input"`
 	// The dimension of the output embeddings when feature available. If not provided, a default output dimension will be used.
 	OutputDimension NullableInt32 `json:"output_dimension,omitempty"`
 	// The data type of the output embeddings when feature available. If not provided, a default output data type will be used.
@@ -39,7 +39,7 @@ type _EmbeddingRequest EmbeddingRequest
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewEmbeddingRequest(model string, input Input2) *EmbeddingRequest {
+func NewEmbeddingRequest(model string, input Input3) *EmbeddingRequest {
 	this := EmbeddingRequest{}
 	this.Model = model
 	this.Input = input
@@ -120,9 +120,9 @@ func (o *EmbeddingRequest) SetMetadata(v map[string]interface{}) {
 }
 
 // GetInput returns the Input field value
-func (o *EmbeddingRequest) GetInput() Input2 {
+func (o *EmbeddingRequest) GetInput() Input3 {
 	if o == nil {
-		var ret Input2
+		var ret Input3
 		return ret
 	}
 
@@ -131,7 +131,7 @@ func (o *EmbeddingRequest) GetInput() Input2 {
 
 // GetInputOk returns a tuple with the Input field value
 // and a boolean to check if the value has been set.
-func (o *EmbeddingRequest) GetInputOk() (*Input2, bool) {
+func (o *EmbeddingRequest) GetInputOk() (*Input3, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -139,7 +139,7 @@ func (o *EmbeddingRequest) GetInputOk() (*Input2, bool) {
 }
 
 // SetInput sets field value
-func (o *EmbeddingRequest) SetInput(v Input2) {
+func (o *EmbeddingRequest) SetInput(v Input3) {
 	o.Input = v
 }
 

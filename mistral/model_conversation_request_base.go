@@ -26,7 +26,7 @@ type ConversationRequestBase struct {
 	Store NullableBool `json:"store,omitempty"`
 	HandoffExecution NullableString `json:"handoff_execution,omitempty"`
 	Instructions NullableString `json:"instructions,omitempty"`
-	Tools []ToolsInner `json:"tools,omitempty"`
+	Tools []ToolsInner2 `json:"tools,omitempty"`
 	CompletionArgs NullableCompletionArgs `json:"completion_args,omitempty"`
 	Guardrails []GuardrailConfig `json:"guardrails,omitempty"`
 	Name NullableString `json:"name,omitempty"`
@@ -251,9 +251,9 @@ func (o *ConversationRequestBase) UnsetInstructions() {
 }
 
 // GetTools returns the Tools field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *ConversationRequestBase) GetTools() []ToolsInner {
+func (o *ConversationRequestBase) GetTools() []ToolsInner2 {
 	if o == nil {
-		var ret []ToolsInner
+		var ret []ToolsInner2
 		return ret
 	}
 	return o.Tools
@@ -262,7 +262,7 @@ func (o *ConversationRequestBase) GetTools() []ToolsInner {
 // GetToolsOk returns a tuple with the Tools field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *ConversationRequestBase) GetToolsOk() ([]ToolsInner, bool) {
+func (o *ConversationRequestBase) GetToolsOk() ([]ToolsInner2, bool) {
 	if o == nil || IsNil(o.Tools) {
 		return nil, false
 	}
@@ -278,8 +278,8 @@ func (o *ConversationRequestBase) HasTools() bool {
 	return false
 }
 
-// SetTools gets a reference to the given []ToolsInner and assigns it to the Tools field.
-func (o *ConversationRequestBase) SetTools(v []ToolsInner) {
+// SetTools gets a reference to the given []ToolsInner2 and assigns it to the Tools field.
+func (o *ConversationRequestBase) SetTools(v []ToolsInner2) {
 	o.Tools = v
 }
 

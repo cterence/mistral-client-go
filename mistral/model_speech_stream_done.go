@@ -22,7 +22,7 @@ var _ MappedNullable = &SpeechStreamDone{}
 // SpeechStreamDone struct for SpeechStreamDone
 type SpeechStreamDone struct {
 	Type *string `json:"type,omitempty"`
-	Usage UsageInfo1 `json:"usage"`
+	Usage UsageInfo `json:"usage"`
 }
 
 type _SpeechStreamDone SpeechStreamDone
@@ -31,7 +31,7 @@ type _SpeechStreamDone SpeechStreamDone
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewSpeechStreamDone(usage UsageInfo1) *SpeechStreamDone {
+func NewSpeechStreamDone(usage UsageInfo) *SpeechStreamDone {
 	this := SpeechStreamDone{}
 	var type_ string = "speech.audio.done"
 	this.Type = &type_
@@ -82,9 +82,9 @@ func (o *SpeechStreamDone) SetType(v string) {
 }
 
 // GetUsage returns the Usage field value
-func (o *SpeechStreamDone) GetUsage() UsageInfo1 {
+func (o *SpeechStreamDone) GetUsage() UsageInfo {
 	if o == nil {
-		var ret UsageInfo1
+		var ret UsageInfo
 		return ret
 	}
 
@@ -93,7 +93,7 @@ func (o *SpeechStreamDone) GetUsage() UsageInfo1 {
 
 // GetUsageOk returns a tuple with the Usage field value
 // and a boolean to check if the value has been set.
-func (o *SpeechStreamDone) GetUsageOk() (*UsageInfo1, bool) {
+func (o *SpeechStreamDone) GetUsageOk() (*UsageInfo, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -101,7 +101,7 @@ func (o *SpeechStreamDone) GetUsageOk() (*UsageInfo1, bool) {
 }
 
 // SetUsage sets field value
-func (o *SpeechStreamDone) SetUsage(v UsageInfo1) {
+func (o *SpeechStreamDone) SetUsage(v UsageInfo) {
 	o.Usage = v
 }
 

@@ -21,7 +21,7 @@ var _ MappedNullable = &ResponsesOutputMessage{}
 // ResponsesOutputMessage struct for ResponsesOutputMessage
 type ResponsesOutputMessage struct {
 	Id string `json:"id"`
-	Content []Content7Inner `json:"content"`
+	Content []Content1Inner `json:"content"`
 	Role string `json:"role"`
 	Status string `json:"status"`
 	Type string `json:"type"`
@@ -35,7 +35,7 @@ type _ResponsesOutputMessage ResponsesOutputMessage
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewResponsesOutputMessage(id string, content []Content7Inner, role string, status string, type_ string) *ResponsesOutputMessage {
+func NewResponsesOutputMessage(id string, content []Content1Inner, role string, status string, type_ string) *ResponsesOutputMessage {
 	this := ResponsesOutputMessage{}
 	this.Id = id
 	this.Content = content
@@ -78,9 +78,9 @@ func (o *ResponsesOutputMessage) SetId(v string) {
 }
 
 // GetContent returns the Content field value
-func (o *ResponsesOutputMessage) GetContent() []Content7Inner {
+func (o *ResponsesOutputMessage) GetContent() []Content1Inner {
 	if o == nil {
-		var ret []Content7Inner
+		var ret []Content1Inner
 		return ret
 	}
 
@@ -89,7 +89,7 @@ func (o *ResponsesOutputMessage) GetContent() []Content7Inner {
 
 // GetContentOk returns a tuple with the Content field value
 // and a boolean to check if the value has been set.
-func (o *ResponsesOutputMessage) GetContentOk() ([]Content7Inner, bool) {
+func (o *ResponsesOutputMessage) GetContentOk() ([]Content1Inner, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -97,7 +97,7 @@ func (o *ResponsesOutputMessage) GetContentOk() ([]Content7Inner, bool) {
 }
 
 // SetContent sets field value
-func (o *ResponsesOutputMessage) SetContent(v []Content7Inner) {
+func (o *ResponsesOutputMessage) SetContent(v []Content1Inner) {
 	o.Content = v
 }
 

@@ -39,7 +39,7 @@ type ChatCompletionRequest struct {
 	ResponseFormat *ResponseFormat `json:"response_format,omitempty"`
 	// A list of tools the model may call. Use this to provide a list of functions the model may generate JSON inputs for.
 	Tools []ChatCompletionRequestToolsInner `json:"tools,omitempty"`
-	ToolChoice *ToolChoice `json:"tool_choice,omitempty"`
+	ToolChoice *ToolChoice2 `json:"tool_choice,omitempty"`
 	// The `presence_penalty` determines how much the model penalizes the repetition of words or phrases. A higher presence penalty encourages the model to use a wider variety of words and phrases, making the output more diverse and creative.
 	PresencePenalty NullableFloat32 `json:"presence_penalty,omitempty"`
 	// The `frequency_penalty` penalizes the repetition of words based on their frequency in the generated text. A higher frequency penalty discourages the model from repeating words that have already appeared frequently in the output, promoting diversity and reducing repetition.
@@ -81,9 +81,8 @@ func NewChatCompletionRequest(model string, messages []MessagesInner) *ChatCompl
 	var stream bool = false
 	this.Stream = &stream
 	this.Messages = messages
-	var toolChoice ToolChoice
-	auto := TOOLCHOICEENUM_AUTO
-	toolChoice.ToolChoiceEnum = &auto
+	var toolChoice ToolChoice2
+	_ = toolChoice.UnmarshalJSON([]byte(`"auto"`))
 	this.ToolChoice = &toolChoice
 	var parallelToolCalls bool = true
 	this.ParallelToolCalls = &parallelToolCalls
@@ -99,9 +98,8 @@ func NewChatCompletionRequestWithDefaults() *ChatCompletionRequest {
 	this := ChatCompletionRequest{}
 	var stream bool = false
 	this.Stream = &stream
-	var toolChoice ToolChoice
-	auto := TOOLCHOICEENUM_AUTO
-	toolChoice.ToolChoiceEnum = &auto
+	var toolChoice ToolChoice2
+	_ = toolChoice.UnmarshalJSON([]byte(`"auto"`))
 	this.ToolChoice = &toolChoice
 	var parallelToolCalls bool = true
 	this.ParallelToolCalls = &parallelToolCalls
@@ -499,9 +497,9 @@ func (o *ChatCompletionRequest) SetTools(v []ChatCompletionRequestToolsInner) {
 }
 
 // GetToolChoice returns the ToolChoice field value if set, zero value otherwise.
-func (o *ChatCompletionRequest) GetToolChoice() ToolChoice {
+func (o *ChatCompletionRequest) GetToolChoice() ToolChoice2 {
 	if o == nil || IsNil(o.ToolChoice) {
-		var ret ToolChoice
+		var ret ToolChoice2
 		return ret
 	}
 	return *o.ToolChoice
@@ -509,7 +507,7 @@ func (o *ChatCompletionRequest) GetToolChoice() ToolChoice {
 
 // GetToolChoiceOk returns a tuple with the ToolChoice field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ChatCompletionRequest) GetToolChoiceOk() (*ToolChoice, bool) {
+func (o *ChatCompletionRequest) GetToolChoiceOk() (*ToolChoice2, bool) {
 	if o == nil || IsNil(o.ToolChoice) {
 		return nil, false
 	}
@@ -525,8 +523,8 @@ func (o *ChatCompletionRequest) HasToolChoice() bool {
 	return false
 }
 
-// SetToolChoice gets a reference to the given ToolChoice and assigns it to the ToolChoice field.
-func (o *ChatCompletionRequest) SetToolChoice(v ToolChoice) {
+// SetToolChoice gets a reference to the given ToolChoice2 and assigns it to the ToolChoice field.
+func (o *ChatCompletionRequest) SetToolChoice(v ToolChoice2) {
 	o.ToolChoice = &v
 }
 

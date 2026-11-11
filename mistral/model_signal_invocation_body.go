@@ -23,7 +23,7 @@ var _ MappedNullable = &SignalInvocationBody{}
 type SignalInvocationBody struct {
 	// The name of the signal to send
 	Name string `json:"name"`
-	Input NullableInput4 `json:"input,omitempty"`
+	Input NullableInput5 `json:"input,omitempty"`
 }
 
 type _SignalInvocationBody SignalInvocationBody
@@ -71,9 +71,9 @@ func (o *SignalInvocationBody) SetName(v string) {
 }
 
 // GetInput returns the Input field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *SignalInvocationBody) GetInput() Input4 {
+func (o *SignalInvocationBody) GetInput() Input5 {
 	if o == nil || IsNil(o.Input.Get()) {
-		var ret Input4
+		var ret Input5
 		return ret
 	}
 	return *o.Input.Get()
@@ -82,7 +82,7 @@ func (o *SignalInvocationBody) GetInput() Input4 {
 // GetInputOk returns a tuple with the Input field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *SignalInvocationBody) GetInputOk() (*Input4, bool) {
+func (o *SignalInvocationBody) GetInputOk() (*Input5, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -98,8 +98,8 @@ func (o *SignalInvocationBody) HasInput() bool {
 	return false
 }
 
-// SetInput gets a reference to the given NullableInput4 and assigns it to the Input field.
-func (o *SignalInvocationBody) SetInput(v Input4) {
+// SetInput gets a reference to the given NullableInput5 and assigns it to the Input field.
+func (o *SignalInvocationBody) SetInput(v Input5) {
 	o.Input.Set(&v)
 }
 // SetInputNil sets the value for Input to be an explicit nil

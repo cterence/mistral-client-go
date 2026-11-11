@@ -21,10 +21,13 @@ var _ MappedNullable = &ConnectionPreference{}
 
 // ConnectionPreference struct for ConnectionPreference
 type ConnectionPreference struct {
-	Name string `json:"name"`
 	ToolConfiguration ToolExecutionConfiguration `json:"tool_configuration"`
-	IsDefault NullableBool `json:"is_default,omitempty"`
 	ConsumerType NullableConsumerType `json:"consumer_type,omitempty"`
+	// Deprecated: always `default`, a connection holds a single preference.
+	// Deprecated
+	Name *string `json:"name,omitempty"`
+	// Deprecated: always `true`.
+	IsDefault NullableBool `json:"is_default,omitempty"`
 }
 
 type _ConnectionPreference ConnectionPreference
@@ -33,10 +36,11 @@ type _ConnectionPreference ConnectionPreference
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewConnectionPreference(name string, toolConfiguration ToolExecutionConfiguration) *ConnectionPreference {
+func NewConnectionPreference(toolConfiguration ToolExecutionConfiguration) *ConnectionPreference {
 	this := ConnectionPreference{}
-	this.Name = name
 	this.ToolConfiguration = toolConfiguration
+	var name string = "default"
+	this.Name = &name
 	return &this
 }
 
@@ -45,31 +49,9 @@ func NewConnectionPreference(name string, toolConfiguration ToolExecutionConfigu
 // but it doesn't guarantee that properties required by API are set
 func NewConnectionPreferenceWithDefaults() *ConnectionPreference {
 	this := ConnectionPreference{}
+	var name string = "default"
+	this.Name = &name
 	return &this
-}
-
-// GetName returns the Name field value
-func (o *ConnectionPreference) GetName() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.Name
-}
-
-// GetNameOk returns a tuple with the Name field value
-// and a boolean to check if the value has been set.
-func (o *ConnectionPreference) GetNameOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Name, true
-}
-
-// SetName sets field value
-func (o *ConnectionPreference) SetName(v string) {
-	o.Name = v
 }
 
 // GetToolConfiguration returns the ToolConfiguration field value
@@ -94,48 +76,6 @@ func (o *ConnectionPreference) GetToolConfigurationOk() (*ToolExecutionConfigura
 // SetToolConfiguration sets field value
 func (o *ConnectionPreference) SetToolConfiguration(v ToolExecutionConfiguration) {
 	o.ToolConfiguration = v
-}
-
-// GetIsDefault returns the IsDefault field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *ConnectionPreference) GetIsDefault() bool {
-	if o == nil || IsNil(o.IsDefault.Get()) {
-		var ret bool
-		return ret
-	}
-	return *o.IsDefault.Get()
-}
-
-// GetIsDefaultOk returns a tuple with the IsDefault field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *ConnectionPreference) GetIsDefaultOk() (*bool, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return o.IsDefault.Get(), o.IsDefault.IsSet()
-}
-
-// HasIsDefault returns a boolean if a field has been set.
-func (o *ConnectionPreference) HasIsDefault() bool {
-	if o != nil && o.IsDefault.IsSet() {
-		return true
-	}
-
-	return false
-}
-
-// SetIsDefault gets a reference to the given NullableBool and assigns it to the IsDefault field.
-func (o *ConnectionPreference) SetIsDefault(v bool) {
-	o.IsDefault.Set(&v)
-}
-// SetIsDefaultNil sets the value for IsDefault to be an explicit nil
-func (o *ConnectionPreference) SetIsDefaultNil() {
-	o.IsDefault.Set(nil)
-}
-
-// UnsetIsDefault ensures that no value is present for IsDefault, not even an explicit nil
-func (o *ConnectionPreference) UnsetIsDefault() {
-	o.IsDefault.Unset()
 }
 
 // GetConsumerType returns the ConsumerType field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -180,6 +120,83 @@ func (o *ConnectionPreference) UnsetConsumerType() {
 	o.ConsumerType.Unset()
 }
 
+// GetName returns the Name field value if set, zero value otherwise.
+// Deprecated
+func (o *ConnectionPreference) GetName() string {
+	if o == nil || IsNil(o.Name) {
+		var ret string
+		return ret
+	}
+	return *o.Name
+}
+
+// GetNameOk returns a tuple with the Name field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// Deprecated
+func (o *ConnectionPreference) GetNameOk() (*string, bool) {
+	if o == nil || IsNil(o.Name) {
+		return nil, false
+	}
+	return o.Name, true
+}
+
+// HasName returns a boolean if a field has been set.
+func (o *ConnectionPreference) HasName() bool {
+	if o != nil && !IsNil(o.Name) {
+		return true
+	}
+
+	return false
+}
+
+// SetName gets a reference to the given string and assigns it to the Name field.
+// Deprecated
+func (o *ConnectionPreference) SetName(v string) {
+	o.Name = &v
+}
+
+// GetIsDefault returns the IsDefault field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *ConnectionPreference) GetIsDefault() bool {
+	if o == nil || IsNil(o.IsDefault.Get()) {
+		var ret bool
+		return ret
+	}
+	return *o.IsDefault.Get()
+}
+
+// GetIsDefaultOk returns a tuple with the IsDefault field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *ConnectionPreference) GetIsDefaultOk() (*bool, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.IsDefault.Get(), o.IsDefault.IsSet()
+}
+
+// HasIsDefault returns a boolean if a field has been set.
+func (o *ConnectionPreference) HasIsDefault() bool {
+	if o != nil && o.IsDefault.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetIsDefault gets a reference to the given NullableBool and assigns it to the IsDefault field.
+func (o *ConnectionPreference) SetIsDefault(v bool) {
+	o.IsDefault.Set(&v)
+}
+// SetIsDefaultNil sets the value for IsDefault to be an explicit nil
+func (o *ConnectionPreference) SetIsDefaultNil() {
+	o.IsDefault.Set(nil)
+}
+
+// UnsetIsDefault ensures that no value is present for IsDefault, not even an explicit nil
+func (o *ConnectionPreference) UnsetIsDefault() {
+	o.IsDefault.Unset()
+}
+
 func (o ConnectionPreference) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -190,13 +207,15 @@ func (o ConnectionPreference) MarshalJSON() ([]byte, error) {
 
 func (o ConnectionPreference) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["name"] = o.Name
 	toSerialize["tool_configuration"] = o.ToolConfiguration
-	if o.IsDefault.IsSet() {
-		toSerialize["is_default"] = o.IsDefault.Get()
-	}
 	if o.ConsumerType.IsSet() {
 		toSerialize["consumer_type"] = o.ConsumerType.Get()
+	}
+	if !IsNil(o.Name) {
+		toSerialize["name"] = o.Name
+	}
+	if o.IsDefault.IsSet() {
+		toSerialize["is_default"] = o.IsDefault.Get()
 	}
 	return toSerialize, nil
 }
@@ -206,7 +225,6 @@ func (o *ConnectionPreference) UnmarshalJSON(data []byte) (err error) {
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
-		"name",
 		"tool_configuration",
 	}
 

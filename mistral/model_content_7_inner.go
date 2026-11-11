@@ -13,60 +13,242 @@ package mistral
 import (
 	"encoding/json"
 	"fmt"
+	"gopkg.in/validator.v2"
 )
 
-
-// Content7Inner struct for Content7Inner
+// Content7Inner - struct for Content7Inner
 type Content7Inner struct {
-	ResponsesOutputRefusal *ResponsesOutputRefusal
-	ResponsesOutputText *ResponsesOutputText
+	AudioContent *AudioContent
+	EmbeddedResource *EmbeddedResource
+	ImageContent *ImageContent
+	ResourceLink *ResourceLink
+	TextContent *TextContent
 }
 
-// Unmarshal JSON data into any of the pointers in the struct
+// AudioContentAsContent7Inner is a convenience function that returns AudioContent wrapped in Content7Inner
+func AudioContentAsContent7Inner(v *AudioContent) Content7Inner {
+	return Content7Inner{
+		AudioContent: v,
+	}
+}
+
+// EmbeddedResourceAsContent7Inner is a convenience function that returns EmbeddedResource wrapped in Content7Inner
+func EmbeddedResourceAsContent7Inner(v *EmbeddedResource) Content7Inner {
+	return Content7Inner{
+		EmbeddedResource: v,
+	}
+}
+
+// ImageContentAsContent7Inner is a convenience function that returns ImageContent wrapped in Content7Inner
+func ImageContentAsContent7Inner(v *ImageContent) Content7Inner {
+	return Content7Inner{
+		ImageContent: v,
+	}
+}
+
+// ResourceLinkAsContent7Inner is a convenience function that returns ResourceLink wrapped in Content7Inner
+func ResourceLinkAsContent7Inner(v *ResourceLink) Content7Inner {
+	return Content7Inner{
+		ResourceLink: v,
+	}
+}
+
+// TextContentAsContent7Inner is a convenience function that returns TextContent wrapped in Content7Inner
+func TextContentAsContent7Inner(v *TextContent) Content7Inner {
+	return Content7Inner{
+		TextContent: v,
+	}
+}
+
+
+// Unmarshal JSON data into one of the pointers in the struct
 func (dst *Content7Inner) UnmarshalJSON(data []byte) error {
 	var err error
-	// try to unmarshal JSON data into ResponsesOutputRefusal
-	err = json.Unmarshal(data, &dst.ResponsesOutputRefusal);
+	match := 0
+	// try to unmarshal data into AudioContent
+	err = newStrictDecoder(data).Decode(&dst.AudioContent)
 	if err == nil {
-		jsonResponsesOutputRefusal, _ := json.Marshal(dst.ResponsesOutputRefusal)
-		if string(jsonResponsesOutputRefusal) == "{}" { // empty struct
-			dst.ResponsesOutputRefusal = nil
+		jsonAudioContent, _ := json.Marshal(dst.AudioContent)
+		if string(jsonAudioContent) == "{}" { // empty struct
+			dst.AudioContent = nil
 		} else {
-			return nil // data stored in dst.ResponsesOutputRefusal, return on the first match
+			if err = validator.Validate(dst.AudioContent); err != nil {
+				dst.AudioContent = nil
+			} else {
+				match++
+			}
 		}
 	} else {
-		dst.ResponsesOutputRefusal = nil
+		dst.AudioContent = nil
 	}
 
-	// try to unmarshal JSON data into ResponsesOutputText
-	err = json.Unmarshal(data, &dst.ResponsesOutputText);
+	// try to unmarshal data into EmbeddedResource
+	err = newStrictDecoder(data).Decode(&dst.EmbeddedResource)
 	if err == nil {
-		jsonResponsesOutputText, _ := json.Marshal(dst.ResponsesOutputText)
-		if string(jsonResponsesOutputText) == "{}" { // empty struct
-			dst.ResponsesOutputText = nil
+		jsonEmbeddedResource, _ := json.Marshal(dst.EmbeddedResource)
+		if string(jsonEmbeddedResource) == "{}" { // empty struct
+			dst.EmbeddedResource = nil
 		} else {
-			return nil // data stored in dst.ResponsesOutputText, return on the first match
+			if err = validator.Validate(dst.EmbeddedResource); err != nil {
+				dst.EmbeddedResource = nil
+			} else {
+				match++
+			}
 		}
 	} else {
-		dst.ResponsesOutputText = nil
+		dst.EmbeddedResource = nil
 	}
 
-	return fmt.Errorf("data failed to match schemas in anyOf(Content7Inner)")
+	// try to unmarshal data into ImageContent
+	err = newStrictDecoder(data).Decode(&dst.ImageContent)
+	if err == nil {
+		jsonImageContent, _ := json.Marshal(dst.ImageContent)
+		if string(jsonImageContent) == "{}" { // empty struct
+			dst.ImageContent = nil
+		} else {
+			if err = validator.Validate(dst.ImageContent); err != nil {
+				dst.ImageContent = nil
+			} else {
+				match++
+			}
+		}
+	} else {
+		dst.ImageContent = nil
+	}
+
+	// try to unmarshal data into ResourceLink
+	err = newStrictDecoder(data).Decode(&dst.ResourceLink)
+	if err == nil {
+		jsonResourceLink, _ := json.Marshal(dst.ResourceLink)
+		if string(jsonResourceLink) == "{}" { // empty struct
+			dst.ResourceLink = nil
+		} else {
+			if err = validator.Validate(dst.ResourceLink); err != nil {
+				dst.ResourceLink = nil
+			} else {
+				match++
+			}
+		}
+	} else {
+		dst.ResourceLink = nil
+	}
+
+	// try to unmarshal data into TextContent
+	err = newStrictDecoder(data).Decode(&dst.TextContent)
+	if err == nil {
+		jsonTextContent, _ := json.Marshal(dst.TextContent)
+		if string(jsonTextContent) == "{}" { // empty struct
+			dst.TextContent = nil
+		} else {
+			if err = validator.Validate(dst.TextContent); err != nil {
+				dst.TextContent = nil
+			} else {
+				match++
+			}
+		}
+	} else {
+		dst.TextContent = nil
+	}
+
+	if match > 1 { // more than 1 match
+		// reset to nil
+		dst.AudioContent = nil
+		dst.EmbeddedResource = nil
+		dst.ImageContent = nil
+		dst.ResourceLink = nil
+		dst.TextContent = nil
+
+		return fmt.Errorf("data matches more than one schema in oneOf(Content7Inner)")
+	} else if match == 1 {
+		return nil // exactly one match
+	} else { // no match
+		if err != nil {
+			return fmt.Errorf("data failed to match schemas in oneOf(Content7Inner): %v", err)
+		}
+
+		return fmt.Errorf("data failed to match schemas in oneOf(Content7Inner)")
+	}
 }
 
 // Marshal data from the first non-nil pointers in the struct to JSON
 func (src Content7Inner) MarshalJSON() ([]byte, error) {
-	if src.ResponsesOutputRefusal != nil {
-		return json.Marshal(&src.ResponsesOutputRefusal)
+	if src.AudioContent != nil {
+		return json.Marshal(&src.AudioContent)
 	}
 
-	if src.ResponsesOutputText != nil {
-		return json.Marshal(&src.ResponsesOutputText)
+	if src.EmbeddedResource != nil {
+		return json.Marshal(&src.EmbeddedResource)
 	}
 
-	return nil, nil // no data in anyOf schemas
+	if src.ImageContent != nil {
+		return json.Marshal(&src.ImageContent)
+	}
+
+	if src.ResourceLink != nil {
+		return json.Marshal(&src.ResourceLink)
+	}
+
+	if src.TextContent != nil {
+		return json.Marshal(&src.TextContent)
+	}
+
+	return nil, nil // no data in oneOf schemas
 }
 
+// Get the actual instance
+func (obj *Content7Inner) GetActualInstance() (interface{}) {
+	if obj == nil {
+		return nil
+	}
+	if obj.AudioContent != nil {
+		return obj.AudioContent
+	}
+
+	if obj.EmbeddedResource != nil {
+		return obj.EmbeddedResource
+	}
+
+	if obj.ImageContent != nil {
+		return obj.ImageContent
+	}
+
+	if obj.ResourceLink != nil {
+		return obj.ResourceLink
+	}
+
+	if obj.TextContent != nil {
+		return obj.TextContent
+	}
+
+	// all schemas are nil
+	return nil
+}
+
+// Get the actual instance value
+func (obj Content7Inner) GetActualInstanceValue() (interface{}) {
+	if obj.AudioContent != nil {
+		return *obj.AudioContent
+	}
+
+	if obj.EmbeddedResource != nil {
+		return *obj.EmbeddedResource
+	}
+
+	if obj.ImageContent != nil {
+		return *obj.ImageContent
+	}
+
+	if obj.ResourceLink != nil {
+		return *obj.ResourceLink
+	}
+
+	if obj.TextContent != nil {
+		return *obj.TextContent
+	}
+
+	// all schemas are nil
+	return nil
+}
 
 type NullableContent7Inner struct {
 	value *Content7Inner

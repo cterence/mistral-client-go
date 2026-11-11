@@ -21,7 +21,7 @@ var _ MappedNullable = &WorkflowExecutionRequest{}
 type WorkflowExecutionRequest struct {
 	// Allows you to specify a custom execution ID. If not provided, a random ID will be generated.
 	ExecutionId NullableString `json:"execution_id,omitempty"`
-	Input NullableInput5 `json:"input,omitempty"`
+	Input NullableInput6 `json:"input,omitempty"`
 	// If true, wait for the workflow to complete and return the result directly.
 	WaitForResult *bool `json:"wait_for_result,omitempty"`
 	// Maximum time to wait for completion when wait_for_result is true.
@@ -107,9 +107,9 @@ func (o *WorkflowExecutionRequest) UnsetExecutionId() {
 }
 
 // GetInput returns the Input field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *WorkflowExecutionRequest) GetInput() Input5 {
+func (o *WorkflowExecutionRequest) GetInput() Input6 {
 	if o == nil || IsNil(o.Input.Get()) {
-		var ret Input5
+		var ret Input6
 		return ret
 	}
 	return *o.Input.Get()
@@ -118,7 +118,7 @@ func (o *WorkflowExecutionRequest) GetInput() Input5 {
 // GetInputOk returns a tuple with the Input field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *WorkflowExecutionRequest) GetInputOk() (*Input5, bool) {
+func (o *WorkflowExecutionRequest) GetInputOk() (*Input6, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -134,8 +134,8 @@ func (o *WorkflowExecutionRequest) HasInput() bool {
 	return false
 }
 
-// SetInput gets a reference to the given NullableInput5 and assigns it to the Input field.
-func (o *WorkflowExecutionRequest) SetInput(v Input5) {
+// SetInput gets a reference to the given NullableInput6 and assigns it to the Input field.
+func (o *WorkflowExecutionRequest) SetInput(v Input6) {
 	o.Input.Set(&v)
 }
 // SetInputNil sets the value for Input to be an explicit nil

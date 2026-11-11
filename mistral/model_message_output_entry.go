@@ -30,7 +30,7 @@ type MessageOutputEntry struct {
 	Model NullableString `json:"model,omitempty"`
 	Id *string `json:"id,omitempty"`
 	Role *string `json:"role,omitempty"`
-	Content Content1 `json:"content"`
+	Content Content2 `json:"content"`
 }
 
 type _MessageOutputEntry MessageOutputEntry
@@ -39,7 +39,7 @@ type _MessageOutputEntry MessageOutputEntry
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewMessageOutputEntry(content Content1) *MessageOutputEntry {
+func NewMessageOutputEntry(content Content2) *MessageOutputEntry {
 	this := MessageOutputEntry{}
 	var object string = "entry"
 	this.Object = &object
@@ -352,9 +352,9 @@ func (o *MessageOutputEntry) SetRole(v string) {
 }
 
 // GetContent returns the Content field value
-func (o *MessageOutputEntry) GetContent() Content1 {
+func (o *MessageOutputEntry) GetContent() Content2 {
 	if o == nil {
-		var ret Content1
+		var ret Content2
 		return ret
 	}
 
@@ -363,7 +363,7 @@ func (o *MessageOutputEntry) GetContent() Content1 {
 
 // GetContentOk returns a tuple with the Content field value
 // and a boolean to check if the value has been set.
-func (o *MessageOutputEntry) GetContentOk() (*Content1, bool) {
+func (o *MessageOutputEntry) GetContentOk() (*Content2, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -371,7 +371,7 @@ func (o *MessageOutputEntry) GetContentOk() (*Content1, bool) {
 }
 
 // SetContent sets field value
-func (o *MessageOutputEntry) SetContent(v Content1) {
+func (o *MessageOutputEntry) SetContent(v Content2) {
 	o.Content = v
 }
 

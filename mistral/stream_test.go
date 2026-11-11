@@ -93,7 +93,7 @@ func TestChatCompletionStreamLive(t *testing.T) {
 		Model: "mistral-small-latest",
 		Messages: []MessagesInner{UserMessageAsMessagesInner(&UserMessage{
 			Role:    PtrString("user"),
-			Content: *NewNullableContent3(&Content3{String: PtrString("Count from 1 to 5.")}),
+			Content: *NewNullableContent4(&Content4{String: PtrString("Count from 1 to 5.")}),
 		})},
 	}
 

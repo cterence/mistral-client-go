@@ -24,6 +24,119 @@ import (
 // WorkflowsAPIService WorkflowsAPI service
 type WorkflowsAPIService service
 
+type ApiAddWorkflowTagsV1WorkflowsWorkflowIdentifierTagsPostRequest struct {
+	ctx context.Context
+	ApiService *WorkflowsAPIService
+	workflowIdentifier string
+	workflowTagsAddRequest *WorkflowTagsAddRequest
+}
+
+func (r ApiAddWorkflowTagsV1WorkflowsWorkflowIdentifierTagsPostRequest) WorkflowTagsAddRequest(workflowTagsAddRequest WorkflowTagsAddRequest) ApiAddWorkflowTagsV1WorkflowsWorkflowIdentifierTagsPostRequest {
+	r.workflowTagsAddRequest = &workflowTagsAddRequest
+	return r
+}
+
+func (r ApiAddWorkflowTagsV1WorkflowsWorkflowIdentifierTagsPostRequest) Execute() (*http.Response, error) {
+	return r.ApiService.AddWorkflowTagsV1WorkflowsWorkflowIdentifierTagsPostExecute(r)
+}
+
+/*
+AddWorkflowTagsV1WorkflowsWorkflowIdentifierTagsPost Add Workflow Tags
+
+Add Workflow Tags
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param workflowIdentifier
+ @return ApiAddWorkflowTagsV1WorkflowsWorkflowIdentifierTagsPostRequest
+*/
+func (a *WorkflowsAPIService) AddWorkflowTagsV1WorkflowsWorkflowIdentifierTagsPost(ctx context.Context, workflowIdentifier string) ApiAddWorkflowTagsV1WorkflowsWorkflowIdentifierTagsPostRequest {
+	return ApiAddWorkflowTagsV1WorkflowsWorkflowIdentifierTagsPostRequest{
+		ApiService: a,
+		ctx: ctx,
+		workflowIdentifier: workflowIdentifier,
+	}
+}
+
+// Execute executes the request
+func (a *WorkflowsAPIService) AddWorkflowTagsV1WorkflowsWorkflowIdentifierTagsPostExecute(r ApiAddWorkflowTagsV1WorkflowsWorkflowIdentifierTagsPostRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodPost
+		localVarPostBody     interface{}
+		formFiles            []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "WorkflowsAPIService.AddWorkflowTagsV1WorkflowsWorkflowIdentifierTagsPost")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/workflows/{workflow_identifier}/tags"
+	localVarPath = strings.Replace(localVarPath, "{"+"workflow_identifier"+"}", url.PathEscape(parameterValueToString(r.workflowIdentifier, "workflowIdentifier")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.workflowTagsAddRequest == nil {
+		return nil, reportError("workflowTagsAddRequest is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.workflowTagsAddRequest
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 422 {
+			var v HTTPValidationError
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
 type ApiArchiveWorkflowV1WorkflowsWorkflowIdentifierArchivePutRequest struct {
 	ctx context.Context
 	ApiService *WorkflowsAPIService

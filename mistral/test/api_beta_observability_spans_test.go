@@ -46,6 +46,20 @@ func Test_mistral_BetaObservabilitySpansAPIService(t *testing.T) {
 
 	})
 
+	t.Run("Test BetaObservabilitySpansAPIService GetPipelineResultFieldsV1ObservabilityPipelinesPipelineIdResultsFieldsGet", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		var pipelineId string
+
+		resp, httpRes, err := apiClient.BetaObservabilitySpansAPI.GetPipelineResultFieldsV1ObservabilityPipelinesPipelineIdResultsFieldsGet(context.Background(), pipelineId).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
 	t.Run("Test BetaObservabilitySpansAPIService GetSpanEvaluationFieldOptionsV1ObservabilitySpansEvaluationsFieldsFieldNameOptionsGet", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test

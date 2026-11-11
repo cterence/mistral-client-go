@@ -22,7 +22,7 @@ var _ MappedNullable = &ResponsesStreamFrame{}
 // ResponsesStreamFrame struct for ResponsesStreamFrame
 type ResponsesStreamFrame struct {
 	Event string `json:"event"`
-	Data Data4 `json:"data"`
+	Data Data2 `json:"data"`
 }
 
 type _ResponsesStreamFrame ResponsesStreamFrame
@@ -31,7 +31,7 @@ type _ResponsesStreamFrame ResponsesStreamFrame
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewResponsesStreamFrame(event string, data Data4) *ResponsesStreamFrame {
+func NewResponsesStreamFrame(event string, data Data2) *ResponsesStreamFrame {
 	this := ResponsesStreamFrame{}
 	this.Event = event
 	this.Data = data
@@ -71,9 +71,9 @@ func (o *ResponsesStreamFrame) SetEvent(v string) {
 }
 
 // GetData returns the Data field value
-func (o *ResponsesStreamFrame) GetData() Data4 {
+func (o *ResponsesStreamFrame) GetData() Data2 {
 	if o == nil {
-		var ret Data4
+		var ret Data2
 		return ret
 	}
 
@@ -82,7 +82,7 @@ func (o *ResponsesStreamFrame) GetData() Data4 {
 
 // GetDataOk returns a tuple with the Data field value
 // and a boolean to check if the value has been set.
-func (o *ResponsesStreamFrame) GetDataOk() (*Data4, bool) {
+func (o *ResponsesStreamFrame) GetDataOk() (*Data2, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -90,7 +90,7 @@ func (o *ResponsesStreamFrame) GetDataOk() (*Data4, bool) {
 }
 
 // SetData sets field value
-func (o *ResponsesStreamFrame) SetData(v Data4) {
+func (o *ResponsesStreamFrame) SetData(v Data2) {
 	o.Data = v
 }
 

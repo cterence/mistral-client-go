@@ -26,6 +26,7 @@ type GetSpanEvaluation struct {
 	OrganizationId string `json:"organization_id"`
 	WorkspaceId string `json:"workspace_id"`
 	UserId string `json:"user_id"`
+	ServiceAccountId *string `json:"service_account_id,omitempty"`
 	TraceId string `json:"trace_id" validate:"regexp=^[0-9a-f]{32}$"`
 	SpanId string `json:"span_id" validate:"regexp=^[0-9a-f]{16}$"`
 	ResponseId string `json:"response_id"`
@@ -50,6 +51,8 @@ func NewGetSpanEvaluation(customerId string, organizationId string, workspaceId 
 	this.OrganizationId = organizationId
 	this.WorkspaceId = workspaceId
 	this.UserId = userId
+	var serviceAccountId string = ""
+	this.ServiceAccountId = &serviceAccountId
 	this.TraceId = traceId
 	this.SpanId = spanId
 	this.ResponseId = responseId
@@ -68,6 +71,8 @@ func NewGetSpanEvaluation(customerId string, organizationId string, workspaceId 
 // but it doesn't guarantee that properties required by API are set
 func NewGetSpanEvaluationWithDefaults() *GetSpanEvaluation {
 	this := GetSpanEvaluation{}
+	var serviceAccountId string = ""
+	this.ServiceAccountId = &serviceAccountId
 	return &this
 }
 
@@ -165,6 +170,38 @@ func (o *GetSpanEvaluation) GetUserIdOk() (*string, bool) {
 // SetUserId sets field value
 func (o *GetSpanEvaluation) SetUserId(v string) {
 	o.UserId = v
+}
+
+// GetServiceAccountId returns the ServiceAccountId field value if set, zero value otherwise.
+func (o *GetSpanEvaluation) GetServiceAccountId() string {
+	if o == nil || IsNil(o.ServiceAccountId) {
+		var ret string
+		return ret
+	}
+	return *o.ServiceAccountId
+}
+
+// GetServiceAccountIdOk returns a tuple with the ServiceAccountId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *GetSpanEvaluation) GetServiceAccountIdOk() (*string, bool) {
+	if o == nil || IsNil(o.ServiceAccountId) {
+		return nil, false
+	}
+	return o.ServiceAccountId, true
+}
+
+// HasServiceAccountId returns a boolean if a field has been set.
+func (o *GetSpanEvaluation) HasServiceAccountId() bool {
+	if o != nil && !IsNil(o.ServiceAccountId) {
+		return true
+	}
+
+	return false
+}
+
+// SetServiceAccountId gets a reference to the given string and assigns it to the ServiceAccountId field.
+func (o *GetSpanEvaluation) SetServiceAccountId(v string) {
+	o.ServiceAccountId = &v
 }
 
 // GetTraceId returns the TraceId field value
@@ -421,6 +458,9 @@ func (o GetSpanEvaluation) ToMap() (map[string]interface{}, error) {
 	toSerialize["organization_id"] = o.OrganizationId
 	toSerialize["workspace_id"] = o.WorkspaceId
 	toSerialize["user_id"] = o.UserId
+	if !IsNil(o.ServiceAccountId) {
+		toSerialize["service_account_id"] = o.ServiceAccountId
+	}
 	toSerialize["trace_id"] = o.TraceId
 	toSerialize["span_id"] = o.SpanId
 	toSerialize["response_id"] = o.ResponseId

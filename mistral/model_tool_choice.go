@@ -16,39 +16,39 @@ import (
 )
 
 
-// ToolChoice Controls which (if any) tool is called by the model. `none` means the model will not call any tool and instead generates a message. `auto` means the model can pick between generating a message or calling one or more tools. `any` or `required` means the model must call one or more tools. Specifying a particular tool via `{\"type\": \"function\", \"function\": {\"name\": \"my_function\"}}` forces the model to call that tool.
+// ToolChoice struct for ToolChoice
 type ToolChoice struct {
-	ToolChoice *ToolChoice
-	ToolChoiceEnum *ToolChoiceEnum
+	ResponsesToolChoiceFunction *ResponsesToolChoiceFunction
+	String *string
 }
 
 // Unmarshal JSON data into any of the pointers in the struct
 func (dst *ToolChoice) UnmarshalJSON(data []byte) error {
 	var err error
-	// try to unmarshal JSON data into ToolChoice
-	err = json.Unmarshal(data, &dst.ToolChoice);
+	// try to unmarshal JSON data into ResponsesToolChoiceFunction
+	err = json.Unmarshal(data, &dst.ResponsesToolChoiceFunction);
 	if err == nil {
-		jsonToolChoice, _ := json.Marshal(dst.ToolChoice)
-		if string(jsonToolChoice) == "{}" { // empty struct
-			dst.ToolChoice = nil
+		jsonResponsesToolChoiceFunction, _ := json.Marshal(dst.ResponsesToolChoiceFunction)
+		if string(jsonResponsesToolChoiceFunction) == "{}" { // empty struct
+			dst.ResponsesToolChoiceFunction = nil
 		} else {
-			return nil // data stored in dst.ToolChoice, return on the first match
+			return nil // data stored in dst.ResponsesToolChoiceFunction, return on the first match
 		}
 	} else {
-		dst.ToolChoice = nil
+		dst.ResponsesToolChoiceFunction = nil
 	}
 
-	// try to unmarshal JSON data into ToolChoiceEnum
-	err = json.Unmarshal(data, &dst.ToolChoiceEnum);
+	// try to unmarshal JSON data into String
+	err = json.Unmarshal(data, &dst.String);
 	if err == nil {
-		jsonToolChoiceEnum, _ := json.Marshal(dst.ToolChoiceEnum)
-		if string(jsonToolChoiceEnum) == "{}" { // empty struct
-			dst.ToolChoiceEnum = nil
+		jsonString, _ := json.Marshal(dst.String)
+		if string(jsonString) == "{}" { // empty struct
+			dst.String = nil
 		} else {
-			return nil // data stored in dst.ToolChoiceEnum, return on the first match
+			return nil // data stored in dst.String, return on the first match
 		}
 	} else {
-		dst.ToolChoiceEnum = nil
+		dst.String = nil
 	}
 
 	return fmt.Errorf("data failed to match schemas in anyOf(ToolChoice)")
@@ -56,12 +56,12 @@ func (dst *ToolChoice) UnmarshalJSON(data []byte) error {
 
 // Marshal data from the first non-nil pointers in the struct to JSON
 func (src ToolChoice) MarshalJSON() ([]byte, error) {
-	if src.ToolChoice != nil {
-		return json.Marshal(&src.ToolChoice)
+	if src.ResponsesToolChoiceFunction != nil {
+		return json.Marshal(&src.ResponsesToolChoiceFunction)
 	}
 
-	if src.ToolChoiceEnum != nil {
-		return json.Marshal(&src.ToolChoiceEnum)
+	if src.String != nil {
+		return json.Marshal(&src.String)
 	}
 
 	return nil, nil // no data in anyOf schemas

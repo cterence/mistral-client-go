@@ -26,7 +26,7 @@ type ConversationStreamRequest struct {
 	Store *bool `json:"store,omitempty"`
 	HandoffExecution *string `json:"handoff_execution,omitempty"`
 	Instructions *string `json:"instructions,omitempty"`
-	Tools []ToolsInner `json:"tools,omitempty"`
+	Tools []ToolsInner2 `json:"tools,omitempty"`
 	CompletionArgs *CompletionArgs `json:"completion_args,omitempty"`
 	Guardrails []GuardrailConfig `json:"guardrails,omitempty"`
 	Name *string `json:"name,omitempty"`
@@ -215,9 +215,9 @@ func (o *ConversationStreamRequest) SetInstructions(v string) {
 }
 
 // GetTools returns the Tools field value if set, zero value otherwise.
-func (o *ConversationStreamRequest) GetTools() []ToolsInner {
+func (o *ConversationStreamRequest) GetTools() []ToolsInner2 {
 	if o == nil || IsNil(o.Tools) {
-		var ret []ToolsInner
+		var ret []ToolsInner2
 		return ret
 	}
 	return o.Tools
@@ -225,7 +225,7 @@ func (o *ConversationStreamRequest) GetTools() []ToolsInner {
 
 // GetToolsOk returns a tuple with the Tools field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ConversationStreamRequest) GetToolsOk() ([]ToolsInner, bool) {
+func (o *ConversationStreamRequest) GetToolsOk() ([]ToolsInner2, bool) {
 	if o == nil || IsNil(o.Tools) {
 		return nil, false
 	}
@@ -241,8 +241,8 @@ func (o *ConversationStreamRequest) HasTools() bool {
 	return false
 }
 
-// SetTools gets a reference to the given []ToolsInner and assigns it to the Tools field.
-func (o *ConversationStreamRequest) SetTools(v []ToolsInner) {
+// SetTools gets a reference to the given []ToolsInner2 and assigns it to the Tools field.
+func (o *ConversationStreamRequest) SetTools(v []ToolsInner2) {
 	o.Tools = v
 }
 

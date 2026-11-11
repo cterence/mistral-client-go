@@ -16,7 +16,7 @@ import (
 	"gopkg.in/validator.v2"
 )
 
-// CustomConnectorAuthorization - struct for CustomConnectorAuthorization
+// CustomConnectorAuthorization - Deprecated: per-request connector credentials will be removed. Authenticate the connector through the Connectors API instead.
 type CustomConnectorAuthorization struct {
 	APIKeyAuth *APIKeyAuth
 	OAuth2TokenAuth *OAuth2TokenAuth

@@ -21,7 +21,7 @@ var _ MappedNullable = &ChatModerationRequest{}
 
 // ChatModerationRequest struct for ChatModerationRequest
 type ChatModerationRequest struct {
-	Input Input `json:"input"`
+	Input Input1 `json:"input"`
 	Model string `json:"model"`
 }
 
@@ -31,7 +31,7 @@ type _ChatModerationRequest ChatModerationRequest
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewChatModerationRequest(input Input, model string) *ChatModerationRequest {
+func NewChatModerationRequest(input Input1, model string) *ChatModerationRequest {
 	this := ChatModerationRequest{}
 	this.Input = input
 	this.Model = model
@@ -47,9 +47,9 @@ func NewChatModerationRequestWithDefaults() *ChatModerationRequest {
 }
 
 // GetInput returns the Input field value
-func (o *ChatModerationRequest) GetInput() Input {
+func (o *ChatModerationRequest) GetInput() Input1 {
 	if o == nil {
-		var ret Input
+		var ret Input1
 		return ret
 	}
 
@@ -58,7 +58,7 @@ func (o *ChatModerationRequest) GetInput() Input {
 
 // GetInputOk returns a tuple with the Input field value
 // and a boolean to check if the value has been set.
-func (o *ChatModerationRequest) GetInputOk() (*Input, bool) {
+func (o *ChatModerationRequest) GetInputOk() (*Input1, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -66,7 +66,7 @@ func (o *ChatModerationRequest) GetInputOk() (*Input, bool) {
 }
 
 // SetInput sets field value
-func (o *ChatModerationRequest) SetInput(v Input) {
+func (o *ChatModerationRequest) SetInput(v Input1) {
 	o.Input = v
 }
 

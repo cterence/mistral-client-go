@@ -47,8 +47,6 @@ type MCPConnector struct {
 	Mistral *bool `json:"mistral,omitempty"`
 	IsAuthenticated NullableBool `json:"is_authenticated,omitempty"`
 	Tools []ConnectorTool `json:"tools,omitempty"`
-	ConnectionConfig NullablePublicConnectionConfig `json:"connection_config,omitempty"`
-	ExecutionEnv NullablePublicExecutionEnv `json:"execution_env,omitempty"`
 	Protocol string `json:"protocol"`
 }
 
@@ -875,90 +873,6 @@ func (o *MCPConnector) SetTools(v []ConnectorTool) {
 	o.Tools = v
 }
 
-// GetConnectionConfig returns the ConnectionConfig field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *MCPConnector) GetConnectionConfig() PublicConnectionConfig {
-	if o == nil || IsNil(o.ConnectionConfig.Get()) {
-		var ret PublicConnectionConfig
-		return ret
-	}
-	return *o.ConnectionConfig.Get()
-}
-
-// GetConnectionConfigOk returns a tuple with the ConnectionConfig field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *MCPConnector) GetConnectionConfigOk() (*PublicConnectionConfig, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return o.ConnectionConfig.Get(), o.ConnectionConfig.IsSet()
-}
-
-// HasConnectionConfig returns a boolean if a field has been set.
-func (o *MCPConnector) HasConnectionConfig() bool {
-	if o != nil && o.ConnectionConfig.IsSet() {
-		return true
-	}
-
-	return false
-}
-
-// SetConnectionConfig gets a reference to the given NullablePublicConnectionConfig and assigns it to the ConnectionConfig field.
-func (o *MCPConnector) SetConnectionConfig(v PublicConnectionConfig) {
-	o.ConnectionConfig.Set(&v)
-}
-// SetConnectionConfigNil sets the value for ConnectionConfig to be an explicit nil
-func (o *MCPConnector) SetConnectionConfigNil() {
-	o.ConnectionConfig.Set(nil)
-}
-
-// UnsetConnectionConfig ensures that no value is present for ConnectionConfig, not even an explicit nil
-func (o *MCPConnector) UnsetConnectionConfig() {
-	o.ConnectionConfig.Unset()
-}
-
-// GetExecutionEnv returns the ExecutionEnv field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *MCPConnector) GetExecutionEnv() PublicExecutionEnv {
-	if o == nil || IsNil(o.ExecutionEnv.Get()) {
-		var ret PublicExecutionEnv
-		return ret
-	}
-	return *o.ExecutionEnv.Get()
-}
-
-// GetExecutionEnvOk returns a tuple with the ExecutionEnv field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *MCPConnector) GetExecutionEnvOk() (*PublicExecutionEnv, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return o.ExecutionEnv.Get(), o.ExecutionEnv.IsSet()
-}
-
-// HasExecutionEnv returns a boolean if a field has been set.
-func (o *MCPConnector) HasExecutionEnv() bool {
-	if o != nil && o.ExecutionEnv.IsSet() {
-		return true
-	}
-
-	return false
-}
-
-// SetExecutionEnv gets a reference to the given NullablePublicExecutionEnv and assigns it to the ExecutionEnv field.
-func (o *MCPConnector) SetExecutionEnv(v PublicExecutionEnv) {
-	o.ExecutionEnv.Set(&v)
-}
-// SetExecutionEnvNil sets the value for ExecutionEnv to be an explicit nil
-func (o *MCPConnector) SetExecutionEnvNil() {
-	o.ExecutionEnv.Set(nil)
-}
-
-// UnsetExecutionEnv ensures that no value is present for ExecutionEnv, not even an explicit nil
-func (o *MCPConnector) UnsetExecutionEnv() {
-	o.ExecutionEnv.Unset()
-}
-
 // GetProtocol returns the Protocol field value
 func (o *MCPConnector) GetProtocol() string {
 	if o == nil {
@@ -1046,12 +960,6 @@ func (o MCPConnector) ToMap() (map[string]interface{}, error) {
 	}
 	if o.Tools != nil {
 		toSerialize["tools"] = o.Tools
-	}
-	if o.ConnectionConfig.IsSet() {
-		toSerialize["connection_config"] = o.ConnectionConfig.Get()
-	}
-	if o.ExecutionEnv.IsSet() {
-		toSerialize["execution_env"] = o.ExecutionEnv.Get()
 	}
 	toSerialize["protocol"] = o.Protocol
 	return toSerialize, nil

@@ -12,8 +12,6 @@ package mistral
 
 import (
 	"encoding/json"
-	"bytes"
-	"fmt"
 )
 
 // checks if the DeploymentWorkerSpecInput type satisfies the MappedNullable interface at compile time
@@ -21,21 +19,23 @@ var _ MappedNullable = &DeploymentWorkerSpecInput{}
 
 // DeploymentWorkerSpecInput struct for DeploymentWorkerSpecInput
 type DeploymentWorkerSpecInput struct {
-	GithubUrl string `json:"github_url"`
+	// GitHub repository to build the worker from. Set this or 'archive_id', not both.
+	GithubUrl NullableString `json:"github_url,omitempty"`
 	Revision NullableString `json:"revision,omitempty"`
+	// Mistral Cloud archive to build the worker from instead of a repository. The archive is the whole build context: 'dockerfile_path' is relative to its root, and 'build_directory' must be unset.
+	ArchiveId NullableString `json:"archive_id,omitempty"`
 	// Backend-specific configuration for the Mistral Cloud backend.
 	BackendSpec NullableDeploymentMistralCloudBackendSpec `json:"backend_spec,omitempty"`
+	// Workspace roles, by name, that the deployment's service account holds beyond `workflow_executor`. Granted only if the deploying user holds them.
+	RequestedRoles []string `json:"requested_roles,omitempty"`
 }
-
-type _DeploymentWorkerSpecInput DeploymentWorkerSpecInput
 
 // NewDeploymentWorkerSpecInput instantiates a new DeploymentWorkerSpecInput object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewDeploymentWorkerSpecInput(githubUrl string) *DeploymentWorkerSpecInput {
+func NewDeploymentWorkerSpecInput() *DeploymentWorkerSpecInput {
 	this := DeploymentWorkerSpecInput{}
-	this.GithubUrl = githubUrl
 	return &this
 }
 
@@ -47,28 +47,46 @@ func NewDeploymentWorkerSpecInputWithDefaults() *DeploymentWorkerSpecInput {
 	return &this
 }
 
-// GetGithubUrl returns the GithubUrl field value
+// GetGithubUrl returns the GithubUrl field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *DeploymentWorkerSpecInput) GetGithubUrl() string {
-	if o == nil {
+	if o == nil || IsNil(o.GithubUrl.Get()) {
 		var ret string
 		return ret
 	}
-
-	return o.GithubUrl
+	return *o.GithubUrl.Get()
 }
 
-// GetGithubUrlOk returns a tuple with the GithubUrl field value
+// GetGithubUrlOk returns a tuple with the GithubUrl field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *DeploymentWorkerSpecInput) GetGithubUrlOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.GithubUrl, true
+	return o.GithubUrl.Get(), o.GithubUrl.IsSet()
 }
 
-// SetGithubUrl sets field value
+// HasGithubUrl returns a boolean if a field has been set.
+func (o *DeploymentWorkerSpecInput) HasGithubUrl() bool {
+	if o != nil && o.GithubUrl.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetGithubUrl gets a reference to the given NullableString and assigns it to the GithubUrl field.
 func (o *DeploymentWorkerSpecInput) SetGithubUrl(v string) {
-	o.GithubUrl = v
+	o.GithubUrl.Set(&v)
+}
+// SetGithubUrlNil sets the value for GithubUrl to be an explicit nil
+func (o *DeploymentWorkerSpecInput) SetGithubUrlNil() {
+	o.GithubUrl.Set(nil)
+}
+
+// UnsetGithubUrl ensures that no value is present for GithubUrl, not even an explicit nil
+func (o *DeploymentWorkerSpecInput) UnsetGithubUrl() {
+	o.GithubUrl.Unset()
 }
 
 // GetRevision returns the Revision field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -113,6 +131,48 @@ func (o *DeploymentWorkerSpecInput) UnsetRevision() {
 	o.Revision.Unset()
 }
 
+// GetArchiveId returns the ArchiveId field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *DeploymentWorkerSpecInput) GetArchiveId() string {
+	if o == nil || IsNil(o.ArchiveId.Get()) {
+		var ret string
+		return ret
+	}
+	return *o.ArchiveId.Get()
+}
+
+// GetArchiveIdOk returns a tuple with the ArchiveId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *DeploymentWorkerSpecInput) GetArchiveIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.ArchiveId.Get(), o.ArchiveId.IsSet()
+}
+
+// HasArchiveId returns a boolean if a field has been set.
+func (o *DeploymentWorkerSpecInput) HasArchiveId() bool {
+	if o != nil && o.ArchiveId.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetArchiveId gets a reference to the given NullableString and assigns it to the ArchiveId field.
+func (o *DeploymentWorkerSpecInput) SetArchiveId(v string) {
+	o.ArchiveId.Set(&v)
+}
+// SetArchiveIdNil sets the value for ArchiveId to be an explicit nil
+func (o *DeploymentWorkerSpecInput) SetArchiveIdNil() {
+	o.ArchiveId.Set(nil)
+}
+
+// UnsetArchiveId ensures that no value is present for ArchiveId, not even an explicit nil
+func (o *DeploymentWorkerSpecInput) UnsetArchiveId() {
+	o.ArchiveId.Unset()
+}
+
 // GetBackendSpec returns the BackendSpec field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *DeploymentWorkerSpecInput) GetBackendSpec() DeploymentMistralCloudBackendSpec {
 	if o == nil || IsNil(o.BackendSpec.Get()) {
@@ -155,6 +215,39 @@ func (o *DeploymentWorkerSpecInput) UnsetBackendSpec() {
 	o.BackendSpec.Unset()
 }
 
+// GetRequestedRoles returns the RequestedRoles field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *DeploymentWorkerSpecInput) GetRequestedRoles() []string {
+	if o == nil {
+		var ret []string
+		return ret
+	}
+	return o.RequestedRoles
+}
+
+// GetRequestedRolesOk returns a tuple with the RequestedRoles field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *DeploymentWorkerSpecInput) GetRequestedRolesOk() ([]string, bool) {
+	if o == nil || IsNil(o.RequestedRoles) {
+		return nil, false
+	}
+	return o.RequestedRoles, true
+}
+
+// HasRequestedRoles returns a boolean if a field has been set.
+func (o *DeploymentWorkerSpecInput) HasRequestedRoles() bool {
+	if o != nil && !IsNil(o.RequestedRoles) {
+		return true
+	}
+
+	return false
+}
+
+// SetRequestedRoles gets a reference to the given []string and assigns it to the RequestedRoles field.
+func (o *DeploymentWorkerSpecInput) SetRequestedRoles(v []string) {
+	o.RequestedRoles = v
+}
+
 func (o DeploymentWorkerSpecInput) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -165,50 +258,22 @@ func (o DeploymentWorkerSpecInput) MarshalJSON() ([]byte, error) {
 
 func (o DeploymentWorkerSpecInput) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["github_url"] = o.GithubUrl
+	if o.GithubUrl.IsSet() {
+		toSerialize["github_url"] = o.GithubUrl.Get()
+	}
 	if o.Revision.IsSet() {
 		toSerialize["revision"] = o.Revision.Get()
+	}
+	if o.ArchiveId.IsSet() {
+		toSerialize["archive_id"] = o.ArchiveId.Get()
 	}
 	if o.BackendSpec.IsSet() {
 		toSerialize["backend_spec"] = o.BackendSpec.Get()
 	}
+	if o.RequestedRoles != nil {
+		toSerialize["requested_roles"] = o.RequestedRoles
+	}
 	return toSerialize, nil
-}
-
-func (o *DeploymentWorkerSpecInput) UnmarshalJSON(data []byte) (err error) {
-	// This validates that all required properties are included in the JSON object
-	// by unmarshalling the object into a generic map with string keys and checking
-	// that every required field exists as a key in the generic map.
-	requiredProperties := []string{
-		"github_url",
-	}
-
-	allProperties := make(map[string]interface{})
-
-	err = json.Unmarshal(data, &allProperties)
-
-	if err != nil {
-		return err;
-	}
-
-	for _, requiredProperty := range(requiredProperties) {
-		if _, exists := allProperties[requiredProperty]; !exists {
-			return fmt.Errorf("no value given for required property %v", requiredProperty)
-		}
-	}
-
-	varDeploymentWorkerSpecInput := _DeploymentWorkerSpecInput{}
-
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	err = decoder.Decode(&varDeploymentWorkerSpecInput)
-
-	if err != nil {
-		return err
-	}
-
-	*o = DeploymentWorkerSpecInput(varDeploymentWorkerSpecInput)
-
-	return err
 }
 
 type NullableDeploymentWorkerSpecInput struct {

@@ -258,6 +258,122 @@ func (a *WorkflowsDeploymentsAPIService) DeleteDeploymentV1WorkflowsDeploymentsN
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+type ApiGetDeploymentArchiveV1WorkflowsDeploymentsNameArchiveGetRequest struct {
+	ctx context.Context
+	ApiService *WorkflowsDeploymentsAPIService
+	name string
+}
+
+func (r ApiGetDeploymentArchiveV1WorkflowsDeploymentsNameArchiveGetRequest) Execute() (*DeploymentArchiveResponse, *http.Response, error) {
+	return r.ApiService.GetDeploymentArchiveV1WorkflowsDeploymentsNameArchiveGetExecute(r)
+}
+
+/*
+GetDeploymentArchiveV1WorkflowsDeploymentsNameArchiveGet Get Deployment Archive
+
+Get the archive a managed deployment builds from, with a signed URL to download it.
+
+`download_url` expires within 24 hours, and is null once Mistral Cloud has deleted the archive.
+A deployment that builds from a repository answers 404.
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param name
+ @return ApiGetDeploymentArchiveV1WorkflowsDeploymentsNameArchiveGetRequest
+*/
+func (a *WorkflowsDeploymentsAPIService) GetDeploymentArchiveV1WorkflowsDeploymentsNameArchiveGet(ctx context.Context, name string) ApiGetDeploymentArchiveV1WorkflowsDeploymentsNameArchiveGetRequest {
+	return ApiGetDeploymentArchiveV1WorkflowsDeploymentsNameArchiveGetRequest{
+		ApiService: a,
+		ctx: ctx,
+		name: name,
+	}
+}
+
+// Execute executes the request
+//  @return DeploymentArchiveResponse
+func (a *WorkflowsDeploymentsAPIService) GetDeploymentArchiveV1WorkflowsDeploymentsNameArchiveGetExecute(r ApiGetDeploymentArchiveV1WorkflowsDeploymentsNameArchiveGetRequest) (*DeploymentArchiveResponse, *http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *DeploymentArchiveResponse
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "WorkflowsDeploymentsAPIService.GetDeploymentArchiveV1WorkflowsDeploymentsNameArchiveGet")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/workflows/deployments/{name}/archive"
+	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(parameterValueToString(r.name, "name")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 422 {
+			var v HTTPValidationError
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
 type ApiGetDeploymentLogsRequest struct {
 	ctx context.Context
 	ApiService *WorkflowsDeploymentsAPIService
@@ -754,6 +870,8 @@ type ApiListDeploymentsV1WorkflowsDeploymentsGetRequest struct {
 	limit *int32
 	cursor *string
 	workspaceId *string
+	repositoryUrl *string
+	dockerfilePath *string
 }
 
 func (r ApiListDeploymentsV1WorkflowsDeploymentsGetRequest) ActiveOnly(activeOnly bool) ApiListDeploymentsV1WorkflowsDeploymentsGetRequest {
@@ -823,6 +941,18 @@ func (r ApiListDeploymentsV1WorkflowsDeploymentsGetRequest) Cursor(cursor string
 // Workspace ID to scope the request to. Defaults to the caller&#39;s context.
 func (r ApiListDeploymentsV1WorkflowsDeploymentsGetRequest) WorkspaceId(workspaceId string) ApiListDeploymentsV1WorkflowsDeploymentsGetRequest {
 	r.workspaceId = &workspaceId
+	return r
+}
+
+// Filter managed deployments by source repository URL (exact match)
+func (r ApiListDeploymentsV1WorkflowsDeploymentsGetRequest) RepositoryUrl(repositoryUrl string) ApiListDeploymentsV1WorkflowsDeploymentsGetRequest {
+	r.repositoryUrl = &repositoryUrl
+	return r
+}
+
+// Filter managed deployments by Dockerfile path (exact match)
+func (r ApiListDeploymentsV1WorkflowsDeploymentsGetRequest) DockerfilePath(dockerfilePath string) ApiListDeploymentsV1WorkflowsDeploymentsGetRequest {
+	r.dockerfilePath = &dockerfilePath
 	return r
 }
 
@@ -917,6 +1047,12 @@ func (a *WorkflowsDeploymentsAPIService) ListDeploymentsV1WorkflowsDeploymentsGe
 	}
 	if r.workspaceId != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "workspace_id", r.workspaceId, "form", "")
+	}
+	if r.repositoryUrl != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "repository_url", r.repositoryUrl, "form", "")
+	}
+	if r.dockerfilePath != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "dockerfile_path", r.dockerfilePath, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}

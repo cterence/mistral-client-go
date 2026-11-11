@@ -24,7 +24,7 @@ type CreateJudgeRequest struct {
 	Name string `json:"name"`
 	Description string `json:"description"`
 	ModelName string `json:"model_name"`
-	Output Output `json:"output"`
+	Output Output1 `json:"output"`
 	Instructions string `json:"instructions"`
 	Tools []string `json:"tools"`
 }
@@ -35,7 +35,7 @@ type _CreateJudgeRequest CreateJudgeRequest
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCreateJudgeRequest(name string, description string, modelName string, output Output, instructions string, tools []string) *CreateJudgeRequest {
+func NewCreateJudgeRequest(name string, description string, modelName string, output Output1, instructions string, tools []string) *CreateJudgeRequest {
 	this := CreateJudgeRequest{}
 	this.Name = name
 	this.Description = description
@@ -127,9 +127,9 @@ func (o *CreateJudgeRequest) SetModelName(v string) {
 }
 
 // GetOutput returns the Output field value
-func (o *CreateJudgeRequest) GetOutput() Output {
+func (o *CreateJudgeRequest) GetOutput() Output1 {
 	if o == nil {
-		var ret Output
+		var ret Output1
 		return ret
 	}
 
@@ -138,7 +138,7 @@ func (o *CreateJudgeRequest) GetOutput() Output {
 
 // GetOutputOk returns a tuple with the Output field value
 // and a boolean to check if the value has been set.
-func (o *CreateJudgeRequest) GetOutputOk() (*Output, bool) {
+func (o *CreateJudgeRequest) GetOutputOk() (*Output1, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -146,7 +146,7 @@ func (o *CreateJudgeRequest) GetOutputOk() (*Output, bool) {
 }
 
 // SetOutput sets field value
-func (o *CreateJudgeRequest) SetOutput(v Output) {
+func (o *CreateJudgeRequest) SetOutput(v Output1) {
 	o.Output = v
 }
 

@@ -42,6 +42,10 @@ type APIKeyExtendedOUT struct {
 	WorkspaceName NullableString `json:"workspace_name"`
 	// User or API key that created this API key.
 	CreatedBy NullableString `json:"created_by"`
+	// ID of the user who owns the API key. Null for keys not owned by a user.
+	UserId NullableString `json:"user_id,omitempty"`
+	// ID of the service account that owns the API key. Null for keys not owned by a service account.
+	ServiceAccountId NullableString `json:"service_account_id,omitempty"`
 	// Product the API key belongs to.
 	Product NullableAPIKeyProduct `json:"product"`
 	// Date when the API key was last used.
@@ -336,6 +340,90 @@ func (o *APIKeyExtendedOUT) SetCreatedBy(v string) {
 	o.CreatedBy.Set(&v)
 }
 
+// GetUserId returns the UserId field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *APIKeyExtendedOUT) GetUserId() string {
+	if o == nil || IsNil(o.UserId.Get()) {
+		var ret string
+		return ret
+	}
+	return *o.UserId.Get()
+}
+
+// GetUserIdOk returns a tuple with the UserId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *APIKeyExtendedOUT) GetUserIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.UserId.Get(), o.UserId.IsSet()
+}
+
+// HasUserId returns a boolean if a field has been set.
+func (o *APIKeyExtendedOUT) HasUserId() bool {
+	if o != nil && o.UserId.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetUserId gets a reference to the given NullableString and assigns it to the UserId field.
+func (o *APIKeyExtendedOUT) SetUserId(v string) {
+	o.UserId.Set(&v)
+}
+// SetUserIdNil sets the value for UserId to be an explicit nil
+func (o *APIKeyExtendedOUT) SetUserIdNil() {
+	o.UserId.Set(nil)
+}
+
+// UnsetUserId ensures that no value is present for UserId, not even an explicit nil
+func (o *APIKeyExtendedOUT) UnsetUserId() {
+	o.UserId.Unset()
+}
+
+// GetServiceAccountId returns the ServiceAccountId field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *APIKeyExtendedOUT) GetServiceAccountId() string {
+	if o == nil || IsNil(o.ServiceAccountId.Get()) {
+		var ret string
+		return ret
+	}
+	return *o.ServiceAccountId.Get()
+}
+
+// GetServiceAccountIdOk returns a tuple with the ServiceAccountId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *APIKeyExtendedOUT) GetServiceAccountIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.ServiceAccountId.Get(), o.ServiceAccountId.IsSet()
+}
+
+// HasServiceAccountId returns a boolean if a field has been set.
+func (o *APIKeyExtendedOUT) HasServiceAccountId() bool {
+	if o != nil && o.ServiceAccountId.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetServiceAccountId gets a reference to the given NullableString and assigns it to the ServiceAccountId field.
+func (o *APIKeyExtendedOUT) SetServiceAccountId(v string) {
+	o.ServiceAccountId.Set(&v)
+}
+// SetServiceAccountIdNil sets the value for ServiceAccountId to be an explicit nil
+func (o *APIKeyExtendedOUT) SetServiceAccountIdNil() {
+	o.ServiceAccountId.Set(nil)
+}
+
+// UnsetServiceAccountId ensures that no value is present for ServiceAccountId, not even an explicit nil
+func (o *APIKeyExtendedOUT) UnsetServiceAccountId() {
+	o.ServiceAccountId.Unset()
+}
+
 // GetProduct returns the Product field value
 // If the value is explicit nil, the zero value for APIKeyProduct will be returned
 func (o *APIKeyExtendedOUT) GetProduct() APIKeyProduct {
@@ -434,6 +522,12 @@ func (o APIKeyExtendedOUT) ToMap() (map[string]interface{}, error) {
 	toSerialize["workspace_id"] = o.WorkspaceId.Get()
 	toSerialize["workspace_name"] = o.WorkspaceName.Get()
 	toSerialize["created_by"] = o.CreatedBy.Get()
+	if o.UserId.IsSet() {
+		toSerialize["user_id"] = o.UserId.Get()
+	}
+	if o.ServiceAccountId.IsSet() {
+		toSerialize["service_account_id"] = o.ServiceAccountId.Get()
+	}
 	toSerialize["product"] = o.Product.Get()
 	toSerialize["last_used"] = o.LastUsed.Get()
 	toSerialize["can_delete"] = o.CanDelete.Get()

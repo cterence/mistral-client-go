@@ -16,7 +16,7 @@ import (
 )
 
 
-// Input2 Text to embed.
+// Input2 Text to classify.
 type Input2 struct {
 	ArrayOfString *[]string
 	String *string

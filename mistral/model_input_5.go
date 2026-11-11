@@ -16,8 +16,9 @@ import (
 )
 
 
-// Input5 The input to the workflow. This should be a dictionary or a BaseModel that matches the workflow's input schema.
+// Input5 Input data for the signal, matching its schema
 type Input5 struct {
+	NetworkEncodedInput *NetworkEncodedInput
 	MapmapOfStringAny *map[string]interface{}
 }
 
@@ -27,6 +28,19 @@ func (dst *Input5) UnmarshalJSON(data []byte) error {
 	// this object is nullable so check if the payload is null or empty string
 	if string(data) == "" || string(data) == "{}" {
 		return nil
+	}
+
+	// try to unmarshal JSON data into NetworkEncodedInput
+	err = json.Unmarshal(data, &dst.NetworkEncodedInput);
+	if err == nil {
+		jsonNetworkEncodedInput, _ := json.Marshal(dst.NetworkEncodedInput)
+		if string(jsonNetworkEncodedInput) == "{}" { // empty struct
+			dst.NetworkEncodedInput = nil
+		} else {
+			return nil // data stored in dst.NetworkEncodedInput, return on the first match
+		}
+	} else {
+		dst.NetworkEncodedInput = nil
 	}
 
 	// try to unmarshal JSON data into MapmapOfStringAny
@@ -47,6 +61,10 @@ func (dst *Input5) UnmarshalJSON(data []byte) error {
 
 // Marshal data from the first non-nil pointers in the struct to JSON
 func (src Input5) MarshalJSON() ([]byte, error) {
+	if src.NetworkEncodedInput != nil {
+		return json.Marshal(&src.NetworkEncodedInput)
+	}
+
 	if src.MapmapOfStringAny != nil {
 		return json.Marshal(&src.MapmapOfStringAny)
 	}

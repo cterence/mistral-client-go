@@ -35,6 +35,10 @@ const (
 	USAGETYPE_AUDIO_AGENTS UsageType = "audio_agents"
 	USAGETYPE_CONNECTORS UsageType = "connectors"
 	USAGETYPE_WORKFLOW_EXECUTIONS UsageType = "workflow_executions"
+	USAGETYPE_SKILL_ACTIVATIONS UsageType = "skill_activations"
+	USAGETYPE_MANAGED_INDEX_STORAGE_BYTES UsageType = "managed_index_storage_bytes"
+	USAGETYPE_MANAGED_INDEX_WRITTEN_BYTES UsageType = "managed_index_written_bytes"
+	USAGETYPE_MANAGED_INDEX_SEARCHES UsageType = "managed_index_searches"
 	USAGETYPE_VIBE UsageType = "vibe"
 	USAGETYPE_VIBE_CONNECTORS UsageType = "vibe_connectors"
 	USAGETYPE_VIBE_OCR UsageType = "vibe_ocr"
@@ -59,6 +63,10 @@ var AllowedUsageTypeEnumValues = []UsageType{
 	"audio_agents",
 	"connectors",
 	"workflow_executions",
+	"skill_activations",
+	"managed_index_storage_bytes",
+	"managed_index_written_bytes",
+	"managed_index_searches",
 	"vibe",
 	"vibe_connectors",
 	"vibe_ocr",

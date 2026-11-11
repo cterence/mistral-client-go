@@ -18,141 +18,85 @@ import (
 
 // Data3 - struct for Data3
 type Data3 struct {
-	ActivityTaskCompletedResponse *ActivityTaskCompletedResponse
-	ActivityTaskFailedResponse *ActivityTaskFailedResponse
-	ActivityTaskRetryingResponse *ActivityTaskRetryingResponse
-	ActivityTaskStartedResponse *ActivityTaskStartedResponse
-	CustomTaskCanceledResponse *CustomTaskCanceledResponse
-	CustomTaskCompletedResponse *CustomTaskCompletedResponse
-	CustomTaskFailedResponse *CustomTaskFailedResponse
-	CustomTaskInProgressResponse *CustomTaskInProgressResponse
-	CustomTaskStartedResponse *CustomTaskStartedResponse
-	CustomTaskTimedOutResponse *CustomTaskTimedOutResponse
-	WorkflowExecutionCanceledResponse *WorkflowExecutionCanceledResponse
-	WorkflowExecutionCompletedResponse *WorkflowExecutionCompletedResponse
-	WorkflowExecutionContinuedAsNewResponse *WorkflowExecutionContinuedAsNewResponse
-	WorkflowExecutionFailedResponse *WorkflowExecutionFailedResponse
-	WorkflowExecutionStartedResponse *WorkflowExecutionStartedResponse
-	WorkflowTaskFailedResponse *WorkflowTaskFailedResponse
-	WorkflowTaskTimedOutResponse *WorkflowTaskTimedOutResponse
+	AgentHandoffDoneEvent *AgentHandoffDoneEvent
+	AgentHandoffStartedEvent *AgentHandoffStartedEvent
+	FunctionCallEvent *FunctionCallEvent
+	MessageOutputEvent *MessageOutputEvent
+	ResponseDoneEvent *ResponseDoneEvent
+	ResponseErrorEvent *ResponseErrorEvent
+	ResponseStartedEvent *ResponseStartedEvent
+	ToolExecutionDeltaEvent *ToolExecutionDeltaEvent
+	ToolExecutionDoneEvent *ToolExecutionDoneEvent
+	ToolExecutionStartedEvent *ToolExecutionStartedEvent
 }
 
-// ActivityTaskCompletedResponseAsData3 is a convenience function that returns ActivityTaskCompletedResponse wrapped in Data3
-func ActivityTaskCompletedResponseAsData3(v *ActivityTaskCompletedResponse) Data3 {
+// AgentHandoffDoneEventAsData3 is a convenience function that returns AgentHandoffDoneEvent wrapped in Data3
+func AgentHandoffDoneEventAsData3(v *AgentHandoffDoneEvent) Data3 {
 	return Data3{
-		ActivityTaskCompletedResponse: v,
+		AgentHandoffDoneEvent: v,
 	}
 }
 
-// ActivityTaskFailedResponseAsData3 is a convenience function that returns ActivityTaskFailedResponse wrapped in Data3
-func ActivityTaskFailedResponseAsData3(v *ActivityTaskFailedResponse) Data3 {
+// AgentHandoffStartedEventAsData3 is a convenience function that returns AgentHandoffStartedEvent wrapped in Data3
+func AgentHandoffStartedEventAsData3(v *AgentHandoffStartedEvent) Data3 {
 	return Data3{
-		ActivityTaskFailedResponse: v,
+		AgentHandoffStartedEvent: v,
 	}
 }
 
-// ActivityTaskRetryingResponseAsData3 is a convenience function that returns ActivityTaskRetryingResponse wrapped in Data3
-func ActivityTaskRetryingResponseAsData3(v *ActivityTaskRetryingResponse) Data3 {
+// FunctionCallEventAsData3 is a convenience function that returns FunctionCallEvent wrapped in Data3
+func FunctionCallEventAsData3(v *FunctionCallEvent) Data3 {
 	return Data3{
-		ActivityTaskRetryingResponse: v,
+		FunctionCallEvent: v,
 	}
 }
 
-// ActivityTaskStartedResponseAsData3 is a convenience function that returns ActivityTaskStartedResponse wrapped in Data3
-func ActivityTaskStartedResponseAsData3(v *ActivityTaskStartedResponse) Data3 {
+// MessageOutputEventAsData3 is a convenience function that returns MessageOutputEvent wrapped in Data3
+func MessageOutputEventAsData3(v *MessageOutputEvent) Data3 {
 	return Data3{
-		ActivityTaskStartedResponse: v,
+		MessageOutputEvent: v,
 	}
 }
 
-// CustomTaskCanceledResponseAsData3 is a convenience function that returns CustomTaskCanceledResponse wrapped in Data3
-func CustomTaskCanceledResponseAsData3(v *CustomTaskCanceledResponse) Data3 {
+// ResponseDoneEventAsData3 is a convenience function that returns ResponseDoneEvent wrapped in Data3
+func ResponseDoneEventAsData3(v *ResponseDoneEvent) Data3 {
 	return Data3{
-		CustomTaskCanceledResponse: v,
+		ResponseDoneEvent: v,
 	}
 }
 
-// CustomTaskCompletedResponseAsData3 is a convenience function that returns CustomTaskCompletedResponse wrapped in Data3
-func CustomTaskCompletedResponseAsData3(v *CustomTaskCompletedResponse) Data3 {
+// ResponseErrorEventAsData3 is a convenience function that returns ResponseErrorEvent wrapped in Data3
+func ResponseErrorEventAsData3(v *ResponseErrorEvent) Data3 {
 	return Data3{
-		CustomTaskCompletedResponse: v,
+		ResponseErrorEvent: v,
 	}
 }
 
-// CustomTaskFailedResponseAsData3 is a convenience function that returns CustomTaskFailedResponse wrapped in Data3
-func CustomTaskFailedResponseAsData3(v *CustomTaskFailedResponse) Data3 {
+// ResponseStartedEventAsData3 is a convenience function that returns ResponseStartedEvent wrapped in Data3
+func ResponseStartedEventAsData3(v *ResponseStartedEvent) Data3 {
 	return Data3{
-		CustomTaskFailedResponse: v,
+		ResponseStartedEvent: v,
 	}
 }
 
-// CustomTaskInProgressResponseAsData3 is a convenience function that returns CustomTaskInProgressResponse wrapped in Data3
-func CustomTaskInProgressResponseAsData3(v *CustomTaskInProgressResponse) Data3 {
+// ToolExecutionDeltaEventAsData3 is a convenience function that returns ToolExecutionDeltaEvent wrapped in Data3
+func ToolExecutionDeltaEventAsData3(v *ToolExecutionDeltaEvent) Data3 {
 	return Data3{
-		CustomTaskInProgressResponse: v,
+		ToolExecutionDeltaEvent: v,
 	}
 }
 
-// CustomTaskStartedResponseAsData3 is a convenience function that returns CustomTaskStartedResponse wrapped in Data3
-func CustomTaskStartedResponseAsData3(v *CustomTaskStartedResponse) Data3 {
+// ToolExecutionDoneEventAsData3 is a convenience function that returns ToolExecutionDoneEvent wrapped in Data3
+func ToolExecutionDoneEventAsData3(v *ToolExecutionDoneEvent) Data3 {
 	return Data3{
-		CustomTaskStartedResponse: v,
+		ToolExecutionDoneEvent: v,
 	}
 }
 
-// CustomTaskTimedOutResponseAsData3 is a convenience function that returns CustomTaskTimedOutResponse wrapped in Data3
-func CustomTaskTimedOutResponseAsData3(v *CustomTaskTimedOutResponse) Data3 {
+// ToolExecutionStartedEventAsData3 is a convenience function that returns ToolExecutionStartedEvent wrapped in Data3
+func ToolExecutionStartedEventAsData3(v *ToolExecutionStartedEvent) Data3 {
 	return Data3{
-		CustomTaskTimedOutResponse: v,
-	}
-}
-
-// WorkflowExecutionCanceledResponseAsData3 is a convenience function that returns WorkflowExecutionCanceledResponse wrapped in Data3
-func WorkflowExecutionCanceledResponseAsData3(v *WorkflowExecutionCanceledResponse) Data3 {
-	return Data3{
-		WorkflowExecutionCanceledResponse: v,
-	}
-}
-
-// WorkflowExecutionCompletedResponseAsData3 is a convenience function that returns WorkflowExecutionCompletedResponse wrapped in Data3
-func WorkflowExecutionCompletedResponseAsData3(v *WorkflowExecutionCompletedResponse) Data3 {
-	return Data3{
-		WorkflowExecutionCompletedResponse: v,
-	}
-}
-
-// WorkflowExecutionContinuedAsNewResponseAsData3 is a convenience function that returns WorkflowExecutionContinuedAsNewResponse wrapped in Data3
-func WorkflowExecutionContinuedAsNewResponseAsData3(v *WorkflowExecutionContinuedAsNewResponse) Data3 {
-	return Data3{
-		WorkflowExecutionContinuedAsNewResponse: v,
-	}
-}
-
-// WorkflowExecutionFailedResponseAsData3 is a convenience function that returns WorkflowExecutionFailedResponse wrapped in Data3
-func WorkflowExecutionFailedResponseAsData3(v *WorkflowExecutionFailedResponse) Data3 {
-	return Data3{
-		WorkflowExecutionFailedResponse: v,
-	}
-}
-
-// WorkflowExecutionStartedResponseAsData3 is a convenience function that returns WorkflowExecutionStartedResponse wrapped in Data3
-func WorkflowExecutionStartedResponseAsData3(v *WorkflowExecutionStartedResponse) Data3 {
-	return Data3{
-		WorkflowExecutionStartedResponse: v,
-	}
-}
-
-// WorkflowTaskFailedResponseAsData3 is a convenience function that returns WorkflowTaskFailedResponse wrapped in Data3
-func WorkflowTaskFailedResponseAsData3(v *WorkflowTaskFailedResponse) Data3 {
-	return Data3{
-		WorkflowTaskFailedResponse: v,
-	}
-}
-
-// WorkflowTaskTimedOutResponseAsData3 is a convenience function that returns WorkflowTaskTimedOutResponse wrapped in Data3
-func WorkflowTaskTimedOutResponseAsData3(v *WorkflowTaskTimedOutResponse) Data3 {
-	return Data3{
-		WorkflowTaskTimedOutResponse: v,
+		ToolExecutionStartedEvent: v,
 	}
 }
 
@@ -161,314 +105,188 @@ func WorkflowTaskTimedOutResponseAsData3(v *WorkflowTaskTimedOutResponse) Data3 
 func (dst *Data3) UnmarshalJSON(data []byte) error {
 	var err error
 	match := 0
-	// try to unmarshal data into ActivityTaskCompletedResponse
-	err = newStrictDecoder(data).Decode(&dst.ActivityTaskCompletedResponse)
+	// try to unmarshal data into AgentHandoffDoneEvent
+	err = newStrictDecoder(data).Decode(&dst.AgentHandoffDoneEvent)
 	if err == nil {
-		jsonActivityTaskCompletedResponse, _ := json.Marshal(dst.ActivityTaskCompletedResponse)
-		if string(jsonActivityTaskCompletedResponse) == "{}" { // empty struct
-			dst.ActivityTaskCompletedResponse = nil
+		jsonAgentHandoffDoneEvent, _ := json.Marshal(dst.AgentHandoffDoneEvent)
+		if string(jsonAgentHandoffDoneEvent) == "{}" { // empty struct
+			dst.AgentHandoffDoneEvent = nil
 		} else {
-			if err = validator.Validate(dst.ActivityTaskCompletedResponse); err != nil {
-				dst.ActivityTaskCompletedResponse = nil
+			if err = validator.Validate(dst.AgentHandoffDoneEvent); err != nil {
+				dst.AgentHandoffDoneEvent = nil
 			} else {
 				match++
 			}
 		}
 	} else {
-		dst.ActivityTaskCompletedResponse = nil
+		dst.AgentHandoffDoneEvent = nil
 	}
 
-	// try to unmarshal data into ActivityTaskFailedResponse
-	err = newStrictDecoder(data).Decode(&dst.ActivityTaskFailedResponse)
+	// try to unmarshal data into AgentHandoffStartedEvent
+	err = newStrictDecoder(data).Decode(&dst.AgentHandoffStartedEvent)
 	if err == nil {
-		jsonActivityTaskFailedResponse, _ := json.Marshal(dst.ActivityTaskFailedResponse)
-		if string(jsonActivityTaskFailedResponse) == "{}" { // empty struct
-			dst.ActivityTaskFailedResponse = nil
+		jsonAgentHandoffStartedEvent, _ := json.Marshal(dst.AgentHandoffStartedEvent)
+		if string(jsonAgentHandoffStartedEvent) == "{}" { // empty struct
+			dst.AgentHandoffStartedEvent = nil
 		} else {
-			if err = validator.Validate(dst.ActivityTaskFailedResponse); err != nil {
-				dst.ActivityTaskFailedResponse = nil
+			if err = validator.Validate(dst.AgentHandoffStartedEvent); err != nil {
+				dst.AgentHandoffStartedEvent = nil
 			} else {
 				match++
 			}
 		}
 	} else {
-		dst.ActivityTaskFailedResponse = nil
+		dst.AgentHandoffStartedEvent = nil
 	}
 
-	// try to unmarshal data into ActivityTaskRetryingResponse
-	err = newStrictDecoder(data).Decode(&dst.ActivityTaskRetryingResponse)
+	// try to unmarshal data into FunctionCallEvent
+	err = newStrictDecoder(data).Decode(&dst.FunctionCallEvent)
 	if err == nil {
-		jsonActivityTaskRetryingResponse, _ := json.Marshal(dst.ActivityTaskRetryingResponse)
-		if string(jsonActivityTaskRetryingResponse) == "{}" { // empty struct
-			dst.ActivityTaskRetryingResponse = nil
+		jsonFunctionCallEvent, _ := json.Marshal(dst.FunctionCallEvent)
+		if string(jsonFunctionCallEvent) == "{}" { // empty struct
+			dst.FunctionCallEvent = nil
 		} else {
-			if err = validator.Validate(dst.ActivityTaskRetryingResponse); err != nil {
-				dst.ActivityTaskRetryingResponse = nil
+			if err = validator.Validate(dst.FunctionCallEvent); err != nil {
+				dst.FunctionCallEvent = nil
 			} else {
 				match++
 			}
 		}
 	} else {
-		dst.ActivityTaskRetryingResponse = nil
+		dst.FunctionCallEvent = nil
 	}
 
-	// try to unmarshal data into ActivityTaskStartedResponse
-	err = newStrictDecoder(data).Decode(&dst.ActivityTaskStartedResponse)
+	// try to unmarshal data into MessageOutputEvent
+	err = newStrictDecoder(data).Decode(&dst.MessageOutputEvent)
 	if err == nil {
-		jsonActivityTaskStartedResponse, _ := json.Marshal(dst.ActivityTaskStartedResponse)
-		if string(jsonActivityTaskStartedResponse) == "{}" { // empty struct
-			dst.ActivityTaskStartedResponse = nil
+		jsonMessageOutputEvent, _ := json.Marshal(dst.MessageOutputEvent)
+		if string(jsonMessageOutputEvent) == "{}" { // empty struct
+			dst.MessageOutputEvent = nil
 		} else {
-			if err = validator.Validate(dst.ActivityTaskStartedResponse); err != nil {
-				dst.ActivityTaskStartedResponse = nil
+			if err = validator.Validate(dst.MessageOutputEvent); err != nil {
+				dst.MessageOutputEvent = nil
 			} else {
 				match++
 			}
 		}
 	} else {
-		dst.ActivityTaskStartedResponse = nil
+		dst.MessageOutputEvent = nil
 	}
 
-	// try to unmarshal data into CustomTaskCanceledResponse
-	err = newStrictDecoder(data).Decode(&dst.CustomTaskCanceledResponse)
+	// try to unmarshal data into ResponseDoneEvent
+	err = newStrictDecoder(data).Decode(&dst.ResponseDoneEvent)
 	if err == nil {
-		jsonCustomTaskCanceledResponse, _ := json.Marshal(dst.CustomTaskCanceledResponse)
-		if string(jsonCustomTaskCanceledResponse) == "{}" { // empty struct
-			dst.CustomTaskCanceledResponse = nil
+		jsonResponseDoneEvent, _ := json.Marshal(dst.ResponseDoneEvent)
+		if string(jsonResponseDoneEvent) == "{}" { // empty struct
+			dst.ResponseDoneEvent = nil
 		} else {
-			if err = validator.Validate(dst.CustomTaskCanceledResponse); err != nil {
-				dst.CustomTaskCanceledResponse = nil
+			if err = validator.Validate(dst.ResponseDoneEvent); err != nil {
+				dst.ResponseDoneEvent = nil
 			} else {
 				match++
 			}
 		}
 	} else {
-		dst.CustomTaskCanceledResponse = nil
+		dst.ResponseDoneEvent = nil
 	}
 
-	// try to unmarshal data into CustomTaskCompletedResponse
-	err = newStrictDecoder(data).Decode(&dst.CustomTaskCompletedResponse)
+	// try to unmarshal data into ResponseErrorEvent
+	err = newStrictDecoder(data).Decode(&dst.ResponseErrorEvent)
 	if err == nil {
-		jsonCustomTaskCompletedResponse, _ := json.Marshal(dst.CustomTaskCompletedResponse)
-		if string(jsonCustomTaskCompletedResponse) == "{}" { // empty struct
-			dst.CustomTaskCompletedResponse = nil
+		jsonResponseErrorEvent, _ := json.Marshal(dst.ResponseErrorEvent)
+		if string(jsonResponseErrorEvent) == "{}" { // empty struct
+			dst.ResponseErrorEvent = nil
 		} else {
-			if err = validator.Validate(dst.CustomTaskCompletedResponse); err != nil {
-				dst.CustomTaskCompletedResponse = nil
+			if err = validator.Validate(dst.ResponseErrorEvent); err != nil {
+				dst.ResponseErrorEvent = nil
 			} else {
 				match++
 			}
 		}
 	} else {
-		dst.CustomTaskCompletedResponse = nil
+		dst.ResponseErrorEvent = nil
 	}
 
-	// try to unmarshal data into CustomTaskFailedResponse
-	err = newStrictDecoder(data).Decode(&dst.CustomTaskFailedResponse)
+	// try to unmarshal data into ResponseStartedEvent
+	err = newStrictDecoder(data).Decode(&dst.ResponseStartedEvent)
 	if err == nil {
-		jsonCustomTaskFailedResponse, _ := json.Marshal(dst.CustomTaskFailedResponse)
-		if string(jsonCustomTaskFailedResponse) == "{}" { // empty struct
-			dst.CustomTaskFailedResponse = nil
+		jsonResponseStartedEvent, _ := json.Marshal(dst.ResponseStartedEvent)
+		if string(jsonResponseStartedEvent) == "{}" { // empty struct
+			dst.ResponseStartedEvent = nil
 		} else {
-			if err = validator.Validate(dst.CustomTaskFailedResponse); err != nil {
-				dst.CustomTaskFailedResponse = nil
+			if err = validator.Validate(dst.ResponseStartedEvent); err != nil {
+				dst.ResponseStartedEvent = nil
 			} else {
 				match++
 			}
 		}
 	} else {
-		dst.CustomTaskFailedResponse = nil
+		dst.ResponseStartedEvent = nil
 	}
 
-	// try to unmarshal data into CustomTaskInProgressResponse
-	err = newStrictDecoder(data).Decode(&dst.CustomTaskInProgressResponse)
+	// try to unmarshal data into ToolExecutionDeltaEvent
+	err = newStrictDecoder(data).Decode(&dst.ToolExecutionDeltaEvent)
 	if err == nil {
-		jsonCustomTaskInProgressResponse, _ := json.Marshal(dst.CustomTaskInProgressResponse)
-		if string(jsonCustomTaskInProgressResponse) == "{}" { // empty struct
-			dst.CustomTaskInProgressResponse = nil
+		jsonToolExecutionDeltaEvent, _ := json.Marshal(dst.ToolExecutionDeltaEvent)
+		if string(jsonToolExecutionDeltaEvent) == "{}" { // empty struct
+			dst.ToolExecutionDeltaEvent = nil
 		} else {
-			if err = validator.Validate(dst.CustomTaskInProgressResponse); err != nil {
-				dst.CustomTaskInProgressResponse = nil
+			if err = validator.Validate(dst.ToolExecutionDeltaEvent); err != nil {
+				dst.ToolExecutionDeltaEvent = nil
 			} else {
 				match++
 			}
 		}
 	} else {
-		dst.CustomTaskInProgressResponse = nil
+		dst.ToolExecutionDeltaEvent = nil
 	}
 
-	// try to unmarshal data into CustomTaskStartedResponse
-	err = newStrictDecoder(data).Decode(&dst.CustomTaskStartedResponse)
+	// try to unmarshal data into ToolExecutionDoneEvent
+	err = newStrictDecoder(data).Decode(&dst.ToolExecutionDoneEvent)
 	if err == nil {
-		jsonCustomTaskStartedResponse, _ := json.Marshal(dst.CustomTaskStartedResponse)
-		if string(jsonCustomTaskStartedResponse) == "{}" { // empty struct
-			dst.CustomTaskStartedResponse = nil
+		jsonToolExecutionDoneEvent, _ := json.Marshal(dst.ToolExecutionDoneEvent)
+		if string(jsonToolExecutionDoneEvent) == "{}" { // empty struct
+			dst.ToolExecutionDoneEvent = nil
 		} else {
-			if err = validator.Validate(dst.CustomTaskStartedResponse); err != nil {
-				dst.CustomTaskStartedResponse = nil
+			if err = validator.Validate(dst.ToolExecutionDoneEvent); err != nil {
+				dst.ToolExecutionDoneEvent = nil
 			} else {
 				match++
 			}
 		}
 	} else {
-		dst.CustomTaskStartedResponse = nil
+		dst.ToolExecutionDoneEvent = nil
 	}
 
-	// try to unmarshal data into CustomTaskTimedOutResponse
-	err = newStrictDecoder(data).Decode(&dst.CustomTaskTimedOutResponse)
+	// try to unmarshal data into ToolExecutionStartedEvent
+	err = newStrictDecoder(data).Decode(&dst.ToolExecutionStartedEvent)
 	if err == nil {
-		jsonCustomTaskTimedOutResponse, _ := json.Marshal(dst.CustomTaskTimedOutResponse)
-		if string(jsonCustomTaskTimedOutResponse) == "{}" { // empty struct
-			dst.CustomTaskTimedOutResponse = nil
+		jsonToolExecutionStartedEvent, _ := json.Marshal(dst.ToolExecutionStartedEvent)
+		if string(jsonToolExecutionStartedEvent) == "{}" { // empty struct
+			dst.ToolExecutionStartedEvent = nil
 		} else {
-			if err = validator.Validate(dst.CustomTaskTimedOutResponse); err != nil {
-				dst.CustomTaskTimedOutResponse = nil
+			if err = validator.Validate(dst.ToolExecutionStartedEvent); err != nil {
+				dst.ToolExecutionStartedEvent = nil
 			} else {
 				match++
 			}
 		}
 	} else {
-		dst.CustomTaskTimedOutResponse = nil
-	}
-
-	// try to unmarshal data into WorkflowExecutionCanceledResponse
-	err = newStrictDecoder(data).Decode(&dst.WorkflowExecutionCanceledResponse)
-	if err == nil {
-		jsonWorkflowExecutionCanceledResponse, _ := json.Marshal(dst.WorkflowExecutionCanceledResponse)
-		if string(jsonWorkflowExecutionCanceledResponse) == "{}" { // empty struct
-			dst.WorkflowExecutionCanceledResponse = nil
-		} else {
-			if err = validator.Validate(dst.WorkflowExecutionCanceledResponse); err != nil {
-				dst.WorkflowExecutionCanceledResponse = nil
-			} else {
-				match++
-			}
-		}
-	} else {
-		dst.WorkflowExecutionCanceledResponse = nil
-	}
-
-	// try to unmarshal data into WorkflowExecutionCompletedResponse
-	err = newStrictDecoder(data).Decode(&dst.WorkflowExecutionCompletedResponse)
-	if err == nil {
-		jsonWorkflowExecutionCompletedResponse, _ := json.Marshal(dst.WorkflowExecutionCompletedResponse)
-		if string(jsonWorkflowExecutionCompletedResponse) == "{}" { // empty struct
-			dst.WorkflowExecutionCompletedResponse = nil
-		} else {
-			if err = validator.Validate(dst.WorkflowExecutionCompletedResponse); err != nil {
-				dst.WorkflowExecutionCompletedResponse = nil
-			} else {
-				match++
-			}
-		}
-	} else {
-		dst.WorkflowExecutionCompletedResponse = nil
-	}
-
-	// try to unmarshal data into WorkflowExecutionContinuedAsNewResponse
-	err = newStrictDecoder(data).Decode(&dst.WorkflowExecutionContinuedAsNewResponse)
-	if err == nil {
-		jsonWorkflowExecutionContinuedAsNewResponse, _ := json.Marshal(dst.WorkflowExecutionContinuedAsNewResponse)
-		if string(jsonWorkflowExecutionContinuedAsNewResponse) == "{}" { // empty struct
-			dst.WorkflowExecutionContinuedAsNewResponse = nil
-		} else {
-			if err = validator.Validate(dst.WorkflowExecutionContinuedAsNewResponse); err != nil {
-				dst.WorkflowExecutionContinuedAsNewResponse = nil
-			} else {
-				match++
-			}
-		}
-	} else {
-		dst.WorkflowExecutionContinuedAsNewResponse = nil
-	}
-
-	// try to unmarshal data into WorkflowExecutionFailedResponse
-	err = newStrictDecoder(data).Decode(&dst.WorkflowExecutionFailedResponse)
-	if err == nil {
-		jsonWorkflowExecutionFailedResponse, _ := json.Marshal(dst.WorkflowExecutionFailedResponse)
-		if string(jsonWorkflowExecutionFailedResponse) == "{}" { // empty struct
-			dst.WorkflowExecutionFailedResponse = nil
-		} else {
-			if err = validator.Validate(dst.WorkflowExecutionFailedResponse); err != nil {
-				dst.WorkflowExecutionFailedResponse = nil
-			} else {
-				match++
-			}
-		}
-	} else {
-		dst.WorkflowExecutionFailedResponse = nil
-	}
-
-	// try to unmarshal data into WorkflowExecutionStartedResponse
-	err = newStrictDecoder(data).Decode(&dst.WorkflowExecutionStartedResponse)
-	if err == nil {
-		jsonWorkflowExecutionStartedResponse, _ := json.Marshal(dst.WorkflowExecutionStartedResponse)
-		if string(jsonWorkflowExecutionStartedResponse) == "{}" { // empty struct
-			dst.WorkflowExecutionStartedResponse = nil
-		} else {
-			if err = validator.Validate(dst.WorkflowExecutionStartedResponse); err != nil {
-				dst.WorkflowExecutionStartedResponse = nil
-			} else {
-				match++
-			}
-		}
-	} else {
-		dst.WorkflowExecutionStartedResponse = nil
-	}
-
-	// try to unmarshal data into WorkflowTaskFailedResponse
-	err = newStrictDecoder(data).Decode(&dst.WorkflowTaskFailedResponse)
-	if err == nil {
-		jsonWorkflowTaskFailedResponse, _ := json.Marshal(dst.WorkflowTaskFailedResponse)
-		if string(jsonWorkflowTaskFailedResponse) == "{}" { // empty struct
-			dst.WorkflowTaskFailedResponse = nil
-		} else {
-			if err = validator.Validate(dst.WorkflowTaskFailedResponse); err != nil {
-				dst.WorkflowTaskFailedResponse = nil
-			} else {
-				match++
-			}
-		}
-	} else {
-		dst.WorkflowTaskFailedResponse = nil
-	}
-
-	// try to unmarshal data into WorkflowTaskTimedOutResponse
-	err = newStrictDecoder(data).Decode(&dst.WorkflowTaskTimedOutResponse)
-	if err == nil {
-		jsonWorkflowTaskTimedOutResponse, _ := json.Marshal(dst.WorkflowTaskTimedOutResponse)
-		if string(jsonWorkflowTaskTimedOutResponse) == "{}" { // empty struct
-			dst.WorkflowTaskTimedOutResponse = nil
-		} else {
-			if err = validator.Validate(dst.WorkflowTaskTimedOutResponse); err != nil {
-				dst.WorkflowTaskTimedOutResponse = nil
-			} else {
-				match++
-			}
-		}
-	} else {
-		dst.WorkflowTaskTimedOutResponse = nil
+		dst.ToolExecutionStartedEvent = nil
 	}
 
 	if match > 1 { // more than 1 match
 		// reset to nil
-		dst.ActivityTaskCompletedResponse = nil
-		dst.ActivityTaskFailedResponse = nil
-		dst.ActivityTaskRetryingResponse = nil
-		dst.ActivityTaskStartedResponse = nil
-		dst.CustomTaskCanceledResponse = nil
-		dst.CustomTaskCompletedResponse = nil
-		dst.CustomTaskFailedResponse = nil
-		dst.CustomTaskInProgressResponse = nil
-		dst.CustomTaskStartedResponse = nil
-		dst.CustomTaskTimedOutResponse = nil
-		dst.WorkflowExecutionCanceledResponse = nil
-		dst.WorkflowExecutionCompletedResponse = nil
-		dst.WorkflowExecutionContinuedAsNewResponse = nil
-		dst.WorkflowExecutionFailedResponse = nil
-		dst.WorkflowExecutionStartedResponse = nil
-		dst.WorkflowTaskFailedResponse = nil
-		dst.WorkflowTaskTimedOutResponse = nil
+		dst.AgentHandoffDoneEvent = nil
+		dst.AgentHandoffStartedEvent = nil
+		dst.FunctionCallEvent = nil
+		dst.MessageOutputEvent = nil
+		dst.ResponseDoneEvent = nil
+		dst.ResponseErrorEvent = nil
+		dst.ResponseStartedEvent = nil
+		dst.ToolExecutionDeltaEvent = nil
+		dst.ToolExecutionDoneEvent = nil
+		dst.ToolExecutionStartedEvent = nil
 
 		return fmt.Errorf("data matches more than one schema in oneOf(Data3)")
 	} else if match == 1 {
@@ -484,72 +302,44 @@ func (dst *Data3) UnmarshalJSON(data []byte) error {
 
 // Marshal data from the first non-nil pointers in the struct to JSON
 func (src Data3) MarshalJSON() ([]byte, error) {
-	if src.ActivityTaskCompletedResponse != nil {
-		return json.Marshal(&src.ActivityTaskCompletedResponse)
+	if src.AgentHandoffDoneEvent != nil {
+		return json.Marshal(&src.AgentHandoffDoneEvent)
 	}
 
-	if src.ActivityTaskFailedResponse != nil {
-		return json.Marshal(&src.ActivityTaskFailedResponse)
+	if src.AgentHandoffStartedEvent != nil {
+		return json.Marshal(&src.AgentHandoffStartedEvent)
 	}
 
-	if src.ActivityTaskRetryingResponse != nil {
-		return json.Marshal(&src.ActivityTaskRetryingResponse)
+	if src.FunctionCallEvent != nil {
+		return json.Marshal(&src.FunctionCallEvent)
 	}
 
-	if src.ActivityTaskStartedResponse != nil {
-		return json.Marshal(&src.ActivityTaskStartedResponse)
+	if src.MessageOutputEvent != nil {
+		return json.Marshal(&src.MessageOutputEvent)
 	}
 
-	if src.CustomTaskCanceledResponse != nil {
-		return json.Marshal(&src.CustomTaskCanceledResponse)
+	if src.ResponseDoneEvent != nil {
+		return json.Marshal(&src.ResponseDoneEvent)
 	}
 
-	if src.CustomTaskCompletedResponse != nil {
-		return json.Marshal(&src.CustomTaskCompletedResponse)
+	if src.ResponseErrorEvent != nil {
+		return json.Marshal(&src.ResponseErrorEvent)
 	}
 
-	if src.CustomTaskFailedResponse != nil {
-		return json.Marshal(&src.CustomTaskFailedResponse)
+	if src.ResponseStartedEvent != nil {
+		return json.Marshal(&src.ResponseStartedEvent)
 	}
 
-	if src.CustomTaskInProgressResponse != nil {
-		return json.Marshal(&src.CustomTaskInProgressResponse)
+	if src.ToolExecutionDeltaEvent != nil {
+		return json.Marshal(&src.ToolExecutionDeltaEvent)
 	}
 
-	if src.CustomTaskStartedResponse != nil {
-		return json.Marshal(&src.CustomTaskStartedResponse)
+	if src.ToolExecutionDoneEvent != nil {
+		return json.Marshal(&src.ToolExecutionDoneEvent)
 	}
 
-	if src.CustomTaskTimedOutResponse != nil {
-		return json.Marshal(&src.CustomTaskTimedOutResponse)
-	}
-
-	if src.WorkflowExecutionCanceledResponse != nil {
-		return json.Marshal(&src.WorkflowExecutionCanceledResponse)
-	}
-
-	if src.WorkflowExecutionCompletedResponse != nil {
-		return json.Marshal(&src.WorkflowExecutionCompletedResponse)
-	}
-
-	if src.WorkflowExecutionContinuedAsNewResponse != nil {
-		return json.Marshal(&src.WorkflowExecutionContinuedAsNewResponse)
-	}
-
-	if src.WorkflowExecutionFailedResponse != nil {
-		return json.Marshal(&src.WorkflowExecutionFailedResponse)
-	}
-
-	if src.WorkflowExecutionStartedResponse != nil {
-		return json.Marshal(&src.WorkflowExecutionStartedResponse)
-	}
-
-	if src.WorkflowTaskFailedResponse != nil {
-		return json.Marshal(&src.WorkflowTaskFailedResponse)
-	}
-
-	if src.WorkflowTaskTimedOutResponse != nil {
-		return json.Marshal(&src.WorkflowTaskTimedOutResponse)
+	if src.ToolExecutionStartedEvent != nil {
+		return json.Marshal(&src.ToolExecutionStartedEvent)
 	}
 
 	return nil, nil // no data in oneOf schemas
@@ -560,72 +350,44 @@ func (obj *Data3) GetActualInstance() (interface{}) {
 	if obj == nil {
 		return nil
 	}
-	if obj.ActivityTaskCompletedResponse != nil {
-		return obj.ActivityTaskCompletedResponse
+	if obj.AgentHandoffDoneEvent != nil {
+		return obj.AgentHandoffDoneEvent
 	}
 
-	if obj.ActivityTaskFailedResponse != nil {
-		return obj.ActivityTaskFailedResponse
+	if obj.AgentHandoffStartedEvent != nil {
+		return obj.AgentHandoffStartedEvent
 	}
 
-	if obj.ActivityTaskRetryingResponse != nil {
-		return obj.ActivityTaskRetryingResponse
+	if obj.FunctionCallEvent != nil {
+		return obj.FunctionCallEvent
 	}
 
-	if obj.ActivityTaskStartedResponse != nil {
-		return obj.ActivityTaskStartedResponse
+	if obj.MessageOutputEvent != nil {
+		return obj.MessageOutputEvent
 	}
 
-	if obj.CustomTaskCanceledResponse != nil {
-		return obj.CustomTaskCanceledResponse
+	if obj.ResponseDoneEvent != nil {
+		return obj.ResponseDoneEvent
 	}
 
-	if obj.CustomTaskCompletedResponse != nil {
-		return obj.CustomTaskCompletedResponse
+	if obj.ResponseErrorEvent != nil {
+		return obj.ResponseErrorEvent
 	}
 
-	if obj.CustomTaskFailedResponse != nil {
-		return obj.CustomTaskFailedResponse
+	if obj.ResponseStartedEvent != nil {
+		return obj.ResponseStartedEvent
 	}
 
-	if obj.CustomTaskInProgressResponse != nil {
-		return obj.CustomTaskInProgressResponse
+	if obj.ToolExecutionDeltaEvent != nil {
+		return obj.ToolExecutionDeltaEvent
 	}
 
-	if obj.CustomTaskStartedResponse != nil {
-		return obj.CustomTaskStartedResponse
+	if obj.ToolExecutionDoneEvent != nil {
+		return obj.ToolExecutionDoneEvent
 	}
 
-	if obj.CustomTaskTimedOutResponse != nil {
-		return obj.CustomTaskTimedOutResponse
-	}
-
-	if obj.WorkflowExecutionCanceledResponse != nil {
-		return obj.WorkflowExecutionCanceledResponse
-	}
-
-	if obj.WorkflowExecutionCompletedResponse != nil {
-		return obj.WorkflowExecutionCompletedResponse
-	}
-
-	if obj.WorkflowExecutionContinuedAsNewResponse != nil {
-		return obj.WorkflowExecutionContinuedAsNewResponse
-	}
-
-	if obj.WorkflowExecutionFailedResponse != nil {
-		return obj.WorkflowExecutionFailedResponse
-	}
-
-	if obj.WorkflowExecutionStartedResponse != nil {
-		return obj.WorkflowExecutionStartedResponse
-	}
-
-	if obj.WorkflowTaskFailedResponse != nil {
-		return obj.WorkflowTaskFailedResponse
-	}
-
-	if obj.WorkflowTaskTimedOutResponse != nil {
-		return obj.WorkflowTaskTimedOutResponse
+	if obj.ToolExecutionStartedEvent != nil {
+		return obj.ToolExecutionStartedEvent
 	}
 
 	// all schemas are nil
@@ -634,72 +396,44 @@ func (obj *Data3) GetActualInstance() (interface{}) {
 
 // Get the actual instance value
 func (obj Data3) GetActualInstanceValue() (interface{}) {
-	if obj.ActivityTaskCompletedResponse != nil {
-		return *obj.ActivityTaskCompletedResponse
+	if obj.AgentHandoffDoneEvent != nil {
+		return *obj.AgentHandoffDoneEvent
 	}
 
-	if obj.ActivityTaskFailedResponse != nil {
-		return *obj.ActivityTaskFailedResponse
+	if obj.AgentHandoffStartedEvent != nil {
+		return *obj.AgentHandoffStartedEvent
 	}
 
-	if obj.ActivityTaskRetryingResponse != nil {
-		return *obj.ActivityTaskRetryingResponse
+	if obj.FunctionCallEvent != nil {
+		return *obj.FunctionCallEvent
 	}
 
-	if obj.ActivityTaskStartedResponse != nil {
-		return *obj.ActivityTaskStartedResponse
+	if obj.MessageOutputEvent != nil {
+		return *obj.MessageOutputEvent
 	}
 
-	if obj.CustomTaskCanceledResponse != nil {
-		return *obj.CustomTaskCanceledResponse
+	if obj.ResponseDoneEvent != nil {
+		return *obj.ResponseDoneEvent
 	}
 
-	if obj.CustomTaskCompletedResponse != nil {
-		return *obj.CustomTaskCompletedResponse
+	if obj.ResponseErrorEvent != nil {
+		return *obj.ResponseErrorEvent
 	}
 
-	if obj.CustomTaskFailedResponse != nil {
-		return *obj.CustomTaskFailedResponse
+	if obj.ResponseStartedEvent != nil {
+		return *obj.ResponseStartedEvent
 	}
 
-	if obj.CustomTaskInProgressResponse != nil {
-		return *obj.CustomTaskInProgressResponse
+	if obj.ToolExecutionDeltaEvent != nil {
+		return *obj.ToolExecutionDeltaEvent
 	}
 
-	if obj.CustomTaskStartedResponse != nil {
-		return *obj.CustomTaskStartedResponse
+	if obj.ToolExecutionDoneEvent != nil {
+		return *obj.ToolExecutionDoneEvent
 	}
 
-	if obj.CustomTaskTimedOutResponse != nil {
-		return *obj.CustomTaskTimedOutResponse
-	}
-
-	if obj.WorkflowExecutionCanceledResponse != nil {
-		return *obj.WorkflowExecutionCanceledResponse
-	}
-
-	if obj.WorkflowExecutionCompletedResponse != nil {
-		return *obj.WorkflowExecutionCompletedResponse
-	}
-
-	if obj.WorkflowExecutionContinuedAsNewResponse != nil {
-		return *obj.WorkflowExecutionContinuedAsNewResponse
-	}
-
-	if obj.WorkflowExecutionFailedResponse != nil {
-		return *obj.WorkflowExecutionFailedResponse
-	}
-
-	if obj.WorkflowExecutionStartedResponse != nil {
-		return *obj.WorkflowExecutionStartedResponse
-	}
-
-	if obj.WorkflowTaskFailedResponse != nil {
-		return *obj.WorkflowTaskFailedResponse
-	}
-
-	if obj.WorkflowTaskTimedOutResponse != nil {
-		return *obj.WorkflowTaskTimedOutResponse
+	if obj.ToolExecutionStartedEvent != nil {
+		return *obj.ToolExecutionStartedEvent
 	}
 
 	// all schemas are nil

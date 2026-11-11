@@ -21,8 +21,12 @@ var _ MappedNullable = &WorkflowsWorkerSpecUpdate{}
 type WorkflowsWorkerSpecUpdate struct {
 	GithubUrl NullableString `json:"github_url,omitempty"`
 	Revision NullableString `json:"revision,omitempty"`
+	// Rebuild the worker from this archive, dropping 'github_url' and 'revision'. Sending 'github_url' instead moves it back to a repository.
+	ArchiveId NullableString `json:"archive_id,omitempty"`
 	// Backend-specific configuration for the Mistral Cloud backend.
 	BackendSpec NullableDeploymentMistralCloudBackendSpec `json:"backend_spec,omitempty"`
+	// The complete workspace-role set after the update, beyond `workflow_executor`. Replaces the current roles; omit it to leave them unchanged, send an empty list to drop all extras. Granted only if the deploying user holds them.
+	RequestedRoles []string `json:"requested_roles,omitempty"`
 }
 
 // NewWorkflowsWorkerSpecUpdate instantiates a new WorkflowsWorkerSpecUpdate object
@@ -126,6 +130,48 @@ func (o *WorkflowsWorkerSpecUpdate) UnsetRevision() {
 	o.Revision.Unset()
 }
 
+// GetArchiveId returns the ArchiveId field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *WorkflowsWorkerSpecUpdate) GetArchiveId() string {
+	if o == nil || IsNil(o.ArchiveId.Get()) {
+		var ret string
+		return ret
+	}
+	return *o.ArchiveId.Get()
+}
+
+// GetArchiveIdOk returns a tuple with the ArchiveId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *WorkflowsWorkerSpecUpdate) GetArchiveIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.ArchiveId.Get(), o.ArchiveId.IsSet()
+}
+
+// HasArchiveId returns a boolean if a field has been set.
+func (o *WorkflowsWorkerSpecUpdate) HasArchiveId() bool {
+	if o != nil && o.ArchiveId.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetArchiveId gets a reference to the given NullableString and assigns it to the ArchiveId field.
+func (o *WorkflowsWorkerSpecUpdate) SetArchiveId(v string) {
+	o.ArchiveId.Set(&v)
+}
+// SetArchiveIdNil sets the value for ArchiveId to be an explicit nil
+func (o *WorkflowsWorkerSpecUpdate) SetArchiveIdNil() {
+	o.ArchiveId.Set(nil)
+}
+
+// UnsetArchiveId ensures that no value is present for ArchiveId, not even an explicit nil
+func (o *WorkflowsWorkerSpecUpdate) UnsetArchiveId() {
+	o.ArchiveId.Unset()
+}
+
 // GetBackendSpec returns the BackendSpec field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *WorkflowsWorkerSpecUpdate) GetBackendSpec() DeploymentMistralCloudBackendSpec {
 	if o == nil || IsNil(o.BackendSpec.Get()) {
@@ -168,6 +214,39 @@ func (o *WorkflowsWorkerSpecUpdate) UnsetBackendSpec() {
 	o.BackendSpec.Unset()
 }
 
+// GetRequestedRoles returns the RequestedRoles field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *WorkflowsWorkerSpecUpdate) GetRequestedRoles() []string {
+	if o == nil {
+		var ret []string
+		return ret
+	}
+	return o.RequestedRoles
+}
+
+// GetRequestedRolesOk returns a tuple with the RequestedRoles field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *WorkflowsWorkerSpecUpdate) GetRequestedRolesOk() ([]string, bool) {
+	if o == nil || IsNil(o.RequestedRoles) {
+		return nil, false
+	}
+	return o.RequestedRoles, true
+}
+
+// HasRequestedRoles returns a boolean if a field has been set.
+func (o *WorkflowsWorkerSpecUpdate) HasRequestedRoles() bool {
+	if o != nil && !IsNil(o.RequestedRoles) {
+		return true
+	}
+
+	return false
+}
+
+// SetRequestedRoles gets a reference to the given []string and assigns it to the RequestedRoles field.
+func (o *WorkflowsWorkerSpecUpdate) SetRequestedRoles(v []string) {
+	o.RequestedRoles = v
+}
+
 func (o WorkflowsWorkerSpecUpdate) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -184,8 +263,14 @@ func (o WorkflowsWorkerSpecUpdate) ToMap() (map[string]interface{}, error) {
 	if o.Revision.IsSet() {
 		toSerialize["revision"] = o.Revision.Get()
 	}
+	if o.ArchiveId.IsSet() {
+		toSerialize["archive_id"] = o.ArchiveId.Get()
+	}
 	if o.BackendSpec.IsSet() {
 		toSerialize["backend_spec"] = o.BackendSpec.Get()
+	}
+	if o.RequestedRoles != nil {
+		toSerialize["requested_roles"] = o.RequestedRoles
 	}
 	return toSerialize, nil
 }

@@ -16,39 +16,39 @@ import (
 )
 
 
-// Input1 Text to classify.
+// Input1 Chat to classify
 type Input1 struct {
-	ArrayOfString *[]string
-	String *string
+	ArrayOfMessagesInner *[]MessagesInner
+	ArrayOfArrayOfMessagesInner *[][]MessagesInner
 }
 
 // Unmarshal JSON data into any of the pointers in the struct
 func (dst *Input1) UnmarshalJSON(data []byte) error {
 	var err error
-	// try to unmarshal JSON data into ArrayOfString
-	err = json.Unmarshal(data, &dst.ArrayOfString);
+	// try to unmarshal JSON data into ArrayOfMessagesInner
+	err = json.Unmarshal(data, &dst.ArrayOfMessagesInner);
 	if err == nil {
-		jsonArrayOfString, _ := json.Marshal(dst.ArrayOfString)
-		if string(jsonArrayOfString) == "{}" { // empty struct
-			dst.ArrayOfString = nil
+		jsonArrayOfMessagesInner, _ := json.Marshal(dst.ArrayOfMessagesInner)
+		if string(jsonArrayOfMessagesInner) == "{}" { // empty struct
+			dst.ArrayOfMessagesInner = nil
 		} else {
-			return nil // data stored in dst.ArrayOfString, return on the first match
+			return nil // data stored in dst.ArrayOfMessagesInner, return on the first match
 		}
 	} else {
-		dst.ArrayOfString = nil
+		dst.ArrayOfMessagesInner = nil
 	}
 
-	// try to unmarshal JSON data into String
-	err = json.Unmarshal(data, &dst.String);
+	// try to unmarshal JSON data into ArrayOfArrayOfMessagesInner
+	err = json.Unmarshal(data, &dst.ArrayOfArrayOfMessagesInner);
 	if err == nil {
-		jsonString, _ := json.Marshal(dst.String)
-		if string(jsonString) == "{}" { // empty struct
-			dst.String = nil
+		jsonArrayOfArrayOfMessagesInner, _ := json.Marshal(dst.ArrayOfArrayOfMessagesInner)
+		if string(jsonArrayOfArrayOfMessagesInner) == "{}" { // empty struct
+			dst.ArrayOfArrayOfMessagesInner = nil
 		} else {
-			return nil // data stored in dst.String, return on the first match
+			return nil // data stored in dst.ArrayOfArrayOfMessagesInner, return on the first match
 		}
 	} else {
-		dst.String = nil
+		dst.ArrayOfArrayOfMessagesInner = nil
 	}
 
 	return fmt.Errorf("data failed to match schemas in anyOf(Input1)")
@@ -56,12 +56,12 @@ func (dst *Input1) UnmarshalJSON(data []byte) error {
 
 // Marshal data from the first non-nil pointers in the struct to JSON
 func (src Input1) MarshalJSON() ([]byte, error) {
-	if src.ArrayOfString != nil {
-		return json.Marshal(&src.ArrayOfString)
+	if src.ArrayOfMessagesInner != nil {
+		return json.Marshal(&src.ArrayOfMessagesInner)
 	}
 
-	if src.String != nil {
-		return json.Marshal(&src.String)
+	if src.ArrayOfArrayOfMessagesInner != nil {
+		return json.Marshal(&src.ArrayOfArrayOfMessagesInner)
 	}
 
 	return nil, nil // no data in anyOf schemas

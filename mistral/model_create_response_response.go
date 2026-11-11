@@ -28,11 +28,11 @@ type CreateResponseResponse struct {
 	Metadata map[string]string `json:"metadata,omitempty"`
 	Model string `json:"model"`
 	Object string `json:"object"`
-	Output []Output2Inner `json:"output"`
+	Output []Output1Inner `json:"output"`
 	ParallelToolCalls bool `json:"parallel_tool_calls"`
 	Temperature NullableFloat32 `json:"temperature,omitempty"`
-	ToolChoice ToolChoice1 `json:"tool_choice"`
-	Tools []Tools1Inner `json:"tools"`
+	ToolChoice ToolChoice `json:"tool_choice"`
+	Tools []ToolsInner `json:"tools"`
 	TopP NullableFloat32 `json:"top_p,omitempty"`
 	Background NullableBool `json:"background,omitempty"`
 	CompletedAt NullableFloat32 `json:"completed_at,omitempty"`
@@ -59,7 +59,7 @@ type _CreateResponseResponse CreateResponseResponse
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCreateResponseResponse(id string, createdAt float32, model string, object string, output []Output2Inner, parallelToolCalls bool, toolChoice ToolChoice1, tools []Tools1Inner) *CreateResponseResponse {
+func NewCreateResponseResponse(id string, createdAt float32, model string, object string, output []Output1Inner, parallelToolCalls bool, toolChoice ToolChoice, tools []ToolsInner) *CreateResponseResponse {
 	this := CreateResponseResponse{}
 	this.Id = id
 	this.CreatedAt = createdAt
@@ -336,9 +336,9 @@ func (o *CreateResponseResponse) SetObject(v string) {
 }
 
 // GetOutput returns the Output field value
-func (o *CreateResponseResponse) GetOutput() []Output2Inner {
+func (o *CreateResponseResponse) GetOutput() []Output1Inner {
 	if o == nil {
-		var ret []Output2Inner
+		var ret []Output1Inner
 		return ret
 	}
 
@@ -347,7 +347,7 @@ func (o *CreateResponseResponse) GetOutput() []Output2Inner {
 
 // GetOutputOk returns a tuple with the Output field value
 // and a boolean to check if the value has been set.
-func (o *CreateResponseResponse) GetOutputOk() ([]Output2Inner, bool) {
+func (o *CreateResponseResponse) GetOutputOk() ([]Output1Inner, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -355,7 +355,7 @@ func (o *CreateResponseResponse) GetOutputOk() ([]Output2Inner, bool) {
 }
 
 // SetOutput sets field value
-func (o *CreateResponseResponse) SetOutput(v []Output2Inner) {
+func (o *CreateResponseResponse) SetOutput(v []Output1Inner) {
 	o.Output = v
 }
 
@@ -426,9 +426,9 @@ func (o *CreateResponseResponse) UnsetTemperature() {
 }
 
 // GetToolChoice returns the ToolChoice field value
-func (o *CreateResponseResponse) GetToolChoice() ToolChoice1 {
+func (o *CreateResponseResponse) GetToolChoice() ToolChoice {
 	if o == nil {
-		var ret ToolChoice1
+		var ret ToolChoice
 		return ret
 	}
 
@@ -437,7 +437,7 @@ func (o *CreateResponseResponse) GetToolChoice() ToolChoice1 {
 
 // GetToolChoiceOk returns a tuple with the ToolChoice field value
 // and a boolean to check if the value has been set.
-func (o *CreateResponseResponse) GetToolChoiceOk() (*ToolChoice1, bool) {
+func (o *CreateResponseResponse) GetToolChoiceOk() (*ToolChoice, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -445,14 +445,14 @@ func (o *CreateResponseResponse) GetToolChoiceOk() (*ToolChoice1, bool) {
 }
 
 // SetToolChoice sets field value
-func (o *CreateResponseResponse) SetToolChoice(v ToolChoice1) {
+func (o *CreateResponseResponse) SetToolChoice(v ToolChoice) {
 	o.ToolChoice = v
 }
 
 // GetTools returns the Tools field value
-func (o *CreateResponseResponse) GetTools() []Tools1Inner {
+func (o *CreateResponseResponse) GetTools() []ToolsInner {
 	if o == nil {
-		var ret []Tools1Inner
+		var ret []ToolsInner
 		return ret
 	}
 
@@ -461,7 +461,7 @@ func (o *CreateResponseResponse) GetTools() []Tools1Inner {
 
 // GetToolsOk returns a tuple with the Tools field value
 // and a boolean to check if the value has been set.
-func (o *CreateResponseResponse) GetToolsOk() ([]Tools1Inner, bool) {
+func (o *CreateResponseResponse) GetToolsOk() ([]ToolsInner, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -469,7 +469,7 @@ func (o *CreateResponseResponse) GetToolsOk() ([]Tools1Inner, bool) {
 }
 
 // SetTools sets field value
-func (o *CreateResponseResponse) SetTools(v []Tools1Inner) {
+func (o *CreateResponseResponse) SetTools(v []ToolsInner) {
 	o.Tools = v
 }
 
