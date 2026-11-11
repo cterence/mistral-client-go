@@ -22,7 +22,10 @@ type PromptTokensDetails struct {
 	Messages []MessageTokens `json:"messages,omitempty"`
 	CachedTokens *int32 `json:"cached_tokens,omitempty"`
 	AudioTokens *int32 `json:"audio_tokens,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _PromptTokensDetails PromptTokensDetails
 
 // NewPromptTokensDetails instantiates a new PromptTokensDetails object
 // This constructor will assign default values to properties that have it defined,
@@ -164,7 +167,35 @@ func (o PromptTokensDetails) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.AudioTokens) {
 		toSerialize["audio_tokens"] = o.AudioTokens
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *PromptTokensDetails) UnmarshalJSON(data []byte) (err error) {
+	varPromptTokensDetails := _PromptTokensDetails{}
+
+	err = json.Unmarshal(data, &varPromptTokensDetails)
+
+	if err != nil {
+		return err
+	}
+
+	*o = PromptTokensDetails(varPromptTokensDetails)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "messages")
+		delete(additionalProperties, "cached_tokens")
+		delete(additionalProperties, "audio_tokens")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullablePromptTokensDetails struct {

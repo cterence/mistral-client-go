@@ -22,7 +22,7 @@ var _ MappedNullable = &ResponsesNamespaceTool{}
 type ResponsesNamespaceTool struct {
 	Description string `json:"description"`
 	Name string `json:"name"`
-	Tools []Tools1Inner1 `json:"tools"`
+	Tools []ToolsInner1 `json:"tools"`
 	Type string `json:"type"`
 	AdditionalProperties map[string]interface{}
 }
@@ -33,7 +33,7 @@ type _ResponsesNamespaceTool ResponsesNamespaceTool
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewResponsesNamespaceTool(description string, name string, tools []Tools1Inner1, type_ string) *ResponsesNamespaceTool {
+func NewResponsesNamespaceTool(description string, name string, tools []ToolsInner1, type_ string) *ResponsesNamespaceTool {
 	this := ResponsesNamespaceTool{}
 	this.Description = description
 	this.Name = name
@@ -99,9 +99,9 @@ func (o *ResponsesNamespaceTool) SetName(v string) {
 }
 
 // GetTools returns the Tools field value
-func (o *ResponsesNamespaceTool) GetTools() []Tools1Inner1 {
+func (o *ResponsesNamespaceTool) GetTools() []ToolsInner1 {
 	if o == nil {
-		var ret []Tools1Inner1
+		var ret []ToolsInner1
 		return ret
 	}
 
@@ -110,7 +110,7 @@ func (o *ResponsesNamespaceTool) GetTools() []Tools1Inner1 {
 
 // GetToolsOk returns a tuple with the Tools field value
 // and a boolean to check if the value has been set.
-func (o *ResponsesNamespaceTool) GetToolsOk() ([]Tools1Inner1, bool) {
+func (o *ResponsesNamespaceTool) GetToolsOk() ([]ToolsInner1, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -118,7 +118,7 @@ func (o *ResponsesNamespaceTool) GetToolsOk() ([]Tools1Inner1, bool) {
 }
 
 // SetTools sets field value
-func (o *ResponsesNamespaceTool) SetTools(v []Tools1Inner1) {
+func (o *ResponsesNamespaceTool) SetTools(v []ToolsInner1) {
 	o.Tools = v
 }
 

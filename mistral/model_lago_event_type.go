@@ -28,6 +28,9 @@ const (
 	LAGOEVENTTYPE_API_LIBRARIES_TOKENS LagoEventType = "api_libraries_tokens"
 	LAGOEVENTTYPE_API_LIBRARIES_PAGES LagoEventType = "api_libraries_pages"
 	LAGOEVENTTYPE_API_LIBRARIES_AUDIO LagoEventType = "api_libraries_audio"
+	LAGOEVENTTYPE_API_MANAGED_INDEX_STORAGE_BYTES LagoEventType = "api_managed_index_storage_bytes"
+	LAGOEVENTTYPE_API_MANAGED_INDEX_WRITTEN_BYTES LagoEventType = "api_managed_index_written_bytes"
+	LAGOEVENTTYPE_API_MANAGED_INDEX_SEARCHES LagoEventType = "api_managed_index_searches"
 	LAGOEVENTTYPE_DEPLOYMENT_TOKENS LagoEventType = "deployment_tokens"
 	LAGOEVENTTYPE_GPU_HOUR LagoEventType = "gpu_hour"
 	LAGOEVENTTYPE_RESERVED_INSTANCE LagoEventType = "reserved_instance"
@@ -48,6 +51,9 @@ var AllowedLagoEventTypeEnumValues = []LagoEventType{
 	"api_libraries_tokens",
 	"api_libraries_pages",
 	"api_libraries_audio",
+	"api_managed_index_storage_bytes",
+	"api_managed_index_written_bytes",
+	"api_managed_index_searches",
 	"deployment_tokens",
 	"gpu_hour",
 	"reserved_instance",

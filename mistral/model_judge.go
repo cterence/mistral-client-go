@@ -31,7 +31,7 @@ type Judge struct {
 	Name string `json:"name"`
 	Description string `json:"description"`
 	ModelName string `json:"model_name"`
-	Output Output `json:"output"`
+	Output Output1 `json:"output"`
 	Instructions string `json:"instructions"`
 	Tools []string `json:"tools"`
 	UpRevision NullableString `json:"up_revision,omitempty"`
@@ -45,7 +45,7 @@ type _Judge Judge
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewJudge(id string, createdAt time.Time, updatedAt time.Time, deletedAt NullableTime, ownerId string, workspaceId string, name string, description string, modelName string, output Output, instructions string, tools []string) *Judge {
+func NewJudge(id string, createdAt time.Time, updatedAt time.Time, deletedAt NullableTime, ownerId string, workspaceId string, name string, description string, modelName string, output Output1, instructions string, tools []string) *Judge {
 	this := Judge{}
 	this.Id = id
 	this.CreatedAt = createdAt
@@ -289,9 +289,9 @@ func (o *Judge) SetModelName(v string) {
 }
 
 // GetOutput returns the Output field value
-func (o *Judge) GetOutput() Output {
+func (o *Judge) GetOutput() Output1 {
 	if o == nil {
-		var ret Output
+		var ret Output1
 		return ret
 	}
 
@@ -300,7 +300,7 @@ func (o *Judge) GetOutput() Output {
 
 // GetOutputOk returns a tuple with the Output field value
 // and a boolean to check if the value has been set.
-func (o *Judge) GetOutputOk() (*Output, bool) {
+func (o *Judge) GetOutputOk() (*Output1, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -308,7 +308,7 @@ func (o *Judge) GetOutputOk() (*Output, bool) {
 }
 
 // SetOutput sets field value
-func (o *Judge) SetOutput(v Output) {
+func (o *Judge) SetOutput(v Output1) {
 	o.Output = v
 }
 

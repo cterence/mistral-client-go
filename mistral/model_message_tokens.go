@@ -12,7 +12,6 @@ package mistral
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -26,6 +25,7 @@ type MessageTokens struct {
 	SettingsTokens NullableInt32 `json:"settings_tokens,omitempty"`
 	Truncated *bool `json:"truncated,omitempty"`
 	UsageCount *int32 `json:"usage_count,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _MessageTokens MessageTokens
@@ -251,6 +251,11 @@ func (o MessageTokens) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.UsageCount) {
 		toSerialize["usage_count"] = o.UsageCount
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -278,14 +283,24 @@ func (o *MessageTokens) UnmarshalJSON(data []byte) (err error) {
 
 	varMessageTokens := _MessageTokens{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	err = decoder.Decode(&varMessageTokens)
+	err = json.Unmarshal(data, &varMessageTokens)
 
 	if err != nil {
 		return err
 	}
 
 	*o = MessageTokens(varMessageTokens)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "role")
+		delete(additionalProperties, "total_tokens")
+		delete(additionalProperties, "settings_tokens")
+		delete(additionalProperties, "truncated")
+		delete(additionalProperties, "usage_count")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

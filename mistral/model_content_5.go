@@ -13,60 +13,128 @@ package mistral
 import (
 	"encoding/json"
 	"fmt"
+	"gopkg.in/validator.v2"
 )
 
-
-// Content5 struct for Content5
+// Content5 - struct for Content5
 type Content5 struct {
-	ArrayOfSystemMessageContentChunks *[]SystemMessageContentChunks
-	String *string
+	ImageURLChunk *ImageURLChunk
+	TextChunk *TextChunk
 }
 
-// Unmarshal JSON data into any of the pointers in the struct
+// ImageURLChunkAsContent5 is a convenience function that returns ImageURLChunk wrapped in Content5
+func ImageURLChunkAsContent5(v *ImageURLChunk) Content5 {
+	return Content5{
+		ImageURLChunk: v,
+	}
+}
+
+// TextChunkAsContent5 is a convenience function that returns TextChunk wrapped in Content5
+func TextChunkAsContent5(v *TextChunk) Content5 {
+	return Content5{
+		TextChunk: v,
+	}
+}
+
+
+// Unmarshal JSON data into one of the pointers in the struct
 func (dst *Content5) UnmarshalJSON(data []byte) error {
 	var err error
-	// try to unmarshal JSON data into ArrayOfSystemMessageContentChunks
-	err = json.Unmarshal(data, &dst.ArrayOfSystemMessageContentChunks);
+	match := 0
+	// try to unmarshal data into ImageURLChunk
+	err = newStrictDecoder(data).Decode(&dst.ImageURLChunk)
 	if err == nil {
-		jsonArrayOfSystemMessageContentChunks, _ := json.Marshal(dst.ArrayOfSystemMessageContentChunks)
-		if string(jsonArrayOfSystemMessageContentChunks) == "{}" { // empty struct
-			dst.ArrayOfSystemMessageContentChunks = nil
+		jsonImageURLChunk, _ := json.Marshal(dst.ImageURLChunk)
+		if string(jsonImageURLChunk) == "{}" { // empty struct
+			dst.ImageURLChunk = nil
 		} else {
-			return nil // data stored in dst.ArrayOfSystemMessageContentChunks, return on the first match
+			if err = validator.Validate(dst.ImageURLChunk); err != nil {
+				dst.ImageURLChunk = nil
+			} else {
+				match++
+			}
 		}
 	} else {
-		dst.ArrayOfSystemMessageContentChunks = nil
+		dst.ImageURLChunk = nil
 	}
 
-	// try to unmarshal JSON data into String
-	err = json.Unmarshal(data, &dst.String);
+	// try to unmarshal data into TextChunk
+	err = newStrictDecoder(data).Decode(&dst.TextChunk)
 	if err == nil {
-		jsonString, _ := json.Marshal(dst.String)
-		if string(jsonString) == "{}" { // empty struct
-			dst.String = nil
+		jsonTextChunk, _ := json.Marshal(dst.TextChunk)
+		if string(jsonTextChunk) == "{}" { // empty struct
+			dst.TextChunk = nil
 		} else {
-			return nil // data stored in dst.String, return on the first match
+			if err = validator.Validate(dst.TextChunk); err != nil {
+				dst.TextChunk = nil
+			} else {
+				match++
+			}
 		}
 	} else {
-		dst.String = nil
+		dst.TextChunk = nil
 	}
 
-	return fmt.Errorf("data failed to match schemas in anyOf(Content5)")
+	if match > 1 { // more than 1 match
+		// reset to nil
+		dst.ImageURLChunk = nil
+		dst.TextChunk = nil
+
+		return fmt.Errorf("data matches more than one schema in oneOf(Content5)")
+	} else if match == 1 {
+		return nil // exactly one match
+	} else { // no match
+		if err != nil {
+			return fmt.Errorf("data failed to match schemas in oneOf(Content5): %v", err)
+		}
+
+		return fmt.Errorf("data failed to match schemas in oneOf(Content5)")
+	}
 }
 
 // Marshal data from the first non-nil pointers in the struct to JSON
 func (src Content5) MarshalJSON() ([]byte, error) {
-	if src.ArrayOfSystemMessageContentChunks != nil {
-		return json.Marshal(&src.ArrayOfSystemMessageContentChunks)
+	if src.ImageURLChunk != nil {
+		return json.Marshal(&src.ImageURLChunk)
 	}
 
-	if src.String != nil {
-		return json.Marshal(&src.String)
+	if src.TextChunk != nil {
+		return json.Marshal(&src.TextChunk)
 	}
 
-	return nil, nil // no data in anyOf schemas
+	return nil, nil // no data in oneOf schemas
 }
 
+// Get the actual instance
+func (obj *Content5) GetActualInstance() (interface{}) {
+	if obj == nil {
+		return nil
+	}
+	if obj.ImageURLChunk != nil {
+		return obj.ImageURLChunk
+	}
+
+	if obj.TextChunk != nil {
+		return obj.TextChunk
+	}
+
+	// all schemas are nil
+	return nil
+}
+
+// Get the actual instance value
+func (obj Content5) GetActualInstanceValue() (interface{}) {
+	if obj.ImageURLChunk != nil {
+		return *obj.ImageURLChunk
+	}
+
+	if obj.TextChunk != nil {
+		return *obj.TextChunk
+	}
+
+	// all schemas are nil
+	return nil
+}
 
 type NullableContent5 struct {
 	value *Content5

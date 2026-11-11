@@ -18,133 +18,37 @@ import (
 
 // Data4 - struct for Data4
 type Data4 struct {
-	ResponsesCompletedEvent *ResponsesCompletedEvent
-	ResponsesContentPartAddedEvent *ResponsesContentPartAddedEvent
-	ResponsesContentPartDoneEvent *ResponsesContentPartDoneEvent
-	ResponsesCreatedEvent *ResponsesCreatedEvent
-	ResponsesErrorEvent *ResponsesErrorEvent
-	ResponsesFailedEvent *ResponsesFailedEvent
-	ResponsesFunctionCallArgumentsDeltaEvent *ResponsesFunctionCallArgumentsDeltaEvent
-	ResponsesFunctionCallArgumentsDoneEvent *ResponsesFunctionCallArgumentsDoneEvent
-	ResponsesInProgressEvent *ResponsesInProgressEvent
-	ResponsesIncompleteEvent *ResponsesIncompleteEvent
-	ResponsesOutputItemAddedEvent *ResponsesOutputItemAddedEvent
-	ResponsesOutputItemDoneEvent *ResponsesOutputItemDoneEvent
-	ResponsesReasoningTextDeltaEvent *ResponsesReasoningTextDeltaEvent
-	ResponsesReasoningTextDoneEvent *ResponsesReasoningTextDoneEvent
-	ResponsesTextDeltaEvent *ResponsesTextDeltaEvent
-	ResponsesTextDoneEvent *ResponsesTextDoneEvent
+	TranscriptionStreamDone *TranscriptionStreamDone
+	TranscriptionStreamLanguage *TranscriptionStreamLanguage
+	TranscriptionStreamSegmentDelta *TranscriptionStreamSegmentDelta
+	TranscriptionStreamTextDelta *TranscriptionStreamTextDelta
 }
 
-// ResponsesCompletedEventAsData4 is a convenience function that returns ResponsesCompletedEvent wrapped in Data4
-func ResponsesCompletedEventAsData4(v *ResponsesCompletedEvent) Data4 {
+// TranscriptionStreamDoneAsData4 is a convenience function that returns TranscriptionStreamDone wrapped in Data4
+func TranscriptionStreamDoneAsData4(v *TranscriptionStreamDone) Data4 {
 	return Data4{
-		ResponsesCompletedEvent: v,
+		TranscriptionStreamDone: v,
 	}
 }
 
-// ResponsesContentPartAddedEventAsData4 is a convenience function that returns ResponsesContentPartAddedEvent wrapped in Data4
-func ResponsesContentPartAddedEventAsData4(v *ResponsesContentPartAddedEvent) Data4 {
+// TranscriptionStreamLanguageAsData4 is a convenience function that returns TranscriptionStreamLanguage wrapped in Data4
+func TranscriptionStreamLanguageAsData4(v *TranscriptionStreamLanguage) Data4 {
 	return Data4{
-		ResponsesContentPartAddedEvent: v,
+		TranscriptionStreamLanguage: v,
 	}
 }
 
-// ResponsesContentPartDoneEventAsData4 is a convenience function that returns ResponsesContentPartDoneEvent wrapped in Data4
-func ResponsesContentPartDoneEventAsData4(v *ResponsesContentPartDoneEvent) Data4 {
+// TranscriptionStreamSegmentDeltaAsData4 is a convenience function that returns TranscriptionStreamSegmentDelta wrapped in Data4
+func TranscriptionStreamSegmentDeltaAsData4(v *TranscriptionStreamSegmentDelta) Data4 {
 	return Data4{
-		ResponsesContentPartDoneEvent: v,
+		TranscriptionStreamSegmentDelta: v,
 	}
 }
 
-// ResponsesCreatedEventAsData4 is a convenience function that returns ResponsesCreatedEvent wrapped in Data4
-func ResponsesCreatedEventAsData4(v *ResponsesCreatedEvent) Data4 {
+// TranscriptionStreamTextDeltaAsData4 is a convenience function that returns TranscriptionStreamTextDelta wrapped in Data4
+func TranscriptionStreamTextDeltaAsData4(v *TranscriptionStreamTextDelta) Data4 {
 	return Data4{
-		ResponsesCreatedEvent: v,
-	}
-}
-
-// ResponsesErrorEventAsData4 is a convenience function that returns ResponsesErrorEvent wrapped in Data4
-func ResponsesErrorEventAsData4(v *ResponsesErrorEvent) Data4 {
-	return Data4{
-		ResponsesErrorEvent: v,
-	}
-}
-
-// ResponsesFailedEventAsData4 is a convenience function that returns ResponsesFailedEvent wrapped in Data4
-func ResponsesFailedEventAsData4(v *ResponsesFailedEvent) Data4 {
-	return Data4{
-		ResponsesFailedEvent: v,
-	}
-}
-
-// ResponsesFunctionCallArgumentsDeltaEventAsData4 is a convenience function that returns ResponsesFunctionCallArgumentsDeltaEvent wrapped in Data4
-func ResponsesFunctionCallArgumentsDeltaEventAsData4(v *ResponsesFunctionCallArgumentsDeltaEvent) Data4 {
-	return Data4{
-		ResponsesFunctionCallArgumentsDeltaEvent: v,
-	}
-}
-
-// ResponsesFunctionCallArgumentsDoneEventAsData4 is a convenience function that returns ResponsesFunctionCallArgumentsDoneEvent wrapped in Data4
-func ResponsesFunctionCallArgumentsDoneEventAsData4(v *ResponsesFunctionCallArgumentsDoneEvent) Data4 {
-	return Data4{
-		ResponsesFunctionCallArgumentsDoneEvent: v,
-	}
-}
-
-// ResponsesInProgressEventAsData4 is a convenience function that returns ResponsesInProgressEvent wrapped in Data4
-func ResponsesInProgressEventAsData4(v *ResponsesInProgressEvent) Data4 {
-	return Data4{
-		ResponsesInProgressEvent: v,
-	}
-}
-
-// ResponsesIncompleteEventAsData4 is a convenience function that returns ResponsesIncompleteEvent wrapped in Data4
-func ResponsesIncompleteEventAsData4(v *ResponsesIncompleteEvent) Data4 {
-	return Data4{
-		ResponsesIncompleteEvent: v,
-	}
-}
-
-// ResponsesOutputItemAddedEventAsData4 is a convenience function that returns ResponsesOutputItemAddedEvent wrapped in Data4
-func ResponsesOutputItemAddedEventAsData4(v *ResponsesOutputItemAddedEvent) Data4 {
-	return Data4{
-		ResponsesOutputItemAddedEvent: v,
-	}
-}
-
-// ResponsesOutputItemDoneEventAsData4 is a convenience function that returns ResponsesOutputItemDoneEvent wrapped in Data4
-func ResponsesOutputItemDoneEventAsData4(v *ResponsesOutputItemDoneEvent) Data4 {
-	return Data4{
-		ResponsesOutputItemDoneEvent: v,
-	}
-}
-
-// ResponsesReasoningTextDeltaEventAsData4 is a convenience function that returns ResponsesReasoningTextDeltaEvent wrapped in Data4
-func ResponsesReasoningTextDeltaEventAsData4(v *ResponsesReasoningTextDeltaEvent) Data4 {
-	return Data4{
-		ResponsesReasoningTextDeltaEvent: v,
-	}
-}
-
-// ResponsesReasoningTextDoneEventAsData4 is a convenience function that returns ResponsesReasoningTextDoneEvent wrapped in Data4
-func ResponsesReasoningTextDoneEventAsData4(v *ResponsesReasoningTextDoneEvent) Data4 {
-	return Data4{
-		ResponsesReasoningTextDoneEvent: v,
-	}
-}
-
-// ResponsesTextDeltaEventAsData4 is a convenience function that returns ResponsesTextDeltaEvent wrapped in Data4
-func ResponsesTextDeltaEventAsData4(v *ResponsesTextDeltaEvent) Data4 {
-	return Data4{
-		ResponsesTextDeltaEvent: v,
-	}
-}
-
-// ResponsesTextDoneEventAsData4 is a convenience function that returns ResponsesTextDoneEvent wrapped in Data4
-func ResponsesTextDoneEventAsData4(v *ResponsesTextDoneEvent) Data4 {
-	return Data4{
-		ResponsesTextDoneEvent: v,
+		TranscriptionStreamTextDelta: v,
 	}
 }
 
@@ -153,296 +57,80 @@ func ResponsesTextDoneEventAsData4(v *ResponsesTextDoneEvent) Data4 {
 func (dst *Data4) UnmarshalJSON(data []byte) error {
 	var err error
 	match := 0
-	// try to unmarshal data into ResponsesCompletedEvent
-	err = newStrictDecoder(data).Decode(&dst.ResponsesCompletedEvent)
+	// try to unmarshal data into TranscriptionStreamDone
+	err = newStrictDecoder(data).Decode(&dst.TranscriptionStreamDone)
 	if err == nil {
-		jsonResponsesCompletedEvent, _ := json.Marshal(dst.ResponsesCompletedEvent)
-		if string(jsonResponsesCompletedEvent) == "{}" { // empty struct
-			dst.ResponsesCompletedEvent = nil
+		jsonTranscriptionStreamDone, _ := json.Marshal(dst.TranscriptionStreamDone)
+		if string(jsonTranscriptionStreamDone) == "{}" { // empty struct
+			dst.TranscriptionStreamDone = nil
 		} else {
-			if err = validator.Validate(dst.ResponsesCompletedEvent); err != nil {
-				dst.ResponsesCompletedEvent = nil
+			if err = validator.Validate(dst.TranscriptionStreamDone); err != nil {
+				dst.TranscriptionStreamDone = nil
 			} else {
 				match++
 			}
 		}
 	} else {
-		dst.ResponsesCompletedEvent = nil
+		dst.TranscriptionStreamDone = nil
 	}
 
-	// try to unmarshal data into ResponsesContentPartAddedEvent
-	err = newStrictDecoder(data).Decode(&dst.ResponsesContentPartAddedEvent)
+	// try to unmarshal data into TranscriptionStreamLanguage
+	err = newStrictDecoder(data).Decode(&dst.TranscriptionStreamLanguage)
 	if err == nil {
-		jsonResponsesContentPartAddedEvent, _ := json.Marshal(dst.ResponsesContentPartAddedEvent)
-		if string(jsonResponsesContentPartAddedEvent) == "{}" { // empty struct
-			dst.ResponsesContentPartAddedEvent = nil
+		jsonTranscriptionStreamLanguage, _ := json.Marshal(dst.TranscriptionStreamLanguage)
+		if string(jsonTranscriptionStreamLanguage) == "{}" { // empty struct
+			dst.TranscriptionStreamLanguage = nil
 		} else {
-			if err = validator.Validate(dst.ResponsesContentPartAddedEvent); err != nil {
-				dst.ResponsesContentPartAddedEvent = nil
+			if err = validator.Validate(dst.TranscriptionStreamLanguage); err != nil {
+				dst.TranscriptionStreamLanguage = nil
 			} else {
 				match++
 			}
 		}
 	} else {
-		dst.ResponsesContentPartAddedEvent = nil
+		dst.TranscriptionStreamLanguage = nil
 	}
 
-	// try to unmarshal data into ResponsesContentPartDoneEvent
-	err = newStrictDecoder(data).Decode(&dst.ResponsesContentPartDoneEvent)
+	// try to unmarshal data into TranscriptionStreamSegmentDelta
+	err = newStrictDecoder(data).Decode(&dst.TranscriptionStreamSegmentDelta)
 	if err == nil {
-		jsonResponsesContentPartDoneEvent, _ := json.Marshal(dst.ResponsesContentPartDoneEvent)
-		if string(jsonResponsesContentPartDoneEvent) == "{}" { // empty struct
-			dst.ResponsesContentPartDoneEvent = nil
+		jsonTranscriptionStreamSegmentDelta, _ := json.Marshal(dst.TranscriptionStreamSegmentDelta)
+		if string(jsonTranscriptionStreamSegmentDelta) == "{}" { // empty struct
+			dst.TranscriptionStreamSegmentDelta = nil
 		} else {
-			if err = validator.Validate(dst.ResponsesContentPartDoneEvent); err != nil {
-				dst.ResponsesContentPartDoneEvent = nil
+			if err = validator.Validate(dst.TranscriptionStreamSegmentDelta); err != nil {
+				dst.TranscriptionStreamSegmentDelta = nil
 			} else {
 				match++
 			}
 		}
 	} else {
-		dst.ResponsesContentPartDoneEvent = nil
+		dst.TranscriptionStreamSegmentDelta = nil
 	}
 
-	// try to unmarshal data into ResponsesCreatedEvent
-	err = newStrictDecoder(data).Decode(&dst.ResponsesCreatedEvent)
+	// try to unmarshal data into TranscriptionStreamTextDelta
+	err = newStrictDecoder(data).Decode(&dst.TranscriptionStreamTextDelta)
 	if err == nil {
-		jsonResponsesCreatedEvent, _ := json.Marshal(dst.ResponsesCreatedEvent)
-		if string(jsonResponsesCreatedEvent) == "{}" { // empty struct
-			dst.ResponsesCreatedEvent = nil
+		jsonTranscriptionStreamTextDelta, _ := json.Marshal(dst.TranscriptionStreamTextDelta)
+		if string(jsonTranscriptionStreamTextDelta) == "{}" { // empty struct
+			dst.TranscriptionStreamTextDelta = nil
 		} else {
-			if err = validator.Validate(dst.ResponsesCreatedEvent); err != nil {
-				dst.ResponsesCreatedEvent = nil
+			if err = validator.Validate(dst.TranscriptionStreamTextDelta); err != nil {
+				dst.TranscriptionStreamTextDelta = nil
 			} else {
 				match++
 			}
 		}
 	} else {
-		dst.ResponsesCreatedEvent = nil
-	}
-
-	// try to unmarshal data into ResponsesErrorEvent
-	err = newStrictDecoder(data).Decode(&dst.ResponsesErrorEvent)
-	if err == nil {
-		jsonResponsesErrorEvent, _ := json.Marshal(dst.ResponsesErrorEvent)
-		if string(jsonResponsesErrorEvent) == "{}" { // empty struct
-			dst.ResponsesErrorEvent = nil
-		} else {
-			if err = validator.Validate(dst.ResponsesErrorEvent); err != nil {
-				dst.ResponsesErrorEvent = nil
-			} else {
-				match++
-			}
-		}
-	} else {
-		dst.ResponsesErrorEvent = nil
-	}
-
-	// try to unmarshal data into ResponsesFailedEvent
-	err = newStrictDecoder(data).Decode(&dst.ResponsesFailedEvent)
-	if err == nil {
-		jsonResponsesFailedEvent, _ := json.Marshal(dst.ResponsesFailedEvent)
-		if string(jsonResponsesFailedEvent) == "{}" { // empty struct
-			dst.ResponsesFailedEvent = nil
-		} else {
-			if err = validator.Validate(dst.ResponsesFailedEvent); err != nil {
-				dst.ResponsesFailedEvent = nil
-			} else {
-				match++
-			}
-		}
-	} else {
-		dst.ResponsesFailedEvent = nil
-	}
-
-	// try to unmarshal data into ResponsesFunctionCallArgumentsDeltaEvent
-	err = newStrictDecoder(data).Decode(&dst.ResponsesFunctionCallArgumentsDeltaEvent)
-	if err == nil {
-		jsonResponsesFunctionCallArgumentsDeltaEvent, _ := json.Marshal(dst.ResponsesFunctionCallArgumentsDeltaEvent)
-		if string(jsonResponsesFunctionCallArgumentsDeltaEvent) == "{}" { // empty struct
-			dst.ResponsesFunctionCallArgumentsDeltaEvent = nil
-		} else {
-			if err = validator.Validate(dst.ResponsesFunctionCallArgumentsDeltaEvent); err != nil {
-				dst.ResponsesFunctionCallArgumentsDeltaEvent = nil
-			} else {
-				match++
-			}
-		}
-	} else {
-		dst.ResponsesFunctionCallArgumentsDeltaEvent = nil
-	}
-
-	// try to unmarshal data into ResponsesFunctionCallArgumentsDoneEvent
-	err = newStrictDecoder(data).Decode(&dst.ResponsesFunctionCallArgumentsDoneEvent)
-	if err == nil {
-		jsonResponsesFunctionCallArgumentsDoneEvent, _ := json.Marshal(dst.ResponsesFunctionCallArgumentsDoneEvent)
-		if string(jsonResponsesFunctionCallArgumentsDoneEvent) == "{}" { // empty struct
-			dst.ResponsesFunctionCallArgumentsDoneEvent = nil
-		} else {
-			if err = validator.Validate(dst.ResponsesFunctionCallArgumentsDoneEvent); err != nil {
-				dst.ResponsesFunctionCallArgumentsDoneEvent = nil
-			} else {
-				match++
-			}
-		}
-	} else {
-		dst.ResponsesFunctionCallArgumentsDoneEvent = nil
-	}
-
-	// try to unmarshal data into ResponsesInProgressEvent
-	err = newStrictDecoder(data).Decode(&dst.ResponsesInProgressEvent)
-	if err == nil {
-		jsonResponsesInProgressEvent, _ := json.Marshal(dst.ResponsesInProgressEvent)
-		if string(jsonResponsesInProgressEvent) == "{}" { // empty struct
-			dst.ResponsesInProgressEvent = nil
-		} else {
-			if err = validator.Validate(dst.ResponsesInProgressEvent); err != nil {
-				dst.ResponsesInProgressEvent = nil
-			} else {
-				match++
-			}
-		}
-	} else {
-		dst.ResponsesInProgressEvent = nil
-	}
-
-	// try to unmarshal data into ResponsesIncompleteEvent
-	err = newStrictDecoder(data).Decode(&dst.ResponsesIncompleteEvent)
-	if err == nil {
-		jsonResponsesIncompleteEvent, _ := json.Marshal(dst.ResponsesIncompleteEvent)
-		if string(jsonResponsesIncompleteEvent) == "{}" { // empty struct
-			dst.ResponsesIncompleteEvent = nil
-		} else {
-			if err = validator.Validate(dst.ResponsesIncompleteEvent); err != nil {
-				dst.ResponsesIncompleteEvent = nil
-			} else {
-				match++
-			}
-		}
-	} else {
-		dst.ResponsesIncompleteEvent = nil
-	}
-
-	// try to unmarshal data into ResponsesOutputItemAddedEvent
-	err = newStrictDecoder(data).Decode(&dst.ResponsesOutputItemAddedEvent)
-	if err == nil {
-		jsonResponsesOutputItemAddedEvent, _ := json.Marshal(dst.ResponsesOutputItemAddedEvent)
-		if string(jsonResponsesOutputItemAddedEvent) == "{}" { // empty struct
-			dst.ResponsesOutputItemAddedEvent = nil
-		} else {
-			if err = validator.Validate(dst.ResponsesOutputItemAddedEvent); err != nil {
-				dst.ResponsesOutputItemAddedEvent = nil
-			} else {
-				match++
-			}
-		}
-	} else {
-		dst.ResponsesOutputItemAddedEvent = nil
-	}
-
-	// try to unmarshal data into ResponsesOutputItemDoneEvent
-	err = newStrictDecoder(data).Decode(&dst.ResponsesOutputItemDoneEvent)
-	if err == nil {
-		jsonResponsesOutputItemDoneEvent, _ := json.Marshal(dst.ResponsesOutputItemDoneEvent)
-		if string(jsonResponsesOutputItemDoneEvent) == "{}" { // empty struct
-			dst.ResponsesOutputItemDoneEvent = nil
-		} else {
-			if err = validator.Validate(dst.ResponsesOutputItemDoneEvent); err != nil {
-				dst.ResponsesOutputItemDoneEvent = nil
-			} else {
-				match++
-			}
-		}
-	} else {
-		dst.ResponsesOutputItemDoneEvent = nil
-	}
-
-	// try to unmarshal data into ResponsesReasoningTextDeltaEvent
-	err = newStrictDecoder(data).Decode(&dst.ResponsesReasoningTextDeltaEvent)
-	if err == nil {
-		jsonResponsesReasoningTextDeltaEvent, _ := json.Marshal(dst.ResponsesReasoningTextDeltaEvent)
-		if string(jsonResponsesReasoningTextDeltaEvent) == "{}" { // empty struct
-			dst.ResponsesReasoningTextDeltaEvent = nil
-		} else {
-			if err = validator.Validate(dst.ResponsesReasoningTextDeltaEvent); err != nil {
-				dst.ResponsesReasoningTextDeltaEvent = nil
-			} else {
-				match++
-			}
-		}
-	} else {
-		dst.ResponsesReasoningTextDeltaEvent = nil
-	}
-
-	// try to unmarshal data into ResponsesReasoningTextDoneEvent
-	err = newStrictDecoder(data).Decode(&dst.ResponsesReasoningTextDoneEvent)
-	if err == nil {
-		jsonResponsesReasoningTextDoneEvent, _ := json.Marshal(dst.ResponsesReasoningTextDoneEvent)
-		if string(jsonResponsesReasoningTextDoneEvent) == "{}" { // empty struct
-			dst.ResponsesReasoningTextDoneEvent = nil
-		} else {
-			if err = validator.Validate(dst.ResponsesReasoningTextDoneEvent); err != nil {
-				dst.ResponsesReasoningTextDoneEvent = nil
-			} else {
-				match++
-			}
-		}
-	} else {
-		dst.ResponsesReasoningTextDoneEvent = nil
-	}
-
-	// try to unmarshal data into ResponsesTextDeltaEvent
-	err = newStrictDecoder(data).Decode(&dst.ResponsesTextDeltaEvent)
-	if err == nil {
-		jsonResponsesTextDeltaEvent, _ := json.Marshal(dst.ResponsesTextDeltaEvent)
-		if string(jsonResponsesTextDeltaEvent) == "{}" { // empty struct
-			dst.ResponsesTextDeltaEvent = nil
-		} else {
-			if err = validator.Validate(dst.ResponsesTextDeltaEvent); err != nil {
-				dst.ResponsesTextDeltaEvent = nil
-			} else {
-				match++
-			}
-		}
-	} else {
-		dst.ResponsesTextDeltaEvent = nil
-	}
-
-	// try to unmarshal data into ResponsesTextDoneEvent
-	err = newStrictDecoder(data).Decode(&dst.ResponsesTextDoneEvent)
-	if err == nil {
-		jsonResponsesTextDoneEvent, _ := json.Marshal(dst.ResponsesTextDoneEvent)
-		if string(jsonResponsesTextDoneEvent) == "{}" { // empty struct
-			dst.ResponsesTextDoneEvent = nil
-		} else {
-			if err = validator.Validate(dst.ResponsesTextDoneEvent); err != nil {
-				dst.ResponsesTextDoneEvent = nil
-			} else {
-				match++
-			}
-		}
-	} else {
-		dst.ResponsesTextDoneEvent = nil
+		dst.TranscriptionStreamTextDelta = nil
 	}
 
 	if match > 1 { // more than 1 match
 		// reset to nil
-		dst.ResponsesCompletedEvent = nil
-		dst.ResponsesContentPartAddedEvent = nil
-		dst.ResponsesContentPartDoneEvent = nil
-		dst.ResponsesCreatedEvent = nil
-		dst.ResponsesErrorEvent = nil
-		dst.ResponsesFailedEvent = nil
-		dst.ResponsesFunctionCallArgumentsDeltaEvent = nil
-		dst.ResponsesFunctionCallArgumentsDoneEvent = nil
-		dst.ResponsesInProgressEvent = nil
-		dst.ResponsesIncompleteEvent = nil
-		dst.ResponsesOutputItemAddedEvent = nil
-		dst.ResponsesOutputItemDoneEvent = nil
-		dst.ResponsesReasoningTextDeltaEvent = nil
-		dst.ResponsesReasoningTextDoneEvent = nil
-		dst.ResponsesTextDeltaEvent = nil
-		dst.ResponsesTextDoneEvent = nil
+		dst.TranscriptionStreamDone = nil
+		dst.TranscriptionStreamLanguage = nil
+		dst.TranscriptionStreamSegmentDelta = nil
+		dst.TranscriptionStreamTextDelta = nil
 
 		return fmt.Errorf("data matches more than one schema in oneOf(Data4)")
 	} else if match == 1 {
@@ -458,68 +146,20 @@ func (dst *Data4) UnmarshalJSON(data []byte) error {
 
 // Marshal data from the first non-nil pointers in the struct to JSON
 func (src Data4) MarshalJSON() ([]byte, error) {
-	if src.ResponsesCompletedEvent != nil {
-		return json.Marshal(&src.ResponsesCompletedEvent)
+	if src.TranscriptionStreamDone != nil {
+		return json.Marshal(&src.TranscriptionStreamDone)
 	}
 
-	if src.ResponsesContentPartAddedEvent != nil {
-		return json.Marshal(&src.ResponsesContentPartAddedEvent)
+	if src.TranscriptionStreamLanguage != nil {
+		return json.Marshal(&src.TranscriptionStreamLanguage)
 	}
 
-	if src.ResponsesContentPartDoneEvent != nil {
-		return json.Marshal(&src.ResponsesContentPartDoneEvent)
+	if src.TranscriptionStreamSegmentDelta != nil {
+		return json.Marshal(&src.TranscriptionStreamSegmentDelta)
 	}
 
-	if src.ResponsesCreatedEvent != nil {
-		return json.Marshal(&src.ResponsesCreatedEvent)
-	}
-
-	if src.ResponsesErrorEvent != nil {
-		return json.Marshal(&src.ResponsesErrorEvent)
-	}
-
-	if src.ResponsesFailedEvent != nil {
-		return json.Marshal(&src.ResponsesFailedEvent)
-	}
-
-	if src.ResponsesFunctionCallArgumentsDeltaEvent != nil {
-		return json.Marshal(&src.ResponsesFunctionCallArgumentsDeltaEvent)
-	}
-
-	if src.ResponsesFunctionCallArgumentsDoneEvent != nil {
-		return json.Marshal(&src.ResponsesFunctionCallArgumentsDoneEvent)
-	}
-
-	if src.ResponsesInProgressEvent != nil {
-		return json.Marshal(&src.ResponsesInProgressEvent)
-	}
-
-	if src.ResponsesIncompleteEvent != nil {
-		return json.Marshal(&src.ResponsesIncompleteEvent)
-	}
-
-	if src.ResponsesOutputItemAddedEvent != nil {
-		return json.Marshal(&src.ResponsesOutputItemAddedEvent)
-	}
-
-	if src.ResponsesOutputItemDoneEvent != nil {
-		return json.Marshal(&src.ResponsesOutputItemDoneEvent)
-	}
-
-	if src.ResponsesReasoningTextDeltaEvent != nil {
-		return json.Marshal(&src.ResponsesReasoningTextDeltaEvent)
-	}
-
-	if src.ResponsesReasoningTextDoneEvent != nil {
-		return json.Marshal(&src.ResponsesReasoningTextDoneEvent)
-	}
-
-	if src.ResponsesTextDeltaEvent != nil {
-		return json.Marshal(&src.ResponsesTextDeltaEvent)
-	}
-
-	if src.ResponsesTextDoneEvent != nil {
-		return json.Marshal(&src.ResponsesTextDoneEvent)
+	if src.TranscriptionStreamTextDelta != nil {
+		return json.Marshal(&src.TranscriptionStreamTextDelta)
 	}
 
 	return nil, nil // no data in oneOf schemas
@@ -530,68 +170,20 @@ func (obj *Data4) GetActualInstance() (interface{}) {
 	if obj == nil {
 		return nil
 	}
-	if obj.ResponsesCompletedEvent != nil {
-		return obj.ResponsesCompletedEvent
+	if obj.TranscriptionStreamDone != nil {
+		return obj.TranscriptionStreamDone
 	}
 
-	if obj.ResponsesContentPartAddedEvent != nil {
-		return obj.ResponsesContentPartAddedEvent
+	if obj.TranscriptionStreamLanguage != nil {
+		return obj.TranscriptionStreamLanguage
 	}
 
-	if obj.ResponsesContentPartDoneEvent != nil {
-		return obj.ResponsesContentPartDoneEvent
+	if obj.TranscriptionStreamSegmentDelta != nil {
+		return obj.TranscriptionStreamSegmentDelta
 	}
 
-	if obj.ResponsesCreatedEvent != nil {
-		return obj.ResponsesCreatedEvent
-	}
-
-	if obj.ResponsesErrorEvent != nil {
-		return obj.ResponsesErrorEvent
-	}
-
-	if obj.ResponsesFailedEvent != nil {
-		return obj.ResponsesFailedEvent
-	}
-
-	if obj.ResponsesFunctionCallArgumentsDeltaEvent != nil {
-		return obj.ResponsesFunctionCallArgumentsDeltaEvent
-	}
-
-	if obj.ResponsesFunctionCallArgumentsDoneEvent != nil {
-		return obj.ResponsesFunctionCallArgumentsDoneEvent
-	}
-
-	if obj.ResponsesInProgressEvent != nil {
-		return obj.ResponsesInProgressEvent
-	}
-
-	if obj.ResponsesIncompleteEvent != nil {
-		return obj.ResponsesIncompleteEvent
-	}
-
-	if obj.ResponsesOutputItemAddedEvent != nil {
-		return obj.ResponsesOutputItemAddedEvent
-	}
-
-	if obj.ResponsesOutputItemDoneEvent != nil {
-		return obj.ResponsesOutputItemDoneEvent
-	}
-
-	if obj.ResponsesReasoningTextDeltaEvent != nil {
-		return obj.ResponsesReasoningTextDeltaEvent
-	}
-
-	if obj.ResponsesReasoningTextDoneEvent != nil {
-		return obj.ResponsesReasoningTextDoneEvent
-	}
-
-	if obj.ResponsesTextDeltaEvent != nil {
-		return obj.ResponsesTextDeltaEvent
-	}
-
-	if obj.ResponsesTextDoneEvent != nil {
-		return obj.ResponsesTextDoneEvent
+	if obj.TranscriptionStreamTextDelta != nil {
+		return obj.TranscriptionStreamTextDelta
 	}
 
 	// all schemas are nil
@@ -600,68 +192,20 @@ func (obj *Data4) GetActualInstance() (interface{}) {
 
 // Get the actual instance value
 func (obj Data4) GetActualInstanceValue() (interface{}) {
-	if obj.ResponsesCompletedEvent != nil {
-		return *obj.ResponsesCompletedEvent
+	if obj.TranscriptionStreamDone != nil {
+		return *obj.TranscriptionStreamDone
 	}
 
-	if obj.ResponsesContentPartAddedEvent != nil {
-		return *obj.ResponsesContentPartAddedEvent
+	if obj.TranscriptionStreamLanguage != nil {
+		return *obj.TranscriptionStreamLanguage
 	}
 
-	if obj.ResponsesContentPartDoneEvent != nil {
-		return *obj.ResponsesContentPartDoneEvent
+	if obj.TranscriptionStreamSegmentDelta != nil {
+		return *obj.TranscriptionStreamSegmentDelta
 	}
 
-	if obj.ResponsesCreatedEvent != nil {
-		return *obj.ResponsesCreatedEvent
-	}
-
-	if obj.ResponsesErrorEvent != nil {
-		return *obj.ResponsesErrorEvent
-	}
-
-	if obj.ResponsesFailedEvent != nil {
-		return *obj.ResponsesFailedEvent
-	}
-
-	if obj.ResponsesFunctionCallArgumentsDeltaEvent != nil {
-		return *obj.ResponsesFunctionCallArgumentsDeltaEvent
-	}
-
-	if obj.ResponsesFunctionCallArgumentsDoneEvent != nil {
-		return *obj.ResponsesFunctionCallArgumentsDoneEvent
-	}
-
-	if obj.ResponsesInProgressEvent != nil {
-		return *obj.ResponsesInProgressEvent
-	}
-
-	if obj.ResponsesIncompleteEvent != nil {
-		return *obj.ResponsesIncompleteEvent
-	}
-
-	if obj.ResponsesOutputItemAddedEvent != nil {
-		return *obj.ResponsesOutputItemAddedEvent
-	}
-
-	if obj.ResponsesOutputItemDoneEvent != nil {
-		return *obj.ResponsesOutputItemDoneEvent
-	}
-
-	if obj.ResponsesReasoningTextDeltaEvent != nil {
-		return *obj.ResponsesReasoningTextDeltaEvent
-	}
-
-	if obj.ResponsesReasoningTextDoneEvent != nil {
-		return *obj.ResponsesReasoningTextDoneEvent
-	}
-
-	if obj.ResponsesTextDeltaEvent != nil {
-		return *obj.ResponsesTextDeltaEvent
-	}
-
-	if obj.ResponsesTextDoneEvent != nil {
-		return *obj.ResponsesTextDoneEvent
+	if obj.TranscriptionStreamTextDelta != nil {
+		return *obj.TranscriptionStreamTextDelta
 	}
 
 	// all schemas are nil

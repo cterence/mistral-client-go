@@ -21,7 +21,7 @@ var _ MappedNullable = &VoiceUpdateRequest{}
 type VoiceUpdateRequest struct {
 	Name NullableString `json:"name,omitempty"`
 	Languages []string `json:"languages,omitempty"`
-	Gender NullableString `json:"gender,omitempty"`
+	Gender NullableVoiceGender `json:"gender,omitempty"`
 	Age NullableInt32 `json:"age,omitempty"`
 	Tags []string `json:"tags,omitempty"`
 	Description NullableString `json:"description,omitempty"`
@@ -121,9 +121,9 @@ func (o *VoiceUpdateRequest) SetLanguages(v []string) {
 }
 
 // GetGender returns the Gender field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *VoiceUpdateRequest) GetGender() string {
+func (o *VoiceUpdateRequest) GetGender() VoiceGender {
 	if o == nil || IsNil(o.Gender.Get()) {
-		var ret string
+		var ret VoiceGender
 		return ret
 	}
 	return *o.Gender.Get()
@@ -132,7 +132,7 @@ func (o *VoiceUpdateRequest) GetGender() string {
 // GetGenderOk returns a tuple with the Gender field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *VoiceUpdateRequest) GetGenderOk() (*string, bool) {
+func (o *VoiceUpdateRequest) GetGenderOk() (*VoiceGender, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -148,8 +148,8 @@ func (o *VoiceUpdateRequest) HasGender() bool {
 	return false
 }
 
-// SetGender gets a reference to the given NullableString and assigns it to the Gender field.
-func (o *VoiceUpdateRequest) SetGender(v string) {
+// SetGender gets a reference to the given NullableVoiceGender and assigns it to the Gender field.
+func (o *VoiceUpdateRequest) SetGender(v VoiceGender) {
 	o.Gender.Set(&v)
 }
 // SetGenderNil sets the value for Gender to be an explicit nil

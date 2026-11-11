@@ -28,6 +28,8 @@ type SystemV2 struct {
 	DeletedAt NullableTime `json:"deleted_at"`
 	Name string `json:"name"`
 	Params map[string]ResourceLinkChunkMetadataValue `json:"params"`
+	Kind *string `json:"kind,omitempty"`
+	Spec map[string]*interface{} `json:"spec,omitempty"`
 }
 
 type _SystemV2 SystemV2
@@ -44,6 +46,8 @@ func NewSystemV2(id string, createdAt time.Time, updatedAt time.Time, deletedAt 
 	this.DeletedAt = deletedAt
 	this.Name = name
 	this.Params = params
+	var kind string = "custom"
+	this.Kind = &kind
 	return &this
 }
 
@@ -52,6 +56,8 @@ func NewSystemV2(id string, createdAt time.Time, updatedAt time.Time, deletedAt 
 // but it doesn't guarantee that properties required by API are set
 func NewSystemV2WithDefaults() *SystemV2 {
 	this := SystemV2{}
+	var kind string = "custom"
+	this.Kind = &kind
 	return &this
 }
 
@@ -201,6 +207,71 @@ func (o *SystemV2) SetParams(v map[string]ResourceLinkChunkMetadataValue) {
 	o.Params = v
 }
 
+// GetKind returns the Kind field value if set, zero value otherwise.
+func (o *SystemV2) GetKind() string {
+	if o == nil || IsNil(o.Kind) {
+		var ret string
+		return ret
+	}
+	return *o.Kind
+}
+
+// GetKindOk returns a tuple with the Kind field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SystemV2) GetKindOk() (*string, bool) {
+	if o == nil || IsNil(o.Kind) {
+		return nil, false
+	}
+	return o.Kind, true
+}
+
+// HasKind returns a boolean if a field has been set.
+func (o *SystemV2) HasKind() bool {
+	if o != nil && !IsNil(o.Kind) {
+		return true
+	}
+
+	return false
+}
+
+// SetKind gets a reference to the given string and assigns it to the Kind field.
+func (o *SystemV2) SetKind(v string) {
+	o.Kind = &v
+}
+
+// GetSpec returns the Spec field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *SystemV2) GetSpec() map[string]*interface{} {
+	if o == nil {
+		var ret map[string]*interface{}
+		return ret
+	}
+	return o.Spec
+}
+
+// GetSpecOk returns a tuple with the Spec field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *SystemV2) GetSpecOk() (map[string]*interface{}, bool) {
+	if o == nil || IsNil(o.Spec) {
+		return map[string]*interface{}{}, false
+	}
+	return o.Spec, true
+}
+
+// HasSpec returns a boolean if a field has been set.
+func (o *SystemV2) HasSpec() bool {
+	if o != nil && !IsNil(o.Spec) {
+		return true
+	}
+
+	return false
+}
+
+// SetSpec gets a reference to the given map[string]*interface{} and assigns it to the Spec field.
+func (o *SystemV2) SetSpec(v map[string]*interface{}) {
+	o.Spec = v
+}
+
 func (o SystemV2) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -217,6 +288,12 @@ func (o SystemV2) ToMap() (map[string]interface{}, error) {
 	toSerialize["deleted_at"] = o.DeletedAt.Get()
 	toSerialize["name"] = o.Name
 	toSerialize["params"] = o.Params
+	if !IsNil(o.Kind) {
+		toSerialize["kind"] = o.Kind
+	}
+	if o.Spec != nil {
+		toSerialize["spec"] = o.Spec
+	}
 	return toSerialize, nil
 }
 

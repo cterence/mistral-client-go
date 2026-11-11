@@ -23,7 +23,7 @@ var _ MappedNullable = &ResourceChunk{}
 type ResourceChunk struct {
 	Type *string `json:"type,omitempty"`
 	Uri string `json:"uri"`
-	Content Content4 `json:"content"`
+	Content Content5 `json:"content"`
 }
 
 type _ResourceChunk ResourceChunk
@@ -32,7 +32,7 @@ type _ResourceChunk ResourceChunk
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewResourceChunk(uri string, content Content4) *ResourceChunk {
+func NewResourceChunk(uri string, content Content5) *ResourceChunk {
 	this := ResourceChunk{}
 	var type_ string = "resource"
 	this.Type = &type_
@@ -108,9 +108,9 @@ func (o *ResourceChunk) SetUri(v string) {
 }
 
 // GetContent returns the Content field value
-func (o *ResourceChunk) GetContent() Content4 {
+func (o *ResourceChunk) GetContent() Content5 {
 	if o == nil {
-		var ret Content4
+		var ret Content5
 		return ret
 	}
 
@@ -119,7 +119,7 @@ func (o *ResourceChunk) GetContent() Content4 {
 
 // GetContentOk returns a tuple with the Content field value
 // and a boolean to check if the value has been set.
-func (o *ResourceChunk) GetContentOk() (*Content4, bool) {
+func (o *ResourceChunk) GetContentOk() (*Content5, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -127,7 +127,7 @@ func (o *ResourceChunk) GetContentOk() (*Content4, bool) {
 }
 
 // SetContent sets field value
-func (o *ResourceChunk) SetContent(v Content4) {
+func (o *ResourceChunk) SetContent(v Content5) {
 	o.Content = v
 }
 

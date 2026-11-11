@@ -16,7 +16,7 @@ import (
 )
 
 
-// Input4 Input data for the signal, matching its schema
+// Input4 Input data for the query, matching its schema
 type Input4 struct {
 	NetworkEncodedInput *NetworkEncodedInput
 	MapmapOfStringAny *map[string]interface{}

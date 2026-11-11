@@ -48,6 +48,20 @@ func Test_mistral_WorkflowsDeploymentsAPIService(t *testing.T) {
 
 	})
 
+	t.Run("Test WorkflowsDeploymentsAPIService GetDeploymentArchiveV1WorkflowsDeploymentsNameArchiveGet", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		var name string
+
+		resp, httpRes, err := apiClient.WorkflowsDeploymentsAPI.GetDeploymentArchiveV1WorkflowsDeploymentsNameArchiveGet(context.Background(), name).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
 	t.Run("Test WorkflowsDeploymentsAPIService GetDeploymentLogs", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test

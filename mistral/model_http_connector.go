@@ -47,9 +47,9 @@ type HTTPConnector struct {
 	Mistral *bool `json:"mistral,omitempty"`
 	IsAuthenticated NullableBool `json:"is_authenticated,omitempty"`
 	Tools []ConnectorTool `json:"tools,omitempty"`
-	ConnectionConfig NullablePublicConnectionConfig `json:"connection_config,omitempty"`
-	ExecutionEnv NullablePublicExecutionEnv `json:"execution_env,omitempty"`
 	Protocol string `json:"protocol"`
+	// The OpenAPI spec the connector tools are converted from. Null when it has none.
+	OpenapiSpec NullableConnectorOpenApiSpec `json:"openapi_spec,omitempty"`
 }
 
 type _HTTPConnector HTTPConnector
@@ -875,90 +875,6 @@ func (o *HTTPConnector) SetTools(v []ConnectorTool) {
 	o.Tools = v
 }
 
-// GetConnectionConfig returns the ConnectionConfig field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *HTTPConnector) GetConnectionConfig() PublicConnectionConfig {
-	if o == nil || IsNil(o.ConnectionConfig.Get()) {
-		var ret PublicConnectionConfig
-		return ret
-	}
-	return *o.ConnectionConfig.Get()
-}
-
-// GetConnectionConfigOk returns a tuple with the ConnectionConfig field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *HTTPConnector) GetConnectionConfigOk() (*PublicConnectionConfig, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return o.ConnectionConfig.Get(), o.ConnectionConfig.IsSet()
-}
-
-// HasConnectionConfig returns a boolean if a field has been set.
-func (o *HTTPConnector) HasConnectionConfig() bool {
-	if o != nil && o.ConnectionConfig.IsSet() {
-		return true
-	}
-
-	return false
-}
-
-// SetConnectionConfig gets a reference to the given NullablePublicConnectionConfig and assigns it to the ConnectionConfig field.
-func (o *HTTPConnector) SetConnectionConfig(v PublicConnectionConfig) {
-	o.ConnectionConfig.Set(&v)
-}
-// SetConnectionConfigNil sets the value for ConnectionConfig to be an explicit nil
-func (o *HTTPConnector) SetConnectionConfigNil() {
-	o.ConnectionConfig.Set(nil)
-}
-
-// UnsetConnectionConfig ensures that no value is present for ConnectionConfig, not even an explicit nil
-func (o *HTTPConnector) UnsetConnectionConfig() {
-	o.ConnectionConfig.Unset()
-}
-
-// GetExecutionEnv returns the ExecutionEnv field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *HTTPConnector) GetExecutionEnv() PublicExecutionEnv {
-	if o == nil || IsNil(o.ExecutionEnv.Get()) {
-		var ret PublicExecutionEnv
-		return ret
-	}
-	return *o.ExecutionEnv.Get()
-}
-
-// GetExecutionEnvOk returns a tuple with the ExecutionEnv field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *HTTPConnector) GetExecutionEnvOk() (*PublicExecutionEnv, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return o.ExecutionEnv.Get(), o.ExecutionEnv.IsSet()
-}
-
-// HasExecutionEnv returns a boolean if a field has been set.
-func (o *HTTPConnector) HasExecutionEnv() bool {
-	if o != nil && o.ExecutionEnv.IsSet() {
-		return true
-	}
-
-	return false
-}
-
-// SetExecutionEnv gets a reference to the given NullablePublicExecutionEnv and assigns it to the ExecutionEnv field.
-func (o *HTTPConnector) SetExecutionEnv(v PublicExecutionEnv) {
-	o.ExecutionEnv.Set(&v)
-}
-// SetExecutionEnvNil sets the value for ExecutionEnv to be an explicit nil
-func (o *HTTPConnector) SetExecutionEnvNil() {
-	o.ExecutionEnv.Set(nil)
-}
-
-// UnsetExecutionEnv ensures that no value is present for ExecutionEnv, not even an explicit nil
-func (o *HTTPConnector) UnsetExecutionEnv() {
-	o.ExecutionEnv.Unset()
-}
-
 // GetProtocol returns the Protocol field value
 func (o *HTTPConnector) GetProtocol() string {
 	if o == nil {
@@ -981,6 +897,48 @@ func (o *HTTPConnector) GetProtocolOk() (*string, bool) {
 // SetProtocol sets field value
 func (o *HTTPConnector) SetProtocol(v string) {
 	o.Protocol = v
+}
+
+// GetOpenapiSpec returns the OpenapiSpec field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *HTTPConnector) GetOpenapiSpec() ConnectorOpenApiSpec {
+	if o == nil || IsNil(o.OpenapiSpec.Get()) {
+		var ret ConnectorOpenApiSpec
+		return ret
+	}
+	return *o.OpenapiSpec.Get()
+}
+
+// GetOpenapiSpecOk returns a tuple with the OpenapiSpec field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *HTTPConnector) GetOpenapiSpecOk() (*ConnectorOpenApiSpec, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.OpenapiSpec.Get(), o.OpenapiSpec.IsSet()
+}
+
+// HasOpenapiSpec returns a boolean if a field has been set.
+func (o *HTTPConnector) HasOpenapiSpec() bool {
+	if o != nil && o.OpenapiSpec.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetOpenapiSpec gets a reference to the given NullableConnectorOpenApiSpec and assigns it to the OpenapiSpec field.
+func (o *HTTPConnector) SetOpenapiSpec(v ConnectorOpenApiSpec) {
+	o.OpenapiSpec.Set(&v)
+}
+// SetOpenapiSpecNil sets the value for OpenapiSpec to be an explicit nil
+func (o *HTTPConnector) SetOpenapiSpecNil() {
+	o.OpenapiSpec.Set(nil)
+}
+
+// UnsetOpenapiSpec ensures that no value is present for OpenapiSpec, not even an explicit nil
+func (o *HTTPConnector) UnsetOpenapiSpec() {
+	o.OpenapiSpec.Unset()
 }
 
 func (o HTTPConnector) MarshalJSON() ([]byte, error) {
@@ -1047,13 +1005,10 @@ func (o HTTPConnector) ToMap() (map[string]interface{}, error) {
 	if o.Tools != nil {
 		toSerialize["tools"] = o.Tools
 	}
-	if o.ConnectionConfig.IsSet() {
-		toSerialize["connection_config"] = o.ConnectionConfig.Get()
-	}
-	if o.ExecutionEnv.IsSet() {
-		toSerialize["execution_env"] = o.ExecutionEnv.Get()
-	}
 	toSerialize["protocol"] = o.Protocol
+	if o.OpenapiSpec.IsSet() {
+		toSerialize["openapi_spec"] = o.OpenapiSpec.Get()
+	}
 	return toSerialize, nil
 }
 

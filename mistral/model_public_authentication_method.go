@@ -24,7 +24,9 @@ type PublicAuthenticationMethod struct {
 	MethodType AuthenticationType `json:"method_type"`
 	Headers []ConnectorAuthenticationHeader `json:"headers,omitempty"`
 	GlobalHeaders map[string]GlobalHeaderValue `json:"global_headers,omitempty"`
-	HasDefaultCredentials bool `json:"has_default_credentials"`
+	// Deprecated: we removed the concept of connector level default credentials. Always false.
+	// Deprecated
+	HasDefaultCredentials *bool `json:"has_default_credentials,omitempty"`
 	GrantType NullableOAuth2GrantType `json:"grant_type,omitempty"`
 	TokenEndpointAuthMethod NullableOAuth2TokenEndpointAuthMethod `json:"token_endpoint_auth_method,omitempty"`
 	Oauth2ServerMetadata NullableExtendedOAuthServerMetadata `json:"oauth2_server_metadata,omitempty"`
@@ -36,10 +38,11 @@ type _PublicAuthenticationMethod PublicAuthenticationMethod
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewPublicAuthenticationMethod(methodType AuthenticationType, hasDefaultCredentials bool) *PublicAuthenticationMethod {
+func NewPublicAuthenticationMethod(methodType AuthenticationType) *PublicAuthenticationMethod {
 	this := PublicAuthenticationMethod{}
 	this.MethodType = methodType
-	this.HasDefaultCredentials = hasDefaultCredentials
+	var hasDefaultCredentials bool = false
+	this.HasDefaultCredentials = &hasDefaultCredentials
 	return &this
 }
 
@@ -48,6 +51,8 @@ func NewPublicAuthenticationMethod(methodType AuthenticationType, hasDefaultCred
 // but it doesn't guarantee that properties required by API are set
 func NewPublicAuthenticationMethodWithDefaults() *PublicAuthenticationMethod {
 	this := PublicAuthenticationMethod{}
+	var hasDefaultCredentials bool = false
+	this.HasDefaultCredentials = &hasDefaultCredentials
 	return &this
 }
 
@@ -140,28 +145,39 @@ func (o *PublicAuthenticationMethod) SetGlobalHeaders(v map[string]GlobalHeaderV
 	o.GlobalHeaders = v
 }
 
-// GetHasDefaultCredentials returns the HasDefaultCredentials field value
+// GetHasDefaultCredentials returns the HasDefaultCredentials field value if set, zero value otherwise.
+// Deprecated
 func (o *PublicAuthenticationMethod) GetHasDefaultCredentials() bool {
-	if o == nil {
+	if o == nil || IsNil(o.HasDefaultCredentials) {
 		var ret bool
 		return ret
 	}
-
-	return o.HasDefaultCredentials
+	return *o.HasDefaultCredentials
 }
 
-// GetHasDefaultCredentialsOk returns a tuple with the HasDefaultCredentials field value
+// GetHasDefaultCredentialsOk returns a tuple with the HasDefaultCredentials field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// Deprecated
 func (o *PublicAuthenticationMethod) GetHasDefaultCredentialsOk() (*bool, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.HasDefaultCredentials) {
 		return nil, false
 	}
-	return &o.HasDefaultCredentials, true
+	return o.HasDefaultCredentials, true
 }
 
-// SetHasDefaultCredentials sets field value
+// HasHasDefaultCredentials returns a boolean if a field has been set.
+func (o *PublicAuthenticationMethod) HasHasDefaultCredentials() bool {
+	if o != nil && !IsNil(o.HasDefaultCredentials) {
+		return true
+	}
+
+	return false
+}
+
+// SetHasDefaultCredentials gets a reference to the given bool and assigns it to the HasDefaultCredentials field.
+// Deprecated
 func (o *PublicAuthenticationMethod) SetHasDefaultCredentials(v bool) {
-	o.HasDefaultCredentials = v
+	o.HasDefaultCredentials = &v
 }
 
 // GetGrantType returns the GrantType field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -307,7 +323,9 @@ func (o PublicAuthenticationMethod) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.GlobalHeaders) {
 		toSerialize["global_headers"] = o.GlobalHeaders
 	}
-	toSerialize["has_default_credentials"] = o.HasDefaultCredentials
+	if !IsNil(o.HasDefaultCredentials) {
+		toSerialize["has_default_credentials"] = o.HasDefaultCredentials
+	}
 	if o.GrantType.IsSet() {
 		toSerialize["grant_type"] = o.GrantType.Get()
 	}
@@ -326,7 +344,6 @@ func (o *PublicAuthenticationMethod) UnmarshalJSON(data []byte) (err error) {
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
 		"method_type",
-		"has_default_credentials",
 	}
 
 	allProperties := make(map[string]interface{})

@@ -22,7 +22,7 @@ type UpdateAgentRequest struct {
 	// Instruction prompt the model will follow during the conversation.
 	Instructions NullableString `json:"instructions,omitempty"`
 	// List of tools which are available to the model during the conversation.
-	Tools []ToolsInner `json:"tools,omitempty"`
+	Tools []ToolsInner2 `json:"tools,omitempty"`
 	// Completion arguments that will be used to generate assistant responses. Can be overridden at each message request.
 	CompletionArgs *CompletionArgs `json:"completion_args,omitempty"`
 	Guardrails []GuardrailConfig `json:"guardrails,omitempty"`
@@ -96,9 +96,9 @@ func (o *UpdateAgentRequest) UnsetInstructions() {
 }
 
 // GetTools returns the Tools field value if set, zero value otherwise.
-func (o *UpdateAgentRequest) GetTools() []ToolsInner {
+func (o *UpdateAgentRequest) GetTools() []ToolsInner2 {
 	if o == nil || IsNil(o.Tools) {
-		var ret []ToolsInner
+		var ret []ToolsInner2
 		return ret
 	}
 	return o.Tools
@@ -106,7 +106,7 @@ func (o *UpdateAgentRequest) GetTools() []ToolsInner {
 
 // GetToolsOk returns a tuple with the Tools field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *UpdateAgentRequest) GetToolsOk() ([]ToolsInner, bool) {
+func (o *UpdateAgentRequest) GetToolsOk() ([]ToolsInner2, bool) {
 	if o == nil || IsNil(o.Tools) {
 		return nil, false
 	}
@@ -122,8 +122,8 @@ func (o *UpdateAgentRequest) HasTools() bool {
 	return false
 }
 
-// SetTools gets a reference to the given []ToolsInner and assigns it to the Tools field.
-func (o *UpdateAgentRequest) SetTools(v []ToolsInner) {
+// SetTools gets a reference to the given []ToolsInner2 and assigns it to the Tools field.
+func (o *UpdateAgentRequest) SetTools(v []ToolsInner2) {
 	o.Tools = v
 }
 

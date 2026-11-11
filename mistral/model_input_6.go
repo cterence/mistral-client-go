@@ -16,39 +16,30 @@ import (
 )
 
 
-// Input6 struct for Input6
+// Input6 The input to the workflow. This should be a dictionary or a BaseModel that matches the workflow's input schema.
 type Input6 struct {
-	ArrayOfInput6AnyOfInner *[]Input6AnyOfInner
-	String *string
+	MapmapOfStringAny *map[string]interface{}
 }
 
 // Unmarshal JSON data into any of the pointers in the struct
 func (dst *Input6) UnmarshalJSON(data []byte) error {
 	var err error
-	// try to unmarshal JSON data into ArrayOfInput6AnyOfInner
-	err = json.Unmarshal(data, &dst.ArrayOfInput6AnyOfInner);
-	if err == nil {
-		jsonArrayOfInput6AnyOfInner, _ := json.Marshal(dst.ArrayOfInput6AnyOfInner)
-		if string(jsonArrayOfInput6AnyOfInner) == "{}" { // empty struct
-			dst.ArrayOfInput6AnyOfInner = nil
-		} else {
-			return nil // data stored in dst.ArrayOfInput6AnyOfInner, return on the first match
-		}
-	} else {
-		dst.ArrayOfInput6AnyOfInner = nil
+	// this object is nullable so check if the payload is null or empty string
+	if string(data) == "" || string(data) == "{}" {
+		return nil
 	}
 
-	// try to unmarshal JSON data into String
-	err = json.Unmarshal(data, &dst.String);
+	// try to unmarshal JSON data into MapmapOfStringAny
+	err = json.Unmarshal(data, &dst.MapmapOfStringAny);
 	if err == nil {
-		jsonString, _ := json.Marshal(dst.String)
-		if string(jsonString) == "{}" { // empty struct
-			dst.String = nil
+		jsonMapmapOfStringAny, _ := json.Marshal(dst.MapmapOfStringAny)
+		if string(jsonMapmapOfStringAny) == "{}" { // empty struct
+			dst.MapmapOfStringAny = nil
 		} else {
-			return nil // data stored in dst.String, return on the first match
+			return nil // data stored in dst.MapmapOfStringAny, return on the first match
 		}
 	} else {
-		dst.String = nil
+		dst.MapmapOfStringAny = nil
 	}
 
 	return fmt.Errorf("data failed to match schemas in anyOf(Input6)")
@@ -56,12 +47,8 @@ func (dst *Input6) UnmarshalJSON(data []byte) error {
 
 // Marshal data from the first non-nil pointers in the struct to JSON
 func (src Input6) MarshalJSON() ([]byte, error) {
-	if src.ArrayOfInput6AnyOfInner != nil {
-		return json.Marshal(&src.ArrayOfInput6AnyOfInner)
-	}
-
-	if src.String != nil {
-		return json.Marshal(&src.String)
+	if src.MapmapOfStringAny != nil {
+		return json.Marshal(&src.MapmapOfStringAny)
 	}
 
 	return nil, nil // no data in anyOf schemas

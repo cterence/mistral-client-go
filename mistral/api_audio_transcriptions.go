@@ -35,6 +35,7 @@ type ApiAudioApiV1TranscriptionsPostRequest struct {
 	stream *bool
 	diarize *bool
 	contextBias *[]string
+	speakerReferences *map[string]string
 	timestampGranularities *[]TimestampGranularity
 }
 
@@ -85,6 +86,12 @@ func (r ApiAudioApiV1TranscriptionsPostRequest) Diarize(diarize bool) ApiAudioAp
 
 func (r ApiAudioApiV1TranscriptionsPostRequest) ContextBias(contextBias []string) ApiAudioApiV1TranscriptionsPostRequest {
 	r.contextBias = &contextBias
+	return r
+}
+
+// Dictionary of speaker names and reference audios for speakers who are known to appear in the audio. When enabled, diarize must be true. Predicted speakers will be matched against reference speakers from this dictionary.
+func (r ApiAudioApiV1TranscriptionsPostRequest) SpeakerReferences(speakerReferences map[string]string) ApiAudioApiV1TranscriptionsPostRequest {
+	r.speakerReferences = &speakerReferences
 	return r
 }
 
@@ -179,6 +186,9 @@ func (a *AudioTranscriptionsAPIService) AudioApiV1TranscriptionsPostExecute(r Ap
 	if r.contextBias != nil {
 		parameterAddToHeaderOrQuery(localVarFormParams, "context_bias", r.contextBias, "", "csv")
 	}
+	if r.speakerReferences != nil {
+		parameterAddToHeaderOrQuery(localVarFormParams, "speaker_references", r.speakerReferences, "", "")
+	}
 	if r.timestampGranularities != nil {
 		parameterAddToHeaderOrQuery(localVarFormParams, "timestamp_granularities", r.timestampGranularities, "", "csv")
 	}
@@ -231,6 +241,7 @@ type ApiAudioApiV1TranscriptionsPostStreamRequest struct {
 	stream *bool
 	diarize *bool
 	contextBias *[]string
+	speakerReferences *map[string]string
 	timestampGranularities *[]TimestampGranularity
 }
 
@@ -280,6 +291,12 @@ func (r ApiAudioApiV1TranscriptionsPostStreamRequest) Diarize(diarize bool) ApiA
 
 func (r ApiAudioApiV1TranscriptionsPostStreamRequest) ContextBias(contextBias []string) ApiAudioApiV1TranscriptionsPostStreamRequest {
 	r.contextBias = &contextBias
+	return r
+}
+
+// Dictionary of speaker names and reference audios for speakers who are known to appear in the audio. When enabled, diarize must be true. Predicted speakers will be matched against reference speakers from this dictionary.
+func (r ApiAudioApiV1TranscriptionsPostStreamRequest) SpeakerReferences(speakerReferences map[string]string) ApiAudioApiV1TranscriptionsPostStreamRequest {
+	r.speakerReferences = &speakerReferences
 	return r
 }
 
@@ -373,6 +390,9 @@ func (a *AudioTranscriptionsAPIService) AudioApiV1TranscriptionsPostStreamExecut
 	}
 	if r.contextBias != nil {
 		parameterAddToHeaderOrQuery(localVarFormParams, "context_bias", r.contextBias, "", "csv")
+	}
+	if r.speakerReferences != nil {
+		parameterAddToHeaderOrQuery(localVarFormParams, "speaker_references", r.speakerReferences, "", "")
 	}
 	if r.timestampGranularities != nil {
 		parameterAddToHeaderOrQuery(localVarFormParams, "timestamp_granularities", r.timestampGranularities, "", "csv")

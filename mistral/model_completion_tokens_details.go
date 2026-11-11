@@ -17,10 +17,13 @@ import (
 // checks if the CompletionTokensDetails type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &CompletionTokensDetails{}
 
-// CompletionTokensDetails Token usage details for the completion.
+// CompletionTokensDetails Token usage details for the completion.  ``reasoning_tokens`` is ``None`` when the provider did not report a count. Preserve that distinction instead of inventing a measured zero: ``0`` means \"reasoning off, confirmed by the provider\", ``None`` means \"unknown\".
 type CompletionTokensDetails struct {
-	ReasoningTokens *int32 `json:"reasoning_tokens,omitempty"`
+	ReasoningTokens NullableInt32 `json:"reasoning_tokens,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _CompletionTokensDetails CompletionTokensDetails
 
 // NewCompletionTokensDetails instantiates a new CompletionTokensDetails object
 // This constructor will assign default values to properties that have it defined,
@@ -28,8 +31,6 @@ type CompletionTokensDetails struct {
 // will change when the set of required properties is changed
 func NewCompletionTokensDetails() *CompletionTokensDetails {
 	this := CompletionTokensDetails{}
-	var reasoningTokens int32 = 0
-	this.ReasoningTokens = &reasoningTokens
 	return &this
 }
 
@@ -38,41 +39,49 @@ func NewCompletionTokensDetails() *CompletionTokensDetails {
 // but it doesn't guarantee that properties required by API are set
 func NewCompletionTokensDetailsWithDefaults() *CompletionTokensDetails {
 	this := CompletionTokensDetails{}
-	var reasoningTokens int32 = 0
-	this.ReasoningTokens = &reasoningTokens
 	return &this
 }
 
-// GetReasoningTokens returns the ReasoningTokens field value if set, zero value otherwise.
+// GetReasoningTokens returns the ReasoningTokens field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *CompletionTokensDetails) GetReasoningTokens() int32 {
-	if o == nil || IsNil(o.ReasoningTokens) {
+	if o == nil || IsNil(o.ReasoningTokens.Get()) {
 		var ret int32
 		return ret
 	}
-	return *o.ReasoningTokens
+	return *o.ReasoningTokens.Get()
 }
 
 // GetReasoningTokensOk returns a tuple with the ReasoningTokens field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *CompletionTokensDetails) GetReasoningTokensOk() (*int32, bool) {
-	if o == nil || IsNil(o.ReasoningTokens) {
+	if o == nil {
 		return nil, false
 	}
-	return o.ReasoningTokens, true
+	return o.ReasoningTokens.Get(), o.ReasoningTokens.IsSet()
 }
 
 // HasReasoningTokens returns a boolean if a field has been set.
 func (o *CompletionTokensDetails) HasReasoningTokens() bool {
-	if o != nil && !IsNil(o.ReasoningTokens) {
+	if o != nil && o.ReasoningTokens.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetReasoningTokens gets a reference to the given int32 and assigns it to the ReasoningTokens field.
+// SetReasoningTokens gets a reference to the given NullableInt32 and assigns it to the ReasoningTokens field.
 func (o *CompletionTokensDetails) SetReasoningTokens(v int32) {
-	o.ReasoningTokens = &v
+	o.ReasoningTokens.Set(&v)
+}
+// SetReasoningTokensNil sets the value for ReasoningTokens to be an explicit nil
+func (o *CompletionTokensDetails) SetReasoningTokensNil() {
+	o.ReasoningTokens.Set(nil)
+}
+
+// UnsetReasoningTokens ensures that no value is present for ReasoningTokens, not even an explicit nil
+func (o *CompletionTokensDetails) UnsetReasoningTokens() {
+	o.ReasoningTokens.Unset()
 }
 
 func (o CompletionTokensDetails) MarshalJSON() ([]byte, error) {
@@ -85,10 +94,36 @@ func (o CompletionTokensDetails) MarshalJSON() ([]byte, error) {
 
 func (o CompletionTokensDetails) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.ReasoningTokens) {
-		toSerialize["reasoning_tokens"] = o.ReasoningTokens
+	if o.ReasoningTokens.IsSet() {
+		toSerialize["reasoning_tokens"] = o.ReasoningTokens.Get()
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *CompletionTokensDetails) UnmarshalJSON(data []byte) (err error) {
+	varCompletionTokensDetails := _CompletionTokensDetails{}
+
+	err = json.Unmarshal(data, &varCompletionTokensDetails)
+
+	if err != nil {
+		return err
+	}
+
+	*o = CompletionTokensDetails(varCompletionTokensDetails)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "reasoning_tokens")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableCompletionTokensDetails struct {

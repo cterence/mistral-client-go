@@ -22,6 +22,19 @@ func Test_mistral_WorkflowsAPIService(t *testing.T) {
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
 
+	t.Run("Test WorkflowsAPIService AddWorkflowTagsV1WorkflowsWorkflowIdentifierTagsPost", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		var workflowIdentifier string
+
+		httpRes, err := apiClient.WorkflowsAPI.AddWorkflowTagsV1WorkflowsWorkflowIdentifierTagsPost(context.Background(), workflowIdentifier).Execute()
+
+		require.Nil(t, err)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
 	t.Run("Test WorkflowsAPIService ArchiveWorkflowV1WorkflowsWorkflowIdentifierArchivePut", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test

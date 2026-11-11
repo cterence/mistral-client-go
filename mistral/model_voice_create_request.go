@@ -23,9 +23,8 @@ var _ MappedNullable = &VoiceCreateRequest{}
 // VoiceCreateRequest Request model for creating a new voice with base64 audio.
 type VoiceCreateRequest struct {
 	Name string `json:"name"`
-	Slug NullableString `json:"slug,omitempty"`
 	Languages []string `json:"languages,omitempty"`
-	Gender NullableString `json:"gender,omitempty"`
+	Gender NullableVoiceGender `json:"gender,omitempty"`
 	Age NullableInt32 `json:"age,omitempty"`
 	Tags []string `json:"tags,omitempty"`
 	Color NullableString `json:"color,omitempty"`
@@ -85,48 +84,6 @@ func (o *VoiceCreateRequest) SetName(v string) {
 	o.Name = v
 }
 
-// GetSlug returns the Slug field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *VoiceCreateRequest) GetSlug() string {
-	if o == nil || IsNil(o.Slug.Get()) {
-		var ret string
-		return ret
-	}
-	return *o.Slug.Get()
-}
-
-// GetSlugOk returns a tuple with the Slug field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *VoiceCreateRequest) GetSlugOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return o.Slug.Get(), o.Slug.IsSet()
-}
-
-// HasSlug returns a boolean if a field has been set.
-func (o *VoiceCreateRequest) HasSlug() bool {
-	if o != nil && o.Slug.IsSet() {
-		return true
-	}
-
-	return false
-}
-
-// SetSlug gets a reference to the given NullableString and assigns it to the Slug field.
-func (o *VoiceCreateRequest) SetSlug(v string) {
-	o.Slug.Set(&v)
-}
-// SetSlugNil sets the value for Slug to be an explicit nil
-func (o *VoiceCreateRequest) SetSlugNil() {
-	o.Slug.Set(nil)
-}
-
-// UnsetSlug ensures that no value is present for Slug, not even an explicit nil
-func (o *VoiceCreateRequest) UnsetSlug() {
-	o.Slug.Unset()
-}
-
 // GetLanguages returns the Languages field value if set, zero value otherwise.
 func (o *VoiceCreateRequest) GetLanguages() []string {
 	if o == nil || IsNil(o.Languages) {
@@ -160,9 +117,9 @@ func (o *VoiceCreateRequest) SetLanguages(v []string) {
 }
 
 // GetGender returns the Gender field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *VoiceCreateRequest) GetGender() string {
+func (o *VoiceCreateRequest) GetGender() VoiceGender {
 	if o == nil || IsNil(o.Gender.Get()) {
-		var ret string
+		var ret VoiceGender
 		return ret
 	}
 	return *o.Gender.Get()
@@ -171,7 +128,7 @@ func (o *VoiceCreateRequest) GetGender() string {
 // GetGenderOk returns a tuple with the Gender field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *VoiceCreateRequest) GetGenderOk() (*string, bool) {
+func (o *VoiceCreateRequest) GetGenderOk() (*VoiceGender, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -187,8 +144,8 @@ func (o *VoiceCreateRequest) HasGender() bool {
 	return false
 }
 
-// SetGender gets a reference to the given NullableString and assigns it to the Gender field.
-func (o *VoiceCreateRequest) SetGender(v string) {
+// SetGender gets a reference to the given NullableVoiceGender and assigns it to the Gender field.
+func (o *VoiceCreateRequest) SetGender(v VoiceGender) {
 	o.Gender.Set(&v)
 }
 // SetGenderNil sets the value for Gender to be an explicit nil
@@ -487,9 +444,6 @@ func (o VoiceCreateRequest) MarshalJSON() ([]byte, error) {
 func (o VoiceCreateRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["name"] = o.Name
-	if o.Slug.IsSet() {
-		toSerialize["slug"] = o.Slug.Get()
-	}
 	if !IsNil(o.Languages) {
 		toSerialize["languages"] = o.Languages
 	}

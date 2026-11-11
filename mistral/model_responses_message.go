@@ -20,7 +20,7 @@ var _ MappedNullable = &ResponsesMessage{}
 
 // ResponsesMessage struct for ResponsesMessage
 type ResponsesMessage struct {
-	Content []Content6AnyOfInner `json:"content"`
+	Content []ContentAnyOfInner `json:"content"`
 	Role string `json:"role"`
 	Status NullableString `json:"status,omitempty"`
 	Type NullableString `json:"type,omitempty"`
@@ -33,7 +33,7 @@ type _ResponsesMessage ResponsesMessage
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewResponsesMessage(content []Content6AnyOfInner, role string) *ResponsesMessage {
+func NewResponsesMessage(content []ContentAnyOfInner, role string) *ResponsesMessage {
 	this := ResponsesMessage{}
 	this.Content = content
 	this.Role = role
@@ -49,9 +49,9 @@ func NewResponsesMessageWithDefaults() *ResponsesMessage {
 }
 
 // GetContent returns the Content field value
-func (o *ResponsesMessage) GetContent() []Content6AnyOfInner {
+func (o *ResponsesMessage) GetContent() []ContentAnyOfInner {
 	if o == nil {
-		var ret []Content6AnyOfInner
+		var ret []ContentAnyOfInner
 		return ret
 	}
 
@@ -60,7 +60,7 @@ func (o *ResponsesMessage) GetContent() []Content6AnyOfInner {
 
 // GetContentOk returns a tuple with the Content field value
 // and a boolean to check if the value has been set.
-func (o *ResponsesMessage) GetContentOk() ([]Content6AnyOfInner, bool) {
+func (o *ResponsesMessage) GetContentOk() ([]ContentAnyOfInner, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -68,7 +68,7 @@ func (o *ResponsesMessage) GetContentOk() ([]Content6AnyOfInner, bool) {
 }
 
 // SetContent sets field value
-func (o *ResponsesMessage) SetContent(v []Content6AnyOfInner) {
+func (o *ResponsesMessage) SetContent(v []ContentAnyOfInner) {
 	o.Content = v
 }
 

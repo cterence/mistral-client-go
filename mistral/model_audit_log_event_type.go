@@ -152,6 +152,17 @@ const (
 	AUDITLOGEVENTTYPE_CUSTOM_VOICE_CREATE AuditLogEventType = "custom_voice.create"
 	AUDITLOGEVENTTYPE_CUSTOM_VOICE_UPDATE AuditLogEventType = "custom_voice.update"
 	AUDITLOGEVENTTYPE_CUSTOM_VOICE_DELETE AuditLogEventType = "custom_voice.delete"
+	AUDITLOGEVENTTYPE_CAPABILITY_REGISTRY_CREATE AuditLogEventType = "capability_registry.create"
+	AUDITLOGEVENTTYPE_CAPABILITY_REGISTRY_DEFAULT_WORKSPACE_ACCESS_ENABLE AuditLogEventType = "capability_registry.default_workspace_access.enable"
+	AUDITLOGEVENTTYPE_CAPABILITY_REGISTRY_DEFAULT_WORKSPACE_ACCESS_DISABLE AuditLogEventType = "capability_registry.default_workspace_access.disable"
+	AUDITLOGEVENTTYPE_CAPABILITY_REGISTRY_WORKSPACE_ACCESS_ENABLE AuditLogEventType = "capability_registry.workspace_access.enable"
+	AUDITLOGEVENTTYPE_CAPABILITY_REGISTRY_WORKSPACE_ACCESS_DISABLE AuditLogEventType = "capability_registry.workspace_access.disable"
+	AUDITLOGEVENTTYPE_CAPABILITY_REGISTRY_WORKSPACE_ACCESS_REMOVE AuditLogEventType = "capability_registry.workspace_access.remove"
+	AUDITLOGEVENTTYPE_CAPABILITY_VERSION_CREATE AuditLogEventType = "capability.version.create"
+	AUDITLOGEVENTTYPE_CAPABILITY_VERSION_DISABLE AuditLogEventType = "capability.version.disable"
+	AUDITLOGEVENTTYPE_CAPABILITY_VERSION_ENABLE AuditLogEventType = "capability.version.enable"
+	AUDITLOGEVENTTYPE_CAPABILITY_DISABLE AuditLogEventType = "capability.disable"
+	AUDITLOGEVENTTYPE_CAPABILITY_ENABLE AuditLogEventType = "capability.enable"
 	AUDITLOGEVENTTYPE_FEATURE_PERMISSION_OVERRIDE_CREATED AuditLogEventType = "feature_permission.override.created"
 	AUDITLOGEVENTTYPE_FEATURE_PERMISSION_OVERRIDE_DELETED AuditLogEventType = "feature_permission.override.deleted"
 	AUDITLOGEVENTTYPE_RESOURCE_SHARE AuditLogEventType = "resource.share"
@@ -258,6 +269,8 @@ const (
 	AUDITLOGEVENTTYPE_WORKFLOW_EXECUTION_STARTED AuditLogEventType = "workflow.execution.started"
 	AUDITLOGEVENTTYPE_WORKFLOW_EXECUTION_CANCELED AuditLogEventType = "workflow.execution.canceled"
 	AUDITLOGEVENTTYPE_WORKFLOW_EXECUTION_TERMINATED AuditLogEventType = "workflow.execution.terminated"
+	AUDITLOGEVENTTYPE_WORKFLOW_EXECUTION_COMPLETED AuditLogEventType = "workflow.execution.completed"
+	AUDITLOGEVENTTYPE_WORKFLOW_EXECUTION_FAILED AuditLogEventType = "workflow.execution.failed"
 	AUDITLOGEVENTTYPE_WORKFLOW_EXECUTION_SIGNAL AuditLogEventType = "workflow.execution.signal"
 	AUDITLOGEVENTTYPE_WORKFLOW_EXECUTION_QUERY AuditLogEventType = "workflow.execution.query"
 	AUDITLOGEVENTTYPE_WORKFLOW_EXECUTION_UPDATE AuditLogEventType = "workflow.execution.update"
@@ -272,6 +285,15 @@ const (
 	AUDITLOGEVENTTYPE_WORKFLOW_UNARCHIVED AuditLogEventType = "workflow.unarchived"
 	AUDITLOGEVENTTYPE_WORKFLOW_DEPLOYMENT_AUTHORIZED_CREDENTIAL_GRANTED AuditLogEventType = "workflow.deployment.authorized_credential.granted"
 	AUDITLOGEVENTTYPE_WORKFLOW_DEPLOYMENT_AUTHORIZED_CREDENTIAL_REVOKED AuditLogEventType = "workflow.deployment.authorized_credential.revoked"
+	AUDITLOGEVENTTYPE_WORKFLOW_MANAGED_DEPLOYMENT_CREATED AuditLogEventType = "workflow.managed_deployment.created"
+	AUDITLOGEVENTTYPE_WORKFLOW_MANAGED_DEPLOYMENT_UPDATED AuditLogEventType = "workflow.managed_deployment.updated"
+	AUDITLOGEVENTTYPE_WORKFLOW_MANAGED_DEPLOYMENT_STOPPED AuditLogEventType = "workflow.managed_deployment.stopped"
+	AUDITLOGEVENTTYPE_WORKFLOW_MANAGED_DEPLOYMENT_STARTED AuditLogEventType = "workflow.managed_deployment.started"
+	AUDITLOGEVENTTYPE_WORKFLOW_MANAGED_DEPLOYMENT_RESTARTED AuditLogEventType = "workflow.managed_deployment.restarted"
+	AUDITLOGEVENTTYPE_WORKFLOW_MANAGED_DEPLOYMENT_DELETED AuditLogEventType = "workflow.managed_deployment.deleted"
+	AUDITLOGEVENTTYPE_WORKFLOW_MANAGED_DEPLOYMENT_CREDENTIAL_PROVISIONED AuditLogEventType = "workflow.managed_deployment.credential.provisioned"
+	AUDITLOGEVENTTYPE_WORKFLOW_MANAGED_DEPLOYMENT_CREDENTIAL_REVOKED AuditLogEventType = "workflow.managed_deployment.credential.revoked"
+	AUDITLOGEVENTTYPE_WORKFLOW_MANAGED_DEPLOYMENT_STATUS_CHANGED AuditLogEventType = "workflow.managed_deployment.status.changed"
 )
 
 // All allowed values of AuditLogEventType enum
@@ -408,6 +430,17 @@ var AllowedAuditLogEventTypeEnumValues = []AuditLogEventType{
 	"custom_voice.create",
 	"custom_voice.update",
 	"custom_voice.delete",
+	"capability_registry.create",
+	"capability_registry.default_workspace_access.enable",
+	"capability_registry.default_workspace_access.disable",
+	"capability_registry.workspace_access.enable",
+	"capability_registry.workspace_access.disable",
+	"capability_registry.workspace_access.remove",
+	"capability.version.create",
+	"capability.version.disable",
+	"capability.version.enable",
+	"capability.disable",
+	"capability.enable",
 	"feature_permission.override.created",
 	"feature_permission.override.deleted",
 	"resource.share",
@@ -514,6 +547,8 @@ var AllowedAuditLogEventTypeEnumValues = []AuditLogEventType{
 	"workflow.execution.started",
 	"workflow.execution.canceled",
 	"workflow.execution.terminated",
+	"workflow.execution.completed",
+	"workflow.execution.failed",
 	"workflow.execution.signal",
 	"workflow.execution.query",
 	"workflow.execution.update",
@@ -528,6 +563,15 @@ var AllowedAuditLogEventTypeEnumValues = []AuditLogEventType{
 	"workflow.unarchived",
 	"workflow.deployment.authorized_credential.granted",
 	"workflow.deployment.authorized_credential.revoked",
+	"workflow.managed_deployment.created",
+	"workflow.managed_deployment.updated",
+	"workflow.managed_deployment.stopped",
+	"workflow.managed_deployment.started",
+	"workflow.managed_deployment.restarted",
+	"workflow.managed_deployment.deleted",
+	"workflow.managed_deployment.credential.provisioned",
+	"workflow.managed_deployment.credential.revoked",
+	"workflow.managed_deployment.status.changed",
 }
 
 func (v *AuditLogEventType) UnmarshalJSON(src []byte) error {

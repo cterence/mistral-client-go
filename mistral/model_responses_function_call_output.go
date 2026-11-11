@@ -21,7 +21,7 @@ var _ MappedNullable = &ResponsesFunctionCallOutput{}
 // ResponsesFunctionCallOutput struct for ResponsesFunctionCallOutput
 type ResponsesFunctionCallOutput struct {
 	CallId string `json:"call_id"`
-	Output Output1 `json:"output"`
+	Output Output `json:"output"`
 	Type string `json:"type"`
 	Id NullableString `json:"id,omitempty"`
 	Caller NullableCaller `json:"caller,omitempty"`
@@ -35,7 +35,7 @@ type _ResponsesFunctionCallOutput ResponsesFunctionCallOutput
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewResponsesFunctionCallOutput(callId string, output Output1, type_ string) *ResponsesFunctionCallOutput {
+func NewResponsesFunctionCallOutput(callId string, output Output, type_ string) *ResponsesFunctionCallOutput {
 	this := ResponsesFunctionCallOutput{}
 	this.CallId = callId
 	this.Output = output
@@ -76,9 +76,9 @@ func (o *ResponsesFunctionCallOutput) SetCallId(v string) {
 }
 
 // GetOutput returns the Output field value
-func (o *ResponsesFunctionCallOutput) GetOutput() Output1 {
+func (o *ResponsesFunctionCallOutput) GetOutput() Output {
 	if o == nil {
-		var ret Output1
+		var ret Output
 		return ret
 	}
 
@@ -87,7 +87,7 @@ func (o *ResponsesFunctionCallOutput) GetOutput() Output1 {
 
 // GetOutputOk returns a tuple with the Output field value
 // and a boolean to check if the value has been set.
-func (o *ResponsesFunctionCallOutput) GetOutputOk() (*Output1, bool) {
+func (o *ResponsesFunctionCallOutput) GetOutputOk() (*Output, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -95,7 +95,7 @@ func (o *ResponsesFunctionCallOutput) GetOutputOk() (*Output1, bool) {
 }
 
 // SetOutput sets field value
-func (o *ResponsesFunctionCallOutput) SetOutput(v Output1) {
+func (o *ResponsesFunctionCallOutput) SetOutput(v Output) {
 	o.Output = v
 }
 

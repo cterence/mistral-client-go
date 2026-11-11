@@ -30,8 +30,12 @@ type SpeechRequest struct {
 	RefAudio NullableRefAudio `json:"ref_audio,omitempty"`
 	// Text to generate a speech from
 	Input string `json:"input"`
+	// Speaker flow-matching classifier-free guidance scale. Must be finite and at least 1.0.
+	Expressiveness NullableFloat32 `json:"expressiveness,omitempty"`
 	// Optional pronunciation hints mapping a (case-sensitive) word to its ordered list of IPA phones.
 	PhonemeHints map[string][]IPAPhoneme `json:"phoneme_hints,omitempty"`
+	// Prior turns, oldest first, alternating and ending on a user turn: `input` is the assistant reply to it. Conditions delivery, not speaker: set `voice_id` to choose the speaker. Requires `voice_id` to be a preset voice whose `kind` is `pvc`. Cannot be combined with `ref_audio`.
+	ConversationHistory []SpeechRequestConversationHistoryInner `json:"conversation_history,omitempty"`
 	// Output audio format. Defaults to mp3.
 	ResponseFormat *SpeechOutputFormat `json:"response_format,omitempty"`
 	AdditionalProperties map[string]interface{}
@@ -322,6 +326,48 @@ func (o *SpeechRequest) SetInput(v string) {
 	o.Input = v
 }
 
+// GetExpressiveness returns the Expressiveness field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *SpeechRequest) GetExpressiveness() float32 {
+	if o == nil || IsNil(o.Expressiveness.Get()) {
+		var ret float32
+		return ret
+	}
+	return *o.Expressiveness.Get()
+}
+
+// GetExpressivenessOk returns a tuple with the Expressiveness field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *SpeechRequest) GetExpressivenessOk() (*float32, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.Expressiveness.Get(), o.Expressiveness.IsSet()
+}
+
+// HasExpressiveness returns a boolean if a field has been set.
+func (o *SpeechRequest) HasExpressiveness() bool {
+	if o != nil && o.Expressiveness.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetExpressiveness gets a reference to the given NullableFloat32 and assigns it to the Expressiveness field.
+func (o *SpeechRequest) SetExpressiveness(v float32) {
+	o.Expressiveness.Set(&v)
+}
+// SetExpressivenessNil sets the value for Expressiveness to be an explicit nil
+func (o *SpeechRequest) SetExpressivenessNil() {
+	o.Expressiveness.Set(nil)
+}
+
+// UnsetExpressiveness ensures that no value is present for Expressiveness, not even an explicit nil
+func (o *SpeechRequest) UnsetExpressiveness() {
+	o.Expressiveness.Unset()
+}
+
 // GetPhonemeHints returns the PhonemeHints field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *SpeechRequest) GetPhonemeHints() map[string][]IPAPhoneme {
 	if o == nil {
@@ -353,6 +399,39 @@ func (o *SpeechRequest) HasPhonemeHints() bool {
 // SetPhonemeHints gets a reference to the given map[string][]IPAPhoneme and assigns it to the PhonemeHints field.
 func (o *SpeechRequest) SetPhonemeHints(v map[string][]IPAPhoneme) {
 	o.PhonemeHints = v
+}
+
+// GetConversationHistory returns the ConversationHistory field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *SpeechRequest) GetConversationHistory() []SpeechRequestConversationHistoryInner {
+	if o == nil {
+		var ret []SpeechRequestConversationHistoryInner
+		return ret
+	}
+	return o.ConversationHistory
+}
+
+// GetConversationHistoryOk returns a tuple with the ConversationHistory field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *SpeechRequest) GetConversationHistoryOk() ([]SpeechRequestConversationHistoryInner, bool) {
+	if o == nil || IsNil(o.ConversationHistory) {
+		return nil, false
+	}
+	return o.ConversationHistory, true
+}
+
+// HasConversationHistory returns a boolean if a field has been set.
+func (o *SpeechRequest) HasConversationHistory() bool {
+	if o != nil && !IsNil(o.ConversationHistory) {
+		return true
+	}
+
+	return false
+}
+
+// SetConversationHistory gets a reference to the given []SpeechRequestConversationHistoryInner and assigns it to the ConversationHistory field.
+func (o *SpeechRequest) SetConversationHistory(v []SpeechRequestConversationHistoryInner) {
+	o.ConversationHistory = v
 }
 
 // GetResponseFormat returns the ResponseFormat field value if set, zero value otherwise.
@@ -416,8 +495,14 @@ func (o SpeechRequest) ToMap() (map[string]interface{}, error) {
 		toSerialize["ref_audio"] = o.RefAudio.Get()
 	}
 	toSerialize["input"] = o.Input
+	if o.Expressiveness.IsSet() {
+		toSerialize["expressiveness"] = o.Expressiveness.Get()
+	}
 	if o.PhonemeHints != nil {
 		toSerialize["phoneme_hints"] = o.PhonemeHints
+	}
+	if o.ConversationHistory != nil {
+		toSerialize["conversation_history"] = o.ConversationHistory
 	}
 	if !IsNil(o.ResponseFormat) {
 		toSerialize["response_format"] = o.ResponseFormat
@@ -472,7 +557,9 @@ func (o *SpeechRequest) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "voice_id")
 		delete(additionalProperties, "ref_audio")
 		delete(additionalProperties, "input")
+		delete(additionalProperties, "expressiveness")
 		delete(additionalProperties, "phoneme_hints")
+		delete(additionalProperties, "conversation_history")
 		delete(additionalProperties, "response_format")
 		o.AdditionalProperties = additionalProperties
 	}

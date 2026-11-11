@@ -22,7 +22,7 @@ var _ MappedNullable = &UserMessage{}
 // UserMessage struct for UserMessage
 type UserMessage struct {
 	Role *string `json:"role,omitempty"`
-	Content NullableContent3 `json:"content"`
+	Content NullableContent4 `json:"content"`
 }
 
 type _UserMessage UserMessage
@@ -31,7 +31,7 @@ type _UserMessage UserMessage
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewUserMessage(content NullableContent3) *UserMessage {
+func NewUserMessage(content NullableContent4) *UserMessage {
 	this := UserMessage{}
 	var role string = "user"
 	this.Role = &role
@@ -82,10 +82,10 @@ func (o *UserMessage) SetRole(v string) {
 }
 
 // GetContent returns the Content field value
-// If the value is explicit nil, the zero value for Content3 will be returned
-func (o *UserMessage) GetContent() Content3 {
+// If the value is explicit nil, the zero value for Content4 will be returned
+func (o *UserMessage) GetContent() Content4 {
 	if o == nil || o.Content.Get() == nil {
-		var ret Content3
+		var ret Content4
 		return ret
 	}
 
@@ -95,7 +95,7 @@ func (o *UserMessage) GetContent() Content3 {
 // GetContentOk returns a tuple with the Content field value
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *UserMessage) GetContentOk() (*Content3, bool) {
+func (o *UserMessage) GetContentOk() (*Content4, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -103,7 +103,7 @@ func (o *UserMessage) GetContentOk() (*Content3, bool) {
 }
 
 // SetContent sets field value
-func (o *UserMessage) SetContent(v Content3) {
+func (o *UserMessage) SetContent(v Content4) {
 	o.Content.Set(&v)
 }
 

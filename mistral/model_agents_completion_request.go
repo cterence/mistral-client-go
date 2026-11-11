@@ -32,7 +32,7 @@ type AgentsCompletionRequest struct {
 	Messages []MessagesInner `json:"messages"`
 	ResponseFormat *ResponseFormat `json:"response_format,omitempty"`
 	Tools []ChatCompletionRequestToolsInner `json:"tools,omitempty"`
-	ToolChoice *ToolChoice `json:"tool_choice,omitempty"`
+	ToolChoice *ToolChoice2 `json:"tool_choice,omitempty"`
 	// The `presence_penalty` determines how much the model penalizes the repetition of words or phrases. A higher presence penalty encourages the model to use a wider variety of words and phrases, making the output more diverse and creative.
 	PresencePenalty NullableFloat32 `json:"presence_penalty,omitempty"`
 	// The `frequency_penalty` penalizes the repetition of words based on their frequency in the generated text. A higher frequency penalty discourages the model from repeating words that have already appeared frequently in the output, promoting diversity and reducing repetition.
@@ -72,9 +72,8 @@ func NewAgentsCompletionRequest(messages []MessagesInner, agentId string) *Agent
 	var stream bool = false
 	this.Stream = &stream
 	this.Messages = messages
-	var toolChoice ToolChoice
-	auto := TOOLCHOICEENUM_AUTO
-	toolChoice.ToolChoiceEnum = &auto
+	var toolChoice ToolChoice2
+	_ = toolChoice.UnmarshalJSON([]byte(`"auto"`))
 	this.ToolChoice = &toolChoice
 	var parallelToolCalls bool = true
 	this.ParallelToolCalls = &parallelToolCalls
@@ -89,9 +88,8 @@ func NewAgentsCompletionRequestWithDefaults() *AgentsCompletionRequest {
 	this := AgentsCompletionRequest{}
 	var stream bool = false
 	this.Stream = &stream
-	var toolChoice ToolChoice
-	auto := TOOLCHOICEENUM_AUTO
-	toolChoice.ToolChoiceEnum = &auto
+	var toolChoice ToolChoice2
+	_ = toolChoice.UnmarshalJSON([]byte(`"auto"`))
 	this.ToolChoice = &toolChoice
 	var parallelToolCalls bool = true
 	this.ParallelToolCalls = &parallelToolCalls
@@ -379,9 +377,9 @@ func (o *AgentsCompletionRequest) SetTools(v []ChatCompletionRequestToolsInner) 
 }
 
 // GetToolChoice returns the ToolChoice field value if set, zero value otherwise.
-func (o *AgentsCompletionRequest) GetToolChoice() ToolChoice {
+func (o *AgentsCompletionRequest) GetToolChoice() ToolChoice2 {
 	if o == nil || IsNil(o.ToolChoice) {
-		var ret ToolChoice
+		var ret ToolChoice2
 		return ret
 	}
 	return *o.ToolChoice
@@ -389,7 +387,7 @@ func (o *AgentsCompletionRequest) GetToolChoice() ToolChoice {
 
 // GetToolChoiceOk returns a tuple with the ToolChoice field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AgentsCompletionRequest) GetToolChoiceOk() (*ToolChoice, bool) {
+func (o *AgentsCompletionRequest) GetToolChoiceOk() (*ToolChoice2, bool) {
 	if o == nil || IsNil(o.ToolChoice) {
 		return nil, false
 	}
@@ -405,8 +403,8 @@ func (o *AgentsCompletionRequest) HasToolChoice() bool {
 	return false
 }
 
-// SetToolChoice gets a reference to the given ToolChoice and assigns it to the ToolChoice field.
-func (o *AgentsCompletionRequest) SetToolChoice(v ToolChoice) {
+// SetToolChoice gets a reference to the given ToolChoice2 and assigns it to the ToolChoice field.
+func (o *AgentsCompletionRequest) SetToolChoice(v ToolChoice2) {
 	o.ToolChoice = &v
 }
 

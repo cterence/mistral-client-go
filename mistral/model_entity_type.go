@@ -22,14 +22,12 @@ type EntityType string
 const (
 	ENTITYTYPE_USER EntityType = "User"
 	ENTITYTYPE_WORKSPACE EntityType = "Workspace"
-	ENTITYTYPE_ORG EntityType = "Org"
 )
 
 // All allowed values of EntityType enum
 var AllowedEntityTypeEnumValues = []EntityType{
 	"User",
 	"Workspace",
-	"Org",
 }
 
 func (v *EntityType) UnmarshalJSON(src []byte) error {

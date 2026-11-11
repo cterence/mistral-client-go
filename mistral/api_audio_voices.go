@@ -34,6 +34,7 @@ type ApiAudioV2VoicesListRequest struct {
 	gender *[]VoiceGender
 	language *[]string
 	query *string
+	kind *VoiceKind
 }
 
 // Maximum number of voices to return
@@ -69,6 +70,12 @@ func (r ApiAudioV2VoicesListRequest) Language(language []string) ApiAudioV2Voice
 // Case-insensitive match on voice name
 func (r ApiAudioV2VoicesListRequest) Query(query string) ApiAudioV2VoicesListRequest {
 	r.query = &query
+	return r
+}
+
+// Keep voices cloned with this technology
+func (r ApiAudioV2VoicesListRequest) Kind(kind VoiceKind) ApiAudioV2VoicesListRequest {
+	r.kind = &kind
 	return r
 }
 
@@ -153,6 +160,9 @@ func (a *AudioVoicesAPIService) AudioV2VoicesListExecute(r ApiAudioV2VoicesListR
 	}
 	if r.query != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "query", r.query, "form", "")
+	}
+	if r.kind != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "kind", r.kind, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}

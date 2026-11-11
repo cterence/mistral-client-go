@@ -22,7 +22,7 @@ var _ MappedNullable = &SharingDelete{}
 // SharingDelete struct for SharingDelete
 type SharingDelete struct {
 	OrgId NullableString `json:"org_id,omitempty"`
-	// The id of the entity (user, workspace or organization) to share with
+	// The id of the entity to stop sharing with, as returned by the list endpoint
 	ShareWithUuid string `json:"share_with_uuid"`
 	ShareWithType EntityType `json:"share_with_type"`
 }

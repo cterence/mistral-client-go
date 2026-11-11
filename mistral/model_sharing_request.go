@@ -23,7 +23,7 @@ var _ MappedNullable = &SharingRequest{}
 type SharingRequest struct {
 	OrgId NullableString `json:"org_id,omitempty"`
 	Level ShareEnum `json:"level"`
-	// The id of the entity (user, workspace or organization) to share with
+	// The id of the user or workspace to share with
 	ShareWithUuid string `json:"share_with_uuid"`
 	ShareWithType EntityType `json:"share_with_type"`
 }

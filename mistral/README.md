@@ -72,6 +72,16 @@ All URIs are relative to *https://api.mistral.ai*
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
 *AgentsAPI* | [**AgentsCompletionV1AgentsCompletionsPost**](docs/AgentsAPI.md#agentscompletionv1agentscompletionspost) | **Post** /v1/agents/completions | Agents Completion
+*AudioAgentsAPI* | [**CreateAgentV1AudioAgentsPost**](docs/AudioAgentsAPI.md#createagentv1audioagentspost) | **Post** /v1/audio/agents | Create an audio agent
+*AudioAgentsAPI* | [**DeleteAgentV1AudioAgentsAgentIdDelete**](docs/AudioAgentsAPI.md#deleteagentv1audioagentsagentiddelete) | **Delete** /v1/audio/agents/{agent_id} | Delete an audio agent
+*AudioAgentsAPI* | [**GetAgentV1AudioAgentsAgentIdGet**](docs/AudioAgentsAPI.md#getagentv1audioagentsagentidget) | **Get** /v1/audio/agents/{agent_id} | Get an audio agent
+*AudioAgentsAPI* | [**ListAgentSessionsV1AudioAgentsAgentIdSessionsGet**](docs/AudioAgentsAPI.md#listagentsessionsv1audioagentsagentidsessionsget) | **Get** /v1/audio/agents/{agent_id}/sessions | List audio agent sessions
+*AudioAgentsAPI* | [**ListAgentVersionsV1AudioAgentsAgentIdVersionsGet**](docs/AudioAgentsAPI.md#listagentversionsv1audioagentsagentidversionsget) | **Get** /v1/audio/agents/{agent_id}/versions | List audio agent versions
+*AudioAgentsAPI* | [**ListAgentsV1AudioAgentsGet**](docs/AudioAgentsAPI.md#listagentsv1audioagentsget) | **Get** /v1/audio/agents | List audio agents
+*AudioAgentsAPI* | [**UpdateAgentV1AudioAgentsAgentIdPut**](docs/AudioAgentsAPI.md#updateagentv1audioagentsagentidput) | **Put** /v1/audio/agents/{agent_id} | Update an audio agent
+*AudioSessionsAPI* | [**CreateSessionV1AudioSessionsPost**](docs/AudioSessionsAPI.md#createsessionv1audiosessionspost) | **Post** /v1/audio/sessions | Create an agent session
+*AudioSessionsAPI* | [**DeleteSessionV1AudioSessionsSessionIdDelete**](docs/AudioSessionsAPI.md#deletesessionv1audiosessionssessioniddelete) | **Delete** /v1/audio/sessions/{session_id} | Stop an agent session
+*AudioSessionsAPI* | [**GetSessionV1AudioSessionsSessionIdGet**](docs/AudioSessionsAPI.md#getsessionv1audiosessionssessionidget) | **Get** /v1/audio/sessions/{session_id} | Get session status
 *AudioSpeechAPI* | [**SpeechV1AudioSpeechPost**](docs/AudioSpeechAPI.md#speechv1audiospeechpost) | **Post** /v1/audio/speech | Speech
 *AudioTranscriptionsAPI* | [**AudioApiV1TranscriptionsPost**](docs/AudioTranscriptionsAPI.md#audioapiv1transcriptionspost) | **Post** /v1/audio/transcriptions | Create Transcription
 *AudioTranscriptionsAPI* | [**AudioApiV1TranscriptionsPostStream**](docs/AudioTranscriptionsAPI.md#audioapiv1transcriptionspoststream) | **Post** /v1/audio/transcriptions#stream | Create Streaming Transcription (SSE)
@@ -148,6 +158,8 @@ Class | Method | HTTP request | Description
 *BetaAgentsAPI* | [**AgentsApiV1AgentsListVersions**](docs/BetaAgentsAPI.md#agentsapiv1agentslistversions) | **Get** /v1/agents/{agent_id}/versions | List all versions of an agent.
 *BetaAgentsAPI* | [**AgentsApiV1AgentsUpdate**](docs/BetaAgentsAPI.md#agentsapiv1agentsupdate) | **Patch** /v1/agents/{agent_id} | Update an agent entity.
 *BetaAgentsAPI* | [**AgentsApiV1AgentsUpdateVersion**](docs/BetaAgentsAPI.md#agentsapiv1agentsupdateversion) | **Patch** /v1/agents/{agent_id}/version | Update an agent version.
+*BetaBillingAPI* | [**BillingApiPublicGetBudget**](docs/BetaBillingAPI.md#billingapipublicgetbudget) | **Get** /v1/billing/budget | Get Budget
+*BetaBillingAPI* | [**BillingApiPublicGetSubscription**](docs/BetaBillingAPI.md#billingapipublicgetsubscription) | **Get** /v1/billing/subscription | Get Subscription
 *BetaConnectorsAPI* | [**ConnectorActivateForConsumerV1**](docs/BetaConnectorsAPI.md#connectoractivateforconsumerv1) | **Post** /v1/connectors/{connector_id}/{consumer_scope}/activate | Activate a connector for the given consumer (organization, workspace, user).
 *BetaConnectorsAPI* | [**ConnectorCallToolV1**](docs/BetaConnectorsAPI.md#connectorcalltoolv1) | **Post** /v1/connectors/{connector_id_or_name}/tools/{tool_name}/call | Call Connector Tool
 *BetaConnectorsAPI* | [**ConnectorCreateCredentialsV1**](docs/BetaConnectorsAPI.md#connectorcreatecredentialsv1) | **Post** /v1/connectors/{connector_id_or_name}/{consumer_scope}/credentials | Create consumer credentials for a connector.
@@ -170,6 +182,21 @@ Class | Method | HTTP request | Description
 *BetaConnectorsAPI* | [**ConnectorUnshareV1**](docs/BetaConnectorsAPI.md#connectorunsharev1) | **Delete** /v1/connectors/{connector_id}/share | Unshare a connector from the current workspace.
 *BetaConnectorsAPI* | [**ConnectorUpdateCredentials**](docs/BetaConnectorsAPI.md#connectorupdatecredentials) | **Patch** /v1/connectors/{connector_id_or_name}/{consumer_scope}/credentials | Create or update consumer credentials for a connector.
 *BetaConnectorsAPI* | [**ConnectorUpdateV1**](docs/BetaConnectorsAPI.md#connectorupdatev1) | **Patch** /v1/connectors/{connector_id}#id | Update a connector.
+*BetaContextSearchIndexesAPI* | [**CreateIndexV1ContextSearchIndexesPost**](docs/BetaContextSearchIndexesAPI.md#createindexv1contextsearchindexespost) | **Post** /v1/context/search-indexes | Create a managed index
+*BetaContextSearchIndexesAPI* | [**DeleteDocumentsV1ContextSearchIndexesIndexNameDocumentsDelete**](docs/BetaContextSearchIndexesAPI.md#deletedocumentsv1contextsearchindexesindexnamedocumentsdelete) | **Delete** /v1/context/search-indexes/{index_name}/documents | Delete documents from a managed index
+*BetaContextSearchIndexesAPI* | [**DeleteIndexV1ContextSearchIndexesIndexNameDelete**](docs/BetaContextSearchIndexesAPI.md#deleteindexv1contextsearchindexesindexnamedelete) | **Delete** /v1/context/search-indexes/{index_name} | Delete a managed index
+*BetaContextSearchIndexesAPI* | [**GenerateManagedIndexSummaryPostV1ContextSearchIndexesIndexNameSummaryFieldLanguagePost**](docs/BetaContextSearchIndexesAPI.md#generatemanagedindexsummarypostv1contextsearchindexesindexnamesummaryfieldlanguagepost) | **Post** /v1/context/search-indexes/{index_name}/summary_field/{language} | Generate a summary field for a managed index
+*BetaContextSearchIndexesAPI* | [**GetChunkIndexV1ContextSearchIndexesIndexNameChunksChunkIdGet**](docs/BetaContextSearchIndexesAPI.md#getchunkindexv1contextsearchindexesindexnamechunkschunkidget) | **Get** /v1/context/search-indexes/{index_name}/chunks/{chunk_id} | Get a single chunk by id
+*BetaContextSearchIndexesAPI* | [**GetIndexV1ContextSearchIndexesIndexNameGet**](docs/BetaContextSearchIndexesAPI.md#getindexv1contextsearchindexesindexnameget) | **Get** /v1/context/search-indexes/{index_name} | Get a managed index
+*BetaContextSearchIndexesAPI* | [**GetManagedIndexSummaryV1ContextSearchIndexesIndexNameSummaryFieldLanguageGet**](docs/BetaContextSearchIndexesAPI.md#getmanagedindexsummaryv1contextsearchindexesindexnamesummaryfieldlanguageget) | **Get** /v1/context/search-indexes/{index_name}/summary_field/{language} | Get Managed Index Summary
+*BetaContextSearchIndexesAPI* | [**GrepIndexV1ContextSearchIndexesIndexNameGrepPost**](docs/BetaContextSearchIndexesAPI.md#grepindexv1contextsearchindexesindexnamegreppost) | **Post** /v1/context/search-indexes/{index_name}/grep | Grep for a pattern within a source
+*BetaContextSearchIndexesAPI* | [**IngestDocumentsV1ContextSearchIndexesIndexNameDocumentsPost**](docs/BetaContextSearchIndexesAPI.md#ingestdocumentsv1contextsearchindexesindexnamedocumentspost) | **Post** /v1/context/search-indexes/{index_name}/documents | Ingest documents into a managed index
+*BetaContextSearchIndexesAPI* | [**ListIndexesV1ContextSearchIndexesGet**](docs/BetaContextSearchIndexesAPI.md#listindexesv1contextsearchindexesget) | **Get** /v1/context/search-indexes | List managed indexes
+*BetaContextSearchIndexesAPI* | [**NavigateIndexV1ContextSearchIndexesIndexNameNavigatePost**](docs/BetaContextSearchIndexesAPI.md#navigateindexv1contextsearchindexesindexnamenavigatepost) | **Post** /v1/context/search-indexes/{index_name}/navigate | Navigate to adjacent chunks
+*BetaContextSearchIndexesAPI* | [**ReadIndexV1ContextSearchIndexesIndexNameReadPost**](docs/BetaContextSearchIndexesAPI.md#readindexv1contextsearchindexesindexnamereadpost) | **Post** /v1/context/search-indexes/{index_name}/read | Read chunks within a span
+*BetaContextSearchIndexesAPI* | [**SearchIndexV1ContextSearchIndexesIndexNameSearchPost**](docs/BetaContextSearchIndexesAPI.md#searchindexv1contextsearchindexesindexnamesearchpost) | **Post** /v1/context/search-indexes/{index_name}/search | Search a managed index
+*BetaContextSearchIndexesAPI* | [**SetManagedIndexSummaryV1ContextSearchIndexesIndexNameSummaryFieldLanguagePut**](docs/BetaContextSearchIndexesAPI.md#setmanagedindexsummaryv1contextsearchindexesindexnamesummaryfieldlanguageput) | **Put** /v1/context/search-indexes/{index_name}/summary_field/{language} | Set Managed Index Summary
+*BetaContextSearchIndexesAPI* | [**UpdateIndexV1ContextSearchIndexesIndexNamePut**](docs/BetaContextSearchIndexesAPI.md#updateindexv1contextsearchindexesindexnameput) | **Put** /v1/context/search-indexes/{index_name} | Update a managed index schema
 *BetaConversationsAPI* | [**AgentsApiV1ConversationsAppend**](docs/BetaConversationsAPI.md#agentsapiv1conversationsappend) | **Post** /v1/conversations/{conversation_id} | Append new entries to an existing conversation.
 *BetaConversationsAPI* | [**AgentsApiV1ConversationsAppendStream**](docs/BetaConversationsAPI.md#agentsapiv1conversationsappendstream) | **Post** /v1/conversations/{conversation_id}#stream | Append new entries to an existing conversation.
 *BetaConversationsAPI* | [**AgentsApiV1ConversationsDelete**](docs/BetaConversationsAPI.md#agentsapiv1conversationsdelete) | **Delete** /v1/conversations/{conversation_id} | Delete a conversation.
@@ -251,6 +278,7 @@ Class | Method | HTTP request | Description
 *BetaObservabilityLogsAPI* | [**SearchLogsV1ObservabilityLogsSearchPost**](docs/BetaObservabilityLogsAPI.md#searchlogsv1observabilitylogssearchpost) | **Post** /v1/observability/logs/search | Search logs
 *BetaObservabilitySpansAPI* | [**AggregateSpanEvaluationsV1ObservabilitySpansEvaluationsAggregatePost**](docs/BetaObservabilitySpansAPI.md#aggregatespanevaluationsv1observabilityspansevaluationsaggregatepost) | **Post** /v1/observability/spans/evaluations/aggregate | Aggregate span evaluations
 *BetaObservabilitySpansAPI* | [**AggregateSpansV1ObservabilitySpansAggregatePost**](docs/BetaObservabilitySpansAPI.md#aggregatespansv1observabilityspansaggregatepost) | **Post** /v1/observability/spans/aggregate | Aggregate spans
+*BetaObservabilitySpansAPI* | [**GetPipelineResultFieldsV1ObservabilityPipelinesPipelineIdResultsFieldsGet**](docs/BetaObservabilitySpansAPI.md#getpipelineresultfieldsv1observabilitypipelinespipelineidresultsfieldsget) | **Get** /v1/observability/pipelines/{pipeline_id}/results/fields | Get pipeline result field definitions
 *BetaObservabilitySpansAPI* | [**GetSpanEvaluationFieldOptionsV1ObservabilitySpansEvaluationsFieldsFieldNameOptionsGet**](docs/BetaObservabilitySpansAPI.md#getspanevaluationfieldoptionsv1observabilityspansevaluationsfieldsfieldnameoptionsget) | **Get** /v1/observability/spans/evaluations/fields/{field_name}/options | Get options for a span evaluation field
 *BetaObservabilitySpansAPI* | [**GetSpanEvaluationFieldsV1ObservabilitySpansEvaluationsFieldsGet**](docs/BetaObservabilitySpansAPI.md#getspanevaluationfieldsv1observabilityspansevaluationsfieldsget) | **Get** /v1/observability/spans/evaluations/fields | Get span evaluation field definitions
 *BetaObservabilitySpansAPI* | [**GetSpanFieldOptionsV1ObservabilitySpansFieldsFieldNameOptionsGet**](docs/BetaObservabilitySpansAPI.md#getspanfieldoptionsv1observabilityspansfieldsfieldnameoptionsget) | **Get** /v1/observability/spans/fields/{field_name}/options | Get options for a span field
@@ -278,18 +306,6 @@ Class | Method | HTTP request | Description
 *BetaRagIngestionPipelineConfigurationsAPI* | [**GetConfigsV1RagIngestionPipelineConfigurationsGet**](docs/BetaRagIngestionPipelineConfigurationsAPI.md#getconfigsv1ragingestionpipelineconfigurationsget) | **Get** /v1/rag/ingestion_pipeline_configurations | List ingestion pipeline configurations
 *BetaRagIngestionPipelineConfigurationsAPI* | [**RegisterConfigV1RagIngestionPipelineConfigurationsPut**](docs/BetaRagIngestionPipelineConfigurationsAPI.md#registerconfigv1ragingestionpipelineconfigurationsput) | **Put** /v1/rag/ingestion_pipeline_configurations | Register Config
 *BetaRagIngestionPipelineConfigurationsAPI* | [**UpdateRunInfoV1RagIngestionPipelineConfigurationsIdRunInfoPut**](docs/BetaRagIngestionPipelineConfigurationsAPI.md#updateruninfov1ragingestionpipelineconfigurationsidruninfoput) | **Put** /v1/rag/ingestion_pipeline_configurations/{id}/run_info | Update Run Info
-*BetaRagManagedIndexesAPI* | [**CreateIndexV1RagManagedIndexesPost**](docs/BetaRagManagedIndexesAPI.md#createindexv1ragmanagedindexespost) | **Post** /v1/rag/managed_indexes | Create a managed index
-*BetaRagManagedIndexesAPI* | [**DeleteDocumentsV1RagManagedIndexesIndexNameDocumentsDelete**](docs/BetaRagManagedIndexesAPI.md#deletedocumentsv1ragmanagedindexesindexnamedocumentsdelete) | **Delete** /v1/rag/managed_indexes/{index_name}/documents | Delete documents from a managed index
-*BetaRagManagedIndexesAPI* | [**DeleteIndexV1RagManagedIndexesIndexNameDelete**](docs/BetaRagManagedIndexesAPI.md#deleteindexv1ragmanagedindexesindexnamedelete) | **Delete** /v1/rag/managed_indexes/{index_name} | Delete a managed index
-*BetaRagManagedIndexesAPI* | [**GetChunkIndexV1RagManagedIndexesIndexNameChunksChunkIdGet**](docs/BetaRagManagedIndexesAPI.md#getchunkindexv1ragmanagedindexesindexnamechunkschunkidget) | **Get** /v1/rag/managed_indexes/{index_name}/chunks/{chunk_id} | Get a single chunk by id
-*BetaRagManagedIndexesAPI* | [**GetIndexV1RagManagedIndexesIndexNameGet**](docs/BetaRagManagedIndexesAPI.md#getindexv1ragmanagedindexesindexnameget) | **Get** /v1/rag/managed_indexes/{index_name} | Get a managed index
-*BetaRagManagedIndexesAPI* | [**GrepIndexV1RagManagedIndexesIndexNameGrepPost**](docs/BetaRagManagedIndexesAPI.md#grepindexv1ragmanagedindexesindexnamegreppost) | **Post** /v1/rag/managed_indexes/{index_name}/grep | Grep for a pattern within a source
-*BetaRagManagedIndexesAPI* | [**IngestDocumentsV1RagManagedIndexesIndexNameDocumentsPost**](docs/BetaRagManagedIndexesAPI.md#ingestdocumentsv1ragmanagedindexesindexnamedocumentspost) | **Post** /v1/rag/managed_indexes/{index_name}/documents | Ingest documents into a managed index
-*BetaRagManagedIndexesAPI* | [**ListIndexesV1RagManagedIndexesGet**](docs/BetaRagManagedIndexesAPI.md#listindexesv1ragmanagedindexesget) | **Get** /v1/rag/managed_indexes | List managed indexes
-*BetaRagManagedIndexesAPI* | [**NavigateIndexV1RagManagedIndexesIndexNameNavigatePost**](docs/BetaRagManagedIndexesAPI.md#navigateindexv1ragmanagedindexesindexnamenavigatepost) | **Post** /v1/rag/managed_indexes/{index_name}/navigate | Navigate to adjacent chunks
-*BetaRagManagedIndexesAPI* | [**ReadIndexV1RagManagedIndexesIndexNameReadPost**](docs/BetaRagManagedIndexesAPI.md#readindexv1ragmanagedindexesindexnamereadpost) | **Post** /v1/rag/managed_indexes/{index_name}/read | Read chunks within a span
-*BetaRagManagedIndexesAPI* | [**SearchIndexV1RagManagedIndexesIndexNameSearchPost**](docs/BetaRagManagedIndexesAPI.md#searchindexv1ragmanagedindexesindexnamesearchpost) | **Post** /v1/rag/managed_indexes/{index_name}/search | Search a managed index
-*BetaRagManagedIndexesAPI* | [**UpdateIndexV1RagManagedIndexesIndexNamePut**](docs/BetaRagManagedIndexesAPI.md#updateindexv1ragmanagedindexesindexnameput) | **Put** /v1/rag/managed_indexes/{index_name} | Update a managed index schema
 *BetaRagSearchIndexesAPI* | [**GetDeploymentSummariesV1RagDeploymentsGet**](docs/BetaRagSearchIndexesAPI.md#getdeploymentsummariesv1ragdeploymentsget) | **Get** /v1/rag/deployments | Get Deployment Summaries
 *BetaRagSearchIndexesAPI* | [**RegisterDeploymentV1RagDeploymentsPut**](docs/BetaRagSearchIndexesAPI.md#registerdeploymentv1ragdeploymentsput) | **Put** /v1/rag/deployments | Register (or re-register) a search index
 *BetaRagSearchIndexesAPI* | [**UnregisterDeploymentV1RagDeploymentsDeploymentIdDelete**](docs/BetaRagSearchIndexesAPI.md#unregisterdeploymentv1ragdeploymentsdeploymentiddelete) | **Delete** /v1/rag/deployments/{deployment_id} | Unregister Deployment
@@ -311,10 +327,20 @@ Class | Method | HTTP request | Description
 *BetaSkillsAPI* | [**SkillsListVersions**](docs/BetaSkillsAPI.md#skillslistversions) | **Get** /v2/skills/{skill_id}/versions | ListSkillVersions
 *BetaSkillsAPI* | [**SkillsUpdate**](docs/BetaSkillsAPI.md#skillsupdate) | **Patch** /v2/skills/{skill_id} | UpdateSkill
 *BetaSkillsAPI* | [**SkillsUpdateVersionMetadata**](docs/BetaSkillsAPI.md#skillsupdateversionmetadata) | **Patch** /v2/skills/{skill_id}/versions/{version} | UpdateSkillVersionMetadata
+*BetaTriggersAPI* | [**CreateTriggerV1TriggersPost**](docs/BetaTriggersAPI.md#createtriggerv1triggerspost) | **Post** /v1/triggers | Create Trigger
+*BetaTriggersAPI* | [**DeleteTriggerV1TriggersTriggerIdDelete**](docs/BetaTriggersAPI.md#deletetriggerv1triggerstriggeriddelete) | **Delete** /v1/triggers/{trigger_id} | Delete Trigger
+*BetaTriggersAPI* | [**GetTriggerV1TriggersTriggerIdGet**](docs/BetaTriggersAPI.md#gettriggerv1triggerstriggeridget) | **Get** /v1/triggers/{trigger_id} | Get Trigger
+*BetaTriggersAPI* | [**ListTriggerEventsV1TriggersTriggerIdEventsGet**](docs/BetaTriggersAPI.md#listtriggereventsv1triggerstriggerideventsget) | **Get** /v1/triggers/{trigger_id}/events | List Trigger Events
+*BetaTriggersAPI* | [**ListTriggersV1TriggersGet**](docs/BetaTriggersAPI.md#listtriggersv1triggersget) | **Get** /v1/triggers | List Triggers
 *BetaUsersAPI* | [**UsersApiGetIdentity**](docs/BetaUsersAPI.md#usersapigetidentity) | **Get** /v1/users/me | Get Identity
 *BetaUsersAPI* | [**UsersApiListOrganizations**](docs/BetaUsersAPI.md#usersapilistorganizations) | **Get** /v1/users/me/organizations | List Organizations
 *BetaUsersAPI* | [**UsersApiListWorkspaces**](docs/BetaUsersAPI.md#usersapilistworkspaces) | **Get** /v1/users/me/workspaces | List Workspaces
 *BetaUsersAPI* | [**UsersApiWhoami**](docs/BetaUsersAPI.md#usersapiwhoami) | **Get** /v1/whoami | Whoami
+*BetaWebhooksAPI* | [**CreateWebhookV1WebhooksPost**](docs/BetaWebhooksAPI.md#createwebhookv1webhookspost) | **Post** /v1/webhooks | Create Webhook
+*BetaWebhooksAPI* | [**DeleteWebhookV1WebhooksWebhookIdDelete**](docs/BetaWebhooksAPI.md#deletewebhookv1webhookswebhookiddelete) | **Delete** /v1/webhooks/{webhook_id} | Delete Webhook
+*BetaWebhooksAPI* | [**GetWebhookSigningSecretV1WebhooksWebhookIdSigningSecretGet**](docs/BetaWebhooksAPI.md#getwebhooksigningsecretv1webhookswebhookidsigningsecretget) | **Get** /v1/webhooks/{webhook_id}/signing-secret | Get Webhook Signing Secret
+*BetaWebhooksAPI* | [**GetWebhookV1WebhooksWebhookIdGet**](docs/BetaWebhooksAPI.md#getwebhookv1webhookswebhookidget) | **Get** /v1/webhooks/{webhook_id} | Get Webhook
+*BetaWebhooksAPI* | [**ListWebhooksV1WebhooksGet**](docs/BetaWebhooksAPI.md#listwebhooksv1webhooksget) | **Get** /v1/webhooks | List Webhooks
 *ChatAPI* | [**ChatCompletionV1ChatCompletionsPost**](docs/ChatAPI.md#chatcompletionv1chatcompletionspost) | **Post** /v1/chat/completions | Chat Completion
 *ClassifiersAPI* | [**ChatClassificationsV1ChatClassificationsPost**](docs/ClassifiersAPI.md#chatclassificationsv1chatclassificationspost) | **Post** /v1/chat/classifications | Chat Classifications
 *ClassifiersAPI* | [**ChatModerationsV1ChatModerationsPost**](docs/ClassifiersAPI.md#chatmoderationsv1chatmoderationspost) | **Post** /v1/chat/moderations | Chat Moderations
@@ -338,6 +364,7 @@ Class | Method | HTTP request | Description
 *RealtimeSessionsAPI* | [**CreateClientSessionV1ClientSessionsPost**](docs/RealtimeSessionsAPI.md#createclientsessionv1clientsessionspost) | **Post** /v1/client/sessions | Create Client Session
 *ResponsesAPI* | [**CountInputTokensV1ResponsesInputTokensPost**](docs/ResponsesAPI.md#countinputtokensv1responsesinputtokenspost) | **Post** /v1/responses/input_tokens | Count Input Tokens
 *ResponsesAPI* | [**CreateResponseV1ResponsesPost**](docs/ResponsesAPI.md#createresponsev1responsespost) | **Post** /v1/responses | Create Response
+*WorkflowsAPI* | [**AddWorkflowTagsV1WorkflowsWorkflowIdentifierTagsPost**](docs/WorkflowsAPI.md#addworkflowtagsv1workflowsworkflowidentifiertagspost) | **Post** /v1/workflows/{workflow_identifier}/tags | Add Workflow Tags
 *WorkflowsAPI* | [**ArchiveWorkflowV1WorkflowsWorkflowIdentifierArchivePut**](docs/WorkflowsAPI.md#archiveworkflowv1workflowsworkflowidentifierarchiveput) | **Put** /v1/workflows/{workflow_identifier}/archive | Archive Workflow
 *WorkflowsAPI* | [**BulkArchiveWorkflowsV1WorkflowsArchivePut**](docs/WorkflowsAPI.md#bulkarchiveworkflowsv1workflowsarchiveput) | **Put** /v1/workflows/archive | Bulk Archive Workflows
 *WorkflowsAPI* | [**BulkUnarchiveWorkflowsV1WorkflowsUnarchivePut**](docs/WorkflowsAPI.md#bulkunarchiveworkflowsv1workflowsunarchiveput) | **Put** /v1/workflows/unarchive | Bulk Unarchive Workflows
@@ -351,6 +378,7 @@ Class | Method | HTTP request | Description
 *WorkflowsAPI* | [**UpdateWorkflowV1WorkflowsWorkflowIdentifierPut**](docs/WorkflowsAPI.md#updateworkflowv1workflowsworkflowidentifierput) | **Put** /v1/workflows/{workflow_identifier} | Update Workflow
 *WorkflowsDeploymentsAPI* | [**CreateDeploymentV1WorkflowsDeploymentsPost**](docs/WorkflowsDeploymentsAPI.md#createdeploymentv1workflowsdeploymentspost) | **Post** /v1/workflows/deployments | Create Deployment
 *WorkflowsDeploymentsAPI* | [**DeleteDeploymentV1WorkflowsDeploymentsNameDelete**](docs/WorkflowsDeploymentsAPI.md#deletedeploymentv1workflowsdeploymentsnamedelete) | **Delete** /v1/workflows/deployments/{name} | Delete Deployment
+*WorkflowsDeploymentsAPI* | [**GetDeploymentArchiveV1WorkflowsDeploymentsNameArchiveGet**](docs/WorkflowsDeploymentsAPI.md#getdeploymentarchivev1workflowsdeploymentsnamearchiveget) | **Get** /v1/workflows/deployments/{name}/archive | Get Deployment Archive
 *WorkflowsDeploymentsAPI* | [**GetDeploymentLogs**](docs/WorkflowsDeploymentsAPI.md#getdeploymentlogs) | **Get** /v1/workflows/deployments/{name}/logs | Get Deployment Logs
 *WorkflowsDeploymentsAPI* | [**GetDeploymentV1WorkflowsDeploymentsNameGet**](docs/WorkflowsDeploymentsAPI.md#getdeploymentv1workflowsdeploymentsnameget) | **Get** /v1/workflows/deployments/{name} | Get Deployment
 *WorkflowsDeploymentsAPI* | [**ListDeploymentWorkersV1WorkflowsDeploymentsNameWorkersGet**](docs/WorkflowsDeploymentsAPI.md#listdeploymentworkersv1workflowsdeploymentsnameworkersget) | **Get** /v1/workflows/deployments/{name}/workers | List Deployment Workers
@@ -472,8 +500,39 @@ Class | Method | HTTP request | Description
  - [AssignableServiceAccountRole](docs/AssignableServiceAccountRole.md)
  - [AssistantMessage](docs/AssistantMessage.md)
  - [AttributeHashSampling](docs/AttributeHashSampling.md)
+ - [AudioAgentConfigurationRequest](docs/AudioAgentConfigurationRequest.md)
+ - [AudioAgentConfigurationRequestToolsInner](docs/AudioAgentConfigurationRequestToolsInner.md)
+ - [AudioAgentConfigurationResponseConfig](docs/AudioAgentConfigurationResponseConfig.md)
+ - [AudioAgentConfigurationResponseConfigToolsInner](docs/AudioAgentConfigurationResponseConfigToolsInner.md)
+ - [AudioAgentCreateRequest](docs/AudioAgentCreateRequest.md)
+ - [AudioAgentListPage](docs/AudioAgentListPage.md)
+ - [AudioAgentResponse](docs/AudioAgentResponse.md)
+ - [AudioAgentSessionListPage](docs/AudioAgentSessionListPage.md)
+ - [AudioAgentSessionSummary](docs/AudioAgentSessionSummary.md)
+ - [AudioAgentUpdateRequest](docs/AudioAgentUpdateRequest.md)
+ - [AudioAssistantTranscriptTurn](docs/AudioAssistantTranscriptTurn.md)
  - [AudioChunk](docs/AudioChunk.md)
  - [AudioContent](docs/AudioContent.md)
+ - [AudioInactivityConfig](docs/AudioInactivityConfig.md)
+ - [AudioLLMConfig](docs/AudioLLMConfig.md)
+ - [AudioLatencyBreakdownAssistant](docs/AudioLatencyBreakdownAssistant.md)
+ - [AudioLatencyBreakdownUser](docs/AudioLatencyBreakdownUser.md)
+ - [AudioSTTConfig](docs/AudioSTTConfig.md)
+ - [AudioSessionCreateRequest](docs/AudioSessionCreateRequest.md)
+ - [AudioSessionCreateResponse](docs/AudioSessionCreateResponse.md)
+ - [AudioSessionPhoneCall](docs/AudioSessionPhoneCall.md)
+ - [AudioSessionPhoneNumber](docs/AudioSessionPhoneNumber.md)
+ - [AudioSessionResponse](docs/AudioSessionResponse.md)
+ - [AudioSessionResponseTranscriptsInner](docs/AudioSessionResponseTranscriptsInner.md)
+ - [AudioSpeechCapabilities](docs/AudioSpeechCapabilities.md)
+ - [AudioTTSConfig](docs/AudioTTSConfig.md)
+ - [AudioToolCall](docs/AudioToolCall.md)
+ - [AudioToolTranscriptTurn](docs/AudioToolTranscriptTurn.md)
+ - [AudioToolTranscriptTurnStatus](docs/AudioToolTranscriptTurnStatus.md)
+ - [AudioTranscriptionCapabilities](docs/AudioTranscriptionCapabilities.md)
+ - [AudioTurnConfig](docs/AudioTurnConfig.md)
+ - [AudioTurnDetectionConfig](docs/AudioTurnDetectionConfig.md)
+ - [AudioUserTranscriptTurn](docs/AudioUserTranscriptTurn.md)
  - [AuditLogEventType](docs/AuditLogEventType.md)
  - [AuditLogOut](docs/AuditLogOut.md)
  - [AuthData](docs/AuthData.md)
@@ -498,6 +557,7 @@ Class | Method | HTTP request | Description
  - [BlobResourceContents](docs/BlobResourceContents.md)
  - [BoolArrayFieldDefinition](docs/BoolArrayFieldDefinition.md)
  - [BoolFieldDefinition](docs/BoolFieldDefinition.md)
+ - [BudgetDetail](docs/BudgetDetail.md)
  - [BuiltInConnectors](docs/BuiltInConnectors.md)
  - [Caller](docs/Caller.md)
  - [Caller1](docs/Caller1.md)
@@ -535,7 +595,6 @@ Class | Method | HTTP request | Description
  - [CompletionResponseStreamChoice](docs/CompletionResponseStreamChoice.md)
  - [CompletionTokensDetails](docs/CompletionTokensDetails.md)
  - [ConfusionMatrix](docs/ConfusionMatrix.md)
- - [ConnectionConfigType](docs/ConnectionConfigType.md)
  - [ConnectionCredentialsInput](docs/ConnectionCredentialsInput.md)
  - [ConnectionPreference](docs/ConnectionPreference.md)
  - [Connector](docs/Connector.md)
@@ -547,6 +606,7 @@ Class | Method | HTTP request | Description
  - [ConnectorMCPPublicUpdate](docs/ConnectorMCPPublicUpdate.md)
  - [ConnectorMCPPublicUpdateAuthMethodsInner](docs/ConnectorMCPPublicUpdateAuthMethodsInner.md)
  - [ConnectorMCPPublicUpdateAuthMethodsInnerAnyOf](docs/ConnectorMCPPublicUpdateAuthMethodsInnerAnyOf.md)
+ - [ConnectorOpenApiSpec](docs/ConnectorOpenApiSpec.md)
  - [ConnectorSupportedLanguage](docs/ConnectorSupportedLanguage.md)
  - [ConnectorTool](docs/ConnectorTool.md)
  - [ConnectorToolCallMetadata](docs/ConnectorToolCallMetadata.md)
@@ -557,14 +617,14 @@ Class | Method | HTTP request | Description
  - [ConsumerType](docs/ConsumerType.md)
  - [Content](docs/Content.md)
  - [Content1](docs/Content1.md)
+ - [Content1Inner](docs/Content1Inner.md)
  - [Content2](docs/Content2.md)
  - [Content3](docs/Content3.md)
  - [Content4](docs/Content4.md)
  - [Content5](docs/Content5.md)
  - [Content6](docs/Content6.md)
- - [Content6AnyOfInner](docs/Content6AnyOfInner.md)
- - [Content6Inner](docs/Content6Inner.md)
  - [Content7Inner](docs/Content7Inner.md)
+ - [ContentAnyOfInner](docs/ContentAnyOfInner.md)
  - [ContentChunk](docs/ContentChunk.md)
  - [ContentSearchFilter](docs/ContentSearchFilter.md)
  - [ContentSearchFilterGroup](docs/ContentSearchFilterGroup.md)
@@ -608,6 +668,9 @@ Class | Method | HTTP request | Description
  - [CreateSkillRequest](docs/CreateSkillRequest.md)
  - [CreateSkillVersionRequest](docs/CreateSkillVersionRequest.md)
  - [CreateSkillVersionResponse](docs/CreateSkillVersionResponse.md)
+ - [CreateTrigger](docs/CreateTrigger.md)
+ - [CreateTriggerAction](docs/CreateTriggerAction.md)
+ - [CreateWebhook](docs/CreateWebhook.md)
  - [CredentialsCreateOrUpdate](docs/CredentialsCreateOrUpdate.md)
  - [CredentialsResponse](docs/CredentialsResponse.md)
  - [CredentialsStatus](docs/CredentialsStatus.md)
@@ -633,6 +696,7 @@ Class | Method | HTTP request | Description
  - [Data2](docs/Data2.md)
  - [Data3](docs/Data3.md)
  - [Data4](docs/Data4.md)
+ - [Data5](docs/Data5.md)
  - [Dataset](docs/Dataset.md)
  - [DatasetImportResult](docs/DatasetImportResult.md)
  - [DatasetImportTask](docs/DatasetImportTask.md)
@@ -653,6 +717,7 @@ Class | Method | HTTP request | Description
  - [DeltaMessage](docs/DeltaMessage.md)
  - [DeltaMessageContent](docs/DeltaMessageContent.md)
  - [DenseVectorFieldDefinition](docs/DenseVectorFieldDefinition.md)
+ - [DeploymentArchiveResponse](docs/DeploymentArchiveResponse.md)
  - [DeploymentBuildState](docs/DeploymentBuildState.md)
  - [DeploymentDetailResponse](docs/DeploymentDetailResponse.md)
  - [DeploymentK8sBackendSpec](docs/DeploymentK8sBackendSpec.md)
@@ -671,6 +736,7 @@ Class | Method | HTTP request | Description
  - [DeploymentWorkerResponse](docs/DeploymentWorkerResponse.md)
  - [DeploymentWorkerSpecInput](docs/DeploymentWorkerSpecInput.md)
  - [DeploymentWorkerSpecResponse](docs/DeploymentWorkerSpecResponse.md)
+ - [Destination](docs/Destination.md)
  - [DetectionDefinitionV1](docs/DetectionDefinitionV1.md)
  - [DetectionPattern](docs/DetectionPattern.md)
  - [DistanceMetric](docs/DistanceMetric.md)
@@ -694,6 +760,7 @@ Class | Method | HTTP request | Description
  - [EncryptedPatchValue](docs/EncryptedPatchValue.md)
  - [EntityType](docs/EntityType.md)
  - [EntriesInner](docs/EntriesInner.md)
+ - [EnumConstraints](docs/EnumConstraints.md)
  - [Equal](docs/Equal.md)
  - [EvaluationBooleanResultSpec](docs/EvaluationBooleanResultSpec.md)
  - [EvaluationCategoricalResultSpec](docs/EvaluationCategoricalResultSpec.md)
@@ -721,7 +788,6 @@ Class | Method | HTTP request | Description
  - [ExecutionConfig](docs/ExecutionConfig.md)
  - [ExecutionLogRecord](docs/ExecutionLogRecord.md)
  - [ExecutionLogSearchResponse](docs/ExecutionLogSearchResponse.md)
- - [ExecutionTool](docs/ExecutionTool.md)
  - [ExecutionTraceInfoResponse](docs/ExecutionTraceInfoResponse.md)
  - [ExportDatasetResponse](docs/ExportDatasetResponse.md)
  - [ExportDefinitionV1](docs/ExportDefinitionV1.md)
@@ -737,6 +803,7 @@ Class | Method | HTTP request | Description
  - [FeedResultGetSpan](docs/FeedResultGetSpan.md)
  - [FeedResultGetSpanEvaluation](docs/FeedResultGetSpanEvaluation.md)
  - [FeedResultGetTrace](docs/FeedResultGetTrace.md)
+ - [FieldDefinitionsInner](docs/FieldDefinitionsInner.md)
  - [FieldSortInput](docs/FieldSortInput.md)
  - [FileChunk](docs/FileChunk.md)
  - [FilePurpose](docs/FilePurpose.md)
@@ -746,6 +813,7 @@ Class | Method | HTTP request | Description
  - [FineTunedModelCapabilities](docs/FineTunedModelCapabilities.md)
  - [FineTuningDataJSON](docs/FineTuningDataJSON.md)
  - [FloatArrayFieldDefinition](docs/FloatArrayFieldDefinition.md)
+ - [FloatConstraints](docs/FloatConstraints.md)
  - [FloatFieldDefinition](docs/FloatFieldDefinition.md)
  - [Format](docs/Format.md)
  - [Format1](docs/Format1.md)
@@ -755,8 +823,10 @@ Class | Method | HTTP request | Description
  - [FunctionCallEntryArguments](docs/FunctionCallEntryArguments.md)
  - [FunctionCallEvent](docs/FunctionCallEvent.md)
  - [FunctionName](docs/FunctionName.md)
+ - [FunctionRequest](docs/FunctionRequest.md)
  - [FunctionResultEntry](docs/FunctionResultEntry.md)
  - [FunctionTool](docs/FunctionTool.md)
+ - [GetBudgetResponse](docs/GetBudgetResponse.md)
  - [GetDeploymentSummariesResponse](docs/GetDeploymentSummariesResponse.md)
  - [GetDeploymentSummariesResponseDeployment](docs/GetDeploymentSummariesResponseDeployment.md)
  - [GetDeploymentSummariesResponseVespaDeployment](docs/GetDeploymentSummariesResponseVespaDeployment.md)
@@ -766,6 +836,7 @@ Class | Method | HTTP request | Description
  - [GetLogFieldOptions](docs/GetLogFieldOptions.md)
  - [GetLogFields](docs/GetLogFields.md)
  - [GetLogs](docs/GetLogs.md)
+ - [GetPipelineResultFields](docs/GetPipelineResultFields.md)
  - [GetPipelineResults](docs/GetPipelineResults.md)
  - [GetSignedUrlResponse](docs/GetSignedUrlResponse.md)
  - [GetSpan](docs/GetSpan.md)
@@ -777,6 +848,8 @@ Class | Method | HTTP request | Description
  - [GetSpanFields](docs/GetSpanFields.md)
  - [GetSpans](docs/GetSpans.md)
  - [GetStreamEventsV1WorkflowsEventsStreamGet200Response](docs/GetStreamEventsV1WorkflowsEventsStreamGet200Response.md)
+ - [GetSubscriptionResponse](docs/GetSubscriptionResponse.md)
+ - [GetSummaryResponseSummary](docs/GetSummaryResponseSummary.md)
  - [GetTrace](docs/GetTrace.md)
  - [GetTraceFieldOptions](docs/GetTraceFieldOptions.md)
  - [GetTraceFields](docs/GetTraceFields.md)
@@ -801,6 +874,7 @@ Class | Method | HTTP request | Description
  - [HTTPConnector](docs/HTTPConnector.md)
  - [HTTPStatus](docs/HTTPStatus.md)
  - [HTTPValidationError](docs/HTTPValidationError.md)
+ - [HangUpTool](docs/HangUpTool.md)
  - [IPAPhoneme](docs/IPAPhoneme.md)
  - [ImageContent](docs/ImageContent.md)
  - [ImageDetail](docs/ImageDetail.md)
@@ -825,7 +899,7 @@ Class | Method | HTTP request | Description
  - [Input4](docs/Input4.md)
  - [Input5](docs/Input5.md)
  - [Input6](docs/Input6.md)
- - [Input6AnyOfInner](docs/Input6AnyOfInner.md)
+ - [InputAnyOfInner](docs/InputAnyOfInner.md)
  - [InputAudio](docs/InputAudio.md)
  - [InstructRequest](docs/InstructRequest.md)
  - [IntArrayFieldDefinition](docs/IntArrayFieldDefinition.md)
@@ -1000,6 +1074,9 @@ Class | Method | HTTP request | Description
  - [ObservabilityError](docs/ObservabilityError.md)
  - [ObservabilityErrorCode](docs/ObservabilityErrorCode.md)
  - [ObservabilityErrorDetail](docs/ObservabilityErrorDetail.md)
+ - [OpenApiFileSource](docs/OpenApiFileSource.md)
+ - [OpenApiSpecSource](docs/OpenApiSpecSource.md)
+ - [OpenApiUrlSource](docs/OpenApiUrlSource.md)
  - [Optimization](docs/Optimization.md)
  - [OptimizationDetail](docs/OptimizationDetail.md)
  - [OptimizationReference](docs/OptimizationReference.md)
@@ -1014,11 +1091,13 @@ Class | Method | HTTP request | Description
  - [OrganizationMemberCreate](docs/OrganizationMemberCreate.md)
  - [OrganizationUserInviteOUT](docs/OrganizationUserInviteOUT.md)
  - [OrganizationUsersCreateOUT](docs/OrganizationUsersCreateOUT.md)
+ - [OtelEnumFieldDefinition](docs/OtelEnumFieldDefinition.md)
  - [OtelFieldDefinition](docs/OtelFieldDefinition.md)
+ - [OtelFloatFieldDefinition](docs/OtelFloatFieldDefinition.md)
  - [Output](docs/Output.md)
  - [Output1](docs/Output1.md)
- - [Output1AnyOfInner](docs/Output1AnyOfInner.md)
- - [Output2Inner](docs/Output2Inner.md)
+ - [Output1Inner](docs/Output1Inner.md)
+ - [OutputAnyOfInner](docs/OutputAnyOfInner.md)
  - [OutputContentChunks](docs/OutputContentChunks.md)
  - [OutputsInner](docs/OutputsInner.md)
  - [Pages](docs/Pages.md)
@@ -1044,6 +1123,7 @@ Class | Method | HTTP request | Description
  - [Payload2](docs/Payload2.md)
  - [Percentile](docs/Percentile.md)
  - [PercentileStatisticSpec](docs/PercentileStatisticSpec.md)
+ - [PhoneDestination](docs/PhoneDestination.md)
  - [Pipeline](docs/Pipeline.md)
  - [PipelineConfig](docs/PipelineConfig.md)
  - [PipelineConfigDefinition](docs/PipelineConfigDefinition.md)
@@ -1076,11 +1156,6 @@ Class | Method | HTTP request | Description
  - [Prompts](docs/Prompts.md)
  - [PromptsCapability](docs/PromptsCapability.md)
  - [PublicAuthenticationMethod](docs/PublicAuthenticationMethod.md)
- - [PublicConnectionConfig](docs/PublicConnectionConfig.md)
- - [PublicConnectorExecutionData](docs/PublicConnectorExecutionData.md)
- - [PublicExecutionConnectionConfig](docs/PublicExecutionConnectionConfig.md)
- - [PublicExecutionConnector](docs/PublicExecutionConnector.md)
- - [PublicExecutionEnv](docs/PublicExecutionEnv.md)
  - [PublicResourceVisibility](docs/PublicResourceVisibility.md)
  - [QueryDefinition](docs/QueryDefinition.md)
  - [QueryInvocationBody](docs/QueryInvocationBody.md)
@@ -1088,6 +1163,7 @@ Class | Method | HTTP request | Description
  - [RRFRetriever](docs/RRFRetriever.md)
  - [Range](docs/Range.md)
  - [RateLimitsOUT](docs/RateLimitsOUT.md)
+ - [RawAudio](docs/RawAudio.md)
  - [RawContent](docs/RawContent.md)
  - [RawRole](docs/RawRole.md)
  - [RawRole1](docs/RawRole1.md)
@@ -1121,7 +1197,7 @@ Class | Method | HTTP request | Description
  - [Resources](docs/Resources.md)
  - [ResourcesCapability](docs/ResourcesCapability.md)
  - [Response](docs/Response.md)
- - [Response400SearchIndexV1RagManagedIndexesIndexNameSearchPostInner](docs/Response400SearchIndexV1RagManagedIndexesIndexNameSearchPostInner.md)
+ - [Response400SearchIndexV1ContextSearchIndexesIndexNameSearchPostInner](docs/Response400SearchIndexV1ContextSearchIndexesIndexNameSearchPostInner.md)
  - [ResponseBase](docs/ResponseBase.md)
  - [ResponseConnectorListToolsV1](docs/ResponseConnectorListToolsV1.md)
  - [ResponseDoneEvent](docs/ResponseDoneEvent.md)
@@ -1272,6 +1348,7 @@ Class | Method | HTTP request | Description
  - [SignalInvocationBody](docs/SignalInvocationBody.md)
  - [SignalWorkflowResponse](docs/SignalWorkflowResponse.md)
  - [SimpleNumericStatisticSpec](docs/SimpleNumericStatisticSpec.md)
+ - [SipDestination](docs/SipDestination.md)
  - [Skill](docs/Skill.md)
  - [SkillAssetContent](docs/SkillAssetContent.md)
  - [SkillDefinition](docs/SkillDefinition.md)
@@ -1287,14 +1364,18 @@ Class | Method | HTTP request | Description
  - [SpanDatasetSourceReference](docs/SpanDatasetSourceReference.md)
  - [SpanEvaluationsRequest](docs/SpanEvaluationsRequest.md)
  - [SpansRequest](docs/SpansRequest.md)
+ - [SpeechAssistantTurn](docs/SpeechAssistantTurn.md)
  - [SpeechOutputFormat](docs/SpeechOutputFormat.md)
  - [SpeechRequest](docs/SpeechRequest.md)
+ - [SpeechRequestConversationHistoryInner](docs/SpeechRequestConversationHistoryInner.md)
  - [SpeechResponse](docs/SpeechResponse.md)
  - [SpeechStreamAudioDelta](docs/SpeechStreamAudioDelta.md)
  - [SpeechStreamDone](docs/SpeechStreamDone.md)
  - [SpeechStreamEventTypes](docs/SpeechStreamEventTypes.md)
  - [SpeechStreamEvents](docs/SpeechStreamEvents.md)
+ - [SpeechUserTurn](docs/SpeechUserTurn.md)
  - [StaticOrganizationRoles](docs/StaticOrganizationRoles.md)
+ - [StaticToolFiller](docs/StaticToolFiller.md)
  - [StaticWorkspaceRoles](docs/StaticWorkspaceRoles.md)
  - [Status](docs/Status.md)
  - [Stop](docs/Stop.md)
@@ -1308,7 +1389,13 @@ Class | Method | HTTP request | Description
  - [StreamV1WorkflowsExecutionsExecutionIdStreamGet200ResponseData](docs/StreamV1WorkflowsExecutionsExecutionIdStreamGet200ResponseData.md)
  - [StreamWorkflowExecutionLogs200Response](docs/StreamWorkflowExecutionLogs200Response.md)
  - [StreamWorkflowExecutionLogs200ResponseData](docs/StreamWorkflowExecutionLogs200ResponseData.md)
+ - [StreamingDelayRange](docs/StreamingDelayRange.md)
  - [SubscriptionStatus](docs/SubscriptionStatus.md)
+ - [SummaryChunk](docs/SummaryChunk.md)
+ - [SummaryError](docs/SummaryError.md)
+ - [SummaryMetadata](docs/SummaryMetadata.md)
+ - [SummaryStatus](docs/SummaryStatus.md)
+ - [SummaryStreamTypes](docs/SummaryStreamTypes.md)
  - [SystemFilter](docs/SystemFilter.md)
  - [SystemMessage](docs/SystemMessage.md)
  - [SystemMessageContentChunks](docs/SystemMessageContentChunks.md)
@@ -1376,10 +1463,10 @@ Class | Method | HTTP request | Description
  - [ToolType](docs/ToolType.md)
  - [ToolTypes](docs/ToolTypes.md)
  - [Tools](docs/Tools.md)
- - [Tools1Inner](docs/Tools1Inner.md)
- - [Tools1Inner1](docs/Tools1Inner1.md)
  - [ToolsCapability](docs/ToolsCapability.md)
  - [ToolsInner](docs/ToolsInner.md)
+ - [ToolsInner1](docs/ToolsInner1.md)
+ - [ToolsInner2](docs/ToolsInner2.md)
  - [TopKTooLargeResponse](docs/TopKTooLargeResponse.md)
  - [TracesRequest](docs/TracesRequest.md)
  - [TranscriptionResponse](docs/TranscriptionResponse.md)
@@ -1390,6 +1477,16 @@ Class | Method | HTTP request | Description
  - [TranscriptionStreamLanguage](docs/TranscriptionStreamLanguage.md)
  - [TranscriptionStreamSegmentDelta](docs/TranscriptionStreamSegmentDelta.md)
  - [TranscriptionStreamTextDelta](docs/TranscriptionStreamTextDelta.md)
+ - [TransferCallTool](docs/TransferCallTool.md)
+ - [TransferTarget](docs/TransferTarget.md)
+ - [Trigger](docs/Trigger.md)
+ - [TriggerAction](docs/TriggerAction.md)
+ - [TriggerActionType](docs/TriggerActionType.md)
+ - [TriggerEvent](docs/TriggerEvent.md)
+ - [TriggerEventList](docs/TriggerEventList.md)
+ - [TriggerHandler](docs/TriggerHandler.md)
+ - [TriggerStatusValue](docs/TriggerStatusValue.md)
+ - [TriggersOwnerType](docs/TriggersOwnerType.md)
  - [TurbineMeta](docs/TurbineMeta.md)
  - [TurbineToolLocale](docs/TurbineToolLocale.md)
  - [TurbineToolMeta](docs/TurbineToolMeta.md)
@@ -1419,6 +1516,7 @@ Class | Method | HTTP request | Description
  - [UpdateServiceAccountRequest](docs/UpdateServiceAccountRequest.md)
  - [UpdateSkillRequest](docs/UpdateSkillRequest.md)
  - [UpdateSkillVersionRequest](docs/UpdateSkillVersionRequest.md)
+ - [UpdateSummaryRequestSummary](docs/UpdateSummaryRequestSummary.md)
  - [UpdateWorkflowResponse](docs/UpdateWorkflowResponse.md)
  - [UpdateWorkspaceIN](docs/UpdateWorkspaceIN.md)
  - [UsageInfo](docs/UsageInfo.md)
@@ -1468,6 +1566,18 @@ Class | Method | HTTP request | Description
  - [VibeWorkByUserStat](docs/VibeWorkByUserStat.md)
  - [VibeWorkByUserStatsOUT](docs/VibeWorkByUserStatsOUT.md)
  - [VibeWorkspaceStatsOUT](docs/VibeWorkspaceStatsOUT.md)
+ - [VoiceAgentCustomConnector](docs/VoiceAgentCustomConnector.md)
+ - [VoiceAgentDocumentLibraryTool](docs/VoiceAgentDocumentLibraryTool.md)
+ - [VoiceAgentErrorEvent](docs/VoiceAgentErrorEvent.md)
+ - [VoiceAgentEvent](docs/VoiceAgentEvent.md)
+ - [VoiceAgentFunctionTool](docs/VoiceAgentFunctionTool.md)
+ - [VoiceAgentFunctionToolRequest](docs/VoiceAgentFunctionToolRequest.md)
+ - [VoiceAgentSessionUpdatedEvent](docs/VoiceAgentSessionUpdatedEvent.md)
+ - [VoiceAgentStateChangedEvent](docs/VoiceAgentStateChangedEvent.md)
+ - [VoiceAgentToolCallEndedEvent](docs/VoiceAgentToolCallEndedEvent.md)
+ - [VoiceAgentToolCallStartedEvent](docs/VoiceAgentToolCallStartedEvent.md)
+ - [VoiceAgentTranscriptEvent](docs/VoiceAgentTranscriptEvent.md)
+ - [VoiceAgentWebSearchTool](docs/VoiceAgentWebSearchTool.md)
  - [VoiceCreateRequest](docs/VoiceCreateRequest.md)
  - [VoiceGender](docs/VoiceGender.md)
  - [VoiceKind](docs/VoiceKind.md)
@@ -1477,6 +1587,11 @@ Class | Method | HTTP request | Description
  - [VoiceUpdateRequest](docs/VoiceUpdateRequest.md)
  - [WebSearchPremiumTool](docs/WebSearchPremiumTool.md)
  - [WebSearchTool](docs/WebSearchTool.md)
+ - [Webhook](docs/Webhook.md)
+ - [WebhookProvider](docs/WebhookProvider.md)
+ - [WebhookSignatureEncoding](docs/WebhookSignatureEncoding.md)
+ - [WebhookSignatureHashAlgorithm](docs/WebhookSignatureHashAlgorithm.md)
+ - [WebhookSigningSecret](docs/WebhookSigningSecret.md)
  - [WhoamiOrganization](docs/WhoamiOrganization.md)
  - [WhoamiResponse](docs/WhoamiResponse.md)
  - [WhoamiServiceAccountPrincipal](docs/WhoamiServiceAccountPrincipal.md)
@@ -1528,6 +1643,7 @@ Class | Method | HTTP request | Description
  - [WorkflowScheduleResponse](docs/WorkflowScheduleResponse.md)
  - [WorkflowScheduleTriggerRequest](docs/WorkflowScheduleTriggerRequest.md)
  - [WorkflowScheduleUpdateRequest](docs/WorkflowScheduleUpdateRequest.md)
+ - [WorkflowTagsAddRequest](docs/WorkflowTagsAddRequest.md)
  - [WorkflowTaskFailedAttributes](docs/WorkflowTaskFailedAttributes.md)
  - [WorkflowTaskFailedResponse](docs/WorkflowTaskFailedResponse.md)
  - [WorkflowTaskTimedOutAttributes](docs/WorkflowTaskTimedOutAttributes.md)
@@ -1598,6 +1714,27 @@ auth := context.WithValue(
 		mistral.ContextAPIKeys,
 		map[string]mistral.APIKey{
 			"DashboardUserOrServiceAccountContextAuth": {Key: "API_KEY_STRING"},
+		},
+	)
+r, err := client.Service.Operation(auth, args)
+```
+
+### DashboardContextAuth
+
+- **Type**: API key
+- **API key parameter name**: x-api-key
+- **Location**: HTTP header
+
+Note, each API key must be added to a map of `map[string]APIKey` where the key is: DashboardContextAuth and passed in as the auth context for each request.
+
+Example
+
+```go
+auth := context.WithValue(
+		context.Background(),
+		mistral.ContextAPIKeys,
+		map[string]mistral.APIKey{
+			"DashboardContextAuth": {Key: "API_KEY_STRING"},
 		},
 	)
 r, err := client.Service.Operation(auth, args)

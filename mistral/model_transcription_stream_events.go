@@ -22,7 +22,7 @@ var _ MappedNullable = &TranscriptionStreamEvents{}
 // TranscriptionStreamEvents struct for TranscriptionStreamEvents
 type TranscriptionStreamEvents struct {
 	Event TranscriptionStreamEventTypes `json:"event"`
-	Data Data2 `json:"data"`
+	Data Data4 `json:"data"`
 }
 
 type _TranscriptionStreamEvents TranscriptionStreamEvents
@@ -31,7 +31,7 @@ type _TranscriptionStreamEvents TranscriptionStreamEvents
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewTranscriptionStreamEvents(event TranscriptionStreamEventTypes, data Data2) *TranscriptionStreamEvents {
+func NewTranscriptionStreamEvents(event TranscriptionStreamEventTypes, data Data4) *TranscriptionStreamEvents {
 	this := TranscriptionStreamEvents{}
 	this.Event = event
 	this.Data = data
@@ -71,9 +71,9 @@ func (o *TranscriptionStreamEvents) SetEvent(v TranscriptionStreamEventTypes) {
 }
 
 // GetData returns the Data field value
-func (o *TranscriptionStreamEvents) GetData() Data2 {
+func (o *TranscriptionStreamEvents) GetData() Data4 {
 	if o == nil {
-		var ret Data2
+		var ret Data4
 		return ret
 	}
 
@@ -82,7 +82,7 @@ func (o *TranscriptionStreamEvents) GetData() Data2 {
 
 // GetDataOk returns a tuple with the Data field value
 // and a boolean to check if the value has been set.
-func (o *TranscriptionStreamEvents) GetDataOk() (*Data2, bool) {
+func (o *TranscriptionStreamEvents) GetDataOk() (*Data4, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -90,7 +90,7 @@ func (o *TranscriptionStreamEvents) GetDataOk() (*Data2, bool) {
 }
 
 // SetData sets field value
-func (o *TranscriptionStreamEvents) SetData(v Data2) {
+func (o *TranscriptionStreamEvents) SetData(v Data4) {
 	o.Data = v
 }
 

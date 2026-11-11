@@ -23,7 +23,7 @@ type ClassificationRequest struct {
 	// ID of the model to use.
 	Model string `json:"model"`
 	Metadata map[string]interface{} `json:"metadata,omitempty"`
-	Input Input1 `json:"input"`
+	Input Input2 `json:"input"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -33,7 +33,7 @@ type _ClassificationRequest ClassificationRequest
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewClassificationRequest(model string, input Input1) *ClassificationRequest {
+func NewClassificationRequest(model string, input Input2) *ClassificationRequest {
 	this := ClassificationRequest{}
 	this.Model = model
 	this.Input = input
@@ -106,9 +106,9 @@ func (o *ClassificationRequest) SetMetadata(v map[string]interface{}) {
 }
 
 // GetInput returns the Input field value
-func (o *ClassificationRequest) GetInput() Input1 {
+func (o *ClassificationRequest) GetInput() Input2 {
 	if o == nil {
-		var ret Input1
+		var ret Input2
 		return ret
 	}
 
@@ -117,7 +117,7 @@ func (o *ClassificationRequest) GetInput() Input1 {
 
 // GetInputOk returns a tuple with the Input field value
 // and a boolean to check if the value has been set.
-func (o *ClassificationRequest) GetInputOk() (*Input1, bool) {
+func (o *ClassificationRequest) GetInputOk() (*Input2, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -125,7 +125,7 @@ func (o *ClassificationRequest) GetInputOk() (*Input1, bool) {
 }
 
 // SetInput sets field value
-func (o *ClassificationRequest) SetInput(v Input1) {
+func (o *ClassificationRequest) SetInput(v Input2) {
 	o.Input = v
 }
 

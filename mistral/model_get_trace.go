@@ -26,6 +26,7 @@ type GetTrace struct {
 	OrganizationId string `json:"organization_id"`
 	WorkspaceId string `json:"workspace_id"`
 	UserId string `json:"user_id"`
+	ServiceAccountId *string `json:"service_account_id,omitempty"`
 	TraceId string `json:"trace_id" validate:"regexp=^[0-9a-f]{32}$"`
 	RootSpanId string `json:"root_span_id" validate:"regexp=^[0-9a-f]{16}$"`
 	RootSpanName string `json:"root_span_name"`
@@ -70,6 +71,8 @@ func NewGetTrace(customerId string, organizationId string, workspaceId string, u
 	this.OrganizationId = organizationId
 	this.WorkspaceId = workspaceId
 	this.UserId = userId
+	var serviceAccountId string = ""
+	this.ServiceAccountId = &serviceAccountId
 	this.TraceId = traceId
 	this.RootSpanId = rootSpanId
 	this.RootSpanName = rootSpanName
@@ -108,6 +111,8 @@ func NewGetTrace(customerId string, organizationId string, workspaceId string, u
 // but it doesn't guarantee that properties required by API are set
 func NewGetTraceWithDefaults() *GetTrace {
 	this := GetTrace{}
+	var serviceAccountId string = ""
+	this.ServiceAccountId = &serviceAccountId
 	return &this
 }
 
@@ -205,6 +210,38 @@ func (o *GetTrace) GetUserIdOk() (*string, bool) {
 // SetUserId sets field value
 func (o *GetTrace) SetUserId(v string) {
 	o.UserId = v
+}
+
+// GetServiceAccountId returns the ServiceAccountId field value if set, zero value otherwise.
+func (o *GetTrace) GetServiceAccountId() string {
+	if o == nil || IsNil(o.ServiceAccountId) {
+		var ret string
+		return ret
+	}
+	return *o.ServiceAccountId
+}
+
+// GetServiceAccountIdOk returns a tuple with the ServiceAccountId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *GetTrace) GetServiceAccountIdOk() (*string, bool) {
+	if o == nil || IsNil(o.ServiceAccountId) {
+		return nil, false
+	}
+	return o.ServiceAccountId, true
+}
+
+// HasServiceAccountId returns a boolean if a field has been set.
+func (o *GetTrace) HasServiceAccountId() bool {
+	if o != nil && !IsNil(o.ServiceAccountId) {
+		return true
+	}
+
+	return false
+}
+
+// SetServiceAccountId gets a reference to the given string and assigns it to the ServiceAccountId field.
+func (o *GetTrace) SetServiceAccountId(v string) {
+	o.ServiceAccountId = &v
 }
 
 // GetTraceId returns the TraceId field value
@@ -941,6 +978,9 @@ func (o GetTrace) ToMap() (map[string]interface{}, error) {
 	toSerialize["organization_id"] = o.OrganizationId
 	toSerialize["workspace_id"] = o.WorkspaceId
 	toSerialize["user_id"] = o.UserId
+	if !IsNil(o.ServiceAccountId) {
+		toSerialize["service_account_id"] = o.ServiceAccountId
+	}
 	toSerialize["trace_id"] = o.TraceId
 	toSerialize["root_span_id"] = o.RootSpanId
 	toSerialize["root_span_name"] = o.RootSpanName

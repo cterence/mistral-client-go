@@ -13,318 +13,60 @@ package mistral
 import (
 	"encoding/json"
 	"fmt"
-	"gopkg.in/validator.v2"
 )
 
-// ToolsInner - struct for ToolsInner
+
+// ToolsInner struct for ToolsInner
 type ToolsInner struct {
-	CodeInterpreterTool *CodeInterpreterTool
-	CustomConnector *CustomConnector
-	DocumentLibraryTool *DocumentLibraryTool
-	FunctionTool *FunctionTool
-	ImageGenerationTool *ImageGenerationTool
-	WebSearchPremiumTool *WebSearchPremiumTool
-	WebSearchTool *WebSearchTool
+	ResponsesFunctionTool *ResponsesFunctionTool
+	ResponsesNamespaceTool *ResponsesNamespaceTool
 }
 
-// CodeInterpreterToolAsToolsInner is a convenience function that returns CodeInterpreterTool wrapped in ToolsInner
-func CodeInterpreterToolAsToolsInner(v *CodeInterpreterTool) ToolsInner {
-	return ToolsInner{
-		CodeInterpreterTool: v,
-	}
-}
-
-// CustomConnectorAsToolsInner is a convenience function that returns CustomConnector wrapped in ToolsInner
-func CustomConnectorAsToolsInner(v *CustomConnector) ToolsInner {
-	return ToolsInner{
-		CustomConnector: v,
-	}
-}
-
-// DocumentLibraryToolAsToolsInner is a convenience function that returns DocumentLibraryTool wrapped in ToolsInner
-func DocumentLibraryToolAsToolsInner(v *DocumentLibraryTool) ToolsInner {
-	return ToolsInner{
-		DocumentLibraryTool: v,
-	}
-}
-
-// FunctionToolAsToolsInner is a convenience function that returns FunctionTool wrapped in ToolsInner
-func FunctionToolAsToolsInner(v *FunctionTool) ToolsInner {
-	return ToolsInner{
-		FunctionTool: v,
-	}
-}
-
-// ImageGenerationToolAsToolsInner is a convenience function that returns ImageGenerationTool wrapped in ToolsInner
-func ImageGenerationToolAsToolsInner(v *ImageGenerationTool) ToolsInner {
-	return ToolsInner{
-		ImageGenerationTool: v,
-	}
-}
-
-// WebSearchPremiumToolAsToolsInner is a convenience function that returns WebSearchPremiumTool wrapped in ToolsInner
-func WebSearchPremiumToolAsToolsInner(v *WebSearchPremiumTool) ToolsInner {
-	return ToolsInner{
-		WebSearchPremiumTool: v,
-	}
-}
-
-// WebSearchToolAsToolsInner is a convenience function that returns WebSearchTool wrapped in ToolsInner
-func WebSearchToolAsToolsInner(v *WebSearchTool) ToolsInner {
-	return ToolsInner{
-		WebSearchTool: v,
-	}
-}
-
-
-// Unmarshal JSON data into one of the pointers in the struct
+// Unmarshal JSON data into any of the pointers in the struct
 func (dst *ToolsInner) UnmarshalJSON(data []byte) error {
 	var err error
-	match := 0
-	// try to unmarshal data into CodeInterpreterTool
-	err = newStrictDecoder(data).Decode(&dst.CodeInterpreterTool)
+	// try to unmarshal JSON data into ResponsesFunctionTool
+	err = json.Unmarshal(data, &dst.ResponsesFunctionTool);
 	if err == nil {
-		jsonCodeInterpreterTool, _ := json.Marshal(dst.CodeInterpreterTool)
-		if string(jsonCodeInterpreterTool) == "{}" { // empty struct
-			dst.CodeInterpreterTool = nil
+		jsonResponsesFunctionTool, _ := json.Marshal(dst.ResponsesFunctionTool)
+		if string(jsonResponsesFunctionTool) == "{}" { // empty struct
+			dst.ResponsesFunctionTool = nil
 		} else {
-			if err = validator.Validate(dst.CodeInterpreterTool); err != nil {
-				dst.CodeInterpreterTool = nil
-			} else {
-				match++
-			}
+			return nil // data stored in dst.ResponsesFunctionTool, return on the first match
 		}
 	} else {
-		dst.CodeInterpreterTool = nil
+		dst.ResponsesFunctionTool = nil
 	}
 
-	// try to unmarshal data into CustomConnector
-	err = newStrictDecoder(data).Decode(&dst.CustomConnector)
+	// try to unmarshal JSON data into ResponsesNamespaceTool
+	err = json.Unmarshal(data, &dst.ResponsesNamespaceTool);
 	if err == nil {
-		jsonCustomConnector, _ := json.Marshal(dst.CustomConnector)
-		if string(jsonCustomConnector) == "{}" { // empty struct
-			dst.CustomConnector = nil
+		jsonResponsesNamespaceTool, _ := json.Marshal(dst.ResponsesNamespaceTool)
+		if string(jsonResponsesNamespaceTool) == "{}" { // empty struct
+			dst.ResponsesNamespaceTool = nil
 		} else {
-			if err = validator.Validate(dst.CustomConnector); err != nil {
-				dst.CustomConnector = nil
-			} else {
-				match++
-			}
+			return nil // data stored in dst.ResponsesNamespaceTool, return on the first match
 		}
 	} else {
-		dst.CustomConnector = nil
+		dst.ResponsesNamespaceTool = nil
 	}
 
-	// try to unmarshal data into DocumentLibraryTool
-	err = newStrictDecoder(data).Decode(&dst.DocumentLibraryTool)
-	if err == nil {
-		jsonDocumentLibraryTool, _ := json.Marshal(dst.DocumentLibraryTool)
-		if string(jsonDocumentLibraryTool) == "{}" { // empty struct
-			dst.DocumentLibraryTool = nil
-		} else {
-			if err = validator.Validate(dst.DocumentLibraryTool); err != nil {
-				dst.DocumentLibraryTool = nil
-			} else {
-				match++
-			}
-		}
-	} else {
-		dst.DocumentLibraryTool = nil
-	}
-
-	// try to unmarshal data into FunctionTool
-	err = newStrictDecoder(data).Decode(&dst.FunctionTool)
-	if err == nil {
-		jsonFunctionTool, _ := json.Marshal(dst.FunctionTool)
-		if string(jsonFunctionTool) == "{}" { // empty struct
-			dst.FunctionTool = nil
-		} else {
-			if err = validator.Validate(dst.FunctionTool); err != nil {
-				dst.FunctionTool = nil
-			} else {
-				match++
-			}
-		}
-	} else {
-		dst.FunctionTool = nil
-	}
-
-	// try to unmarshal data into ImageGenerationTool
-	err = newStrictDecoder(data).Decode(&dst.ImageGenerationTool)
-	if err == nil {
-		jsonImageGenerationTool, _ := json.Marshal(dst.ImageGenerationTool)
-		if string(jsonImageGenerationTool) == "{}" { // empty struct
-			dst.ImageGenerationTool = nil
-		} else {
-			if err = validator.Validate(dst.ImageGenerationTool); err != nil {
-				dst.ImageGenerationTool = nil
-			} else {
-				match++
-			}
-		}
-	} else {
-		dst.ImageGenerationTool = nil
-	}
-
-	// try to unmarshal data into WebSearchPremiumTool
-	err = newStrictDecoder(data).Decode(&dst.WebSearchPremiumTool)
-	if err == nil {
-		jsonWebSearchPremiumTool, _ := json.Marshal(dst.WebSearchPremiumTool)
-		if string(jsonWebSearchPremiumTool) == "{}" { // empty struct
-			dst.WebSearchPremiumTool = nil
-		} else {
-			if err = validator.Validate(dst.WebSearchPremiumTool); err != nil {
-				dst.WebSearchPremiumTool = nil
-			} else {
-				match++
-			}
-		}
-	} else {
-		dst.WebSearchPremiumTool = nil
-	}
-
-	// try to unmarshal data into WebSearchTool
-	err = newStrictDecoder(data).Decode(&dst.WebSearchTool)
-	if err == nil {
-		jsonWebSearchTool, _ := json.Marshal(dst.WebSearchTool)
-		if string(jsonWebSearchTool) == "{}" { // empty struct
-			dst.WebSearchTool = nil
-		} else {
-			if err = validator.Validate(dst.WebSearchTool); err != nil {
-				dst.WebSearchTool = nil
-			} else {
-				match++
-			}
-		}
-	} else {
-		dst.WebSearchTool = nil
-	}
-
-	if match > 1 { // more than 1 match
-		// reset to nil
-		dst.CodeInterpreterTool = nil
-		dst.CustomConnector = nil
-		dst.DocumentLibraryTool = nil
-		dst.FunctionTool = nil
-		dst.ImageGenerationTool = nil
-		dst.WebSearchPremiumTool = nil
-		dst.WebSearchTool = nil
-
-		return fmt.Errorf("data matches more than one schema in oneOf(ToolsInner)")
-	} else if match == 1 {
-		return nil // exactly one match
-	} else { // no match
-		if err != nil {
-			return fmt.Errorf("data failed to match schemas in oneOf(ToolsInner): %v", err)
-		}
-
-		return fmt.Errorf("data failed to match schemas in oneOf(ToolsInner)")
-	}
+	return fmt.Errorf("data failed to match schemas in anyOf(ToolsInner)")
 }
 
 // Marshal data from the first non-nil pointers in the struct to JSON
 func (src ToolsInner) MarshalJSON() ([]byte, error) {
-	if src.CodeInterpreterTool != nil {
-		return json.Marshal(&src.CodeInterpreterTool)
+	if src.ResponsesFunctionTool != nil {
+		return json.Marshal(&src.ResponsesFunctionTool)
 	}
 
-	if src.CustomConnector != nil {
-		return json.Marshal(&src.CustomConnector)
+	if src.ResponsesNamespaceTool != nil {
+		return json.Marshal(&src.ResponsesNamespaceTool)
 	}
 
-	if src.DocumentLibraryTool != nil {
-		return json.Marshal(&src.DocumentLibraryTool)
-	}
-
-	if src.FunctionTool != nil {
-		return json.Marshal(&src.FunctionTool)
-	}
-
-	if src.ImageGenerationTool != nil {
-		return json.Marshal(&src.ImageGenerationTool)
-	}
-
-	if src.WebSearchPremiumTool != nil {
-		return json.Marshal(&src.WebSearchPremiumTool)
-	}
-
-	if src.WebSearchTool != nil {
-		return json.Marshal(&src.WebSearchTool)
-	}
-
-	return nil, nil // no data in oneOf schemas
+	return nil, nil // no data in anyOf schemas
 }
 
-// Get the actual instance
-func (obj *ToolsInner) GetActualInstance() (interface{}) {
-	if obj == nil {
-		return nil
-	}
-	if obj.CodeInterpreterTool != nil {
-		return obj.CodeInterpreterTool
-	}
-
-	if obj.CustomConnector != nil {
-		return obj.CustomConnector
-	}
-
-	if obj.DocumentLibraryTool != nil {
-		return obj.DocumentLibraryTool
-	}
-
-	if obj.FunctionTool != nil {
-		return obj.FunctionTool
-	}
-
-	if obj.ImageGenerationTool != nil {
-		return obj.ImageGenerationTool
-	}
-
-	if obj.WebSearchPremiumTool != nil {
-		return obj.WebSearchPremiumTool
-	}
-
-	if obj.WebSearchTool != nil {
-		return obj.WebSearchTool
-	}
-
-	// all schemas are nil
-	return nil
-}
-
-// Get the actual instance value
-func (obj ToolsInner) GetActualInstanceValue() (interface{}) {
-	if obj.CodeInterpreterTool != nil {
-		return *obj.CodeInterpreterTool
-	}
-
-	if obj.CustomConnector != nil {
-		return *obj.CustomConnector
-	}
-
-	if obj.DocumentLibraryTool != nil {
-		return *obj.DocumentLibraryTool
-	}
-
-	if obj.FunctionTool != nil {
-		return *obj.FunctionTool
-	}
-
-	if obj.ImageGenerationTool != nil {
-		return *obj.ImageGenerationTool
-	}
-
-	if obj.WebSearchPremiumTool != nil {
-		return *obj.WebSearchPremiumTool
-	}
-
-	if obj.WebSearchTool != nil {
-		return *obj.WebSearchTool
-	}
-
-	// all schemas are nil
-	return nil
-}
 
 type NullableToolsInner struct {
 	value *ToolsInner

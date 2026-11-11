@@ -619,7 +619,7 @@ type ApiSkillsListRequest struct {
 	pageSize *int32
 	pageToken *string
 	alias *string
-	fields *[]string
+	fields *[]*string
 	sortField *ListSortField
 	sortDirection *ListSortDirection
 	sortBy *string
@@ -641,7 +641,8 @@ func (r ApiSkillsListRequest) Alias(alias string) ApiSkillsListRequest {
 	return r
 }
 
-func (r ApiSkillsListRequest) Fields(fields []string) ApiSkillsListRequest {
+// Projection over each listed Skill. definition.description is the only definition path a list accepts; body and assets are read one skill at a time with GetSkill.
+func (r ApiSkillsListRequest) Fields(fields []*string) ApiSkillsListRequest {
 	r.fields = &fields
 	return r
 }

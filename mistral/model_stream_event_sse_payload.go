@@ -24,7 +24,7 @@ var _ MappedNullable = &StreamEventSsePayload{}
 type StreamEventSsePayload struct {
 	Stream string `json:"stream"`
 	Timestamp *time.Time `json:"timestamp,omitempty"`
-	Data Data3 `json:"data"`
+	Data Data5 `json:"data"`
 	WorkflowContext StreamEventWorkflowContext `json:"workflow_context"`
 	Metadata map[string]interface{} `json:"metadata,omitempty"`
 	BrokerSequence int32 `json:"broker_sequence"`
@@ -36,7 +36,7 @@ type _StreamEventSsePayload StreamEventSsePayload
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewStreamEventSsePayload(stream string, data Data3, workflowContext StreamEventWorkflowContext, brokerSequence int32) *StreamEventSsePayload {
+func NewStreamEventSsePayload(stream string, data Data5, workflowContext StreamEventWorkflowContext, brokerSequence int32) *StreamEventSsePayload {
 	this := StreamEventSsePayload{}
 	this.Stream = stream
 	this.Data = data
@@ -110,9 +110,9 @@ func (o *StreamEventSsePayload) SetTimestamp(v time.Time) {
 }
 
 // GetData returns the Data field value
-func (o *StreamEventSsePayload) GetData() Data3 {
+func (o *StreamEventSsePayload) GetData() Data5 {
 	if o == nil {
-		var ret Data3
+		var ret Data5
 		return ret
 	}
 
@@ -121,7 +121,7 @@ func (o *StreamEventSsePayload) GetData() Data3 {
 
 // GetDataOk returns a tuple with the Data field value
 // and a boolean to check if the value has been set.
-func (o *StreamEventSsePayload) GetDataOk() (*Data3, bool) {
+func (o *StreamEventSsePayload) GetDataOk() (*Data5, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -129,7 +129,7 @@ func (o *StreamEventSsePayload) GetDataOk() (*Data3, bool) {
 }
 
 // SetData sets field value
-func (o *StreamEventSsePayload) SetData(v Data3) {
+func (o *StreamEventSsePayload) SetData(v Data5) {
 	o.Data = v
 }
 

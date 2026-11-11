@@ -165,7 +165,7 @@ func (r ApiGetSchedulesV1WorkflowsSchedulesGetRequest) Status(status string) Api
 	return r
 }
 
-// Prefix search query for workflow name
+// Fuzzy search query for workflow name, display name, description, or ID
 func (r ApiGetSchedulesV1WorkflowsSchedulesGetRequest) Search(search string) ApiGetSchedulesV1WorkflowsSchedulesGetRequest {
 	r.search = &search
 	return r
