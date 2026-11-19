@@ -73,6 +73,33 @@ def dedupe_tags(spec):
                 op["tags"] = [tags[-1]]
 
 
+def clamp_int_defaults(node):
+    # Out-of-range integer defaults (e.g. 9223372036854776000 on an int32
+    # field) become invalid Go literals in the generated code; clamp them to
+    # the declared format's range.
+    if isinstance(node, dict):
+        type_ = node.get("type")
+        format_ = node.get("format")
+        is_int = isinstance(type_, str) and (
+            type_.startswith("integer") or type_ in ("int32", "int64")
+        )
+        if is_int:
+            if type_ == "int32" or format_ == "int32":
+                high = 2**31 - 1
+            else:
+                high = 2**63 - 1
+            low = -high - 1
+            for key in ("default", "example"):
+                value = node.get(key)
+                if isinstance(value, int) and not isinstance(value, bool):
+                    node[key] = min(max(value, low), high)
+        for value in node.values():
+            clamp_int_defaults(value)
+    elif isinstance(node, list):
+        for item in node:
+            clamp_int_defaults(item)
+
+
 def rewrite_null_types(node):
     # Schemas declaring only ``type: null`` (dead fields) make the
     # generator emit an invalid ``*nil`` Go type. An empty schema (any
@@ -96,6 +123,7 @@ def normalize(spec):
     hoist_defs(spec, mapping, components)
     rewrite_refs(spec, mapping)
     rewrite_null_types(spec)
+    clamp_int_defaults(spec)
     dedupe_tags(spec)
     return spec
 
