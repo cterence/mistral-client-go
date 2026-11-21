@@ -73,26 +73,51 @@ def dedupe_tags(spec):
                 op["tags"] = [tags[-1]]
 
 
+def int_bounds(node):
+    # (low, high) of an integer schema node, or None. Handles OpenAPI 3.1
+    # type arrays and composed schemas (anyOf/oneOf/allOf), where the
+    # ``default`` sits on the composer node rather than the typed member.
+    if not isinstance(node, dict):
+        return None
+    type_ = node.get("type")
+    types = type_ if isinstance(type_, list) else [type_]
+    format_ = node.get("format")
+    is_int = any(
+        isinstance(t, str) and (t.startswith("integer") or t in ("int32", "int64"))
+        for t in types
+    )
+    if not is_int:
+        for key in ("anyOf", "oneOf", "allOf"):
+            for member in node.get(key) or []:
+                bounds = int_bounds(member)
+                if bounds is not None:
+                    return bounds
+        return None
+    if "int32" in types or format_ == "int32":
+        high = 2**31 - 1
+    else:
+        high = 2**63 - 1
+    return (-high - 1, high)
+
+
 def clamp_int_defaults(node):
     # Out-of-range integer defaults (e.g. 9223372036854776000 on an int32
     # field) become invalid Go literals in the generated code; clamp them to
-    # the declared format's range.
+    # the declared format's range. The default may sit on the schema, next
+    # to an anyOf/oneOf/allOf composition, or on a parameter object next to
+    # its schema.
     if isinstance(node, dict):
-        type_ = node.get("type")
-        format_ = node.get("format")
-        is_int = isinstance(type_, str) and (
-            type_.startswith("integer") or type_ in ("int32", "int64")
-        )
-        if is_int:
-            if type_ == "int32" or format_ == "int32":
-                high = 2**31 - 1
-            else:
-                high = 2**63 - 1
-            low = -high - 1
-            for key in ("default", "example"):
-                value = node.get(key)
-                if isinstance(value, int) and not isinstance(value, bool):
-                    node[key] = min(max(value, low), high)
+        bounds = int_bounds(node)
+        if bounds is None and isinstance(node.get("schema"), dict):
+            bounds = int_bounds(node["schema"])
+        if bounds is None:
+            # Width unknown; at least keep the literal representable in Go.
+            bounds = (-(2**63 - 1) - 1, 2**63 - 1)
+        low, high = bounds
+        for key in ("default", "example"):
+            value = node.get(key)
+            if isinstance(value, int) and not isinstance(value, bool):
+                node[key] = min(max(value, low), high)
         for value in node.values():
             clamp_int_defaults(value)
     elif isinstance(node, list):
