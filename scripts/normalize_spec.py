@@ -103,10 +103,11 @@ def int_bounds(node, schemas, seen=None):
                 if bounds is not None:
                     return bounds
         return None
-    if "int32" in types or format_ == "int32":
-        high = 2**31 - 1
-    else:
+    if "int64" in types or format_ == "int64":
         high = 2**63 - 1
+    else:
+        # the go generator maps bare integer and int32 to int32
+        high = 2**31 - 1
     return (-high - 1, high)
 
 
@@ -120,15 +121,18 @@ def clamp_int_literals(node, schemas):
         bounds = int_bounds(node, schemas)
         if bounds is None and isinstance(node.get("schema"), dict):
             bounds = int_bounds(node["schema"], schemas)
-        low, high = bounds if bounds else (-(2**63 - 1) - 1, 2**63 - 1)
+        # Unknown width: int32 range is valid for every Go integer width.
+        low, high = bounds if bounds else (-(2**31 - 1) - 1, 2**31 - 1)
         for key in ("default", "example"):
             value = node.get(key)
             if isinstance(value, int) and not isinstance(value, bool):
                 node[key] = min(max(value, low), high)
         if bounds is not None:
+            # int bounds only: float constraints on integer fields are not
+            # emitted as Go constants by the generator (e.g. 4294967295.0)
             for key in ("minimum", "maximum", "exclusiveMinimum", "exclusiveMaximum"):
                 value = node.get(key)
-                if isinstance(value, (int, float)) and not isinstance(value, bool):
+                if isinstance(value, int) and not isinstance(value, bool):
                     node[key] = min(max(value, low), high)
         for value in node.values():
             clamp_int_literals(value, schemas)
