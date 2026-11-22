@@ -73,12 +73,22 @@ def dedupe_tags(spec):
                 op["tags"] = [tags[-1]]
 
 
-def int_bounds(node):
+def int_bounds(node, schemas, seen=None):
     # (low, high) of an integer schema node, or None. Handles OpenAPI 3.1
-    # type arrays and composed schemas (anyOf/oneOf/allOf), where the
-    # ``default`` sits on the composer node rather than the typed member.
+    # type arrays, composed schemas (anyOf/oneOf/allOf) and $ref siblings,
+    # where constraints sit on the composer node rather than the typed
+    # member.
     if not isinstance(node, dict):
         return None
+    ref = node.get("$ref")
+    if isinstance(ref, str) and ref.startswith("#/components/schemas/"):
+        if seen is None:
+            seen = set()
+        name = ref[len("#/components/schemas/") :]
+        if name in seen:
+            return None
+        seen.add(name)
+        return int_bounds(schemas.get(name), schemas, seen)
     type_ = node.get("type")
     types = type_ if isinstance(type_, list) else [type_]
     format_ = node.get("format")
@@ -89,7 +99,7 @@ def int_bounds(node):
     if not is_int:
         for key in ("anyOf", "oneOf", "allOf"):
             for member in node.get(key) or []:
-                bounds = int_bounds(member)
+                bounds = int_bounds(member, schemas, seen)
                 if bounds is not None:
                     return bounds
         return None
@@ -100,29 +110,31 @@ def int_bounds(node):
     return (-high - 1, high)
 
 
-def clamp_int_defaults(node):
-    # Out-of-range integer defaults (e.g. 9223372036854776000 on an int32
-    # field) become invalid Go literals in the generated code; clamp them to
-    # the declared format's range. The default may sit on the schema, next
-    # to an anyOf/oneOf/allOf composition, or on a parameter object next to
-    # its schema.
+def clamp_int_literals(node, schemas):
+    # Out-of-range integer literals (e.g. a 9223372036854776000 default or
+    # maximum on an int32 field) become invalid Go constants in the
+    # generated code; clamp them to the declared format's range. The values
+    # may sit on the schema, next to an anyOf/oneOf/allOf/$ref composition,
+    # or on a parameter object next to its schema.
     if isinstance(node, dict):
-        bounds = int_bounds(node)
+        bounds = int_bounds(node, schemas)
         if bounds is None and isinstance(node.get("schema"), dict):
-            bounds = int_bounds(node["schema"])
-        if bounds is None:
-            # Width unknown; at least keep the literal representable in Go.
-            bounds = (-(2**63 - 1) - 1, 2**63 - 1)
-        low, high = bounds
+            bounds = int_bounds(node["schema"], schemas)
+        low, high = bounds if bounds else (-(2**63 - 1) - 1, 2**63 - 1)
         for key in ("default", "example"):
             value = node.get(key)
             if isinstance(value, int) and not isinstance(value, bool):
                 node[key] = min(max(value, low), high)
+        if bounds is not None:
+            for key in ("minimum", "maximum", "exclusiveMinimum", "exclusiveMaximum"):
+                value = node.get(key)
+                if isinstance(value, (int, float)) and not isinstance(value, bool):
+                    node[key] = min(max(value, low), high)
         for value in node.values():
-            clamp_int_defaults(value)
+            clamp_int_literals(value, schemas)
     elif isinstance(node, list):
         for item in node:
-            clamp_int_defaults(item)
+            clamp_int_literals(item, schemas)
 
 
 def rewrite_null_types(node):
@@ -148,7 +160,7 @@ def normalize(spec):
     hoist_defs(spec, mapping, components)
     rewrite_refs(spec, mapping)
     rewrite_null_types(spec)
-    clamp_int_defaults(spec)
+    clamp_int_literals(spec, components)
     dedupe_tags(spec)
     return spec
 
