@@ -125,14 +125,19 @@ def clamp_int_literals(node, schemas):
         low, high = bounds if bounds else (-(2**31 - 1) - 1, 2**31 - 1)
         for key in ("default", "example"):
             value = node.get(key)
-            if isinstance(value, int) and not isinstance(value, bool):
+            if isinstance(value, bool):
+                continue
+            # floats only on explicitly integer-typed nodes; a float default
+            # on a free-form/number schema is a valid Go float64 literal
+            if isinstance(value, int) or (bounds is not None and isinstance(value, float)):
                 node[key] = min(max(value, low), high)
         if bounds is not None:
-            # int bounds only: float constraints on integer fields are not
-            # emitted as Go constants by the generator (e.g. 4294967295.0)
+            # the generator prints whole-valued float bounds as integer Go
+            # constants (e.g. 9223372036854776000.0 -> 9223372036854776000),
+            # so clamp floats too
             for key in ("minimum", "maximum", "exclusiveMinimum", "exclusiveMaximum"):
                 value = node.get(key)
-                if isinstance(value, int) and not isinstance(value, bool):
+                if isinstance(value, (int, float)) and not isinstance(value, bool):
                     node[key] = min(max(value, low), high)
         for value in node.values():
             clamp_int_literals(value, schemas)
