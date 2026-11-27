@@ -22,6 +22,8 @@ var _ MappedNullable = &WhoamiResponse{}
 // WhoamiResponse Principal-agnostic identity of the authenticated caller.  Supersedes the user-centric ``/v1/users/me`` and ``/api/users/v2/me`` by resolving any principal (user or service account) through a single call. The ``principal`` field is a discriminated union; the remaining fields are the shared session context and apply to either principal kind.
 type WhoamiResponse struct {
 	Principal Principal `json:"principal"`
+	// Filter by agent name
+	CustomerId NullableString `json:"customer_id,omitempty"`
 	// The organization the caller's session is scoped to, when set.
 	Organization NullableWhoamiOrganization `json:"organization,omitempty"`
 	// The workspace the caller's session is scoped to, when set.
@@ -70,6 +72,48 @@ func (o *WhoamiResponse) GetPrincipalOk() (*Principal, bool) {
 // SetPrincipal sets field value
 func (o *WhoamiResponse) SetPrincipal(v Principal) {
 	o.Principal = v
+}
+
+// GetCustomerId returns the CustomerId field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *WhoamiResponse) GetCustomerId() string {
+	if o == nil || IsNil(o.CustomerId.Get()) {
+		var ret string
+		return ret
+	}
+	return *o.CustomerId.Get()
+}
+
+// GetCustomerIdOk returns a tuple with the CustomerId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *WhoamiResponse) GetCustomerIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.CustomerId.Get(), o.CustomerId.IsSet()
+}
+
+// HasCustomerId returns a boolean if a field has been set.
+func (o *WhoamiResponse) HasCustomerId() bool {
+	if o != nil && o.CustomerId.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetCustomerId gets a reference to the given NullableString and assigns it to the CustomerId field.
+func (o *WhoamiResponse) SetCustomerId(v string) {
+	o.CustomerId.Set(&v)
+}
+// SetCustomerIdNil sets the value for CustomerId to be an explicit nil
+func (o *WhoamiResponse) SetCustomerIdNil() {
+	o.CustomerId.Set(nil)
+}
+
+// UnsetCustomerId ensures that no value is present for CustomerId, not even an explicit nil
+func (o *WhoamiResponse) UnsetCustomerId() {
+	o.CustomerId.Unset()
 }
 
 // GetOrganization returns the Organization field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -167,6 +211,9 @@ func (o WhoamiResponse) MarshalJSON() ([]byte, error) {
 func (o WhoamiResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["principal"] = o.Principal
+	if o.CustomerId.IsSet() {
+		toSerialize["customer_id"] = o.CustomerId.Get()
+	}
 	if o.Organization.IsSet() {
 		toSerialize["organization"] = o.Organization.Get()
 	}

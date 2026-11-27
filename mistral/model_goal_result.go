@@ -23,6 +23,7 @@ var _ MappedNullable = &GoalResult{}
 type GoalResult struct {
 	Passed NullableBool `json:"passed"`
 	Results []GoalResultItem `json:"results"`
+	Missing []MissingGoalItem `json:"missing,omitempty"`
 }
 
 type _GoalResult GoalResult
@@ -96,6 +97,38 @@ func (o *GoalResult) SetResults(v []GoalResultItem) {
 	o.Results = v
 }
 
+// GetMissing returns the Missing field value if set, zero value otherwise.
+func (o *GoalResult) GetMissing() []MissingGoalItem {
+	if o == nil || IsNil(o.Missing) {
+		var ret []MissingGoalItem
+		return ret
+	}
+	return o.Missing
+}
+
+// GetMissingOk returns a tuple with the Missing field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *GoalResult) GetMissingOk() ([]MissingGoalItem, bool) {
+	if o == nil || IsNil(o.Missing) {
+		return nil, false
+	}
+	return o.Missing, true
+}
+
+// HasMissing returns a boolean if a field has been set.
+func (o *GoalResult) HasMissing() bool {
+	if o != nil && !IsNil(o.Missing) {
+		return true
+	}
+
+	return false
+}
+
+// SetMissing gets a reference to the given []MissingGoalItem and assigns it to the Missing field.
+func (o *GoalResult) SetMissing(v []MissingGoalItem) {
+	o.Missing = v
+}
+
 func (o GoalResult) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -108,6 +141,9 @@ func (o GoalResult) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["passed"] = o.Passed.Get()
 	toSerialize["results"] = o.Results
+	if !IsNil(o.Missing) {
+		toSerialize["missing"] = o.Missing
+	}
 	return toSerialize, nil
 }
 

@@ -33,6 +33,8 @@ type WorkflowExecutionRequest struct {
 	Traceparent NullableString `json:"traceparent,omitempty"`
 	// Output JSON schema of the query's model
 	Extensions map[string]interface{} `json:"extensions,omitempty"`
+	// Cleartext technical values (ids, flags) for the code this call runs, read with `get_call_context()`. Not covered by payload encryption: never put customer content here.
+	CallContext map[string]SignalInvocationBodyCallContextValue `json:"call_context,omitempty"`
 	// Deprecated. Use deployment_name instead.
 	TaskQueue NullableString `json:"task_queue,omitempty"`
 	// Name of the deployment to route this execution to
@@ -362,6 +364,39 @@ func (o *WorkflowExecutionRequest) SetExtensions(v map[string]interface{}) {
 	o.Extensions = v
 }
 
+// GetCallContext returns the CallContext field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *WorkflowExecutionRequest) GetCallContext() map[string]SignalInvocationBodyCallContextValue {
+	if o == nil {
+		var ret map[string]SignalInvocationBodyCallContextValue
+		return ret
+	}
+	return o.CallContext
+}
+
+// GetCallContextOk returns a tuple with the CallContext field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *WorkflowExecutionRequest) GetCallContextOk() (map[string]SignalInvocationBodyCallContextValue, bool) {
+	if o == nil || IsNil(o.CallContext) {
+		return map[string]SignalInvocationBodyCallContextValue{}, false
+	}
+	return o.CallContext, true
+}
+
+// HasCallContext returns a boolean if a field has been set.
+func (o *WorkflowExecutionRequest) HasCallContext() bool {
+	if o != nil && !IsNil(o.CallContext) {
+		return true
+	}
+
+	return false
+}
+
+// SetCallContext gets a reference to the given map[string]SignalInvocationBodyCallContextValue and assigns it to the CallContext field.
+func (o *WorkflowExecutionRequest) SetCallContext(v map[string]SignalInvocationBodyCallContextValue) {
+	o.CallContext = v
+}
+
 // GetTaskQueue returns the TaskQueue field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *WorkflowExecutionRequest) GetTaskQueue() string {
 	if o == nil || IsNil(o.TaskQueue.Get()) {
@@ -479,6 +514,9 @@ func (o WorkflowExecutionRequest) ToMap() (map[string]interface{}, error) {
 	}
 	if o.Extensions != nil {
 		toSerialize["extensions"] = o.Extensions
+	}
+	if o.CallContext != nil {
+		toSerialize["call_context"] = o.CallContext
 	}
 	if o.TaskQueue.IsSet() {
 		toSerialize["task_queue"] = o.TaskQueue.Get()

@@ -272,6 +272,10 @@ UsersAdminUserGroupsUpdateGroupWorkspaceAssignment Update Group Workspace Assign
 
 Update the workspace role assignment for a user group.
 
+Either set the group's roles with `role_names` or `roles`, which replaces all the roles it has on the
+Workspace, or change them with `add_role_names`/`add_roles` and `remove_role_names`/`remove_roles`, which
+keeps its other roles.
+
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param groupUuid User group ID.
  @param workspaceUuid Workspace ID.
@@ -868,109 +872,6 @@ func (a *BetaAdminUserGroupsAPIService) UsersApiAdminUserGroupsDeleteUserGroupEx
 	return localVarHTTPResponse, nil
 }
 
-type ApiUsersApiAdminUserGroupsGetNestedGroupsRequest struct {
-	ctx context.Context
-	ApiService *BetaAdminUserGroupsAPIService
-	groupUuid string
-}
-
-func (r ApiUsersApiAdminUserGroupsGetNestedGroupsRequest) Execute() (*NestedGroupsOut, *http.Response, error) {
-	return r.ApiService.UsersApiAdminUserGroupsGetNestedGroupsExecute(r)
-}
-
-/*
-UsersApiAdminUserGroupsGetNestedGroups Get Nested Groups Admin
-
-List the groups directly nested inside this group.
-
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param groupUuid User group ID.
- @return ApiUsersApiAdminUserGroupsGetNestedGroupsRequest
-*/
-func (a *BetaAdminUserGroupsAPIService) UsersApiAdminUserGroupsGetNestedGroups(ctx context.Context, groupUuid string) ApiUsersApiAdminUserGroupsGetNestedGroupsRequest {
-	return ApiUsersApiAdminUserGroupsGetNestedGroupsRequest{
-		ApiService: a,
-		ctx: ctx,
-		groupUuid: groupUuid,
-	}
-}
-
-// Execute executes the request
-//  @return NestedGroupsOut
-func (a *BetaAdminUserGroupsAPIService) UsersApiAdminUserGroupsGetNestedGroupsExecute(r ApiUsersApiAdminUserGroupsGetNestedGroupsRequest) (*NestedGroupsOut, *http.Response, error) {
-	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *NestedGroupsOut
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BetaAdminUserGroupsAPIService.UsersApiAdminUserGroupsGetNestedGroups")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/admin/user-groups/{group_uuid}/nested"
-	localVarPath = strings.Replace(localVarPath, "{"+"group_uuid"+"}", url.PathEscape(parameterValueToString(r.groupUuid, "groupUuid")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
 type ApiUsersApiAdminUserGroupsGetUserGroupRequest struct {
 	ctx context.Context
 	ApiService *BetaAdminUserGroupsAPIService
@@ -1211,6 +1112,8 @@ type ApiUsersApiAdminUserGroupsGetUserGroupsRequest struct {
 	page *int32
 	pageSize *int32
 	search *string
+	workspaceUuid *string
+	role *string
 }
 
 // Page number to return.
@@ -1228,6 +1131,18 @@ func (r ApiUsersApiAdminUserGroupsGetUserGroupsRequest) PageSize(pageSize int32)
 // Search term used to filter user groups by name.
 func (r ApiUsersApiAdminUserGroupsGetUserGroupsRequest) Search(search string) ApiUsersApiAdminUserGroupsGetUserGroupsRequest {
 	r.search = &search
+	return r
+}
+
+// Filter groups to those assigned to this Workspace. Assignments to archived Workspaces never match.
+func (r ApiUsersApiAdminUserGroupsGetUserGroupsRequest) WorkspaceUuid(workspaceUuid string) ApiUsersApiAdminUserGroupsGetUserGroupsRequest {
+	r.workspaceUuid = &workspaceUuid
+	return r
+}
+
+// Filter groups to those holding this role on a Workspace. When combined with workspace_uuid, the role must be held on that Workspace. Assignments to archived Workspaces never match.
+func (r ApiUsersApiAdminUserGroupsGetUserGroupsRequest) Role(role string) ApiUsersApiAdminUserGroupsGetUserGroupsRequest {
+	r.role = &role
 	return r
 }
 
@@ -1287,6 +1202,12 @@ func (a *BetaAdminUserGroupsAPIService) UsersApiAdminUserGroupsGetUserGroupsExec
 	}
 	if r.search != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "search", r.search, "form", "")
+	}
+	if r.workspaceUuid != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "workspace_uuid", r.workspaceUuid, "form", "")
+	}
+	if r.role != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "role", r.role, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -1522,109 +1443,6 @@ func (a *BetaAdminUserGroupsAPIService) UsersApiAdminUserGroupsRemoveUsersFromGr
 	}
 	// body params
 	localVarPostBody = r.adminAssignUsersToGroupIn
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarHTTPResponse, newErr
-	}
-
-	return localVarHTTPResponse, nil
-}
-
-type ApiUsersApiAdminUserGroupsSetNestedGroupsRequest struct {
-	ctx context.Context
-	ApiService *BetaAdminUserGroupsAPIService
-	groupUuid string
-	setNestedGroupsIn *SetNestedGroupsIn
-}
-
-func (r ApiUsersApiAdminUserGroupsSetNestedGroupsRequest) SetNestedGroupsIn(setNestedGroupsIn SetNestedGroupsIn) ApiUsersApiAdminUserGroupsSetNestedGroupsRequest {
-	r.setNestedGroupsIn = &setNestedGroupsIn
-	return r
-}
-
-func (r ApiUsersApiAdminUserGroupsSetNestedGroupsRequest) Execute() (*http.Response, error) {
-	return r.ApiService.UsersApiAdminUserGroupsSetNestedGroupsExecute(r)
-}
-
-/*
-UsersApiAdminUserGroupsSetNestedGroups Set Nested Groups Admin
-
-Replace the set of groups directly nested inside this group.
-
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param groupUuid User group ID.
- @return ApiUsersApiAdminUserGroupsSetNestedGroupsRequest
-*/
-func (a *BetaAdminUserGroupsAPIService) UsersApiAdminUserGroupsSetNestedGroups(ctx context.Context, groupUuid string) ApiUsersApiAdminUserGroupsSetNestedGroupsRequest {
-	return ApiUsersApiAdminUserGroupsSetNestedGroupsRequest{
-		ApiService: a,
-		ctx: ctx,
-		groupUuid: groupUuid,
-	}
-}
-
-// Execute executes the request
-func (a *BetaAdminUserGroupsAPIService) UsersApiAdminUserGroupsSetNestedGroupsExecute(r ApiUsersApiAdminUserGroupsSetNestedGroupsRequest) (*http.Response, error) {
-	var (
-		localVarHTTPMethod   = http.MethodPatch
-		localVarPostBody     interface{}
-		formFiles            []formFile
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BetaAdminUserGroupsAPIService.UsersApiAdminUserGroupsSetNestedGroups")
-	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/admin/user-groups/{group_uuid}/nested"
-	localVarPath = strings.Replace(localVarPath, "{"+"group_uuid"+"}", url.PathEscape(parameterValueToString(r.groupUuid, "groupUuid")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-	if r.setNestedGroupsIn == nil {
-		return nil, reportError("setNestedGroupsIn is required and must be specified")
-	}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	// body params
-	localVarPostBody = r.setNestedGroupsIn
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err

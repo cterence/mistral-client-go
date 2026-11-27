@@ -698,7 +698,7 @@ FilesApiRoutesUploadFile Upload File
 
 Upload a file that can be used across various endpoints.
 
-The size of individual files can be a maximum of 512 MB. The Fine-tuning API only supports .jsonl files.
+The size of individual files can be a maximum of 512 MB.
 
 Please contact us if you need to increase these storage limits.
 

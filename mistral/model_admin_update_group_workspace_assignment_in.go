@@ -17,8 +17,16 @@ import (
 // checks if the AdminUpdateGroupWorkspaceAssignmentIn type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &AdminUpdateGroupWorkspaceAssignmentIn{}
 
-// AdminUpdateGroupWorkspaceAssignmentIn struct for AdminUpdateGroupWorkspaceAssignmentIn
+// AdminUpdateGroupWorkspaceAssignmentIn Either set the group's roles on the Workspace, or add and remove some of them.
 type AdminUpdateGroupWorkspaceAssignmentIn struct {
+	// Role values to add to the existing roles. Mutually exclusive with 'add_role_names'.
+	AddRoles []StaticWorkspaceRoles `json:"add_roles,omitempty"`
+	// Simplified role names to add to the existing roles. Mutually exclusive with 'add_roles'.
+	AddRoleNames []string `json:"add_role_names,omitempty"`
+	// Role values to remove from the existing roles. Mutually exclusive with 'remove_role_names'.
+	RemoveRoles []StaticWorkspaceRoles `json:"remove_roles,omitempty"`
+	// Simplified role names to remove from the existing roles. Mutually exclusive with 'remove_roles'.
+	RemoveRoleNames []string `json:"remove_role_names,omitempty"`
 	// Simplified role names to assign. Mutually exclusive with 'roles'.
 	RoleNames []string `json:"role_names,omitempty"`
 	// Role values to assign. Mutually exclusive with 'role_names'.
@@ -43,6 +51,138 @@ func NewAdminUpdateGroupWorkspaceAssignmentIn() *AdminUpdateGroupWorkspaceAssign
 func NewAdminUpdateGroupWorkspaceAssignmentInWithDefaults() *AdminUpdateGroupWorkspaceAssignmentIn {
 	this := AdminUpdateGroupWorkspaceAssignmentIn{}
 	return &this
+}
+
+// GetAddRoles returns the AddRoles field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *AdminUpdateGroupWorkspaceAssignmentIn) GetAddRoles() []StaticWorkspaceRoles {
+	if o == nil {
+		var ret []StaticWorkspaceRoles
+		return ret
+	}
+	return o.AddRoles
+}
+
+// GetAddRolesOk returns a tuple with the AddRoles field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *AdminUpdateGroupWorkspaceAssignmentIn) GetAddRolesOk() ([]StaticWorkspaceRoles, bool) {
+	if o == nil || IsNil(o.AddRoles) {
+		return nil, false
+	}
+	return o.AddRoles, true
+}
+
+// HasAddRoles returns a boolean if a field has been set.
+func (o *AdminUpdateGroupWorkspaceAssignmentIn) HasAddRoles() bool {
+	if o != nil && !IsNil(o.AddRoles) {
+		return true
+	}
+
+	return false
+}
+
+// SetAddRoles gets a reference to the given []StaticWorkspaceRoles and assigns it to the AddRoles field.
+func (o *AdminUpdateGroupWorkspaceAssignmentIn) SetAddRoles(v []StaticWorkspaceRoles) {
+	o.AddRoles = v
+}
+
+// GetAddRoleNames returns the AddRoleNames field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *AdminUpdateGroupWorkspaceAssignmentIn) GetAddRoleNames() []string {
+	if o == nil {
+		var ret []string
+		return ret
+	}
+	return o.AddRoleNames
+}
+
+// GetAddRoleNamesOk returns a tuple with the AddRoleNames field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *AdminUpdateGroupWorkspaceAssignmentIn) GetAddRoleNamesOk() ([]string, bool) {
+	if o == nil || IsNil(o.AddRoleNames) {
+		return nil, false
+	}
+	return o.AddRoleNames, true
+}
+
+// HasAddRoleNames returns a boolean if a field has been set.
+func (o *AdminUpdateGroupWorkspaceAssignmentIn) HasAddRoleNames() bool {
+	if o != nil && !IsNil(o.AddRoleNames) {
+		return true
+	}
+
+	return false
+}
+
+// SetAddRoleNames gets a reference to the given []string and assigns it to the AddRoleNames field.
+func (o *AdminUpdateGroupWorkspaceAssignmentIn) SetAddRoleNames(v []string) {
+	o.AddRoleNames = v
+}
+
+// GetRemoveRoles returns the RemoveRoles field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *AdminUpdateGroupWorkspaceAssignmentIn) GetRemoveRoles() []StaticWorkspaceRoles {
+	if o == nil {
+		var ret []StaticWorkspaceRoles
+		return ret
+	}
+	return o.RemoveRoles
+}
+
+// GetRemoveRolesOk returns a tuple with the RemoveRoles field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *AdminUpdateGroupWorkspaceAssignmentIn) GetRemoveRolesOk() ([]StaticWorkspaceRoles, bool) {
+	if o == nil || IsNil(o.RemoveRoles) {
+		return nil, false
+	}
+	return o.RemoveRoles, true
+}
+
+// HasRemoveRoles returns a boolean if a field has been set.
+func (o *AdminUpdateGroupWorkspaceAssignmentIn) HasRemoveRoles() bool {
+	if o != nil && !IsNil(o.RemoveRoles) {
+		return true
+	}
+
+	return false
+}
+
+// SetRemoveRoles gets a reference to the given []StaticWorkspaceRoles and assigns it to the RemoveRoles field.
+func (o *AdminUpdateGroupWorkspaceAssignmentIn) SetRemoveRoles(v []StaticWorkspaceRoles) {
+	o.RemoveRoles = v
+}
+
+// GetRemoveRoleNames returns the RemoveRoleNames field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *AdminUpdateGroupWorkspaceAssignmentIn) GetRemoveRoleNames() []string {
+	if o == nil {
+		var ret []string
+		return ret
+	}
+	return o.RemoveRoleNames
+}
+
+// GetRemoveRoleNamesOk returns a tuple with the RemoveRoleNames field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *AdminUpdateGroupWorkspaceAssignmentIn) GetRemoveRoleNamesOk() ([]string, bool) {
+	if o == nil || IsNil(o.RemoveRoleNames) {
+		return nil, false
+	}
+	return o.RemoveRoleNames, true
+}
+
+// HasRemoveRoleNames returns a boolean if a field has been set.
+func (o *AdminUpdateGroupWorkspaceAssignmentIn) HasRemoveRoleNames() bool {
+	if o != nil && !IsNil(o.RemoveRoleNames) {
+		return true
+	}
+
+	return false
+}
+
+// SetRemoveRoleNames gets a reference to the given []string and assigns it to the RemoveRoleNames field.
+func (o *AdminUpdateGroupWorkspaceAssignmentIn) SetRemoveRoleNames(v []string) {
+	o.RemoveRoleNames = v
 }
 
 // GetRoleNames returns the RoleNames field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -166,6 +306,18 @@ func (o AdminUpdateGroupWorkspaceAssignmentIn) MarshalJSON() ([]byte, error) {
 
 func (o AdminUpdateGroupWorkspaceAssignmentIn) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	if o.AddRoles != nil {
+		toSerialize["add_roles"] = o.AddRoles
+	}
+	if o.AddRoleNames != nil {
+		toSerialize["add_role_names"] = o.AddRoleNames
+	}
+	if o.RemoveRoles != nil {
+		toSerialize["remove_roles"] = o.RemoveRoles
+	}
+	if o.RemoveRoleNames != nil {
+		toSerialize["remove_role_names"] = o.RemoveRoleNames
+	}
 	if o.RoleNames != nil {
 		toSerialize["role_names"] = o.RoleNames
 	}

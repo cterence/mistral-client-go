@@ -19,7 +19,7 @@ import (
 // checks if the PercentileStatisticSpec type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &PercentileStatisticSpec{}
 
-// PercentileStatisticSpec The ``p``-th percentile (``0 <= p <= 100``), computed with the type-7 algorithm.
+// PercentileStatisticSpec The ``p``-th percentile (``0 &lt;= p &lt;= 100``), computed with the type-7 algorithm.
 type PercentileStatisticSpec struct {
 	Kind *string `json:"kind,omitempty"`
 	Percentile Percentile `json:"percentile"`

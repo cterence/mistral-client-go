@@ -23,7 +23,6 @@ var _ MappedNullable = &CreateIngestionPipelineConfigurationRequest{}
 type CreateIngestionPipelineConfigurationRequest struct {
 	Name string `json:"name"`
 	PipelineComposition map[string]string `json:"pipeline_composition,omitempty"`
-	TargetIndexes []IngestionPipelineTargetIndexRef `json:"target_indexes,omitempty"`
 }
 
 type _CreateIngestionPipelineConfigurationRequest CreateIngestionPipelineConfigurationRequest
@@ -103,39 +102,6 @@ func (o *CreateIngestionPipelineConfigurationRequest) SetPipelineComposition(v m
 	o.PipelineComposition = v
 }
 
-// GetTargetIndexes returns the TargetIndexes field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *CreateIngestionPipelineConfigurationRequest) GetTargetIndexes() []IngestionPipelineTargetIndexRef {
-	if o == nil {
-		var ret []IngestionPipelineTargetIndexRef
-		return ret
-	}
-	return o.TargetIndexes
-}
-
-// GetTargetIndexesOk returns a tuple with the TargetIndexes field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *CreateIngestionPipelineConfigurationRequest) GetTargetIndexesOk() ([]IngestionPipelineTargetIndexRef, bool) {
-	if o == nil || IsNil(o.TargetIndexes) {
-		return nil, false
-	}
-	return o.TargetIndexes, true
-}
-
-// HasTargetIndexes returns a boolean if a field has been set.
-func (o *CreateIngestionPipelineConfigurationRequest) HasTargetIndexes() bool {
-	if o != nil && !IsNil(o.TargetIndexes) {
-		return true
-	}
-
-	return false
-}
-
-// SetTargetIndexes gets a reference to the given []IngestionPipelineTargetIndexRef and assigns it to the TargetIndexes field.
-func (o *CreateIngestionPipelineConfigurationRequest) SetTargetIndexes(v []IngestionPipelineTargetIndexRef) {
-	o.TargetIndexes = v
-}
-
 func (o CreateIngestionPipelineConfigurationRequest) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -149,9 +115,6 @@ func (o CreateIngestionPipelineConfigurationRequest) ToMap() (map[string]interfa
 	toSerialize["name"] = o.Name
 	if o.PipelineComposition != nil {
 		toSerialize["pipeline_composition"] = o.PipelineComposition
-	}
-	if o.TargetIndexes != nil {
-		toSerialize["target_indexes"] = o.TargetIndexes
 	}
 	return toSerialize, nil
 }

@@ -26,6 +26,8 @@ const (
 	AUDITLOGEVENTTYPE_USER_INFO_UPDATE AuditLogEventType = "user.info.update"
 	AUDITLOGEVENTTYPE_USER_PASSWORD_UPDATE AuditLogEventType = "user.password.update"
 	AUDITLOGEVENTTYPE_USER_PHONE_NUMBER_VERIFY AuditLogEventType = "user.phone_number.verify"
+	AUDITLOGEVENTTYPE_USER_DEACTIVATE AuditLogEventType = "user.deactivate"
+	AUDITLOGEVENTTYPE_USER_REACTIVATE AuditLogEventType = "user.reactivate"
 	AUDITLOGEVENTTYPE_USER_ORGANIZATION_LEAVE AuditLogEventType = "user.organization.leave"
 	AUDITLOGEVENTTYPE_USER_ORGANIZATION_ROLE_UPDATE AuditLogEventType = "user.organization.role.update"
 	AUDITLOGEVENTTYPE_USER_ORGANIZATION_DELETE AuditLogEventType = "user.organization.delete"
@@ -33,6 +35,7 @@ const (
 	AUDITLOGEVENTTYPE_ORGANIZATION_CREATE AuditLogEventType = "organization.create"
 	AUDITLOGEVENTTYPE_ORGANIZATION_DELETE AuditLogEventType = "organization.delete"
 	AUDITLOGEVENTTYPE_ORGANIZATION_UPDATE AuditLogEventType = "organization.update"
+	AUDITLOGEVENTTYPE_ORGANIZATION_MEMBERS_EXPORT AuditLogEventType = "organization.members.export"
 	AUDITLOGEVENTTYPE_ORGANIZATION_INVITE_SEND AuditLogEventType = "organization.invite.send"
 	AUDITLOGEVENTTYPE_ORGANIZATION_INVITE_RESEND AuditLogEventType = "organization.invite.resend"
 	AUDITLOGEVENTTYPE_ORGANIZATION_INVITE_ACCEPTED AuditLogEventType = "organization.invite.accepted"
@@ -55,6 +58,7 @@ const (
 	AUDITLOGEVENTTYPE_WORKSPACE_CREATE AuditLogEventType = "workspace.create"
 	AUDITLOGEVENTTYPE_WORKSPACE_UPDATE AuditLogEventType = "workspace.update"
 	AUDITLOGEVENTTYPE_WORKSPACE_DELETE AuditLogEventType = "workspace.delete"
+	AUDITLOGEVENTTYPE_WORKSPACE_MEMBERS_EXPORT AuditLogEventType = "workspace.members.export"
 	AUDITLOGEVENTTYPE_WORKSPACE_MEMBER_ADD AuditLogEventType = "workspace.member.add"
 	AUDITLOGEVENTTYPE_WORKSPACE_MEMBER_REMOVE AuditLogEventType = "workspace.member.remove"
 	AUDITLOGEVENTTYPE_WORKSPACE_MEMBER_ROLE_UPDATE AuditLogEventType = "workspace.member.role.update"
@@ -84,6 +88,9 @@ const (
 	AUDITLOGEVENTTYPE_BILLING_MONTHLY_LIMIT_UPDATED AuditLogEventType = "billing.monthly_limit.updated"
 	AUDITLOGEVENTTYPE_BILLING_WORKSPACE_MONTHLY_LIMIT_UPDATED AuditLogEventType = "billing.workspace_monthly_limit.updated"
 	AUDITLOGEVENTTYPE_BILLING_SHARED_BUDGET_OVERRIDE_UPDATED AuditLogEventType = "billing.shared_budget_override.updated"
+	AUDITLOGEVENTTYPE_BILLING_SPENDING_LIMIT_CREATED AuditLogEventType = "billing.spending_limit.created"
+	AUDITLOGEVENTTYPE_BILLING_SPENDING_LIMIT_UPDATED AuditLogEventType = "billing.spending_limit.updated"
+	AUDITLOGEVENTTYPE_BILLING_SPENDING_LIMIT_DELETED AuditLogEventType = "billing.spending_limit.deleted"
 	AUDITLOGEVENTTYPE_BILLING_AUTO_RECHARGE_UPDATED AuditLogEventType = "billing.auto_recharge.updated"
 	AUDITLOGEVENTTYPE_BILLING_SEAT_GRANT AuditLogEventType = "billing.seat.grant"
 	AUDITLOGEVENTTYPE_BILLING_SEAT_REVOKE AuditLogEventType = "billing.seat.revoke"
@@ -148,6 +155,7 @@ const (
 	AUDITLOGEVENTTYPE_KNOWLEDGE_BASE_CREATE AuditLogEventType = "knowledge_base.create"
 	AUDITLOGEVENTTYPE_KNOWLEDGE_BASE_DELETE AuditLogEventType = "knowledge_base.delete"
 	AUDITLOGEVENTTYPE_KNOWLEDGE_BASE_UPDATE AuditLogEventType = "knowledge_base.update"
+	AUDITLOGEVENTTYPE_KNOWLEDGE_BASE_LOAD AuditLogEventType = "knowledge_base.load"
 	AUDITLOGEVENTTYPE_KNOWLEDGE_BASE_VERSION_CREATE AuditLogEventType = "knowledge_base.version.create"
 	AUDITLOGEVENTTYPE_CUSTOM_VOICE_CREATE AuditLogEventType = "custom_voice.create"
 	AUDITLOGEVENTTYPE_CUSTOM_VOICE_UPDATE AuditLogEventType = "custom_voice.update"
@@ -261,6 +269,7 @@ const (
 	AUDITLOGEVENTTYPE_SECRETS_MANAGER_SECRET_REVEALED AuditLogEventType = "secrets_manager.secret.revealed"
 	AUDITLOGEVENTTYPE_SECRETS_MANAGER_SECRET_METADATA_UPDATED AuditLogEventType = "secrets_manager.secret.metadata_updated"
 	AUDITLOGEVENTTYPE_SECRETS_MANAGER_SECRET_DELETED AuditLogEventType = "secrets_manager.secret.deleted"
+	AUDITLOGEVENTTYPE_SECRETS_MANAGER_SECRET_DESTROYED AuditLogEventType = "secrets_manager.secret.destroyed"
 	AUDITLOGEVENTTYPE_SECRETS_MANAGER_SECRET_VERSION_DELETED AuditLogEventType = "secrets_manager.secret.version.deleted"
 	AUDITLOGEVENTTYPE_SECRETS_MANAGER_SECRET_VERSION_RESTORED AuditLogEventType = "secrets_manager.secret.version.restored"
 	AUDITLOGEVENTTYPE_RATE_LIMIT_RULE_CREATE AuditLogEventType = "rate_limit.rule.create"
@@ -304,6 +313,8 @@ var AllowedAuditLogEventTypeEnumValues = []AuditLogEventType{
 	"user.info.update",
 	"user.password.update",
 	"user.phone_number.verify",
+	"user.deactivate",
+	"user.reactivate",
 	"user.organization.leave",
 	"user.organization.role.update",
 	"user.organization.delete",
@@ -311,6 +322,7 @@ var AllowedAuditLogEventTypeEnumValues = []AuditLogEventType{
 	"organization.create",
 	"organization.delete",
 	"organization.update",
+	"organization.members.export",
 	"organization.invite.send",
 	"organization.invite.resend",
 	"organization.invite.accepted",
@@ -333,6 +345,7 @@ var AllowedAuditLogEventTypeEnumValues = []AuditLogEventType{
 	"workspace.create",
 	"workspace.update",
 	"workspace.delete",
+	"workspace.members.export",
 	"workspace.member.add",
 	"workspace.member.remove",
 	"workspace.member.role.update",
@@ -362,6 +375,9 @@ var AllowedAuditLogEventTypeEnumValues = []AuditLogEventType{
 	"billing.monthly_limit.updated",
 	"billing.workspace_monthly_limit.updated",
 	"billing.shared_budget_override.updated",
+	"billing.spending_limit.created",
+	"billing.spending_limit.updated",
+	"billing.spending_limit.deleted",
 	"billing.auto_recharge.updated",
 	"billing.seat.grant",
 	"billing.seat.revoke",
@@ -426,6 +442,7 @@ var AllowedAuditLogEventTypeEnumValues = []AuditLogEventType{
 	"knowledge_base.create",
 	"knowledge_base.delete",
 	"knowledge_base.update",
+	"knowledge_base.load",
 	"knowledge_base.version.create",
 	"custom_voice.create",
 	"custom_voice.update",
@@ -539,6 +556,7 @@ var AllowedAuditLogEventTypeEnumValues = []AuditLogEventType{
 	"secrets_manager.secret.revealed",
 	"secrets_manager.secret.metadata_updated",
 	"secrets_manager.secret.deleted",
+	"secrets_manager.secret.destroyed",
 	"secrets_manager.secret.version.deleted",
 	"secrets_manager.secret.version.restored",
 	"rate_limit.rule.create",

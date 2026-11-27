@@ -16,39 +16,39 @@ import (
 )
 
 
-// Value2 The value to use for the operation. A string to append to the existing value, or an EncryptedPatchValue wrapper when encryption is applied.
+// Value2 struct for Value2
 type Value2 struct {
-	EncryptedPatchValue *EncryptedPatchValue
-	String *string
+	Float32 *float32
+	Int32 *int32
 }
 
 // Unmarshal JSON data into any of the pointers in the struct
 func (dst *Value2) UnmarshalJSON(data []byte) error {
 	var err error
-	// try to unmarshal JSON data into EncryptedPatchValue
-	err = json.Unmarshal(data, &dst.EncryptedPatchValue);
+	// try to unmarshal JSON data into Float32
+	err = json.Unmarshal(data, &dst.Float32);
 	if err == nil {
-		jsonEncryptedPatchValue, _ := json.Marshal(dst.EncryptedPatchValue)
-		if string(jsonEncryptedPatchValue) == "{}" { // empty struct
-			dst.EncryptedPatchValue = nil
+		jsonFloat32, _ := json.Marshal(dst.Float32)
+		if string(jsonFloat32) == "{}" { // empty struct
+			dst.Float32 = nil
 		} else {
-			return nil // data stored in dst.EncryptedPatchValue, return on the first match
+			return nil // data stored in dst.Float32, return on the first match
 		}
 	} else {
-		dst.EncryptedPatchValue = nil
+		dst.Float32 = nil
 	}
 
-	// try to unmarshal JSON data into String
-	err = json.Unmarshal(data, &dst.String);
+	// try to unmarshal JSON data into Int32
+	err = json.Unmarshal(data, &dst.Int32);
 	if err == nil {
-		jsonString, _ := json.Marshal(dst.String)
-		if string(jsonString) == "{}" { // empty struct
-			dst.String = nil
+		jsonInt32, _ := json.Marshal(dst.Int32)
+		if string(jsonInt32) == "{}" { // empty struct
+			dst.Int32 = nil
 		} else {
-			return nil // data stored in dst.String, return on the first match
+			return nil // data stored in dst.Int32, return on the first match
 		}
 	} else {
-		dst.String = nil
+		dst.Int32 = nil
 	}
 
 	return fmt.Errorf("data failed to match schemas in anyOf(Value2)")
@@ -56,12 +56,12 @@ func (dst *Value2) UnmarshalJSON(data []byte) error {
 
 // Marshal data from the first non-nil pointers in the struct to JSON
 func (src Value2) MarshalJSON() ([]byte, error) {
-	if src.EncryptedPatchValue != nil {
-		return json.Marshal(&src.EncryptedPatchValue)
+	if src.Float32 != nil {
+		return json.Marshal(&src.Float32)
 	}
 
-	if src.String != nil {
-		return json.Marshal(&src.String)
+	if src.Int32 != nil {
+		return json.Marshal(&src.Int32)
 	}
 
 	return nil, nil // no data in anyOf schemas

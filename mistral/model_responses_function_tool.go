@@ -25,6 +25,7 @@ type ResponsesFunctionTool struct {
 	Strict NullableBool `json:"strict,omitempty"`
 	Type string `json:"type"`
 	AllowedCallers []string `json:"allowed_callers,omitempty"`
+	Async NullableBool `json:"async,omitempty"`
 	DeferLoading NullableBool `json:"defer_loading,omitempty"`
 	Description NullableString `json:"description,omitempty"`
 	OutputSchema map[string]interface{} `json:"output_schema,omitempty"`
@@ -208,6 +209,48 @@ func (o *ResponsesFunctionTool) SetAllowedCallers(v []string) {
 	o.AllowedCallers = v
 }
 
+// GetAsync returns the Async field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *ResponsesFunctionTool) GetAsync() bool {
+	if o == nil || IsNil(o.Async.Get()) {
+		var ret bool
+		return ret
+	}
+	return *o.Async.Get()
+}
+
+// GetAsyncOk returns a tuple with the Async field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *ResponsesFunctionTool) GetAsyncOk() (*bool, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.Async.Get(), o.Async.IsSet()
+}
+
+// HasAsync returns a boolean if a field has been set.
+func (o *ResponsesFunctionTool) HasAsync() bool {
+	if o != nil && o.Async.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetAsync gets a reference to the given NullableBool and assigns it to the Async field.
+func (o *ResponsesFunctionTool) SetAsync(v bool) {
+	o.Async.Set(&v)
+}
+// SetAsyncNil sets the value for Async to be an explicit nil
+func (o *ResponsesFunctionTool) SetAsyncNil() {
+	o.Async.Set(nil)
+}
+
+// UnsetAsync ensures that no value is present for Async, not even an explicit nil
+func (o *ResponsesFunctionTool) UnsetAsync() {
+	o.Async.Unset()
+}
+
 // GetDeferLoading returns the DeferLoading field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *ResponsesFunctionTool) GetDeferLoading() bool {
 	if o == nil || IsNil(o.DeferLoading.Get()) {
@@ -346,6 +389,9 @@ func (o ResponsesFunctionTool) ToMap() (map[string]interface{}, error) {
 	if o.AllowedCallers != nil {
 		toSerialize["allowed_callers"] = o.AllowedCallers
 	}
+	if o.Async.IsSet() {
+		toSerialize["async"] = o.Async.Get()
+	}
 	if o.DeferLoading.IsSet() {
 		toSerialize["defer_loading"] = o.DeferLoading.Get()
 	}
@@ -404,6 +450,7 @@ func (o *ResponsesFunctionTool) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "strict")
 		delete(additionalProperties, "type")
 		delete(additionalProperties, "allowed_callers")
+		delete(additionalProperties, "async")
 		delete(additionalProperties, "defer_loading")
 		delete(additionalProperties, "description")
 		delete(additionalProperties, "output_schema")

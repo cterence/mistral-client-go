@@ -25,10 +25,11 @@ type OrganizationUserInviteOUT struct {
 	InviteUuid string `json:"invite_uuid"`
 	// Email address invited to the Organization.
 	Email NullableString `json:"email"`
-	Roles Roles2 `json:"roles"`
+	// Organization roles assigned by the invite.
+	Roles []StaticOrganizationRoles `json:"roles"`
 	// Deprecated single invite role. Use 'roles' instead.
 	// Deprecated
-	Role string `json:"role"`
+	Role StaticOrganizationRoles `json:"role"`
 }
 
 type _OrganizationUserInviteOUT OrganizationUserInviteOUT
@@ -37,7 +38,7 @@ type _OrganizationUserInviteOUT OrganizationUserInviteOUT
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewOrganizationUserInviteOUT(inviteUuid string, email NullableString, roles Roles2, role string) *OrganizationUserInviteOUT {
+func NewOrganizationUserInviteOUT(inviteUuid string, email NullableString, roles []StaticOrganizationRoles, role StaticOrganizationRoles) *OrganizationUserInviteOUT {
 	this := OrganizationUserInviteOUT{}
 	this.InviteUuid = inviteUuid
 	this.Email = email
@@ -105,9 +106,9 @@ func (o *OrganizationUserInviteOUT) SetEmail(v string) {
 }
 
 // GetRoles returns the Roles field value
-func (o *OrganizationUserInviteOUT) GetRoles() Roles2 {
+func (o *OrganizationUserInviteOUT) GetRoles() []StaticOrganizationRoles {
 	if o == nil {
-		var ret Roles2
+		var ret []StaticOrganizationRoles
 		return ret
 	}
 
@@ -116,23 +117,23 @@ func (o *OrganizationUserInviteOUT) GetRoles() Roles2 {
 
 // GetRolesOk returns a tuple with the Roles field value
 // and a boolean to check if the value has been set.
-func (o *OrganizationUserInviteOUT) GetRolesOk() (*Roles2, bool) {
+func (o *OrganizationUserInviteOUT) GetRolesOk() ([]StaticOrganizationRoles, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Roles, true
+	return o.Roles, true
 }
 
 // SetRoles sets field value
-func (o *OrganizationUserInviteOUT) SetRoles(v Roles2) {
+func (o *OrganizationUserInviteOUT) SetRoles(v []StaticOrganizationRoles) {
 	o.Roles = v
 }
 
 // GetRole returns the Role field value
 // Deprecated
-func (o *OrganizationUserInviteOUT) GetRole() string {
+func (o *OrganizationUserInviteOUT) GetRole() StaticOrganizationRoles {
 	if o == nil {
-		var ret string
+		var ret StaticOrganizationRoles
 		return ret
 	}
 
@@ -142,7 +143,7 @@ func (o *OrganizationUserInviteOUT) GetRole() string {
 // GetRoleOk returns a tuple with the Role field value
 // and a boolean to check if the value has been set.
 // Deprecated
-func (o *OrganizationUserInviteOUT) GetRoleOk() (*string, bool) {
+func (o *OrganizationUserInviteOUT) GetRoleOk() (*StaticOrganizationRoles, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -151,7 +152,7 @@ func (o *OrganizationUserInviteOUT) GetRoleOk() (*string, bool) {
 
 // SetRole sets field value
 // Deprecated
-func (o *OrganizationUserInviteOUT) SetRole(v string) {
+func (o *OrganizationUserInviteOUT) SetRole(v StaticOrganizationRoles) {
 	o.Role = v
 }
 

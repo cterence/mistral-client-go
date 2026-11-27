@@ -24,9 +24,11 @@ var _ MappedNullable = &OrganizationInviteOUT{}
 type OrganizationInviteOUT struct {
 	// Organization invitation ID.
 	Uuid string `json:"uuid"`
-	RawRoles RawRoles `json:"raw_roles"`
+	// Organization roles assigned by the invite.
+	RawRoles []StaticOrganizationRoles `json:"raw_roles"`
+	// Deprecated single invite role. Use 'raw_roles' instead.
 	// Deprecated
-	RawRole RawRole `json:"raw_role"`
+	RawRole StaticOrganizationRoles `json:"raw_role"`
 	// Email address invited to the Organization.
 	Email string `json:"email"`
 	// Whether the invitation has expired.
@@ -43,7 +45,7 @@ type _OrganizationInviteOUT OrganizationInviteOUT
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewOrganizationInviteOUT(uuid string, rawRoles RawRoles, rawRole RawRole, email string, expired bool, createdAt time.Time) *OrganizationInviteOUT {
+func NewOrganizationInviteOUT(uuid string, rawRoles []StaticOrganizationRoles, rawRole StaticOrganizationRoles, email string, expired bool, createdAt time.Time) *OrganizationInviteOUT {
 	this := OrganizationInviteOUT{}
 	this.Uuid = uuid
 	this.RawRoles = rawRoles
@@ -87,9 +89,9 @@ func (o *OrganizationInviteOUT) SetUuid(v string) {
 }
 
 // GetRawRoles returns the RawRoles field value
-func (o *OrganizationInviteOUT) GetRawRoles() RawRoles {
+func (o *OrganizationInviteOUT) GetRawRoles() []StaticOrganizationRoles {
 	if o == nil {
-		var ret RawRoles
+		var ret []StaticOrganizationRoles
 		return ret
 	}
 
@@ -98,23 +100,23 @@ func (o *OrganizationInviteOUT) GetRawRoles() RawRoles {
 
 // GetRawRolesOk returns a tuple with the RawRoles field value
 // and a boolean to check if the value has been set.
-func (o *OrganizationInviteOUT) GetRawRolesOk() (*RawRoles, bool) {
+func (o *OrganizationInviteOUT) GetRawRolesOk() ([]StaticOrganizationRoles, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.RawRoles, true
+	return o.RawRoles, true
 }
 
 // SetRawRoles sets field value
-func (o *OrganizationInviteOUT) SetRawRoles(v RawRoles) {
+func (o *OrganizationInviteOUT) SetRawRoles(v []StaticOrganizationRoles) {
 	o.RawRoles = v
 }
 
 // GetRawRole returns the RawRole field value
 // Deprecated
-func (o *OrganizationInviteOUT) GetRawRole() RawRole {
+func (o *OrganizationInviteOUT) GetRawRole() StaticOrganizationRoles {
 	if o == nil {
-		var ret RawRole
+		var ret StaticOrganizationRoles
 		return ret
 	}
 
@@ -124,7 +126,7 @@ func (o *OrganizationInviteOUT) GetRawRole() RawRole {
 // GetRawRoleOk returns a tuple with the RawRole field value
 // and a boolean to check if the value has been set.
 // Deprecated
-func (o *OrganizationInviteOUT) GetRawRoleOk() (*RawRole, bool) {
+func (o *OrganizationInviteOUT) GetRawRoleOk() (*StaticOrganizationRoles, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -133,7 +135,7 @@ func (o *OrganizationInviteOUT) GetRawRoleOk() (*RawRole, bool) {
 
 // SetRawRole sets field value
 // Deprecated
-func (o *OrganizationInviteOUT) SetRawRole(v RawRole) {
+func (o *OrganizationInviteOUT) SetRawRole(v StaticOrganizationRoles) {
 	o.RawRole = v
 }
 

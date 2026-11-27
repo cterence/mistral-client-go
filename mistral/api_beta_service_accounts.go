@@ -262,7 +262,7 @@ GetServiceAccountV1ServiceAccountsServiceAccountIdGet Get Service Account
 
 Retrieve a service account.
 
-Requires the Workspace admin (`workspace_admin`) role.
+Requires the `see_all_workspace_service_accounts` or `read_workspace_service_account` permission.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param serviceAccountId
@@ -690,6 +690,9 @@ func (a *BetaServiceAccountsAPIService) ListServiceAccountsV1ServiceAccountsGetE
 	}
 	if *r.offset < 0 {
 		return localVarReturnValue, nil, reportError("offset must be greater than 0")
+	}
+	if *r.offset > 2147483647 {
+		return localVarReturnValue, nil, reportError("offset must be less than 2147483647")
 	}
 	if r.limit == nil {
 		return localVarReturnValue, nil, reportError("limit is required and must be specified")

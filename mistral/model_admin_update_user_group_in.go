@@ -23,8 +23,6 @@ type AdminUpdateUserGroupIn struct {
 	Name NullableString `json:"name,omitempty"`
 	// Updated description of the user group. Pass an empty string to clear it; omit the field or pass null to leave it unchanged.
 	Description NullableString `json:"description,omitempty"`
-	// Full replacement list of parent group UUIDs. Pass an empty list to remove all parents; omit the field to leave the parent groups unchanged.
-	ParentGroupIds []string `json:"parent_group_ids,omitempty"`
 }
 
 // NewAdminUpdateUserGroupIn instantiates a new AdminUpdateUserGroupIn object
@@ -128,39 +126,6 @@ func (o *AdminUpdateUserGroupIn) UnsetDescription() {
 	o.Description.Unset()
 }
 
-// GetParentGroupIds returns the ParentGroupIds field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *AdminUpdateUserGroupIn) GetParentGroupIds() []string {
-	if o == nil {
-		var ret []string
-		return ret
-	}
-	return o.ParentGroupIds
-}
-
-// GetParentGroupIdsOk returns a tuple with the ParentGroupIds field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *AdminUpdateUserGroupIn) GetParentGroupIdsOk() ([]string, bool) {
-	if o == nil || IsNil(o.ParentGroupIds) {
-		return nil, false
-	}
-	return o.ParentGroupIds, true
-}
-
-// HasParentGroupIds returns a boolean if a field has been set.
-func (o *AdminUpdateUserGroupIn) HasParentGroupIds() bool {
-	if o != nil && !IsNil(o.ParentGroupIds) {
-		return true
-	}
-
-	return false
-}
-
-// SetParentGroupIds gets a reference to the given []string and assigns it to the ParentGroupIds field.
-func (o *AdminUpdateUserGroupIn) SetParentGroupIds(v []string) {
-	o.ParentGroupIds = v
-}
-
 func (o AdminUpdateUserGroupIn) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -176,9 +141,6 @@ func (o AdminUpdateUserGroupIn) ToMap() (map[string]interface{}, error) {
 	}
 	if o.Description.IsSet() {
 		toSerialize["description"] = o.Description.Get()
-	}
-	if o.ParentGroupIds != nil {
-		toSerialize["parent_group_ids"] = o.ParentGroupIds
 	}
 	return toSerialize, nil
 }

@@ -22,6 +22,10 @@ var _ MappedNullable = &ResponsesError{}
 type ResponsesError struct {
 	Code string `json:"code"`
 	Message string `json:"message"`
+	Misalignment NullableResponsesMisalignment `json:"misalignment,omitempty"`
+	Param NullableString `json:"param,omitempty"`
+	Type NullableString `json:"type,omitempty"`
+	Reason string `json:"reason"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -31,10 +35,11 @@ type _ResponsesError ResponsesError
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewResponsesError(code string, message string) *ResponsesError {
+func NewResponsesError(code string, message string, reason string) *ResponsesError {
 	this := ResponsesError{}
 	this.Code = code
 	this.Message = message
+	this.Reason = reason
 	return &this
 }
 
@@ -94,6 +99,156 @@ func (o *ResponsesError) SetMessage(v string) {
 	o.Message = v
 }
 
+// GetMisalignment returns the Misalignment field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *ResponsesError) GetMisalignment() ResponsesMisalignment {
+	if o == nil || IsNil(o.Misalignment.Get()) {
+		var ret ResponsesMisalignment
+		return ret
+	}
+	return *o.Misalignment.Get()
+}
+
+// GetMisalignmentOk returns a tuple with the Misalignment field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *ResponsesError) GetMisalignmentOk() (*ResponsesMisalignment, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.Misalignment.Get(), o.Misalignment.IsSet()
+}
+
+// HasMisalignment returns a boolean if a field has been set.
+func (o *ResponsesError) HasMisalignment() bool {
+	if o != nil && o.Misalignment.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetMisalignment gets a reference to the given NullableResponsesMisalignment and assigns it to the Misalignment field.
+func (o *ResponsesError) SetMisalignment(v ResponsesMisalignment) {
+	o.Misalignment.Set(&v)
+}
+// SetMisalignmentNil sets the value for Misalignment to be an explicit nil
+func (o *ResponsesError) SetMisalignmentNil() {
+	o.Misalignment.Set(nil)
+}
+
+// UnsetMisalignment ensures that no value is present for Misalignment, not even an explicit nil
+func (o *ResponsesError) UnsetMisalignment() {
+	o.Misalignment.Unset()
+}
+
+// GetParam returns the Param field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *ResponsesError) GetParam() string {
+	if o == nil || IsNil(o.Param.Get()) {
+		var ret string
+		return ret
+	}
+	return *o.Param.Get()
+}
+
+// GetParamOk returns a tuple with the Param field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *ResponsesError) GetParamOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.Param.Get(), o.Param.IsSet()
+}
+
+// HasParam returns a boolean if a field has been set.
+func (o *ResponsesError) HasParam() bool {
+	if o != nil && o.Param.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetParam gets a reference to the given NullableString and assigns it to the Param field.
+func (o *ResponsesError) SetParam(v string) {
+	o.Param.Set(&v)
+}
+// SetParamNil sets the value for Param to be an explicit nil
+func (o *ResponsesError) SetParamNil() {
+	o.Param.Set(nil)
+}
+
+// UnsetParam ensures that no value is present for Param, not even an explicit nil
+func (o *ResponsesError) UnsetParam() {
+	o.Param.Unset()
+}
+
+// GetType returns the Type field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *ResponsesError) GetType() string {
+	if o == nil || IsNil(o.Type.Get()) {
+		var ret string
+		return ret
+	}
+	return *o.Type.Get()
+}
+
+// GetTypeOk returns a tuple with the Type field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *ResponsesError) GetTypeOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.Type.Get(), o.Type.IsSet()
+}
+
+// HasType returns a boolean if a field has been set.
+func (o *ResponsesError) HasType() bool {
+	if o != nil && o.Type.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetType gets a reference to the given NullableString and assigns it to the Type field.
+func (o *ResponsesError) SetType(v string) {
+	o.Type.Set(&v)
+}
+// SetTypeNil sets the value for Type to be an explicit nil
+func (o *ResponsesError) SetTypeNil() {
+	o.Type.Set(nil)
+}
+
+// UnsetType ensures that no value is present for Type, not even an explicit nil
+func (o *ResponsesError) UnsetType() {
+	o.Type.Unset()
+}
+
+// GetReason returns the Reason field value
+func (o *ResponsesError) GetReason() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Reason
+}
+
+// GetReasonOk returns a tuple with the Reason field value
+// and a boolean to check if the value has been set.
+func (o *ResponsesError) GetReasonOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Reason, true
+}
+
+// SetReason sets field value
+func (o *ResponsesError) SetReason(v string) {
+	o.Reason = v
+}
+
 func (o ResponsesError) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -106,6 +261,16 @@ func (o ResponsesError) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["code"] = o.Code
 	toSerialize["message"] = o.Message
+	if o.Misalignment.IsSet() {
+		toSerialize["misalignment"] = o.Misalignment.Get()
+	}
+	if o.Param.IsSet() {
+		toSerialize["param"] = o.Param.Get()
+	}
+	if o.Type.IsSet() {
+		toSerialize["type"] = o.Type.Get()
+	}
+	toSerialize["reason"] = o.Reason
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -121,6 +286,7 @@ func (o *ResponsesError) UnmarshalJSON(data []byte) (err error) {
 	requiredProperties := []string{
 		"code",
 		"message",
+		"reason",
 	}
 
 	allProperties := make(map[string]interface{})
@@ -152,6 +318,10 @@ func (o *ResponsesError) UnmarshalJSON(data []byte) (err error) {
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "code")
 		delete(additionalProperties, "message")
+		delete(additionalProperties, "misalignment")
+		delete(additionalProperties, "param")
+		delete(additionalProperties, "type")
+		delete(additionalProperties, "reason")
 		o.AdditionalProperties = additionalProperties
 	}
 

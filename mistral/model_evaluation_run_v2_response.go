@@ -27,6 +27,7 @@ type EvaluationRunV2Response struct {
 	UpdatedAt time.Time `json:"updated_at"`
 	DeletedAt NullableTime `json:"deleted_at"`
 	CreatorId string `json:"creator_id"`
+	CreatorType *PrincipalType `json:"creator_type,omitempty"`
 	EvaluationId string `json:"evaluation_id"`
 	Name string `json:"name"`
 	Description NullableString `json:"description"`
@@ -35,6 +36,10 @@ type EvaluationRunV2Response struct {
 	NumGenerations int32 `json:"num_generations"`
 	RunInfo map[string]*interface{} `json:"run_info,omitempty"`
 	Status *string `json:"status,omitempty"`
+	// Records whose results were uploaded so far, failed or not. Null for runs created before this counter existed.
+	RecordCount NullableInt32 `json:"record_count,omitempty"`
+	// Records whose task or at least one score failed, out of `record_count`. Failed tasks and scores are left out of `statistics`, `goal_results` and `passed`. Null for runs created before this counter existed.
+	FailedRecordCount NullableInt32 `json:"failed_record_count,omitempty"`
 	DatasetId NullableString `json:"dataset_id,omitempty"`
 	Evaluators []EvaluatorV2 `json:"evaluators"`
 	RunEvaluators []EvaluatorV2 `json:"run_evaluators,omitempty"`
@@ -42,7 +47,7 @@ type EvaluationRunV2Response struct {
 	Statistics map[string]EvaluatorStatistics `json:"statistics,omitempty"`
 	GoalResults map[string]GoalResult `json:"goal_results,omitempty"`
 	Passed NullableBool `json:"passed,omitempty"`
-	RunScores map[string]EvaluationRunScoreV2 `json:"run_scores,omitempty"`
+	RunScores map[string]EvaluationRunRunScoreV2 `json:"run_scores,omitempty"`
 	Optimization NullableRunOptimizationRef `json:"optimization,omitempty"`
 }
 
@@ -59,6 +64,8 @@ func NewEvaluationRunV2Response(id string, createdAt time.Time, updatedAt time.T
 	this.UpdatedAt = updatedAt
 	this.DeletedAt = deletedAt
 	this.CreatorId = creatorId
+	var creatorType PrincipalType = PRINCIPALTYPE_USER
+	this.CreatorType = &creatorType
 	this.EvaluationId = evaluationId
 	this.Name = name
 	this.Description = description
@@ -76,6 +83,8 @@ func NewEvaluationRunV2Response(id string, createdAt time.Time, updatedAt time.T
 // but it doesn't guarantee that properties required by API are set
 func NewEvaluationRunV2ResponseWithDefaults() *EvaluationRunV2Response {
 	this := EvaluationRunV2Response{}
+	var creatorType PrincipalType = PRINCIPALTYPE_USER
+	this.CreatorType = &creatorType
 	var status string = "completed"
 	this.Status = &status
 	return &this
@@ -201,6 +210,38 @@ func (o *EvaluationRunV2Response) GetCreatorIdOk() (*string, bool) {
 // SetCreatorId sets field value
 func (o *EvaluationRunV2Response) SetCreatorId(v string) {
 	o.CreatorId = v
+}
+
+// GetCreatorType returns the CreatorType field value if set, zero value otherwise.
+func (o *EvaluationRunV2Response) GetCreatorType() PrincipalType {
+	if o == nil || IsNil(o.CreatorType) {
+		var ret PrincipalType
+		return ret
+	}
+	return *o.CreatorType
+}
+
+// GetCreatorTypeOk returns a tuple with the CreatorType field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *EvaluationRunV2Response) GetCreatorTypeOk() (*PrincipalType, bool) {
+	if o == nil || IsNil(o.CreatorType) {
+		return nil, false
+	}
+	return o.CreatorType, true
+}
+
+// HasCreatorType returns a boolean if a field has been set.
+func (o *EvaluationRunV2Response) HasCreatorType() bool {
+	if o != nil && !IsNil(o.CreatorType) {
+		return true
+	}
+
+	return false
+}
+
+// SetCreatorType gets a reference to the given PrincipalType and assigns it to the CreatorType field.
+func (o *EvaluationRunV2Response) SetCreatorType(v PrincipalType) {
+	o.CreatorType = &v
 }
 
 // GetEvaluationId returns the EvaluationId field value
@@ -412,6 +453,90 @@ func (o *EvaluationRunV2Response) HasStatus() bool {
 // SetStatus gets a reference to the given string and assigns it to the Status field.
 func (o *EvaluationRunV2Response) SetStatus(v string) {
 	o.Status = &v
+}
+
+// GetRecordCount returns the RecordCount field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *EvaluationRunV2Response) GetRecordCount() int32 {
+	if o == nil || IsNil(o.RecordCount.Get()) {
+		var ret int32
+		return ret
+	}
+	return *o.RecordCount.Get()
+}
+
+// GetRecordCountOk returns a tuple with the RecordCount field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *EvaluationRunV2Response) GetRecordCountOk() (*int32, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.RecordCount.Get(), o.RecordCount.IsSet()
+}
+
+// HasRecordCount returns a boolean if a field has been set.
+func (o *EvaluationRunV2Response) HasRecordCount() bool {
+	if o != nil && o.RecordCount.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetRecordCount gets a reference to the given NullableInt32 and assigns it to the RecordCount field.
+func (o *EvaluationRunV2Response) SetRecordCount(v int32) {
+	o.RecordCount.Set(&v)
+}
+// SetRecordCountNil sets the value for RecordCount to be an explicit nil
+func (o *EvaluationRunV2Response) SetRecordCountNil() {
+	o.RecordCount.Set(nil)
+}
+
+// UnsetRecordCount ensures that no value is present for RecordCount, not even an explicit nil
+func (o *EvaluationRunV2Response) UnsetRecordCount() {
+	o.RecordCount.Unset()
+}
+
+// GetFailedRecordCount returns the FailedRecordCount field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *EvaluationRunV2Response) GetFailedRecordCount() int32 {
+	if o == nil || IsNil(o.FailedRecordCount.Get()) {
+		var ret int32
+		return ret
+	}
+	return *o.FailedRecordCount.Get()
+}
+
+// GetFailedRecordCountOk returns a tuple with the FailedRecordCount field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *EvaluationRunV2Response) GetFailedRecordCountOk() (*int32, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.FailedRecordCount.Get(), o.FailedRecordCount.IsSet()
+}
+
+// HasFailedRecordCount returns a boolean if a field has been set.
+func (o *EvaluationRunV2Response) HasFailedRecordCount() bool {
+	if o != nil && o.FailedRecordCount.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetFailedRecordCount gets a reference to the given NullableInt32 and assigns it to the FailedRecordCount field.
+func (o *EvaluationRunV2Response) SetFailedRecordCount(v int32) {
+	o.FailedRecordCount.Set(&v)
+}
+// SetFailedRecordCountNil sets the value for FailedRecordCount to be an explicit nil
+func (o *EvaluationRunV2Response) SetFailedRecordCountNil() {
+	o.FailedRecordCount.Set(nil)
+}
+
+// UnsetFailedRecordCount ensures that no value is present for FailedRecordCount, not even an explicit nil
+func (o *EvaluationRunV2Response) UnsetFailedRecordCount() {
+	o.FailedRecordCount.Unset()
 }
 
 // GetDatasetId returns the DatasetId field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -661,9 +786,9 @@ func (o *EvaluationRunV2Response) UnsetPassed() {
 }
 
 // GetRunScores returns the RunScores field value if set, zero value otherwise.
-func (o *EvaluationRunV2Response) GetRunScores() map[string]EvaluationRunScoreV2 {
+func (o *EvaluationRunV2Response) GetRunScores() map[string]EvaluationRunRunScoreV2 {
 	if o == nil || IsNil(o.RunScores) {
-		var ret map[string]EvaluationRunScoreV2
+		var ret map[string]EvaluationRunRunScoreV2
 		return ret
 	}
 	return o.RunScores
@@ -671,9 +796,9 @@ func (o *EvaluationRunV2Response) GetRunScores() map[string]EvaluationRunScoreV2
 
 // GetRunScoresOk returns a tuple with the RunScores field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *EvaluationRunV2Response) GetRunScoresOk() (map[string]EvaluationRunScoreV2, bool) {
+func (o *EvaluationRunV2Response) GetRunScoresOk() (map[string]EvaluationRunRunScoreV2, bool) {
 	if o == nil || IsNil(o.RunScores) {
-		return map[string]EvaluationRunScoreV2{}, false
+		return map[string]EvaluationRunRunScoreV2{}, false
 	}
 	return o.RunScores, true
 }
@@ -687,8 +812,8 @@ func (o *EvaluationRunV2Response) HasRunScores() bool {
 	return false
 }
 
-// SetRunScores gets a reference to the given map[string]EvaluationRunScoreV2 and assigns it to the RunScores field.
-func (o *EvaluationRunV2Response) SetRunScores(v map[string]EvaluationRunScoreV2) {
+// SetRunScores gets a reference to the given map[string]EvaluationRunRunScoreV2 and assigns it to the RunScores field.
+func (o *EvaluationRunV2Response) SetRunScores(v map[string]EvaluationRunRunScoreV2) {
 	o.RunScores = v
 }
 
@@ -749,6 +874,9 @@ func (o EvaluationRunV2Response) ToMap() (map[string]interface{}, error) {
 	toSerialize["updated_at"] = o.UpdatedAt
 	toSerialize["deleted_at"] = o.DeletedAt.Get()
 	toSerialize["creator_id"] = o.CreatorId
+	if !IsNil(o.CreatorType) {
+		toSerialize["creator_type"] = o.CreatorType
+	}
 	toSerialize["evaluation_id"] = o.EvaluationId
 	toSerialize["name"] = o.Name
 	toSerialize["description"] = o.Description.Get()
@@ -760,6 +888,12 @@ func (o EvaluationRunV2Response) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
+	}
+	if o.RecordCount.IsSet() {
+		toSerialize["record_count"] = o.RecordCount.Get()
+	}
+	if o.FailedRecordCount.IsSet() {
+		toSerialize["failed_record_count"] = o.FailedRecordCount.Get()
 	}
 	if o.DatasetId.IsSet() {
 		toSerialize["dataset_id"] = o.DatasetId.Get()

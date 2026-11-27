@@ -19,13 +19,9 @@ var _ MappedNullable = &PromptTokensDetails{}
 
 // PromptTokensDetails Token usage details for the prompt.
 type PromptTokensDetails struct {
-	Messages []MessageTokens `json:"messages,omitempty"`
 	CachedTokens *int32 `json:"cached_tokens,omitempty"`
 	AudioTokens *int32 `json:"audio_tokens,omitempty"`
-	AdditionalProperties map[string]interface{}
 }
-
-type _PromptTokensDetails PromptTokensDetails
 
 // NewPromptTokensDetails instantiates a new PromptTokensDetails object
 // This constructor will assign default values to properties that have it defined,
@@ -50,38 +46,6 @@ func NewPromptTokensDetailsWithDefaults() *PromptTokensDetails {
 	var audioTokens int32 = 0
 	this.AudioTokens = &audioTokens
 	return &this
-}
-
-// GetMessages returns the Messages field value if set, zero value otherwise.
-func (o *PromptTokensDetails) GetMessages() []MessageTokens {
-	if o == nil || IsNil(o.Messages) {
-		var ret []MessageTokens
-		return ret
-	}
-	return o.Messages
-}
-
-// GetMessagesOk returns a tuple with the Messages field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *PromptTokensDetails) GetMessagesOk() ([]MessageTokens, bool) {
-	if o == nil || IsNil(o.Messages) {
-		return nil, false
-	}
-	return o.Messages, true
-}
-
-// HasMessages returns a boolean if a field has been set.
-func (o *PromptTokensDetails) HasMessages() bool {
-	if o != nil && !IsNil(o.Messages) {
-		return true
-	}
-
-	return false
-}
-
-// SetMessages gets a reference to the given []MessageTokens and assigns it to the Messages field.
-func (o *PromptTokensDetails) SetMessages(v []MessageTokens) {
-	o.Messages = v
 }
 
 // GetCachedTokens returns the CachedTokens field value if set, zero value otherwise.
@@ -158,44 +122,13 @@ func (o PromptTokensDetails) MarshalJSON() ([]byte, error) {
 
 func (o PromptTokensDetails) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.Messages) {
-		toSerialize["messages"] = o.Messages
-	}
 	if !IsNil(o.CachedTokens) {
 		toSerialize["cached_tokens"] = o.CachedTokens
 	}
 	if !IsNil(o.AudioTokens) {
 		toSerialize["audio_tokens"] = o.AudioTokens
 	}
-
-	for key, value := range o.AdditionalProperties {
-		toSerialize[key] = value
-	}
-
 	return toSerialize, nil
-}
-
-func (o *PromptTokensDetails) UnmarshalJSON(data []byte) (err error) {
-	varPromptTokensDetails := _PromptTokensDetails{}
-
-	err = json.Unmarshal(data, &varPromptTokensDetails)
-
-	if err != nil {
-		return err
-	}
-
-	*o = PromptTokensDetails(varPromptTokensDetails)
-
-	additionalProperties := make(map[string]interface{})
-
-	if err = json.Unmarshal(data, &additionalProperties); err == nil {
-		delete(additionalProperties, "messages")
-		delete(additionalProperties, "cached_tokens")
-		delete(additionalProperties, "audio_tokens")
-		o.AdditionalProperties = additionalProperties
-	}
-
-	return err
 }
 
 type NullablePromptTokensDetails struct {

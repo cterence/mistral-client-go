@@ -28,6 +28,7 @@ type Project struct {
 	DeletedAt NullableTime `json:"deleted_at"`
 	WorkspaceId string `json:"workspace_id"`
 	CreatorId string `json:"creator_id"`
+	CreatorType *PrincipalType `json:"creator_type,omitempty"`
 	Name string `json:"name"`
 	Slug string `json:"slug"`
 	Description NullableString `json:"description"`
@@ -49,6 +50,8 @@ func NewProject(id string, createdAt time.Time, updatedAt time.Time, deletedAt N
 	this.DeletedAt = deletedAt
 	this.WorkspaceId = workspaceId
 	this.CreatorId = creatorId
+	var creatorType PrincipalType = PRINCIPALTYPE_USER
+	this.CreatorType = &creatorType
 	this.Name = name
 	this.Slug = slug
 	this.Description = description
@@ -62,6 +65,8 @@ func NewProject(id string, createdAt time.Time, updatedAt time.Time, deletedAt N
 // but it doesn't guarantee that properties required by API are set
 func NewProjectWithDefaults() *Project {
 	this := Project{}
+	var creatorType PrincipalType = PRINCIPALTYPE_USER
+	this.CreatorType = &creatorType
 	var isFavorite bool = false
 	this.IsFavorite = &isFavorite
 	return &this
@@ -211,6 +216,38 @@ func (o *Project) GetCreatorIdOk() (*string, bool) {
 // SetCreatorId sets field value
 func (o *Project) SetCreatorId(v string) {
 	o.CreatorId = v
+}
+
+// GetCreatorType returns the CreatorType field value if set, zero value otherwise.
+func (o *Project) GetCreatorType() PrincipalType {
+	if o == nil || IsNil(o.CreatorType) {
+		var ret PrincipalType
+		return ret
+	}
+	return *o.CreatorType
+}
+
+// GetCreatorTypeOk returns a tuple with the CreatorType field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Project) GetCreatorTypeOk() (*PrincipalType, bool) {
+	if o == nil || IsNil(o.CreatorType) {
+		return nil, false
+	}
+	return o.CreatorType, true
+}
+
+// HasCreatorType returns a boolean if a field has been set.
+func (o *Project) HasCreatorType() bool {
+	if o != nil && !IsNil(o.CreatorType) {
+		return true
+	}
+
+	return false
+}
+
+// SetCreatorType gets a reference to the given PrincipalType and assigns it to the CreatorType field.
+func (o *Project) SetCreatorType(v PrincipalType) {
+	o.CreatorType = &v
 }
 
 // GetName returns the Name field value
@@ -367,6 +404,9 @@ func (o Project) ToMap() (map[string]interface{}, error) {
 	toSerialize["deleted_at"] = o.DeletedAt.Get()
 	toSerialize["workspace_id"] = o.WorkspaceId
 	toSerialize["creator_id"] = o.CreatorId
+	if !IsNil(o.CreatorType) {
+		toSerialize["creator_type"] = o.CreatorType
+	}
 	toSerialize["name"] = o.Name
 	toSerialize["slug"] = o.Slug
 	toSerialize["description"] = o.Description.Get()

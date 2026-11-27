@@ -280,6 +280,7 @@ type ApiListRunsV1WorkflowsRunsGetRequest struct {
 	endTimeBefore *time.Time
 	userId *string
 	workflowTags *[]*string
+	excludeWorkflowTags *[]string
 	includeInternal *bool
 	pageSize *int32
 	nextPageToken *string
@@ -334,7 +335,7 @@ func (r ApiListRunsV1WorkflowsRunsGetRequest) StartTimeAfter(startTimeAfter time
 	return r
 }
 
-// Include runs with start_time &lt;&#x3D; value
+// Include runs with start_time &amp;lt;&#x3D; value
 func (r ApiListRunsV1WorkflowsRunsGetRequest) StartTimeBefore(startTimeBefore time.Time) ApiListRunsV1WorkflowsRunsGetRequest {
 	r.startTimeBefore = &startTimeBefore
 	return r
@@ -346,7 +347,7 @@ func (r ApiListRunsV1WorkflowsRunsGetRequest) EndTimeAfter(endTimeAfter time.Tim
 	return r
 }
 
-// Include runs with end_time &lt;&#x3D; value. Running executions (no end_time) are excluded; use the status filter to include them.
+// Include runs with end_time &amp;lt;&#x3D; value. Running executions (no end_time) are excluded; use the status filter to include them.
 func (r ApiListRunsV1WorkflowsRunsGetRequest) EndTimeBefore(endTimeBefore time.Time) ApiListRunsV1WorkflowsRunsGetRequest {
 	r.endTimeBefore = &endTimeBefore
 	return r
@@ -361,6 +362,12 @@ func (r ApiListRunsV1WorkflowsRunsGetRequest) UserId(userId string) ApiListRunsV
 // Filter to runs of workflows tagged with all listed tags (AND).
 func (r ApiListRunsV1WorkflowsRunsGetRequest) WorkflowTags(workflowTags []*string) ApiListRunsV1WorkflowsRunsGetRequest {
 	r.workflowTags = &workflowTags
+	return r
+}
+
+// Exclude runs of workflows tagged with any of the listed tags.
+func (r ApiListRunsV1WorkflowsRunsGetRequest) ExcludeWorkflowTags(excludeWorkflowTags []string) ApiListRunsV1WorkflowsRunsGetRequest {
+	r.excludeWorkflowTags = &excludeWorkflowTags
 	return r
 }
 
@@ -479,10 +486,21 @@ func (a *WorkflowsRunsAPIService) ListRunsV1WorkflowsRunsGetExecute(r ApiListRun
 			parameterAddToHeaderOrQuery(localVarQueryParams, "workflow_tags", t, "form", "multi")
 		}
 	}
+	if r.excludeWorkflowTags != nil {
+		t := *r.excludeWorkflowTags
+		if reflect.TypeOf(t).Kind() == reflect.Slice {
+			s := reflect.ValueOf(t)
+			for i := 0; i < s.Len(); i++ {
+				parameterAddToHeaderOrQuery(localVarQueryParams, "exclude_workflow_tags", s.Index(i).Interface(), "form", "multi")
+			}
+		} else {
+			parameterAddToHeaderOrQuery(localVarQueryParams, "exclude_workflow_tags", t, "form", "multi")
+		}
+	}
 	if r.includeInternal != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "include_internal", r.includeInternal, "form", "")
 	} else {
-		var defaultValue bool = true
+		var defaultValue bool = false
 		parameterAddToHeaderOrQuery(localVarQueryParams, "include_internal", defaultValue, "form", "")
 		r.includeInternal = &defaultValue
 	}

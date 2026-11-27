@@ -21,6 +21,7 @@ var _ MappedNullable = &ConnectionCredentialsInput{}
 type ConnectionCredentialsInput struct {
 	Oauth NullableOAuth2ClientCredentialsInput `json:"oauth,omitempty"`
 	Headers map[string]string `json:"headers,omitempty"`
+	QueryParams map[string]string `json:"query_params,omitempty"`
 	BearerToken NullableString `json:"bearer_token,omitempty"`
 }
 
@@ -116,6 +117,39 @@ func (o *ConnectionCredentialsInput) SetHeaders(v map[string]string) {
 	o.Headers = v
 }
 
+// GetQueryParams returns the QueryParams field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *ConnectionCredentialsInput) GetQueryParams() map[string]string {
+	if o == nil {
+		var ret map[string]string
+		return ret
+	}
+	return o.QueryParams
+}
+
+// GetQueryParamsOk returns a tuple with the QueryParams field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *ConnectionCredentialsInput) GetQueryParamsOk() (map[string]string, bool) {
+	if o == nil || IsNil(o.QueryParams) {
+		return map[string]string{}, false
+	}
+	return o.QueryParams, true
+}
+
+// HasQueryParams returns a boolean if a field has been set.
+func (o *ConnectionCredentialsInput) HasQueryParams() bool {
+	if o != nil && !IsNil(o.QueryParams) {
+		return true
+	}
+
+	return false
+}
+
+// SetQueryParams gets a reference to the given map[string]string and assigns it to the QueryParams field.
+func (o *ConnectionCredentialsInput) SetQueryParams(v map[string]string) {
+	o.QueryParams = v
+}
+
 // GetBearerToken returns the BearerToken field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *ConnectionCredentialsInput) GetBearerToken() string {
 	if o == nil || IsNil(o.BearerToken.Get()) {
@@ -173,6 +207,9 @@ func (o ConnectionCredentialsInput) ToMap() (map[string]interface{}, error) {
 	}
 	if o.Headers != nil {
 		toSerialize["headers"] = o.Headers
+	}
+	if o.QueryParams != nil {
+		toSerialize["query_params"] = o.QueryParams
 	}
 	if o.BearerToken.IsSet() {
 		toSerialize["bearer_token"] = o.BearerToken.Get()

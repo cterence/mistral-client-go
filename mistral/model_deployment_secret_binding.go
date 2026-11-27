@@ -23,7 +23,7 @@ var _ MappedNullable = &DeploymentSecretBinding{}
 type DeploymentSecretBinding struct {
 	// Environment variable the worker process reads; the secret's name lives in 'reference'.
 	EnvVarName string `json:"env_var_name"`
-	// Secret reference as 'secret:workspace:<NAME>'. Resolved at boot by the runtime-init container; the value never reaches the control plane.
+	// Secret reference as 'secret:workspace:&lt;NAME&gt;'. Resolved at boot by the runtime-init container; the value never reaches the control plane.
 	Reference string `json:"reference"`
 }
 

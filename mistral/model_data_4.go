@@ -22,6 +22,10 @@ type Data4 struct {
 	TranscriptionStreamLanguage *TranscriptionStreamLanguage
 	TranscriptionStreamSegmentDelta *TranscriptionStreamSegmentDelta
 	TranscriptionStreamTextDelta *TranscriptionStreamTextDelta
+	TurnDetectionEagerEndEvent *TurnDetectionEagerEndEvent
+	TurnDetectionEndEvent *TurnDetectionEndEvent
+	TurnDetectionResumeEvent *TurnDetectionResumeEvent
+	TurnDetectionStartEvent *TurnDetectionStartEvent
 }
 
 // TranscriptionStreamDoneAsData4 is a convenience function that returns TranscriptionStreamDone wrapped in Data4
@@ -49,6 +53,34 @@ func TranscriptionStreamSegmentDeltaAsData4(v *TranscriptionStreamSegmentDelta) 
 func TranscriptionStreamTextDeltaAsData4(v *TranscriptionStreamTextDelta) Data4 {
 	return Data4{
 		TranscriptionStreamTextDelta: v,
+	}
+}
+
+// TurnDetectionEagerEndEventAsData4 is a convenience function that returns TurnDetectionEagerEndEvent wrapped in Data4
+func TurnDetectionEagerEndEventAsData4(v *TurnDetectionEagerEndEvent) Data4 {
+	return Data4{
+		TurnDetectionEagerEndEvent: v,
+	}
+}
+
+// TurnDetectionEndEventAsData4 is a convenience function that returns TurnDetectionEndEvent wrapped in Data4
+func TurnDetectionEndEventAsData4(v *TurnDetectionEndEvent) Data4 {
+	return Data4{
+		TurnDetectionEndEvent: v,
+	}
+}
+
+// TurnDetectionResumeEventAsData4 is a convenience function that returns TurnDetectionResumeEvent wrapped in Data4
+func TurnDetectionResumeEventAsData4(v *TurnDetectionResumeEvent) Data4 {
+	return Data4{
+		TurnDetectionResumeEvent: v,
+	}
+}
+
+// TurnDetectionStartEventAsData4 is a convenience function that returns TurnDetectionStartEvent wrapped in Data4
+func TurnDetectionStartEventAsData4(v *TurnDetectionStartEvent) Data4 {
+	return Data4{
+		TurnDetectionStartEvent: v,
 	}
 }
 
@@ -125,12 +157,84 @@ func (dst *Data4) UnmarshalJSON(data []byte) error {
 		dst.TranscriptionStreamTextDelta = nil
 	}
 
+	// try to unmarshal data into TurnDetectionEagerEndEvent
+	err = newStrictDecoder(data).Decode(&dst.TurnDetectionEagerEndEvent)
+	if err == nil {
+		jsonTurnDetectionEagerEndEvent, _ := json.Marshal(dst.TurnDetectionEagerEndEvent)
+		if string(jsonTurnDetectionEagerEndEvent) == "{}" { // empty struct
+			dst.TurnDetectionEagerEndEvent = nil
+		} else {
+			if err = validator.Validate(dst.TurnDetectionEagerEndEvent); err != nil {
+				dst.TurnDetectionEagerEndEvent = nil
+			} else {
+				match++
+			}
+		}
+	} else {
+		dst.TurnDetectionEagerEndEvent = nil
+	}
+
+	// try to unmarshal data into TurnDetectionEndEvent
+	err = newStrictDecoder(data).Decode(&dst.TurnDetectionEndEvent)
+	if err == nil {
+		jsonTurnDetectionEndEvent, _ := json.Marshal(dst.TurnDetectionEndEvent)
+		if string(jsonTurnDetectionEndEvent) == "{}" { // empty struct
+			dst.TurnDetectionEndEvent = nil
+		} else {
+			if err = validator.Validate(dst.TurnDetectionEndEvent); err != nil {
+				dst.TurnDetectionEndEvent = nil
+			} else {
+				match++
+			}
+		}
+	} else {
+		dst.TurnDetectionEndEvent = nil
+	}
+
+	// try to unmarshal data into TurnDetectionResumeEvent
+	err = newStrictDecoder(data).Decode(&dst.TurnDetectionResumeEvent)
+	if err == nil {
+		jsonTurnDetectionResumeEvent, _ := json.Marshal(dst.TurnDetectionResumeEvent)
+		if string(jsonTurnDetectionResumeEvent) == "{}" { // empty struct
+			dst.TurnDetectionResumeEvent = nil
+		} else {
+			if err = validator.Validate(dst.TurnDetectionResumeEvent); err != nil {
+				dst.TurnDetectionResumeEvent = nil
+			} else {
+				match++
+			}
+		}
+	} else {
+		dst.TurnDetectionResumeEvent = nil
+	}
+
+	// try to unmarshal data into TurnDetectionStartEvent
+	err = newStrictDecoder(data).Decode(&dst.TurnDetectionStartEvent)
+	if err == nil {
+		jsonTurnDetectionStartEvent, _ := json.Marshal(dst.TurnDetectionStartEvent)
+		if string(jsonTurnDetectionStartEvent) == "{}" { // empty struct
+			dst.TurnDetectionStartEvent = nil
+		} else {
+			if err = validator.Validate(dst.TurnDetectionStartEvent); err != nil {
+				dst.TurnDetectionStartEvent = nil
+			} else {
+				match++
+			}
+		}
+	} else {
+		dst.TurnDetectionStartEvent = nil
+	}
+
 	if match > 1 { // more than 1 match
 		// reset to nil
 		dst.TranscriptionStreamDone = nil
 		dst.TranscriptionStreamLanguage = nil
 		dst.TranscriptionStreamSegmentDelta = nil
 		dst.TranscriptionStreamTextDelta = nil
+		dst.TurnDetectionEagerEndEvent = nil
+		dst.TurnDetectionEndEvent = nil
+		dst.TurnDetectionResumeEvent = nil
+		dst.TurnDetectionStartEvent = nil
 
 		return fmt.Errorf("data matches more than one schema in oneOf(Data4)")
 	} else if match == 1 {
@@ -162,6 +266,22 @@ func (src Data4) MarshalJSON() ([]byte, error) {
 		return json.Marshal(&src.TranscriptionStreamTextDelta)
 	}
 
+	if src.TurnDetectionEagerEndEvent != nil {
+		return json.Marshal(&src.TurnDetectionEagerEndEvent)
+	}
+
+	if src.TurnDetectionEndEvent != nil {
+		return json.Marshal(&src.TurnDetectionEndEvent)
+	}
+
+	if src.TurnDetectionResumeEvent != nil {
+		return json.Marshal(&src.TurnDetectionResumeEvent)
+	}
+
+	if src.TurnDetectionStartEvent != nil {
+		return json.Marshal(&src.TurnDetectionStartEvent)
+	}
+
 	return nil, nil // no data in oneOf schemas
 }
 
@@ -186,6 +306,22 @@ func (obj *Data4) GetActualInstance() (interface{}) {
 		return obj.TranscriptionStreamTextDelta
 	}
 
+	if obj.TurnDetectionEagerEndEvent != nil {
+		return obj.TurnDetectionEagerEndEvent
+	}
+
+	if obj.TurnDetectionEndEvent != nil {
+		return obj.TurnDetectionEndEvent
+	}
+
+	if obj.TurnDetectionResumeEvent != nil {
+		return obj.TurnDetectionResumeEvent
+	}
+
+	if obj.TurnDetectionStartEvent != nil {
+		return obj.TurnDetectionStartEvent
+	}
+
 	// all schemas are nil
 	return nil
 }
@@ -206,6 +342,22 @@ func (obj Data4) GetActualInstanceValue() (interface{}) {
 
 	if obj.TranscriptionStreamTextDelta != nil {
 		return *obj.TranscriptionStreamTextDelta
+	}
+
+	if obj.TurnDetectionEagerEndEvent != nil {
+		return *obj.TurnDetectionEagerEndEvent
+	}
+
+	if obj.TurnDetectionEndEvent != nil {
+		return *obj.TurnDetectionEndEvent
+	}
+
+	if obj.TurnDetectionResumeEvent != nil {
+		return *obj.TurnDetectionResumeEvent
+	}
+
+	if obj.TurnDetectionStartEvent != nil {
+		return *obj.TurnDetectionStartEvent
 	}
 
 	// all schemas are nil

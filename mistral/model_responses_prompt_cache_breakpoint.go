@@ -21,6 +21,7 @@ var _ MappedNullable = &ResponsesPromptCacheBreakpoint{}
 // ResponsesPromptCacheBreakpoint struct for ResponsesPromptCacheBreakpoint
 type ResponsesPromptCacheBreakpoint struct {
 	Mode string `json:"mode"`
+	Ttl NullableString `json:"ttl,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -68,6 +69,48 @@ func (o *ResponsesPromptCacheBreakpoint) SetMode(v string) {
 	o.Mode = v
 }
 
+// GetTtl returns the Ttl field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *ResponsesPromptCacheBreakpoint) GetTtl() string {
+	if o == nil || IsNil(o.Ttl.Get()) {
+		var ret string
+		return ret
+	}
+	return *o.Ttl.Get()
+}
+
+// GetTtlOk returns a tuple with the Ttl field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *ResponsesPromptCacheBreakpoint) GetTtlOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.Ttl.Get(), o.Ttl.IsSet()
+}
+
+// HasTtl returns a boolean if a field has been set.
+func (o *ResponsesPromptCacheBreakpoint) HasTtl() bool {
+	if o != nil && o.Ttl.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetTtl gets a reference to the given NullableString and assigns it to the Ttl field.
+func (o *ResponsesPromptCacheBreakpoint) SetTtl(v string) {
+	o.Ttl.Set(&v)
+}
+// SetTtlNil sets the value for Ttl to be an explicit nil
+func (o *ResponsesPromptCacheBreakpoint) SetTtlNil() {
+	o.Ttl.Set(nil)
+}
+
+// UnsetTtl ensures that no value is present for Ttl, not even an explicit nil
+func (o *ResponsesPromptCacheBreakpoint) UnsetTtl() {
+	o.Ttl.Unset()
+}
+
 func (o ResponsesPromptCacheBreakpoint) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -79,6 +122,9 @@ func (o ResponsesPromptCacheBreakpoint) MarshalJSON() ([]byte, error) {
 func (o ResponsesPromptCacheBreakpoint) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["mode"] = o.Mode
+	if o.Ttl.IsSet() {
+		toSerialize["ttl"] = o.Ttl.Get()
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -123,6 +169,7 @@ func (o *ResponsesPromptCacheBreakpoint) UnmarshalJSON(data []byte) (err error) 
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "mode")
+		delete(additionalProperties, "ttl")
 		o.AdditionalProperties = additionalProperties
 	}
 

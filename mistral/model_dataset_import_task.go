@@ -27,6 +27,7 @@ type DatasetImportTask struct {
 	UpdatedAt time.Time `json:"updated_at"`
 	DeletedAt NullableTime `json:"deleted_at"`
 	CreatorId string `json:"creator_id"`
+	CreatorType *PrincipalType `json:"creator_type,omitempty"`
 	DatasetId string `json:"dataset_id"`
 	WorkspaceId string `json:"workspace_id"`
 	Status BaseTaskStatus `json:"status"`
@@ -48,6 +49,8 @@ func NewDatasetImportTask(id string, createdAt time.Time, updatedAt time.Time, d
 	this.UpdatedAt = updatedAt
 	this.DeletedAt = deletedAt
 	this.CreatorId = creatorId
+	var creatorType PrincipalType = PRINCIPALTYPE_USER
+	this.CreatorType = &creatorType
 	this.DatasetId = datasetId
 	this.WorkspaceId = workspaceId
 	this.Status = status
@@ -59,6 +62,8 @@ func NewDatasetImportTask(id string, createdAt time.Time, updatedAt time.Time, d
 // but it doesn't guarantee that properties required by API are set
 func NewDatasetImportTaskWithDefaults() *DatasetImportTask {
 	this := DatasetImportTask{}
+	var creatorType PrincipalType = PRINCIPALTYPE_USER
+	this.CreatorType = &creatorType
 	return &this
 }
 
@@ -182,6 +187,38 @@ func (o *DatasetImportTask) GetCreatorIdOk() (*string, bool) {
 // SetCreatorId sets field value
 func (o *DatasetImportTask) SetCreatorId(v string) {
 	o.CreatorId = v
+}
+
+// GetCreatorType returns the CreatorType field value if set, zero value otherwise.
+func (o *DatasetImportTask) GetCreatorType() PrincipalType {
+	if o == nil || IsNil(o.CreatorType) {
+		var ret PrincipalType
+		return ret
+	}
+	return *o.CreatorType
+}
+
+// GetCreatorTypeOk returns a tuple with the CreatorType field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *DatasetImportTask) GetCreatorTypeOk() (*PrincipalType, bool) {
+	if o == nil || IsNil(o.CreatorType) {
+		return nil, false
+	}
+	return o.CreatorType, true
+}
+
+// HasCreatorType returns a boolean if a field has been set.
+func (o *DatasetImportTask) HasCreatorType() bool {
+	if o != nil && !IsNil(o.CreatorType) {
+		return true
+	}
+
+	return false
+}
+
+// SetCreatorType gets a reference to the given PrincipalType and assigns it to the CreatorType field.
+func (o *DatasetImportTask) SetCreatorType(v PrincipalType) {
+	o.CreatorType = &v
 }
 
 // GetDatasetId returns the DatasetId field value
@@ -397,6 +434,9 @@ func (o DatasetImportTask) ToMap() (map[string]interface{}, error) {
 	toSerialize["updated_at"] = o.UpdatedAt
 	toSerialize["deleted_at"] = o.DeletedAt.Get()
 	toSerialize["creator_id"] = o.CreatorId
+	if !IsNil(o.CreatorType) {
+		toSerialize["creator_type"] = o.CreatorType
+	}
 	toSerialize["dataset_id"] = o.DatasetId
 	toSerialize["workspace_id"] = o.WorkspaceId
 	toSerialize["status"] = o.Status

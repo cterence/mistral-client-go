@@ -23,7 +23,7 @@ var _ MappedNullable = &VoiceAgentFunctionToolRequest{}
 type VoiceAgentFunctionToolRequest struct {
 	Type *string `json:"type,omitempty"`
 	Function FunctionRequest `json:"function"`
-	Filler NullableStaticToolFiller `json:"filler,omitempty"`
+	Filler NullableHangUpToolFiller `json:"filler,omitempty"`
 	TimeoutMs NullableInt32 `json:"timeout_ms,omitempty"`
 }
 
@@ -108,9 +108,9 @@ func (o *VoiceAgentFunctionToolRequest) SetFunction(v FunctionRequest) {
 }
 
 // GetFiller returns the Filler field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *VoiceAgentFunctionToolRequest) GetFiller() StaticToolFiller {
+func (o *VoiceAgentFunctionToolRequest) GetFiller() HangUpToolFiller {
 	if o == nil || IsNil(o.Filler.Get()) {
-		var ret StaticToolFiller
+		var ret HangUpToolFiller
 		return ret
 	}
 	return *o.Filler.Get()
@@ -119,7 +119,7 @@ func (o *VoiceAgentFunctionToolRequest) GetFiller() StaticToolFiller {
 // GetFillerOk returns a tuple with the Filler field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *VoiceAgentFunctionToolRequest) GetFillerOk() (*StaticToolFiller, bool) {
+func (o *VoiceAgentFunctionToolRequest) GetFillerOk() (*HangUpToolFiller, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -135,8 +135,8 @@ func (o *VoiceAgentFunctionToolRequest) HasFiller() bool {
 	return false
 }
 
-// SetFiller gets a reference to the given NullableStaticToolFiller and assigns it to the Filler field.
-func (o *VoiceAgentFunctionToolRequest) SetFiller(v StaticToolFiller) {
+// SetFiller gets a reference to the given NullableHangUpToolFiller and assigns it to the Filler field.
+func (o *VoiceAgentFunctionToolRequest) SetFiller(v HangUpToolFiller) {
 	o.Filler.Set(&v)
 }
 // SetFillerNil sets the value for Filler to be an explicit nil

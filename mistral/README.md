@@ -82,6 +82,7 @@ Class | Method | HTTP request | Description
 *AudioSessionsAPI* | [**CreateSessionV1AudioSessionsPost**](docs/AudioSessionsAPI.md#createsessionv1audiosessionspost) | **Post** /v1/audio/sessions | Create an agent session
 *AudioSessionsAPI* | [**DeleteSessionV1AudioSessionsSessionIdDelete**](docs/AudioSessionsAPI.md#deletesessionv1audiosessionssessioniddelete) | **Delete** /v1/audio/sessions/{session_id} | Stop an agent session
 *AudioSessionsAPI* | [**GetSessionV1AudioSessionsSessionIdGet**](docs/AudioSessionsAPI.md#getsessionv1audiosessionssessionidget) | **Get** /v1/audio/sessions/{session_id} | Get session status
+*AudioSessionsAPI* | [**UpdateSessionV1AudioSessionsSessionIdPatch**](docs/AudioSessionsAPI.md#updatesessionv1audiosessionssessionidpatch) | **Patch** /v1/audio/sessions/{session_id} | Update a live agent session
 *AudioSpeechAPI* | [**SpeechV1AudioSpeechPost**](docs/AudioSpeechAPI.md#speechv1audiospeechpost) | **Post** /v1/audio/speech | Speech
 *AudioTranscriptionsAPI* | [**AudioApiV1TranscriptionsPost**](docs/AudioTranscriptionsAPI.md#audioapiv1transcriptionspost) | **Post** /v1/audio/transcriptions | Create Transcription
 *AudioTranscriptionsAPI* | [**AudioApiV1TranscriptionsPostStream**](docs/AudioTranscriptionsAPI.md#audioapiv1transcriptionspoststream) | **Post** /v1/audio/transcriptions#stream | Create Streaming Transcription (SSE)
@@ -116,13 +117,11 @@ Class | Method | HTTP request | Description
 *BetaAdminUserGroupsAPI* | [**UsersApiAdminUserGroupsAssignUsersToGroup**](docs/BetaAdminUserGroupsAPI.md#usersapiadminusergroupsassignuserstogroup) | **Post** /v1/admin/user-groups/{group_uuid}/members | Assign Users To Group
 *BetaAdminUserGroupsAPI* | [**UsersApiAdminUserGroupsCreateUserGroup**](docs/BetaAdminUserGroupsAPI.md#usersapiadminusergroupscreateusergroup) | **Post** /v1/admin/user-groups | Create User Group
 *BetaAdminUserGroupsAPI* | [**UsersApiAdminUserGroupsDeleteUserGroup**](docs/BetaAdminUserGroupsAPI.md#usersapiadminusergroupsdeleteusergroup) | **Delete** /v1/admin/user-groups/{group_uuid} | Delete User Group
-*BetaAdminUserGroupsAPI* | [**UsersApiAdminUserGroupsGetNestedGroups**](docs/BetaAdminUserGroupsAPI.md#usersapiadminusergroupsgetnestedgroups) | **Get** /v1/admin/user-groups/{group_uuid}/nested | Get Nested Groups Admin
 *BetaAdminUserGroupsAPI* | [**UsersApiAdminUserGroupsGetUserGroup**](docs/BetaAdminUserGroupsAPI.md#usersapiadminusergroupsgetusergroup) | **Get** /v1/admin/user-groups/{group_uuid} | Get User Group
 *BetaAdminUserGroupsAPI* | [**UsersApiAdminUserGroupsGetUserGroupMembers**](docs/BetaAdminUserGroupsAPI.md#usersapiadminusergroupsgetusergroupmembers) | **Get** /v1/admin/user-groups/{group_uuid}/members | Get User Group Members
 *BetaAdminUserGroupsAPI* | [**UsersApiAdminUserGroupsGetUserGroups**](docs/BetaAdminUserGroupsAPI.md#usersapiadminusergroupsgetusergroups) | **Get** /v1/admin/user-groups | Get User Groups
 *BetaAdminUserGroupsAPI* | [**UsersApiAdminUserGroupsProvisionGroupToWorkspace**](docs/BetaAdminUserGroupsAPI.md#usersapiadminusergroupsprovisiongrouptoworkspace) | **Post** /v1/admin/user-groups/provision-workspace | Provision Group To Workspace
 *BetaAdminUserGroupsAPI* | [**UsersApiAdminUserGroupsRemoveUsersFromGroup**](docs/BetaAdminUserGroupsAPI.md#usersapiadminusergroupsremoveusersfromgroup) | **Delete** /v1/admin/user-groups/{group_uuid}/members | Remove Users From Group
-*BetaAdminUserGroupsAPI* | [**UsersApiAdminUserGroupsSetNestedGroups**](docs/BetaAdminUserGroupsAPI.md#usersapiadminusergroupssetnestedgroups) | **Patch** /v1/admin/user-groups/{group_uuid}/nested | Set Nested Groups Admin
 *BetaAdminUserGroupsAPI* | [**UsersApiAdminUserGroupsUpdateUserGroup**](docs/BetaAdminUserGroupsAPI.md#usersapiadminusergroupsupdateusergroup) | **Patch** /v1/admin/user-groups/{group_uuid} | Update User Group
 *BetaAdminUsersAPI* | [**UsersApiAdminRolesGetRoles**](docs/BetaAdminUsersAPI.md#usersapiadminrolesgetroles) | **Get** /v1/admin/roles | Get Roles
 *BetaAdminUsersAPI* | [**UsersApiAdminUsersCreateUsers**](docs/BetaAdminUsersAPI.md#usersapiadminuserscreateusers) | **Post** /v1/admin/users | Create Users
@@ -131,8 +130,10 @@ Class | Method | HTTP request | Description
 *BetaAdminUsersAPI* | [**UsersApiAdminUsersDeleteUser**](docs/BetaAdminUsersAPI.md#usersapiadminusersdeleteuser) | **Delete** /v1/admin/users/{user_id} | Delete User
 *BetaAdminUsersAPI* | [**UsersApiAdminUsersGetInvite**](docs/BetaAdminUsersAPI.md#usersapiadminusersgetinvite) | **Get** /v1/admin/users-invite | Get Invite
 *BetaAdminUsersAPI* | [**UsersApiAdminUsersGetUser**](docs/BetaAdminUsersAPI.md#usersapiadminusersgetuser) | **Get** /v1/admin/users/{user_id} | Get User
+*BetaAdminUsersAPI* | [**UsersApiAdminUsersGetUserWorkspaces**](docs/BetaAdminUsersAPI.md#usersapiadminusersgetuserworkspaces) | **Get** /v1/admin/users/{user_id}/workspaces | Get User Workspaces
 *BetaAdminUsersAPI* | [**UsersApiAdminUsersGetUsers**](docs/BetaAdminUsersAPI.md#usersapiadminusersgetusers) | **Get** /v1/admin/users | Get Users
 *BetaAdminUsersAPI* | [**UsersApiAdminUsersInviteUsers**](docs/BetaAdminUsersAPI.md#usersapiadminusersinviteusers) | **Post** /v1/admin/users-invite | Invite Users
+*BetaAdminUsersAPI* | [**UsersApiAdminUsersReactivateUser**](docs/BetaAdminUsersAPI.md#usersapiadminusersreactivateuser) | **Post** /v1/admin/users/{user_id}/reactivate | Reactivate User
 *BetaAdminUsersAPI* | [**UsersApiAdminUsersUpdateUser**](docs/BetaAdminUsersAPI.md#usersapiadminusersupdateuser) | **Patch** /v1/admin/users/{user_id} | Update User
 *BetaAdminVibeCodeAnalyticsAPI* | [**GetOrganizationStatsV1AdminAnalyticsVibeCodeUsageByOrganization**](docs/BetaAdminVibeCodeAnalyticsAPI.md#getorganizationstatsv1adminanalyticsvibecodeusagebyorganization) | **Get** /v1/admin/analytics/vibe/code/usage/by_organization | Usage by organization
 *BetaAdminVibeCodeAnalyticsAPI* | [**GetWorkspaceStatsV1AdminAnalyticsVibeCodeUsageByWorkspace**](docs/BetaAdminVibeCodeAnalyticsAPI.md#getworkspacestatsv1adminanalyticsvibecodeusagebyworkspace) | **Get** /v1/admin/analytics/vibe/code/usage/by_workspace | Usage by workspace
@@ -144,6 +145,7 @@ Class | Method | HTTP request | Description
 *BetaAdminWorkspacesAPI* | [**UsersApiAdminWorkspacesCreateWorkspace**](docs/BetaAdminWorkspacesAPI.md#usersapiadminworkspacescreateworkspace) | **Post** /v1/admin/workspaces | Create Workspace
 *BetaAdminWorkspacesAPI* | [**UsersApiAdminWorkspacesDeleteWorkspaces**](docs/BetaAdminWorkspacesAPI.md#usersapiadminworkspacesdeleteworkspaces) | **Delete** /v1/admin/workspaces/{workspace_uuid} | Delete Workspaces
 *BetaAdminWorkspacesAPI* | [**UsersApiAdminWorkspacesGetWorkspaces**](docs/BetaAdminWorkspacesAPI.md#usersapiadminworkspacesgetworkspaces) | **Get** /v1/admin/workspaces | Get Workspaces
+*BetaAdminWorkspacesAPI* | [**UsersApiAdminWorkspacesListWorkspaceUsers**](docs/BetaAdminWorkspacesAPI.md#usersapiadminworkspaceslistworkspaceusers) | **Get** /v1/admin/workspaces/{workspace_uuid}/users | List Workspace Users
 *BetaAdminWorkspacesAPI* | [**UsersApiAdminWorkspacesRemoveUsersWorkspaces**](docs/BetaAdminWorkspacesAPI.md#usersapiadminworkspacesremoveusersworkspaces) | **Delete** /v1/admin/workspaces/{workspace_uuid}/remove-users | Remove Users Workspaces
 *BetaAdminWorkspacesAPI* | [**UsersApiAdminWorkspacesUpdateWorkspaces**](docs/BetaAdminWorkspacesAPI.md#usersapiadminworkspacesupdateworkspaces) | **Patch** /v1/admin/workspaces/{workspace_uuid} | Update Workspaces
 *BetaAgentsAPI* | [**AgentsApiV1AgentsCreate**](docs/BetaAgentsAPI.md#agentsapiv1agentscreate) | **Post** /v1/agents | Create a agent that can be used within a conversation.
@@ -229,6 +231,7 @@ Class | Method | HTTP request | Description
 *BetaLibrariesDocumentsAPI* | [**LibrariesDocumentsUpdateV1**](docs/BetaLibrariesDocumentsAPI.md#librariesdocumentsupdatev1) | **Put** /v1/libraries/{library_id}/documents/{document_id} | Update the metadata of a specific document.
 *BetaLibrariesDocumentsAPI* | [**LibrariesDocumentsUploadV1**](docs/BetaLibrariesDocumentsAPI.md#librariesdocumentsuploadv1) | **Post** /v1/libraries/{library_id}/documents | Upload a new document.
 *BetaObservabilityDatasetsAPI* | [**CreateDatasetRecordV1ObservabilityDatasetsDatasetIdRecordsPost**](docs/BetaObservabilityDatasetsAPI.md#createdatasetrecordv1observabilitydatasetsdatasetidrecordspost) | **Post** /v1/observability/datasets/{dataset_id}/records | Add a record to the dataset
+*BetaObservabilityDatasetsAPI* | [**CreateDatasetRecordsV1ObservabilityDatasetsDatasetIdRecordsBulkPost**](docs/BetaObservabilityDatasetsAPI.md#createdatasetrecordsv1observabilitydatasetsdatasetidrecordsbulkpost) | **Post** /v1/observability/datasets/{dataset_id}/records/bulk | Add several records to the dataset
 *BetaObservabilityDatasetsAPI* | [**CreateDatasetV1ObservabilityDatasetsPost**](docs/BetaObservabilityDatasetsAPI.md#createdatasetv1observabilitydatasetspost) | **Post** /v1/observability/datasets | Create a new empty dataset
 *BetaObservabilityDatasetsAPI* | [**DeleteDatasetV1ObservabilityDatasetsDatasetIdDelete**](docs/BetaObservabilityDatasetsAPI.md#deletedatasetv1observabilitydatasetsdatasetiddelete) | **Delete** /v1/observability/datasets/{dataset_id} | Delete a dataset
 *BetaObservabilityDatasetsAPI* | [**ExportDatasetToJsonlV1ObservabilityDatasetsDatasetIdExportsToJsonlGet**](docs/BetaObservabilityDatasetsAPI.md#exportdatasettojsonlv1observabilitydatasetsdatasetidexportstojsonlget) | **Get** /v1/observability/datasets/{dataset_id}/exports/to-jsonl | Export to the Files API and retrieve presigned URL to download the resulting JSONL file
@@ -239,13 +242,11 @@ Class | Method | HTTP request | Description
 *BetaObservabilityDatasetsAPI* | [**GetDatasetsV1ObservabilityDatasetsGet**](docs/BetaObservabilityDatasetsAPI.md#getdatasetsv1observabilitydatasetsget) | **Get** /v1/observability/datasets | List existing datasets
 *BetaObservabilityDatasetsAPI* | [**PostDatasetRecordsFromDatasetV1ObservabilityDatasetsDatasetIdImportsFromDatasetPost**](docs/BetaObservabilityDatasetsAPI.md#postdatasetrecordsfromdatasetv1observabilitydatasetsdatasetidimportsfromdatasetpost) | **Post** /v1/observability/datasets/{dataset_id}/imports/from-dataset | Populate the dataset with records from another dataset
 *BetaObservabilityDatasetsAPI* | [**PostDatasetRecordsFromFileV1ObservabilityDatasetsDatasetIdImportsFromFilePost**](docs/BetaObservabilityDatasetsAPI.md#postdatasetrecordsfromfilev1observabilitydatasetsdatasetidimportsfromfilepost) | **Post** /v1/observability/datasets/{dataset_id}/imports/from-file | Populate the dataset with records from an uploaded file
-*BetaObservabilityDatasetsAPI* | [**PostDatasetRecordsFromPlaygroundV1ObservabilityDatasetsDatasetIdImportsFromPlaygroundPost**](docs/BetaObservabilityDatasetsAPI.md#postdatasetrecordsfromplaygroundv1observabilitydatasetsdatasetidimportsfromplaygroundpost) | **Post** /v1/observability/datasets/{dataset_id}/imports/from-playground | Populate the dataset with records from playground conversations
 *BetaObservabilityDatasetsAPI* | [**PostDatasetRecordsFromSpansV1ObservabilityDatasetsDatasetIdImportsFromSpansPost**](docs/BetaObservabilityDatasetsAPI.md#postdatasetrecordsfromspansv1observabilitydatasetsdatasetidimportsfromspanspost) | **Post** /v1/observability/datasets/{dataset_id}/imports/from-spans | Populate the dataset with records mapped from telemetry spans
 *BetaObservabilityDatasetsAPI* | [**UpdateDatasetV1ObservabilityDatasetsDatasetIdPatch**](docs/BetaObservabilityDatasetsAPI.md#updatedatasetv1observabilitydatasetsdatasetidpatch) | **Patch** /v1/observability/datasets/{dataset_id} | Patch dataset
 *BetaObservabilityDatasetsRecordsAPI* | [**DeleteDatasetRecordV1ObservabilityDatasetRecordsDatasetRecordIdDelete**](docs/BetaObservabilityDatasetsRecordsAPI.md#deletedatasetrecordv1observabilitydatasetrecordsdatasetrecordiddelete) | **Delete** /v1/observability/dataset-records/{dataset_record_id} | Delete a record from a dataset
 *BetaObservabilityDatasetsRecordsAPI* | [**DeleteDatasetRecordsV1ObservabilityDatasetRecordsBulkDeletePost**](docs/BetaObservabilityDatasetsRecordsAPI.md#deletedatasetrecordsv1observabilitydatasetrecordsbulkdeletepost) | **Post** /v1/observability/dataset-records/bulk-delete | Delete multiple records from datasets
 *BetaObservabilityDatasetsRecordsAPI* | [**GetDatasetRecordV1ObservabilityDatasetRecordsDatasetRecordIdGet**](docs/BetaObservabilityDatasetsRecordsAPI.md#getdatasetrecordv1observabilitydatasetrecordsdatasetrecordidget) | **Get** /v1/observability/dataset-records/{dataset_record_id} | Get the content of a given dataset record
-*BetaObservabilityDatasetsRecordsAPI* | [**JudgeDatasetRecordV1ObservabilityDatasetRecordsDatasetRecordIdLiveJudgingPost**](docs/BetaObservabilityDatasetsRecordsAPI.md#judgedatasetrecordv1observabilitydatasetrecordsdatasetrecordidlivejudgingpost) | **Post** /v1/observability/dataset-records/{dataset_record_id}/live-judging | Run Judge on a dataset record based on the given options
 *BetaObservabilityDatasetsRecordsAPI* | [**UpdateDatasetRecordPayloadV1ObservabilityDatasetRecordsDatasetRecordIdPayloadPut**](docs/BetaObservabilityDatasetsRecordsAPI.md#updatedatasetrecordpayloadv1observabilitydatasetrecordsdatasetrecordidpayloadput) | **Put** /v1/observability/dataset-records/{dataset_record_id}/payload | Update a dataset record payload
 *BetaObservabilityDatasetsRecordsAPI* | [**UpdateDatasetRecordPropertiesV1ObservabilityDatasetRecordsDatasetRecordIdPropertiesPut**](docs/BetaObservabilityDatasetsRecordsAPI.md#updatedatasetrecordpropertiesv1observabilitydatasetrecordsdatasetrecordidpropertiesput) | **Put** /v1/observability/dataset-records/{dataset_record_id}/properties | Update dataset record properties
 *BetaObservabilityEvaluationsAPI* | [**CreatePipelineV1ObservabilityPipelinesPost**](docs/BetaObservabilityEvaluationsAPI.md#createpipelinev1observabilitypipelinespost) | **Post** /v1/observability/pipelines | Create a pipeline
@@ -267,12 +268,10 @@ Class | Method | HTTP request | Description
 *BetaObservabilityEvaluationsRunsAPI* | [**GetSingleEvaluationRunStatisticsV2V1ObservabilityEvaluationRunsV2RunIdStatisticsGet**](docs/BetaObservabilityEvaluationsRunsAPI.md#getsingleevaluationrunstatisticsv2v1observabilityevaluationrunsv2runidstatisticsget) | **Get** /v1/observability/evaluation-runs_v2/{run_id}/statistics | Get statistics for a specific evaluation run
 *BetaObservabilityEvaluationsRunsAPI* | [**SearchAllEvaluationRunsV2V1ObservabilityEvaluationRunsV2SearchPost**](docs/BetaObservabilityEvaluationsRunsAPI.md#searchallevaluationrunsv2v1observabilityevaluationrunsv2searchpost) | **Post** /v1/observability/evaluation-runs_v2/search | Search evaluation runs across all evaluations
 *BetaObservabilityEvaluationsRunsAPI* | [**SearchEvaluationRunsV2V1ObservabilityEvaluationsV2EvaluationSlugRunsSearchPost**](docs/BetaObservabilityEvaluationsRunsAPI.md#searchevaluationrunsv2v1observabilityevaluationsv2evaluationslugrunssearchpost) | **Post** /v1/observability/evaluations_v2/{evaluation_slug}/runs/search | Search evaluation runs with filters
-*BetaObservabilityJudgesAPI* | [**CreateJudgeV1ObservabilityJudgesPost**](docs/BetaObservabilityJudgesAPI.md#createjudgev1observabilityjudgespost) | **Post** /v1/observability/judges | Create a new judge
-*BetaObservabilityJudgesAPI* | [**DeleteJudgeV1ObservabilityJudgesJudgeIdDelete**](docs/BetaObservabilityJudgesAPI.md#deletejudgev1observabilityjudgesjudgeiddelete) | **Delete** /v1/observability/judges/{judge_id} | Delete a judge
-*BetaObservabilityJudgesAPI* | [**GetJudgeByIdV1ObservabilityJudgesJudgeIdGet**](docs/BetaObservabilityJudgesAPI.md#getjudgebyidv1observabilityjudgesjudgeidget) | **Get** /v1/observability/judges/{judge_id} | Get judge by id
-*BetaObservabilityJudgesAPI* | [**GetJudgesV1ObservabilityJudgesGet**](docs/BetaObservabilityJudgesAPI.md#getjudgesv1observabilityjudgesget) | **Get** /v1/observability/judges | Get judges with optional filtering and search
-*BetaObservabilityJudgesAPI* | [**JudgeConversationV1ObservabilityJudgesJudgeIdLiveJudgingPost**](docs/BetaObservabilityJudgesAPI.md#judgeconversationv1observabilityjudgesjudgeidlivejudgingpost) | **Post** /v1/observability/judges/{judge_id}/live-judging | Run a saved judge on a conversation
-*BetaObservabilityJudgesAPI* | [**UpdateJudgeV1ObservabilityJudgesJudgeIdPut**](docs/BetaObservabilityJudgesAPI.md#updatejudgev1observabilityjudgesjudgeidput) | **Put** /v1/observability/judges/{judge_id} | Update a judge
+*BetaObservabilityEvaluationsScorersAPI* | [**CreateScorerV1ObservabilityScorersPost**](docs/BetaObservabilityEvaluationsScorersAPI.md#createscorerv1observabilityscorerspost) | **Post** /v1/observability/scorers | Create a scorer
+*BetaObservabilityEvaluationsScorersAPI* | [**EditScorerV1ObservabilityScorersScorerSlugPatch**](docs/BetaObservabilityEvaluationsScorersAPI.md#editscorerv1observabilityscorersscorerslugpatch) | **Patch** /v1/observability/scorers/{scorer_slug} | Edit a scorer
+*BetaObservabilityEvaluationsScorersAPI* | [**GetScorerV1ObservabilityScorersScorerSlugGet**](docs/BetaObservabilityEvaluationsScorersAPI.md#getscorerv1observabilityscorersscorerslugget) | **Get** /v1/observability/scorers/{scorer_slug} | Get a scorer by slug
+*BetaObservabilityEvaluationsScorersAPI* | [**ListScorersV1ObservabilityScorersGet**](docs/BetaObservabilityEvaluationsScorersAPI.md#listscorersv1observabilityscorersget) | **Get** /v1/observability/scorers | List scorers
 *BetaObservabilityLogsAPI* | [**GetLogFieldOptionsV1ObservabilityLogsFieldsFieldNameOptionsGet**](docs/BetaObservabilityLogsAPI.md#getlogfieldoptionsv1observabilitylogsfieldsfieldnameoptionsget) | **Get** /v1/observability/logs/fields/{field_name}/options | Get options for a log field
 *BetaObservabilityLogsAPI* | [**GetLogFieldsV1ObservabilityLogsFieldsGet**](docs/BetaObservabilityLogsAPI.md#getlogfieldsv1observabilitylogsfieldsget) | **Get** /v1/observability/logs/fields | Get log field definitions
 *BetaObservabilityLogsAPI* | [**SearchLogsV1ObservabilityLogsSearchPost**](docs/BetaObservabilityLogsAPI.md#searchlogsv1observabilitylogssearchpost) | **Post** /v1/observability/logs/search | Search logs
@@ -306,10 +305,6 @@ Class | Method | HTTP request | Description
 *BetaRagIngestionPipelineConfigurationsAPI* | [**GetConfigsV1RagIngestionPipelineConfigurationsGet**](docs/BetaRagIngestionPipelineConfigurationsAPI.md#getconfigsv1ragingestionpipelineconfigurationsget) | **Get** /v1/rag/ingestion_pipeline_configurations | List ingestion pipeline configurations
 *BetaRagIngestionPipelineConfigurationsAPI* | [**RegisterConfigV1RagIngestionPipelineConfigurationsPut**](docs/BetaRagIngestionPipelineConfigurationsAPI.md#registerconfigv1ragingestionpipelineconfigurationsput) | **Put** /v1/rag/ingestion_pipeline_configurations | Register Config
 *BetaRagIngestionPipelineConfigurationsAPI* | [**UpdateRunInfoV1RagIngestionPipelineConfigurationsIdRunInfoPut**](docs/BetaRagIngestionPipelineConfigurationsAPI.md#updateruninfov1ragingestionpipelineconfigurationsidruninfoput) | **Put** /v1/rag/ingestion_pipeline_configurations/{id}/run_info | Update Run Info
-*BetaRagSearchIndexesAPI* | [**GetDeploymentSummariesV1RagDeploymentsGet**](docs/BetaRagSearchIndexesAPI.md#getdeploymentsummariesv1ragdeploymentsget) | **Get** /v1/rag/deployments | Get Deployment Summaries
-*BetaRagSearchIndexesAPI* | [**RegisterDeploymentV1RagDeploymentsPut**](docs/BetaRagSearchIndexesAPI.md#registerdeploymentv1ragdeploymentsput) | **Put** /v1/rag/deployments | Register (or re-register) a search index
-*BetaRagSearchIndexesAPI* | [**UnregisterDeploymentV1RagDeploymentsDeploymentIdDelete**](docs/BetaRagSearchIndexesAPI.md#unregisterdeploymentv1ragdeploymentsdeploymentiddelete) | **Delete** /v1/rag/deployments/{deployment_id} | Unregister Deployment
-*BetaRagSearchIndexesAPI* | [**UpdateIndexMetricsV1RagDeploymentsDeploymentIdMetricsPut**](docs/BetaRagSearchIndexesAPI.md#updateindexmetricsv1ragdeploymentsdeploymentidmetricsput) | **Put** /v1/rag/deployments/{deployment_id}/metrics | Update Index Metrics
 *BetaServiceAccountsAPI* | [**CreateServiceAccountV1ServiceAccountsPost**](docs/BetaServiceAccountsAPI.md#createserviceaccountv1serviceaccountspost) | **Post** /v1/service-accounts | Create Service Account
 *BetaServiceAccountsAPI* | [**DeleteServiceAccountV1ServiceAccountsServiceAccountIdDelete**](docs/BetaServiceAccountsAPI.md#deleteserviceaccountv1serviceaccountsserviceaccountiddelete) | **Delete** /v1/service-accounts/{service_account_id} | Delete Service Account
 *BetaServiceAccountsAPI* | [**GetServiceAccountV1ServiceAccountsServiceAccountIdGet**](docs/BetaServiceAccountsAPI.md#getserviceaccountv1serviceaccountsserviceaccountidget) | **Get** /v1/service-accounts/{service_account_id} | Get Service Account
@@ -376,6 +371,7 @@ Class | Method | HTTP request | Description
 *WorkflowsAPI* | [**GetWorkflowsV1WorkflowsGet**](docs/WorkflowsAPI.md#getworkflowsv1workflowsget) | **Get** /v1/workflows | Get Workflows
 *WorkflowsAPI* | [**UnarchiveWorkflowV1WorkflowsWorkflowIdentifierUnarchivePut**](docs/WorkflowsAPI.md#unarchiveworkflowv1workflowsworkflowidentifierunarchiveput) | **Put** /v1/workflows/{workflow_identifier}/unarchive | Unarchive Workflow
 *WorkflowsAPI* | [**UpdateWorkflowV1WorkflowsWorkflowIdentifierPut**](docs/WorkflowsAPI.md#updateworkflowv1workflowsworkflowidentifierput) | **Put** /v1/workflows/{workflow_identifier} | Update Workflow
+*WorkflowsDeploymentsAPI* | [**CreateDeploymentArchiveV1WorkflowsDeploymentsArchivesPost**](docs/WorkflowsDeploymentsAPI.md#createdeploymentarchivev1workflowsdeploymentsarchivespost) | **Post** /v1/workflows/deployments/archives | Create Deployment Archive
 *WorkflowsDeploymentsAPI* | [**CreateDeploymentV1WorkflowsDeploymentsPost**](docs/WorkflowsDeploymentsAPI.md#createdeploymentv1workflowsdeploymentspost) | **Post** /v1/workflows/deployments | Create Deployment
 *WorkflowsDeploymentsAPI* | [**DeleteDeploymentV1WorkflowsDeploymentsNameDelete**](docs/WorkflowsDeploymentsAPI.md#deletedeploymentv1workflowsdeploymentsnamedelete) | **Delete** /v1/workflows/deployments/{name} | Delete Deployment
 *WorkflowsDeploymentsAPI* | [**GetDeploymentArchiveV1WorkflowsDeploymentsNameArchiveGet**](docs/WorkflowsDeploymentsAPI.md#getdeploymentarchivev1workflowsdeploymentsnamearchiveget) | **Get** /v1/workflows/deployments/{name}/archive | Get Deployment Archive
@@ -469,9 +465,15 @@ Class | Method | HTTP request | Description
  - [AdminUserGroupOut](docs/AdminUserGroupOut.md)
  - [AdminUserGroupsOut](docs/AdminUserGroupsOut.md)
  - [AdminUserOUT](docs/AdminUserOUT.md)
+ - [AdminUserWorkspacesOUT](docs/AdminUserWorkspacesOUT.md)
+ - [AdminWorkspaceGroupGrantOUT](docs/AdminWorkspaceGroupGrantOUT.md)
  - [AdminWorkspaceIn](docs/AdminWorkspaceIn.md)
  - [AdminWorkspaceMemberIN](docs/AdminWorkspaceMemberIN.md)
+ - [AdminWorkspaceMemberOUT](docs/AdminWorkspaceMemberOUT.md)
  - [AdminWorkspaceMemberSingleIN](docs/AdminWorkspaceMemberSingleIN.md)
+ - [AdminWorkspaceMemberUpsertIN](docs/AdminWorkspaceMemberUpsertIN.md)
+ - [AdminWorkspaceMemberUpsertSingleIN](docs/AdminWorkspaceMemberUpsertSingleIN.md)
+ - [AdminWorkspaceUsersOUT](docs/AdminWorkspaceUsersOUT.md)
  - [Agent](docs/Agent.md)
  - [AgentAliasResponse](docs/AgentAliasResponse.md)
  - [AgentConversation](docs/AgentConversation.md)
@@ -487,10 +489,10 @@ Class | Method | HTTP request | Description
  - [AggregationRequest](docs/AggregationRequest.md)
  - [AggregationRow](docs/AggregationRow.md)
  - [AliasList](docs/AliasList.md)
+ - [AmazonConnectContact](docs/AmazonConnectContact.md)
  - [And](docs/And.md)
  - [Annotations](docs/Annotations.md)
  - [Annotations1Inner](docs/Annotations1Inner.md)
- - [Answer](docs/Answer.md)
  - [ApiEndpoint](docs/ApiEndpoint.md)
  - [ApiObjectType](docs/ApiObjectType.md)
  - [ApiZone](docs/ApiZone.md)
@@ -524,6 +526,9 @@ Class | Method | HTTP request | Description
  - [AudioSessionPhoneNumber](docs/AudioSessionPhoneNumber.md)
  - [AudioSessionResponse](docs/AudioSessionResponse.md)
  - [AudioSessionResponseTranscriptsInner](docs/AudioSessionResponseTranscriptsInner.md)
+ - [AudioSessionTurnUpdate](docs/AudioSessionTurnUpdate.md)
+ - [AudioSessionUpdateRequest](docs/AudioSessionUpdateRequest.md)
+ - [AudioSessionUpdateResponse](docs/AudioSessionUpdateResponse.md)
  - [AudioSpeechCapabilities](docs/AudioSpeechCapabilities.md)
  - [AudioTTSConfig](docs/AudioTTSConfig.md)
  - [AudioToolCall](docs/AudioToolCall.md)
@@ -593,13 +598,14 @@ Class | Method | HTTP request | Description
  - [CompletionEvent](docs/CompletionEvent.md)
  - [CompletionFineTunedModel](docs/CompletionFineTunedModel.md)
  - [CompletionResponseStreamChoice](docs/CompletionResponseStreamChoice.md)
- - [CompletionTokensDetails](docs/CompletionTokensDetails.md)
  - [ConfusionMatrix](docs/ConfusionMatrix.md)
  - [ConnectionCredentialsInput](docs/ConnectionCredentialsInput.md)
  - [ConnectionPreference](docs/ConnectionPreference.md)
  - [Connector](docs/Connector.md)
  - [ConnectorAuthenticationHeader](docs/ConnectorAuthenticationHeader.md)
  - [ConnectorCallToolRequest](docs/ConnectorCallToolRequest.md)
+ - [ConnectorErrorCode](docs/ConnectorErrorCode.md)
+ - [ConnectorErrorResponse](docs/ConnectorErrorResponse.md)
  - [ConnectorIdOrName](docs/ConnectorIdOrName.md)
  - [ConnectorIdOrName1](docs/ConnectorIdOrName1.md)
  - [ConnectorLocale](docs/ConnectorLocale.md)
@@ -648,12 +654,15 @@ Class | Method | HTTP request | Description
  - [CreateBatchJobRequest](docs/CreateBatchJobRequest.md)
  - [CreateConnectorRequest](docs/CreateConnectorRequest.md)
  - [CreateDatasetRecordRequest](docs/CreateDatasetRecordRequest.md)
+ - [CreateDatasetRecordsItem](docs/CreateDatasetRecordsItem.md)
+ - [CreateDatasetRecordsRequest](docs/CreateDatasetRecordsRequest.md)
+ - [CreateDatasetRecordsResponse](docs/CreateDatasetRecordsResponse.md)
  - [CreateDatasetRequest](docs/CreateDatasetRequest.md)
+ - [CreateDeploymentArchiveRequest](docs/CreateDeploymentArchiveRequest.md)
  - [CreateDeploymentRequest](docs/CreateDeploymentRequest.md)
  - [CreateFileResponse](docs/CreateFileResponse.md)
  - [CreateHTTPConnectorRequest](docs/CreateHTTPConnectorRequest.md)
  - [CreateIngestionPipelineConfigurationRequest](docs/CreateIngestionPipelineConfigurationRequest.md)
- - [CreateJudgeRequest](docs/CreateJudgeRequest.md)
  - [CreateLibraryRequest](docs/CreateLibraryRequest.md)
  - [CreateManagedIndexRequest](docs/CreateManagedIndexRequest.md)
  - [CreatePipelineRequest](docs/CreatePipelineRequest.md)
@@ -664,6 +673,7 @@ Class | Method | HTTP request | Description
  - [CreateRealtimeSessionResponse](docs/CreateRealtimeSessionResponse.md)
  - [CreateResponseRequest](docs/CreateResponseRequest.md)
  - [CreateResponseResponse](docs/CreateResponseResponse.md)
+ - [CreateScorerRequest](docs/CreateScorerRequest.md)
  - [CreateServiceAccountRequest](docs/CreateServiceAccountRequest.md)
  - [CreateSkillRequest](docs/CreateSkillRequest.md)
  - [CreateSkillVersionRequest](docs/CreateSkillVersionRequest.md)
@@ -718,6 +728,7 @@ Class | Method | HTTP request | Description
  - [DeltaMessageContent](docs/DeltaMessageContent.md)
  - [DenseVectorFieldDefinition](docs/DenseVectorFieldDefinition.md)
  - [DeploymentArchiveResponse](docs/DeploymentArchiveResponse.md)
+ - [DeploymentArchiveUploadResponse](docs/DeploymentArchiveUploadResponse.md)
  - [DeploymentBuildState](docs/DeploymentBuildState.md)
  - [DeploymentDetailResponse](docs/DeploymentDetailResponse.md)
  - [DeploymentK8sBackendSpec](docs/DeploymentK8sBackendSpec.md)
@@ -739,6 +750,8 @@ Class | Method | HTTP request | Description
  - [Destination](docs/Destination.md)
  - [DetectionDefinitionV1](docs/DetectionDefinitionV1.md)
  - [DetectionPattern](docs/DetectionPattern.md)
+ - [DisplayFormat](docs/DisplayFormat.md)
+ - [DisplaySpec](docs/DisplaySpec.md)
  - [DistanceMetric](docs/DistanceMetric.md)
  - [Document](docs/Document.md)
  - [Document1](docs/Document1.md)
@@ -747,10 +760,12 @@ Class | Method | HTTP request | Description
  - [DocumentLibraryTool](docs/DocumentLibraryTool.md)
  - [DocumentTextContent](docs/DocumentTextContent.md)
  - [DocumentURLChunk](docs/DocumentURLChunk.md)
+ - [EditScorerRequest](docs/EditScorerRequest.md)
  - [ElicitationCapability](docs/ElicitationCapability.md)
  - [EmbeddedResource](docs/EmbeddedResource.md)
  - [Embedding](docs/Embedding.md)
  - [EmbeddingDtype](docs/EmbeddingDtype.md)
+ - [EmbeddingInput](docs/EmbeddingInput.md)
  - [EmbeddingMismatchResponse](docs/EmbeddingMismatchResponse.md)
  - [EmbeddingRequest](docs/EmbeddingRequest.md)
  - [EmbeddingResponse](docs/EmbeddingResponse.md)
@@ -772,6 +787,7 @@ Class | Method | HTTP request | Description
  - [EvaluationRunRecordFilterInput](docs/EvaluationRunRecordFilterInput.md)
  - [EvaluationRunRecordFilterInputSort](docs/EvaluationRunRecordFilterInputSort.md)
  - [EvaluationRunRecordV2Response](docs/EvaluationRunRecordV2Response.md)
+ - [EvaluationRunRunScoreV2](docs/EvaluationRunRunScoreV2.md)
  - [EvaluationRunScoreV2](docs/EvaluationRunScoreV2.md)
  - [EvaluationRunV2Response](docs/EvaluationRunV2Response.md)
  - [EvaluationRunV2WithRefsResponse](docs/EvaluationRunV2WithRefsResponse.md)
@@ -826,11 +842,8 @@ Class | Method | HTTP request | Description
  - [FunctionRequest](docs/FunctionRequest.md)
  - [FunctionResultEntry](docs/FunctionResultEntry.md)
  - [FunctionTool](docs/FunctionTool.md)
+ - [GeneratedToolFiller](docs/GeneratedToolFiller.md)
  - [GetBudgetResponse](docs/GetBudgetResponse.md)
- - [GetDeploymentSummariesResponse](docs/GetDeploymentSummariesResponse.md)
- - [GetDeploymentSummariesResponseDeployment](docs/GetDeploymentSummariesResponseDeployment.md)
- - [GetDeploymentSummariesResponseVespaDeployment](docs/GetDeploymentSummariesResponseVespaDeployment.md)
- - [GetDeploymentSummariesResponseVespaIndex](docs/GetDeploymentSummariesResponseVespaIndex.md)
  - [GetFileResponse](docs/GetFileResponse.md)
  - [GetLog](docs/GetLog.md)
  - [GetLogFieldOptions](docs/GetLogFieldOptions.md)
@@ -875,6 +888,7 @@ Class | Method | HTTP request | Description
  - [HTTPStatus](docs/HTTPStatus.md)
  - [HTTPValidationError](docs/HTTPValidationError.md)
  - [HangUpTool](docs/HangUpTool.md)
+ - [HangUpToolFiller](docs/HangUpToolFiller.md)
  - [IPAPhoneme](docs/IPAPhoneme.md)
  - [ImageContent](docs/ImageContent.md)
  - [ImageDetail](docs/ImageDetail.md)
@@ -884,14 +898,12 @@ Class | Method | HTTP request | Description
  - [ImageUrl](docs/ImageUrl.md)
  - [ImportDatasetFromDatasetRequest](docs/ImportDatasetFromDatasetRequest.md)
  - [ImportDatasetFromFileRequest](docs/ImportDatasetFromFileRequest.md)
- - [ImportDatasetFromPlaygroundRequest](docs/ImportDatasetFromPlaygroundRequest.md)
  - [ImportDatasetFromSpansRequest](docs/ImportDatasetFromSpansRequest.md)
  - [In](docs/In.md)
  - [IncorrectFieldTypeResponse](docs/IncorrectFieldTypeResponse.md)
  - [IngestDocumentsRequest](docs/IngestDocumentsRequest.md)
  - [IngestDocumentsResponse](docs/IngestDocumentsResponse.md)
  - [IngestionPipelineConfiguration](docs/IngestionPipelineConfiguration.md)
- - [IngestionPipelineTargetIndexRef](docs/IngestionPipelineTargetIndexRef.md)
  - [Input](docs/Input.md)
  - [Input1](docs/Input1.md)
  - [Input2](docs/Input2.md)
@@ -915,15 +927,7 @@ Class | Method | HTTP request | Description
  - [JSONPayloadResponse](docs/JSONPayloadResponse.md)
  - [JsonFieldDefinition](docs/JsonFieldDefinition.md)
  - [JsonSchema](docs/JsonSchema.md)
- - [Judge](docs/Judge.md)
- - [JudgeClassificationOutput](docs/JudgeClassificationOutput.md)
- - [JudgeClassificationOutputOption](docs/JudgeClassificationOutputOption.md)
- - [JudgeConversationRequest](docs/JudgeConversationRequest.md)
- - [JudgeDatasetRecordRequest](docs/JudgeDatasetRecordRequest.md)
  - [JudgeDefinitionV1](docs/JudgeDefinitionV1.md)
- - [JudgeOutput](docs/JudgeOutput.md)
- - [JudgeOutputType](docs/JudgeOutputType.md)
- - [JudgeRegressionOutput](docs/JudgeRegressionOutput.md)
  - [KeywordArrayFieldDefinition](docs/KeywordArrayFieldDefinition.md)
  - [KeywordFieldDefinition](docs/KeywordFieldDefinition.md)
  - [KeywordRetriever](docs/KeywordRetriever.md)
@@ -942,7 +946,6 @@ Class | Method | HTTP request | Description
  - [ListEvaluationRunRecordsResponse](docs/ListEvaluationRunRecordsResponse.md)
  - [ListEvaluationRunsResponse](docs/ListEvaluationRunsResponse.md)
  - [ListFilesResponse](docs/ListFilesResponse.md)
- - [ListJudgesResponse](docs/ListJudgesResponse.md)
  - [ListLibrariesResponse](docs/ListLibrariesResponse.md)
  - [ListManagedIndexesResponse](docs/ListManagedIndexesResponse.md)
  - [ListOptimizationTrialsResponse](docs/ListOptimizationTrialsResponse.md)
@@ -950,6 +953,7 @@ Class | Method | HTTP request | Description
  - [ListOrganizationsResponse](docs/ListOrganizationsResponse.md)
  - [ListPromptVersionsResponse](docs/ListPromptVersionsResponse.md)
  - [ListPromptsResponse](docs/ListPromptsResponse.md)
+ - [ListScorersResponse](docs/ListScorersResponse.md)
  - [ListServiceAccountRolesResponse](docs/ListServiceAccountRolesResponse.md)
  - [ListServiceAccountsResponse](docs/ListServiceAccountsResponse.md)
  - [ListSharingResponse](docs/ListSharingResponse.md)
@@ -959,6 +963,8 @@ Class | Method | HTTP request | Description
  - [ListSortField](docs/ListSortField.md)
  - [ListWorkflowEventResponse](docs/ListWorkflowEventResponse.md)
  - [ListWorkspacesResponse](docs/ListWorkspacesResponse.md)
+ - [LlmJudgeConfig](docs/LlmJudgeConfig.md)
+ - [LlmJudgeParams](docs/LlmJudgeParams.md)
  - [LlmJudgeReference](docs/LlmJudgeReference.md)
  - [LocationInner](docs/LocationInner.md)
  - [LocationType](docs/LocationType.md)
@@ -991,6 +997,7 @@ Class | Method | HTTP request | Description
  - [Match](docs/Match.md)
  - [MatchesInner](docs/MatchesInner.md)
  - [MaxCandidatesTooSmallResponse](docs/MaxCandidatesTooSmallResponse.md)
+ - [MemberStatus](docs/MemberStatus.md)
  - [MemberSubscriptionOUT](docs/MemberSubscriptionOUT.md)
  - [MemberWorkspaceInfo](docs/MemberWorkspaceInfo.md)
  - [MessageEntriesInner](docs/MessageEntriesInner.md)
@@ -1000,16 +1007,16 @@ Class | Method | HTTP request | Description
  - [MessageOutputEntry](docs/MessageOutputEntry.md)
  - [MessageOutputEvent](docs/MessageOutputEvent.md)
  - [MessageResponse](docs/MessageResponse.md)
- - [MessageTokens](docs/MessageTokens.md)
  - [MessagesInner](docs/MessagesInner.md)
  - [MetadataFilter](docs/MetadataFilter.md)
  - [MetadataFilterGroup](docs/MetadataFilterGroup.md)
  - [MetricAggregation](docs/MetricAggregation.md)
  - [MetricDefinition](docs/MetricDefinition.md)
+ - [MetricDirectionSpec](docs/MetricDirectionSpec.md)
  - [MetricValue](docs/MetricValue.md)
- - [MetricsData](docs/MetricsData.md)
  - [MissingEmbeddingResponse](docs/MissingEmbeddingResponse.md)
  - [MissingFieldResponse](docs/MissingFieldResponse.md)
+ - [MissingGoalItem](docs/MissingGoalItem.md)
  - [MistralEmbeddingModel](docs/MistralEmbeddingModel.md)
  - [MistralPromptMode](docs/MistralPromptMode.md)
  - [ModelCapabilities](docs/ModelCapabilities.md)
@@ -1022,15 +1029,15 @@ Class | Method | HTTP request | Description
  - [ModerationLLMV2CategoryThresholds](docs/ModerationLLMV2CategoryThresholds.md)
  - [ModerationLLMV2Config](docs/ModerationLLMV2Config.md)
  - [ModerationObject](docs/ModerationObject.md)
+ - [ModerationRequest](docs/ModerationRequest.md)
  - [ModerationResponse](docs/ModerationResponse.md)
  - [Name](docs/Name.md)
+ - [NamedToolChoice](docs/NamedToolChoice.md)
  - [NavigateRequest](docs/NavigateRequest.md)
  - [NavigationChunkResponse](docs/NavigationChunkResponse.md)
  - [NavigationDirection](docs/NavigationDirection.md)
  - [NavigationResponse](docs/NavigationResponse.md)
  - [NearestNeighbourRetriever](docs/NearestNeighbourRetriever.md)
- - [NestedGroupRef](docs/NestedGroupRef.md)
- - [NestedGroupsOut](docs/NestedGroupsOut.md)
  - [NetworkEncodedInput](docs/NetworkEncodedInput.md)
  - [NewUsageLimitIN](docs/NewUsageLimitIN.md)
  - [NoneAuthMethod](docs/NoneAuthMethod.md)
@@ -1095,10 +1102,9 @@ Class | Method | HTTP request | Description
  - [OtelFieldDefinition](docs/OtelFieldDefinition.md)
  - [OtelFloatFieldDefinition](docs/OtelFloatFieldDefinition.md)
  - [Output](docs/Output.md)
- - [Output1](docs/Output1.md)
- - [Output1Inner](docs/Output1Inner.md)
  - [OutputAnyOfInner](docs/OutputAnyOfInner.md)
  - [OutputContentChunks](docs/OutputContentChunks.md)
+ - [OutputInner](docs/OutputInner.md)
  - [OutputsInner](docs/OutputsInner.md)
  - [Pages](docs/Pages.md)
  - [PaginatedConnectors](docs/PaginatedConnectors.md)
@@ -1109,11 +1115,11 @@ Class | Method | HTTP request | Description
  - [PaginatedResultEvaluationRunV2Response](docs/PaginatedResultEvaluationRunV2Response.md)
  - [PaginatedResultEvaluationRunV2WithRefsResponse](docs/PaginatedResultEvaluationRunV2WithRefsResponse.md)
  - [PaginatedResultEvaluationV2](docs/PaginatedResultEvaluationV2.md)
- - [PaginatedResultJudgePreview](docs/PaginatedResultJudgePreview.md)
  - [PaginatedResultOptimization](docs/PaginatedResultOptimization.md)
  - [PaginatedResultOptimizationTrialWithObservations](docs/PaginatedResultOptimizationTrialWithObservations.md)
  - [PaginatedResultPipeline](docs/PaginatedResultPipeline.md)
  - [PaginatedResultProject](docs/PaginatedResultProject.md)
+ - [PaginatedResultScorerSummary](docs/PaginatedResultScorerSummary.md)
  - [PaginationInfo](docs/PaginationInfo.md)
  - [PaginationResponse](docs/PaginationResponse.md)
  - [Part](docs/Part.md)
@@ -1165,21 +1171,13 @@ Class | Method | HTTP request | Description
  - [RateLimitsOUT](docs/RateLimitsOUT.md)
  - [RawAudio](docs/RawAudio.md)
  - [RawContent](docs/RawContent.md)
- - [RawRole](docs/RawRole.md)
- - [RawRole1](docs/RawRole1.md)
- - [RawRoles](docs/RawRoles.md)
- - [RawRoles1](docs/RawRoles1.md)
+ - [ReactivateUserOUT](docs/ReactivateUserOUT.md)
  - [ReadRequest](docs/ReadRequest.md)
  - [ReasoningEffort](docs/ReasoningEffort.md)
  - [RecordSortField](docs/RecordSortField.md)
  - [RefAudio](docs/RefAudio.md)
  - [ReferenceChunk](docs/ReferenceChunk.md)
  - [ReferenceIdsInner](docs/ReferenceIdsInner.md)
- - [RegisterDeploymentRequestDeployment](docs/RegisterDeploymentRequestDeployment.md)
- - [RegisterDeploymentRequestVespaDeployment](docs/RegisterDeploymentRequestVespaDeployment.md)
- - [RegisterDeploymentRequestVespaField](docs/RegisterDeploymentRequestVespaField.md)
- - [RegisterDeploymentRequestVespaIndex](docs/RegisterDeploymentRequestVespaIndex.md)
- - [RegisterSearchIndexResponseIndex](docs/RegisterSearchIndexResponseIndex.md)
  - [RegistrySharingScope](docs/RegistrySharingScope.md)
  - [RejectedDocumentResponse](docs/RejectedDocumentResponse.md)
  - [RemoveWorkspaceMembersIN](docs/RemoveWorkspaceMembersIN.md)
@@ -1248,6 +1246,8 @@ Class | Method | HTTP request | Description
  - [ResponsesInputTextContent](docs/ResponsesInputTextContent.md)
  - [ResponsesInputTokensDetails](docs/ResponsesInputTokensDetails.md)
  - [ResponsesMessage](docs/ResponsesMessage.md)
+ - [ResponsesMisalignment](docs/ResponsesMisalignment.md)
+ - [ResponsesMisalignmentSteer](docs/ResponsesMisalignmentSteer.md)
  - [ResponsesNamespaceTool](docs/ResponsesNamespaceTool.md)
  - [ResponsesOutputItemAddedEvent](docs/ResponsesOutputItemAddedEvent.md)
  - [ResponsesOutputItemDoneEvent](docs/ResponsesOutputItemDoneEvent.md)
@@ -1283,8 +1283,6 @@ Class | Method | HTTP request | Description
  - [RoleOut](docs/RoleOut.md)
  - [Roles](docs/Roles.md)
  - [Roles1](docs/Roles1.md)
- - [Roles2](docs/Roles2.md)
- - [Roles3](docs/Roles3.md)
  - [RolesOut](docs/RolesOut.md)
  - [RootsCapability](docs/RootsCapability.md)
  - [RotateUnavailableReason](docs/RotateUnavailableReason.md)
@@ -1307,10 +1305,6 @@ Class | Method | HTTP request | Description
  - [SchedulePolicy](docs/SchedulePolicy.md)
  - [ScheduleRange](docs/ScheduleRange.md)
  - [ScheduleRecentExecution](docs/ScheduleRecentExecution.md)
- - [SchemaFieldDataType](docs/SchemaFieldDataType.md)
- - [SchemaFieldIndex](docs/SchemaFieldIndex.md)
- - [SchemaFieldRankingType](docs/SchemaFieldRankingType.md)
- - [SchemaFieldStorage](docs/SchemaFieldStorage.md)
  - [ScimSyncGroupActionOut](docs/ScimSyncGroupActionOut.md)
  - [ScimSyncGroupRefOut](docs/ScimSyncGroupRefOut.md)
  - [ScimSyncGroupUpdateActionOut](docs/ScimSyncGroupUpdateActionOut.md)
@@ -1323,8 +1317,13 @@ Class | Method | HTTP request | Description
  - [ScimSyncUsersSummaryOut](docs/ScimSyncUsersSummaryOut.md)
  - [ScoreFilter](docs/ScoreFilter.md)
  - [ScoreFilterGroup](docs/ScoreFilterGroup.md)
+ - [ScoreMetric](docs/ScoreMetric.md)
  - [ScoreOperator](docs/ScoreOperator.md)
  - [ScoreSortInput](docs/ScoreSortInput.md)
+ - [Scorer](docs/Scorer.md)
+ - [ScorerKind](docs/ScorerKind.md)
+ - [ScorerSummary](docs/ScorerSummary.md)
+ - [ScorerVersion](docs/ScorerVersion.md)
  - [SearchAllEvaluationRunsResponse](docs/SearchAllEvaluationRunsResponse.md)
  - [SearchChunkResponse](docs/SearchChunkResponse.md)
  - [SearchHitResponse](docs/SearchHitResponse.md)
@@ -1337,7 +1336,6 @@ Class | Method | HTTP request | Description
  - [ServiceAccount](docs/ServiceAccount.md)
  - [ServiceAccountRole](docs/ServiceAccountRole.md)
  - [ServiceTier](docs/ServiceTier.md)
- - [SetNestedGroupsIn](docs/SetNestedGroupsIn.md)
  - [SetServiceAccountRolesRequest](docs/SetServiceAccountRolesRequest.md)
  - [ShareEnum](docs/ShareEnum.md)
  - [ShareRelation](docs/ShareRelation.md)
@@ -1346,6 +1344,7 @@ Class | Method | HTTP request | Description
  - [SharingRequest](docs/SharingRequest.md)
  - [SignalDefinition](docs/SignalDefinition.md)
  - [SignalInvocationBody](docs/SignalInvocationBody.md)
+ - [SignalInvocationBodyCallContextValue](docs/SignalInvocationBodyCallContextValue.md)
  - [SignalWorkflowResponse](docs/SignalWorkflowResponse.md)
  - [SimpleNumericStatisticSpec](docs/SimpleNumericStatisticSpec.md)
  - [SipDestination](docs/SipDestination.md)
@@ -1490,6 +1489,11 @@ Class | Method | HTTP request | Description
  - [TurbineMeta](docs/TurbineMeta.md)
  - [TurbineToolLocale](docs/TurbineToolLocale.md)
  - [TurbineToolMeta](docs/TurbineToolMeta.md)
+ - [TurnDetectionEagerEndEvent](docs/TurnDetectionEagerEndEvent.md)
+ - [TurnDetectionEndEvent](docs/TurnDetectionEndEvent.md)
+ - [TurnDetectionEndReason](docs/TurnDetectionEndReason.md)
+ - [TurnDetectionResumeEvent](docs/TurnDetectionResumeEvent.md)
+ - [TurnDetectionStartEvent](docs/TurnDetectionStartEvent.md)
  - [UnarchiveModelResponse](docs/UnarchiveModelResponse.md)
  - [UnsupportedStatistics](docs/UnsupportedStatistics.md)
  - [UpdateAgentRequest](docs/UpdateAgentRequest.md)
@@ -1502,12 +1506,8 @@ Class | Method | HTTP request | Description
  - [UpdateDocumentRequestAttributesValue](docs/UpdateDocumentRequestAttributesValue.md)
  - [UpdateHTTPConnectorRequest](docs/UpdateHTTPConnectorRequest.md)
  - [UpdateInvocationBody](docs/UpdateInvocationBody.md)
- - [UpdateJudgeRequest](docs/UpdateJudgeRequest.md)
  - [UpdateLibraryRequest](docs/UpdateLibraryRequest.md)
  - [UpdateManagedIndexRequest](docs/UpdateManagedIndexRequest.md)
- - [UpdateMetricsRequestDeploymentMetricsOffline](docs/UpdateMetricsRequestDeploymentMetricsOffline.md)
- - [UpdateMetricsRequestDeploymentMetricsOnline](docs/UpdateMetricsRequestDeploymentMetricsOnline.md)
- - [UpdateMetricsRequestIndexMetrics](docs/UpdateMetricsRequestIndexMetrics.md)
  - [UpdateModelRequest](docs/UpdateModelRequest.md)
  - [UpdatePipelineRequest](docs/UpdatePipelineRequest.md)
  - [UpdatePromptRequest](docs/UpdatePromptRequest.md)
@@ -1520,7 +1520,6 @@ Class | Method | HTTP request | Description
  - [UpdateWorkflowResponse](docs/UpdateWorkflowResponse.md)
  - [UpdateWorkspaceIN](docs/UpdateWorkspaceIN.md)
  - [UsageInfo](docs/UsageInfo.md)
- - [UsageInfo1](docs/UsageInfo1.md)
  - [UsageLimits](docs/UsageLimits.md)
  - [UsageOUTJSON](docs/UsageOUTJSON.md)
  - [UsageQueryAggregatesOUT](docs/UsageQueryAggregatesOUT.md)
@@ -1572,7 +1571,6 @@ Class | Method | HTTP request | Description
  - [VoiceAgentEvent](docs/VoiceAgentEvent.md)
  - [VoiceAgentFunctionTool](docs/VoiceAgentFunctionTool.md)
  - [VoiceAgentFunctionToolRequest](docs/VoiceAgentFunctionToolRequest.md)
- - [VoiceAgentSessionUpdatedEvent](docs/VoiceAgentSessionUpdatedEvent.md)
  - [VoiceAgentStateChangedEvent](docs/VoiceAgentStateChangedEvent.md)
  - [VoiceAgentToolCallEndedEvent](docs/VoiceAgentToolCallEndedEvent.md)
  - [VoiceAgentToolCallStartedEvent](docs/VoiceAgentToolCallStartedEvent.md)

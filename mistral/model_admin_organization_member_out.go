@@ -32,17 +32,25 @@ type AdminOrganizationMemberOUT struct {
 	Email NullableString `json:"email"`
 	// Whether the member is outside the SSO domain.
 	IsSsoOutsider NullableBool `json:"is_sso_outsider,omitempty"`
-	// Workspaces the member belongs to.
+	// Deprecated: limited to the first 100 Workspaces the member belongs to, ordered by name. Use GET /users/{user_id}/workspaces instead.
 	Workspaces []MemberWorkspaceInfo `json:"workspaces,omitempty"`
 	// Subscriptions assigned to the member.
 	Subscriptions []MemberSubscriptionOUT `json:"subscriptions,omitempty"`
-	RawRoles RawRoles `json:"raw_roles"`
+	// Organization roles assigned to the member.
+	RawRoles []StaticOrganizationRoles `json:"raw_roles"`
+	// Deprecated single organization role. Use 'raw_roles' instead.
 	// Deprecated
-	RawRole RawRole `json:"raw_role"`
+	RawRole StaticOrganizationRoles `json:"raw_role"`
 	// Product seats assigned to the member.
 	SubscriptionTypes []string `json:"subscription_types,omitempty"`
 	// Date the member was added to the Organization.
 	CreatedAt time.Time `json:"created_at"`
+	// Last time the member signed in to the Organization, accurate to about 30 minutes. Null if they never signed in.
+	LastLoginAt NullableTime `json:"last_login_at,omitempty"`
+	// Account status of the member. Deactivated and blocked members cannot access the Organization.
+	Status *MemberStatus `json:"status,omitempty"`
+	// Total number of Workspaces the member belongs to, including those not returned in 'workspaces'.
+	WorkspacesTotal NullableInt32 `json:"workspaces_total,omitempty"`
 }
 
 type _AdminOrganizationMemberOUT AdminOrganizationMemberOUT
@@ -51,7 +59,7 @@ type _AdminOrganizationMemberOUT AdminOrganizationMemberOUT
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewAdminOrganizationMemberOUT(uuid string, oidId NullableString, name NullableString, email NullableString, rawRoles RawRoles, rawRole RawRole, createdAt time.Time) *AdminOrganizationMemberOUT {
+func NewAdminOrganizationMemberOUT(uuid string, oidId NullableString, name NullableString, email NullableString, rawRoles []StaticOrganizationRoles, rawRole StaticOrganizationRoles, createdAt time.Time) *AdminOrganizationMemberOUT {
 	this := AdminOrganizationMemberOUT{}
 	this.Uuid = uuid
 	this.OidId = oidId
@@ -60,6 +68,8 @@ func NewAdminOrganizationMemberOUT(uuid string, oidId NullableString, name Nulla
 	this.RawRoles = rawRoles
 	this.RawRole = rawRole
 	this.CreatedAt = createdAt
+	var status MemberStatus = MEMBERSTATUS_ACTIVE
+	this.Status = &status
 	return &this
 }
 
@@ -68,6 +78,8 @@ func NewAdminOrganizationMemberOUT(uuid string, oidId NullableString, name Nulla
 // but it doesn't guarantee that properties required by API are set
 func NewAdminOrganizationMemberOUTWithDefaults() *AdminOrganizationMemberOUT {
 	this := AdminOrganizationMemberOUT{}
+	var status MemberStatus = MEMBERSTATUS_ACTIVE
+	this.Status = &status
 	return &this
 }
 
@@ -281,9 +293,9 @@ func (o *AdminOrganizationMemberOUT) SetSubscriptions(v []MemberSubscriptionOUT)
 }
 
 // GetRawRoles returns the RawRoles field value
-func (o *AdminOrganizationMemberOUT) GetRawRoles() RawRoles {
+func (o *AdminOrganizationMemberOUT) GetRawRoles() []StaticOrganizationRoles {
 	if o == nil {
-		var ret RawRoles
+		var ret []StaticOrganizationRoles
 		return ret
 	}
 
@@ -292,23 +304,23 @@ func (o *AdminOrganizationMemberOUT) GetRawRoles() RawRoles {
 
 // GetRawRolesOk returns a tuple with the RawRoles field value
 // and a boolean to check if the value has been set.
-func (o *AdminOrganizationMemberOUT) GetRawRolesOk() (*RawRoles, bool) {
+func (o *AdminOrganizationMemberOUT) GetRawRolesOk() ([]StaticOrganizationRoles, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.RawRoles, true
+	return o.RawRoles, true
 }
 
 // SetRawRoles sets field value
-func (o *AdminOrganizationMemberOUT) SetRawRoles(v RawRoles) {
+func (o *AdminOrganizationMemberOUT) SetRawRoles(v []StaticOrganizationRoles) {
 	o.RawRoles = v
 }
 
 // GetRawRole returns the RawRole field value
 // Deprecated
-func (o *AdminOrganizationMemberOUT) GetRawRole() RawRole {
+func (o *AdminOrganizationMemberOUT) GetRawRole() StaticOrganizationRoles {
 	if o == nil {
-		var ret RawRole
+		var ret StaticOrganizationRoles
 		return ret
 	}
 
@@ -318,7 +330,7 @@ func (o *AdminOrganizationMemberOUT) GetRawRole() RawRole {
 // GetRawRoleOk returns a tuple with the RawRole field value
 // and a boolean to check if the value has been set.
 // Deprecated
-func (o *AdminOrganizationMemberOUT) GetRawRoleOk() (*RawRole, bool) {
+func (o *AdminOrganizationMemberOUT) GetRawRoleOk() (*StaticOrganizationRoles, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -327,7 +339,7 @@ func (o *AdminOrganizationMemberOUT) GetRawRoleOk() (*RawRole, bool) {
 
 // SetRawRole sets field value
 // Deprecated
-func (o *AdminOrganizationMemberOUT) SetRawRole(v RawRole) {
+func (o *AdminOrganizationMemberOUT) SetRawRole(v StaticOrganizationRoles) {
 	o.RawRole = v
 }
 
@@ -388,6 +400,122 @@ func (o *AdminOrganizationMemberOUT) SetCreatedAt(v time.Time) {
 	o.CreatedAt = v
 }
 
+// GetLastLoginAt returns the LastLoginAt field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *AdminOrganizationMemberOUT) GetLastLoginAt() time.Time {
+	if o == nil || IsNil(o.LastLoginAt.Get()) {
+		var ret time.Time
+		return ret
+	}
+	return *o.LastLoginAt.Get()
+}
+
+// GetLastLoginAtOk returns a tuple with the LastLoginAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *AdminOrganizationMemberOUT) GetLastLoginAtOk() (*time.Time, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.LastLoginAt.Get(), o.LastLoginAt.IsSet()
+}
+
+// HasLastLoginAt returns a boolean if a field has been set.
+func (o *AdminOrganizationMemberOUT) HasLastLoginAt() bool {
+	if o != nil && o.LastLoginAt.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetLastLoginAt gets a reference to the given NullableTime and assigns it to the LastLoginAt field.
+func (o *AdminOrganizationMemberOUT) SetLastLoginAt(v time.Time) {
+	o.LastLoginAt.Set(&v)
+}
+// SetLastLoginAtNil sets the value for LastLoginAt to be an explicit nil
+func (o *AdminOrganizationMemberOUT) SetLastLoginAtNil() {
+	o.LastLoginAt.Set(nil)
+}
+
+// UnsetLastLoginAt ensures that no value is present for LastLoginAt, not even an explicit nil
+func (o *AdminOrganizationMemberOUT) UnsetLastLoginAt() {
+	o.LastLoginAt.Unset()
+}
+
+// GetStatus returns the Status field value if set, zero value otherwise.
+func (o *AdminOrganizationMemberOUT) GetStatus() MemberStatus {
+	if o == nil || IsNil(o.Status) {
+		var ret MemberStatus
+		return ret
+	}
+	return *o.Status
+}
+
+// GetStatusOk returns a tuple with the Status field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AdminOrganizationMemberOUT) GetStatusOk() (*MemberStatus, bool) {
+	if o == nil || IsNil(o.Status) {
+		return nil, false
+	}
+	return o.Status, true
+}
+
+// HasStatus returns a boolean if a field has been set.
+func (o *AdminOrganizationMemberOUT) HasStatus() bool {
+	if o != nil && !IsNil(o.Status) {
+		return true
+	}
+
+	return false
+}
+
+// SetStatus gets a reference to the given MemberStatus and assigns it to the Status field.
+func (o *AdminOrganizationMemberOUT) SetStatus(v MemberStatus) {
+	o.Status = &v
+}
+
+// GetWorkspacesTotal returns the WorkspacesTotal field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *AdminOrganizationMemberOUT) GetWorkspacesTotal() int32 {
+	if o == nil || IsNil(o.WorkspacesTotal.Get()) {
+		var ret int32
+		return ret
+	}
+	return *o.WorkspacesTotal.Get()
+}
+
+// GetWorkspacesTotalOk returns a tuple with the WorkspacesTotal field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *AdminOrganizationMemberOUT) GetWorkspacesTotalOk() (*int32, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.WorkspacesTotal.Get(), o.WorkspacesTotal.IsSet()
+}
+
+// HasWorkspacesTotal returns a boolean if a field has been set.
+func (o *AdminOrganizationMemberOUT) HasWorkspacesTotal() bool {
+	if o != nil && o.WorkspacesTotal.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetWorkspacesTotal gets a reference to the given NullableInt32 and assigns it to the WorkspacesTotal field.
+func (o *AdminOrganizationMemberOUT) SetWorkspacesTotal(v int32) {
+	o.WorkspacesTotal.Set(&v)
+}
+// SetWorkspacesTotalNil sets the value for WorkspacesTotal to be an explicit nil
+func (o *AdminOrganizationMemberOUT) SetWorkspacesTotalNil() {
+	o.WorkspacesTotal.Set(nil)
+}
+
+// UnsetWorkspacesTotal ensures that no value is present for WorkspacesTotal, not even an explicit nil
+func (o *AdminOrganizationMemberOUT) UnsetWorkspacesTotal() {
+	o.WorkspacesTotal.Unset()
+}
+
 func (o AdminOrganizationMemberOUT) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -417,6 +545,15 @@ func (o AdminOrganizationMemberOUT) ToMap() (map[string]interface{}, error) {
 		toSerialize["subscription_types"] = o.SubscriptionTypes
 	}
 	toSerialize["created_at"] = o.CreatedAt
+	if o.LastLoginAt.IsSet() {
+		toSerialize["last_login_at"] = o.LastLoginAt.Get()
+	}
+	if !IsNil(o.Status) {
+		toSerialize["status"] = o.Status
+	}
+	if o.WorkspacesTotal.IsSet() {
+		toSerialize["workspaces_total"] = o.WorkspacesTotal.Get()
+	}
 	return toSerialize, nil
 }
 

@@ -27,9 +27,11 @@ type MemberWorkspaceInfo struct {
 	Name string `json:"name"`
 	// Whether this is the default Workspace for the Organization.
 	IsDefault bool `json:"is_default"`
-	RawRoles RawRoles1 `json:"raw_roles"`
+	// Workspace roles assigned to the member.
+	RawRoles []StaticWorkspaceRoles `json:"raw_roles"`
+	// Deprecated single workspace role. Use 'raw_roles' instead.
 	// Deprecated
-	RawRole RawRole1 `json:"raw_role"`
+	RawRole StaticWorkspaceRoles `json:"raw_role"`
 }
 
 type _MemberWorkspaceInfo MemberWorkspaceInfo
@@ -38,7 +40,7 @@ type _MemberWorkspaceInfo MemberWorkspaceInfo
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewMemberWorkspaceInfo(uuid string, name string, isDefault bool, rawRoles RawRoles1, rawRole RawRole1) *MemberWorkspaceInfo {
+func NewMemberWorkspaceInfo(uuid string, name string, isDefault bool, rawRoles []StaticWorkspaceRoles, rawRole StaticWorkspaceRoles) *MemberWorkspaceInfo {
 	this := MemberWorkspaceInfo{}
 	this.Uuid = uuid
 	this.Name = name
@@ -129,9 +131,9 @@ func (o *MemberWorkspaceInfo) SetIsDefault(v bool) {
 }
 
 // GetRawRoles returns the RawRoles field value
-func (o *MemberWorkspaceInfo) GetRawRoles() RawRoles1 {
+func (o *MemberWorkspaceInfo) GetRawRoles() []StaticWorkspaceRoles {
 	if o == nil {
-		var ret RawRoles1
+		var ret []StaticWorkspaceRoles
 		return ret
 	}
 
@@ -140,23 +142,23 @@ func (o *MemberWorkspaceInfo) GetRawRoles() RawRoles1 {
 
 // GetRawRolesOk returns a tuple with the RawRoles field value
 // and a boolean to check if the value has been set.
-func (o *MemberWorkspaceInfo) GetRawRolesOk() (*RawRoles1, bool) {
+func (o *MemberWorkspaceInfo) GetRawRolesOk() ([]StaticWorkspaceRoles, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.RawRoles, true
+	return o.RawRoles, true
 }
 
 // SetRawRoles sets field value
-func (o *MemberWorkspaceInfo) SetRawRoles(v RawRoles1) {
+func (o *MemberWorkspaceInfo) SetRawRoles(v []StaticWorkspaceRoles) {
 	o.RawRoles = v
 }
 
 // GetRawRole returns the RawRole field value
 // Deprecated
-func (o *MemberWorkspaceInfo) GetRawRole() RawRole1 {
+func (o *MemberWorkspaceInfo) GetRawRole() StaticWorkspaceRoles {
 	if o == nil {
-		var ret RawRole1
+		var ret StaticWorkspaceRoles
 		return ret
 	}
 
@@ -166,7 +168,7 @@ func (o *MemberWorkspaceInfo) GetRawRole() RawRole1 {
 // GetRawRoleOk returns a tuple with the RawRole field value
 // and a boolean to check if the value has been set.
 // Deprecated
-func (o *MemberWorkspaceInfo) GetRawRoleOk() (*RawRole1, bool) {
+func (o *MemberWorkspaceInfo) GetRawRoleOk() (*StaticWorkspaceRoles, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -175,7 +177,7 @@ func (o *MemberWorkspaceInfo) GetRawRoleOk() (*RawRole1, bool) {
 
 // SetRawRole sets field value
 // Deprecated
-func (o *MemberWorkspaceInfo) SetRawRole(v RawRole1) {
+func (o *MemberWorkspaceInfo) SetRawRole(v StaticWorkspaceRoles) {
 	o.RawRole = v
 }
 

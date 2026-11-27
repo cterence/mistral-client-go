@@ -31,8 +31,6 @@ type AdminUserGroupOut struct {
 	ExternallyManaged NullableBool `json:"externally_managed,omitempty"`
 	// Organization role assigned to the group.
 	OrganizationRole NullableString `json:"organization_role,omitempty"`
-	// UUIDs of the groups this group is directly nested inside.
-	ParentGroupIds []string `json:"parent_group_ids,omitempty"`
 }
 
 type _AdminUserGroupOut AdminUserGroupOut
@@ -215,38 +213,6 @@ func (o *AdminUserGroupOut) UnsetOrganizationRole() {
 	o.OrganizationRole.Unset()
 }
 
-// GetParentGroupIds returns the ParentGroupIds field value if set, zero value otherwise.
-func (o *AdminUserGroupOut) GetParentGroupIds() []string {
-	if o == nil || IsNil(o.ParentGroupIds) {
-		var ret []string
-		return ret
-	}
-	return o.ParentGroupIds
-}
-
-// GetParentGroupIdsOk returns a tuple with the ParentGroupIds field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *AdminUserGroupOut) GetParentGroupIdsOk() ([]string, bool) {
-	if o == nil || IsNil(o.ParentGroupIds) {
-		return nil, false
-	}
-	return o.ParentGroupIds, true
-}
-
-// HasParentGroupIds returns a boolean if a field has been set.
-func (o *AdminUserGroupOut) HasParentGroupIds() bool {
-	if o != nil && !IsNil(o.ParentGroupIds) {
-		return true
-	}
-
-	return false
-}
-
-// SetParentGroupIds gets a reference to the given []string and assigns it to the ParentGroupIds field.
-func (o *AdminUserGroupOut) SetParentGroupIds(v []string) {
-	o.ParentGroupIds = v
-}
-
 func (o AdminUserGroupOut) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -265,9 +231,6 @@ func (o AdminUserGroupOut) ToMap() (map[string]interface{}, error) {
 	}
 	if o.OrganizationRole.IsSet() {
 		toSerialize["organization_role"] = o.OrganizationRole.Get()
-	}
-	if !IsNil(o.ParentGroupIds) {
-		toSerialize["parent_group_ids"] = o.ParentGroupIds
 	}
 	return toSerialize, nil
 }

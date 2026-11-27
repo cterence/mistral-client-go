@@ -62,6 +62,12 @@ type UsageQueryRowOUT struct {
 	CallSource NullableString `json:"call_source,omitempty"`
 	// Filter by agent name
 	CallType NullableString `json:"call_type,omitempty"`
+	// Filter by agent name
+	UserAgent NullableString `json:"user_agent,omitempty"`
+	// Filter by agent name
+	ResourceId NullableString `json:"resource_id,omitempty"`
+	// Filter by agent name
+	ResourceVersion NullableString `json:"resource_version,omitempty"`
 }
 
 // NewUsageQueryRowOUT instantiates a new UsageQueryRowOUT object
@@ -963,6 +969,132 @@ func (o *UsageQueryRowOUT) UnsetCallType() {
 	o.CallType.Unset()
 }
 
+// GetUserAgent returns the UserAgent field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *UsageQueryRowOUT) GetUserAgent() string {
+	if o == nil || IsNil(o.UserAgent.Get()) {
+		var ret string
+		return ret
+	}
+	return *o.UserAgent.Get()
+}
+
+// GetUserAgentOk returns a tuple with the UserAgent field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *UsageQueryRowOUT) GetUserAgentOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.UserAgent.Get(), o.UserAgent.IsSet()
+}
+
+// HasUserAgent returns a boolean if a field has been set.
+func (o *UsageQueryRowOUT) HasUserAgent() bool {
+	if o != nil && o.UserAgent.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetUserAgent gets a reference to the given NullableString and assigns it to the UserAgent field.
+func (o *UsageQueryRowOUT) SetUserAgent(v string) {
+	o.UserAgent.Set(&v)
+}
+// SetUserAgentNil sets the value for UserAgent to be an explicit nil
+func (o *UsageQueryRowOUT) SetUserAgentNil() {
+	o.UserAgent.Set(nil)
+}
+
+// UnsetUserAgent ensures that no value is present for UserAgent, not even an explicit nil
+func (o *UsageQueryRowOUT) UnsetUserAgent() {
+	o.UserAgent.Unset()
+}
+
+// GetResourceId returns the ResourceId field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *UsageQueryRowOUT) GetResourceId() string {
+	if o == nil || IsNil(o.ResourceId.Get()) {
+		var ret string
+		return ret
+	}
+	return *o.ResourceId.Get()
+}
+
+// GetResourceIdOk returns a tuple with the ResourceId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *UsageQueryRowOUT) GetResourceIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.ResourceId.Get(), o.ResourceId.IsSet()
+}
+
+// HasResourceId returns a boolean if a field has been set.
+func (o *UsageQueryRowOUT) HasResourceId() bool {
+	if o != nil && o.ResourceId.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetResourceId gets a reference to the given NullableString and assigns it to the ResourceId field.
+func (o *UsageQueryRowOUT) SetResourceId(v string) {
+	o.ResourceId.Set(&v)
+}
+// SetResourceIdNil sets the value for ResourceId to be an explicit nil
+func (o *UsageQueryRowOUT) SetResourceIdNil() {
+	o.ResourceId.Set(nil)
+}
+
+// UnsetResourceId ensures that no value is present for ResourceId, not even an explicit nil
+func (o *UsageQueryRowOUT) UnsetResourceId() {
+	o.ResourceId.Unset()
+}
+
+// GetResourceVersion returns the ResourceVersion field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *UsageQueryRowOUT) GetResourceVersion() string {
+	if o == nil || IsNil(o.ResourceVersion.Get()) {
+		var ret string
+		return ret
+	}
+	return *o.ResourceVersion.Get()
+}
+
+// GetResourceVersionOk returns a tuple with the ResourceVersion field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *UsageQueryRowOUT) GetResourceVersionOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.ResourceVersion.Get(), o.ResourceVersion.IsSet()
+}
+
+// HasResourceVersion returns a boolean if a field has been set.
+func (o *UsageQueryRowOUT) HasResourceVersion() bool {
+	if o != nil && o.ResourceVersion.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetResourceVersion gets a reference to the given NullableString and assigns it to the ResourceVersion field.
+func (o *UsageQueryRowOUT) SetResourceVersion(v string) {
+	o.ResourceVersion.Set(&v)
+}
+// SetResourceVersionNil sets the value for ResourceVersion to be an explicit nil
+func (o *UsageQueryRowOUT) SetResourceVersionNil() {
+	o.ResourceVersion.Set(nil)
+}
+
+// UnsetResourceVersion ensures that no value is present for ResourceVersion, not even an explicit nil
+func (o *UsageQueryRowOUT) UnsetResourceVersion() {
+	o.ResourceVersion.Unset()
+}
+
 func (o UsageQueryRowOUT) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -1035,6 +1167,15 @@ func (o UsageQueryRowOUT) ToMap() (map[string]interface{}, error) {
 	}
 	if o.CallType.IsSet() {
 		toSerialize["call_type"] = o.CallType.Get()
+	}
+	if o.UserAgent.IsSet() {
+		toSerialize["user_agent"] = o.UserAgent.Get()
+	}
+	if o.ResourceId.IsSet() {
+		toSerialize["resource_id"] = o.ResourceId.Get()
+	}
+	if o.ResourceVersion.IsSet() {
+		toSerialize["resource_version"] = o.ResourceVersion.Get()
 	}
 	return toSerialize, nil
 }

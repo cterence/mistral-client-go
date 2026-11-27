@@ -128,20 +128,6 @@ func Test_mistral_BetaAdminUserGroupsAPIService(t *testing.T) {
 
 	})
 
-	t.Run("Test BetaAdminUserGroupsAPIService UsersApiAdminUserGroupsGetNestedGroups", func(t *testing.T) {
-
-		t.Skip("skip test")  // remove to run test
-
-		var groupUuid string
-
-		resp, httpRes, err := apiClient.BetaAdminUserGroupsAPI.UsersApiAdminUserGroupsGetNestedGroups(context.Background(), groupUuid).Execute()
-
-		require.Nil(t, err)
-		require.NotNil(t, resp)
-		assert.Equal(t, 200, httpRes.StatusCode)
-
-	})
-
 	t.Run("Test BetaAdminUserGroupsAPIService UsersApiAdminUserGroupsGetUserGroup", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
@@ -200,19 +186,6 @@ func Test_mistral_BetaAdminUserGroupsAPIService(t *testing.T) {
 		var groupUuid string
 
 		httpRes, err := apiClient.BetaAdminUserGroupsAPI.UsersApiAdminUserGroupsRemoveUsersFromGroup(context.Background(), groupUuid).Execute()
-
-		require.Nil(t, err)
-		assert.Equal(t, 200, httpRes.StatusCode)
-
-	})
-
-	t.Run("Test BetaAdminUserGroupsAPIService UsersApiAdminUserGroupsSetNestedGroups", func(t *testing.T) {
-
-		t.Skip("skip test")  // remove to run test
-
-		var groupUuid string
-
-		httpRes, err := apiClient.BetaAdminUserGroupsAPI.UsersApiAdminUserGroupsSetNestedGroups(context.Background(), groupUuid).Execute()
 
 		require.Nil(t, err)
 		assert.Equal(t, 200, httpRes.StatusCode)

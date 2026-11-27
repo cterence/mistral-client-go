@@ -111,7 +111,7 @@ type APIClient struct {
 
 	BetaObservabilityEvaluationsRunsAPI *BetaObservabilityEvaluationsRunsAPIService
 
-	BetaObservabilityJudgesAPI *BetaObservabilityJudgesAPIService
+	BetaObservabilityEvaluationsScorersAPI *BetaObservabilityEvaluationsScorersAPIService
 
 	BetaObservabilityLogsAPI *BetaObservabilityLogsAPIService
 
@@ -122,8 +122,6 @@ type APIClient struct {
 	BetaPromptsAPI *BetaPromptsAPIService
 
 	BetaRagIngestionPipelineConfigurationsAPI *BetaRagIngestionPipelineConfigurationsAPIService
-
-	BetaRagSearchIndexesAPI *BetaRagSearchIndexesAPIService
 
 	BetaServiceAccountsAPI *BetaServiceAccountsAPIService
 
@@ -215,13 +213,12 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.BetaObservabilityEvaluationsProjectsAPI = (*BetaObservabilityEvaluationsProjectsAPIService)(&c.common)
 	c.BetaObservabilityEvaluationsRecordsAPI = (*BetaObservabilityEvaluationsRecordsAPIService)(&c.common)
 	c.BetaObservabilityEvaluationsRunsAPI = (*BetaObservabilityEvaluationsRunsAPIService)(&c.common)
-	c.BetaObservabilityJudgesAPI = (*BetaObservabilityJudgesAPIService)(&c.common)
+	c.BetaObservabilityEvaluationsScorersAPI = (*BetaObservabilityEvaluationsScorersAPIService)(&c.common)
 	c.BetaObservabilityLogsAPI = (*BetaObservabilityLogsAPIService)(&c.common)
 	c.BetaObservabilitySpansAPI = (*BetaObservabilitySpansAPIService)(&c.common)
 	c.BetaObservabilityTracesAPI = (*BetaObservabilityTracesAPIService)(&c.common)
 	c.BetaPromptsAPI = (*BetaPromptsAPIService)(&c.common)
 	c.BetaRagIngestionPipelineConfigurationsAPI = (*BetaRagIngestionPipelineConfigurationsAPIService)(&c.common)
-	c.BetaRagSearchIndexesAPI = (*BetaRagSearchIndexesAPIService)(&c.common)
 	c.BetaServiceAccountsAPI = (*BetaServiceAccountsAPIService)(&c.common)
 	c.BetaSkillsAPI = (*BetaSkillsAPIService)(&c.common)
 	c.BetaTriggersAPI = (*BetaTriggersAPIService)(&c.common)

@@ -25,7 +25,8 @@ type ResponsesFunctionToolCall struct {
 	Name string `json:"name"`
 	Type string `json:"type"`
 	Id NullableString `json:"id,omitempty"`
-	Caller NullableCaller1 `json:"caller,omitempty"`
+	Async NullableBool `json:"async,omitempty"`
+	Caller NullableCaller `json:"caller,omitempty"`
 	Namespace NullableString `json:"namespace,omitempty"`
 	Status NullableString `json:"status,omitempty"`
 	AdditionalProperties map[string]interface{}
@@ -192,10 +193,52 @@ func (o *ResponsesFunctionToolCall) UnsetId() {
 	o.Id.Unset()
 }
 
+// GetAsync returns the Async field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *ResponsesFunctionToolCall) GetAsync() bool {
+	if o == nil || IsNil(o.Async.Get()) {
+		var ret bool
+		return ret
+	}
+	return *o.Async.Get()
+}
+
+// GetAsyncOk returns a tuple with the Async field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *ResponsesFunctionToolCall) GetAsyncOk() (*bool, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.Async.Get(), o.Async.IsSet()
+}
+
+// HasAsync returns a boolean if a field has been set.
+func (o *ResponsesFunctionToolCall) HasAsync() bool {
+	if o != nil && o.Async.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetAsync gets a reference to the given NullableBool and assigns it to the Async field.
+func (o *ResponsesFunctionToolCall) SetAsync(v bool) {
+	o.Async.Set(&v)
+}
+// SetAsyncNil sets the value for Async to be an explicit nil
+func (o *ResponsesFunctionToolCall) SetAsyncNil() {
+	o.Async.Set(nil)
+}
+
+// UnsetAsync ensures that no value is present for Async, not even an explicit nil
+func (o *ResponsesFunctionToolCall) UnsetAsync() {
+	o.Async.Unset()
+}
+
 // GetCaller returns the Caller field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *ResponsesFunctionToolCall) GetCaller() Caller1 {
+func (o *ResponsesFunctionToolCall) GetCaller() Caller {
 	if o == nil || IsNil(o.Caller.Get()) {
-		var ret Caller1
+		var ret Caller
 		return ret
 	}
 	return *o.Caller.Get()
@@ -204,7 +247,7 @@ func (o *ResponsesFunctionToolCall) GetCaller() Caller1 {
 // GetCallerOk returns a tuple with the Caller field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *ResponsesFunctionToolCall) GetCallerOk() (*Caller1, bool) {
+func (o *ResponsesFunctionToolCall) GetCallerOk() (*Caller, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -220,8 +263,8 @@ func (o *ResponsesFunctionToolCall) HasCaller() bool {
 	return false
 }
 
-// SetCaller gets a reference to the given NullableCaller1 and assigns it to the Caller field.
-func (o *ResponsesFunctionToolCall) SetCaller(v Caller1) {
+// SetCaller gets a reference to the given NullableCaller and assigns it to the Caller field.
+func (o *ResponsesFunctionToolCall) SetCaller(v Caller) {
 	o.Caller.Set(&v)
 }
 // SetCallerNil sets the value for Caller to be an explicit nil
@@ -335,6 +378,9 @@ func (o ResponsesFunctionToolCall) ToMap() (map[string]interface{}, error) {
 	if o.Id.IsSet() {
 		toSerialize["id"] = o.Id.Get()
 	}
+	if o.Async.IsSet() {
+		toSerialize["async"] = o.Async.Get()
+	}
 	if o.Caller.IsSet() {
 		toSerialize["caller"] = o.Caller.Get()
 	}
@@ -395,6 +441,7 @@ func (o *ResponsesFunctionToolCall) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "name")
 		delete(additionalProperties, "type")
 		delete(additionalProperties, "id")
+		delete(additionalProperties, "async")
 		delete(additionalProperties, "caller")
 		delete(additionalProperties, "namespace")
 		delete(additionalProperties, "status")

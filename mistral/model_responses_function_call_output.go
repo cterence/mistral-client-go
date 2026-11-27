@@ -20,11 +20,13 @@ var _ MappedNullable = &ResponsesFunctionCallOutput{}
 
 // ResponsesFunctionCallOutput struct for ResponsesFunctionCallOutput
 type ResponsesFunctionCallOutput struct {
-	CallId string `json:"call_id"`
 	Output Output `json:"output"`
 	Type string `json:"type"`
 	Id NullableString `json:"id,omitempty"`
-	Caller NullableCaller `json:"caller,omitempty"`
+	CallId string `json:"call_id"`
+	Caller NullableCaller1 `json:"caller,omitempty"`
+	Name NullableString `json:"name,omitempty"`
+	Namespace NullableString `json:"namespace,omitempty"`
 	Status NullableString `json:"status,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
@@ -35,11 +37,11 @@ type _ResponsesFunctionCallOutput ResponsesFunctionCallOutput
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewResponsesFunctionCallOutput(callId string, output Output, type_ string) *ResponsesFunctionCallOutput {
+func NewResponsesFunctionCallOutput(output Output, type_ string, callId string) *ResponsesFunctionCallOutput {
 	this := ResponsesFunctionCallOutput{}
-	this.CallId = callId
 	this.Output = output
 	this.Type = type_
+	this.CallId = callId
 	return &this
 }
 
@@ -49,30 +51,6 @@ func NewResponsesFunctionCallOutput(callId string, output Output, type_ string) 
 func NewResponsesFunctionCallOutputWithDefaults() *ResponsesFunctionCallOutput {
 	this := ResponsesFunctionCallOutput{}
 	return &this
-}
-
-// GetCallId returns the CallId field value
-func (o *ResponsesFunctionCallOutput) GetCallId() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.CallId
-}
-
-// GetCallIdOk returns a tuple with the CallId field value
-// and a boolean to check if the value has been set.
-func (o *ResponsesFunctionCallOutput) GetCallIdOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.CallId, true
-}
-
-// SetCallId sets field value
-func (o *ResponsesFunctionCallOutput) SetCallId(v string) {
-	o.CallId = v
 }
 
 // GetOutput returns the Output field value
@@ -165,10 +143,34 @@ func (o *ResponsesFunctionCallOutput) UnsetId() {
 	o.Id.Unset()
 }
 
+// GetCallId returns the CallId field value
+func (o *ResponsesFunctionCallOutput) GetCallId() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.CallId
+}
+
+// GetCallIdOk returns a tuple with the CallId field value
+// and a boolean to check if the value has been set.
+func (o *ResponsesFunctionCallOutput) GetCallIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.CallId, true
+}
+
+// SetCallId sets field value
+func (o *ResponsesFunctionCallOutput) SetCallId(v string) {
+	o.CallId = v
+}
+
 // GetCaller returns the Caller field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *ResponsesFunctionCallOutput) GetCaller() Caller {
+func (o *ResponsesFunctionCallOutput) GetCaller() Caller1 {
 	if o == nil || IsNil(o.Caller.Get()) {
-		var ret Caller
+		var ret Caller1
 		return ret
 	}
 	return *o.Caller.Get()
@@ -177,7 +179,7 @@ func (o *ResponsesFunctionCallOutput) GetCaller() Caller {
 // GetCallerOk returns a tuple with the Caller field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *ResponsesFunctionCallOutput) GetCallerOk() (*Caller, bool) {
+func (o *ResponsesFunctionCallOutput) GetCallerOk() (*Caller1, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -193,8 +195,8 @@ func (o *ResponsesFunctionCallOutput) HasCaller() bool {
 	return false
 }
 
-// SetCaller gets a reference to the given NullableCaller and assigns it to the Caller field.
-func (o *ResponsesFunctionCallOutput) SetCaller(v Caller) {
+// SetCaller gets a reference to the given NullableCaller1 and assigns it to the Caller field.
+func (o *ResponsesFunctionCallOutput) SetCaller(v Caller1) {
 	o.Caller.Set(&v)
 }
 // SetCallerNil sets the value for Caller to be an explicit nil
@@ -205,6 +207,90 @@ func (o *ResponsesFunctionCallOutput) SetCallerNil() {
 // UnsetCaller ensures that no value is present for Caller, not even an explicit nil
 func (o *ResponsesFunctionCallOutput) UnsetCaller() {
 	o.Caller.Unset()
+}
+
+// GetName returns the Name field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *ResponsesFunctionCallOutput) GetName() string {
+	if o == nil || IsNil(o.Name.Get()) {
+		var ret string
+		return ret
+	}
+	return *o.Name.Get()
+}
+
+// GetNameOk returns a tuple with the Name field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *ResponsesFunctionCallOutput) GetNameOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.Name.Get(), o.Name.IsSet()
+}
+
+// HasName returns a boolean if a field has been set.
+func (o *ResponsesFunctionCallOutput) HasName() bool {
+	if o != nil && o.Name.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetName gets a reference to the given NullableString and assigns it to the Name field.
+func (o *ResponsesFunctionCallOutput) SetName(v string) {
+	o.Name.Set(&v)
+}
+// SetNameNil sets the value for Name to be an explicit nil
+func (o *ResponsesFunctionCallOutput) SetNameNil() {
+	o.Name.Set(nil)
+}
+
+// UnsetName ensures that no value is present for Name, not even an explicit nil
+func (o *ResponsesFunctionCallOutput) UnsetName() {
+	o.Name.Unset()
+}
+
+// GetNamespace returns the Namespace field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *ResponsesFunctionCallOutput) GetNamespace() string {
+	if o == nil || IsNil(o.Namespace.Get()) {
+		var ret string
+		return ret
+	}
+	return *o.Namespace.Get()
+}
+
+// GetNamespaceOk returns a tuple with the Namespace field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *ResponsesFunctionCallOutput) GetNamespaceOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.Namespace.Get(), o.Namespace.IsSet()
+}
+
+// HasNamespace returns a boolean if a field has been set.
+func (o *ResponsesFunctionCallOutput) HasNamespace() bool {
+	if o != nil && o.Namespace.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetNamespace gets a reference to the given NullableString and assigns it to the Namespace field.
+func (o *ResponsesFunctionCallOutput) SetNamespace(v string) {
+	o.Namespace.Set(&v)
+}
+// SetNamespaceNil sets the value for Namespace to be an explicit nil
+func (o *ResponsesFunctionCallOutput) SetNamespaceNil() {
+	o.Namespace.Set(nil)
+}
+
+// UnsetNamespace ensures that no value is present for Namespace, not even an explicit nil
+func (o *ResponsesFunctionCallOutput) UnsetNamespace() {
+	o.Namespace.Unset()
 }
 
 // GetStatus returns the Status field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -259,14 +345,20 @@ func (o ResponsesFunctionCallOutput) MarshalJSON() ([]byte, error) {
 
 func (o ResponsesFunctionCallOutput) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["call_id"] = o.CallId
 	toSerialize["output"] = o.Output
 	toSerialize["type"] = o.Type
 	if o.Id.IsSet() {
 		toSerialize["id"] = o.Id.Get()
 	}
+	toSerialize["call_id"] = o.CallId
 	if o.Caller.IsSet() {
 		toSerialize["caller"] = o.Caller.Get()
+	}
+	if o.Name.IsSet() {
+		toSerialize["name"] = o.Name.Get()
+	}
+	if o.Namespace.IsSet() {
+		toSerialize["namespace"] = o.Namespace.Get()
 	}
 	if o.Status.IsSet() {
 		toSerialize["status"] = o.Status.Get()
@@ -284,9 +376,9 @@ func (o *ResponsesFunctionCallOutput) UnmarshalJSON(data []byte) (err error) {
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
-		"call_id",
 		"output",
 		"type",
+		"call_id",
 	}
 
 	allProperties := make(map[string]interface{})
@@ -316,11 +408,13 @@ func (o *ResponsesFunctionCallOutput) UnmarshalJSON(data []byte) (err error) {
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
-		delete(additionalProperties, "call_id")
 		delete(additionalProperties, "output")
 		delete(additionalProperties, "type")
 		delete(additionalProperties, "id")
+		delete(additionalProperties, "call_id")
 		delete(additionalProperties, "caller")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "namespace")
 		delete(additionalProperties, "status")
 		o.AdditionalProperties = additionalProperties
 	}

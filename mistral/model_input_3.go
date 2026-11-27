@@ -18,6 +18,9 @@ import (
 
 // Input3 Text to embed.
 type Input3 struct {
+	AudioChunk *AudioChunk
+	ImageURLChunk *ImageURLChunk
+	ArrayOfEmbeddingInput *[]EmbeddingInput
 	ArrayOfString *[]string
 	String *string
 }
@@ -25,6 +28,45 @@ type Input3 struct {
 // Unmarshal JSON data into any of the pointers in the struct
 func (dst *Input3) UnmarshalJSON(data []byte) error {
 	var err error
+	// try to unmarshal JSON data into AudioChunk
+	err = json.Unmarshal(data, &dst.AudioChunk);
+	if err == nil {
+		jsonAudioChunk, _ := json.Marshal(dst.AudioChunk)
+		if string(jsonAudioChunk) == "{}" { // empty struct
+			dst.AudioChunk = nil
+		} else {
+			return nil // data stored in dst.AudioChunk, return on the first match
+		}
+	} else {
+		dst.AudioChunk = nil
+	}
+
+	// try to unmarshal JSON data into ImageURLChunk
+	err = json.Unmarshal(data, &dst.ImageURLChunk);
+	if err == nil {
+		jsonImageURLChunk, _ := json.Marshal(dst.ImageURLChunk)
+		if string(jsonImageURLChunk) == "{}" { // empty struct
+			dst.ImageURLChunk = nil
+		} else {
+			return nil // data stored in dst.ImageURLChunk, return on the first match
+		}
+	} else {
+		dst.ImageURLChunk = nil
+	}
+
+	// try to unmarshal JSON data into ArrayOfEmbeddingInput
+	err = json.Unmarshal(data, &dst.ArrayOfEmbeddingInput);
+	if err == nil {
+		jsonArrayOfEmbeddingInput, _ := json.Marshal(dst.ArrayOfEmbeddingInput)
+		if string(jsonArrayOfEmbeddingInput) == "{}" { // empty struct
+			dst.ArrayOfEmbeddingInput = nil
+		} else {
+			return nil // data stored in dst.ArrayOfEmbeddingInput, return on the first match
+		}
+	} else {
+		dst.ArrayOfEmbeddingInput = nil
+	}
+
 	// try to unmarshal JSON data into ArrayOfString
 	err = json.Unmarshal(data, &dst.ArrayOfString);
 	if err == nil {
@@ -56,6 +98,18 @@ func (dst *Input3) UnmarshalJSON(data []byte) error {
 
 // Marshal data from the first non-nil pointers in the struct to JSON
 func (src Input3) MarshalJSON() ([]byte, error) {
+	if src.AudioChunk != nil {
+		return json.Marshal(&src.AudioChunk)
+	}
+
+	if src.ImageURLChunk != nil {
+		return json.Marshal(&src.ImageURLChunk)
+	}
+
+	if src.ArrayOfEmbeddingInput != nil {
+		return json.Marshal(&src.ArrayOfEmbeddingInput)
+	}
+
 	if src.ArrayOfString != nil {
 		return json.Marshal(&src.ArrayOfString)
 	}

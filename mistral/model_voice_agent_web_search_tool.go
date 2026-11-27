@@ -21,7 +21,7 @@ var _ MappedNullable = &VoiceAgentWebSearchTool{}
 type VoiceAgentWebSearchTool struct {
 	ToolConfiguration NullableToolConfiguration `json:"tool_configuration,omitempty"`
 	Type *string `json:"type,omitempty"`
-	Filler NullableStaticToolFiller `json:"filler,omitempty"`
+	Filler NullableHangUpToolFiller `json:"filler,omitempty"`
 }
 
 // NewVoiceAgentWebSearchTool instantiates a new VoiceAgentWebSearchTool object
@@ -120,9 +120,9 @@ func (o *VoiceAgentWebSearchTool) SetType(v string) {
 }
 
 // GetFiller returns the Filler field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *VoiceAgentWebSearchTool) GetFiller() StaticToolFiller {
+func (o *VoiceAgentWebSearchTool) GetFiller() HangUpToolFiller {
 	if o == nil || IsNil(o.Filler.Get()) {
-		var ret StaticToolFiller
+		var ret HangUpToolFiller
 		return ret
 	}
 	return *o.Filler.Get()
@@ -131,7 +131,7 @@ func (o *VoiceAgentWebSearchTool) GetFiller() StaticToolFiller {
 // GetFillerOk returns a tuple with the Filler field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *VoiceAgentWebSearchTool) GetFillerOk() (*StaticToolFiller, bool) {
+func (o *VoiceAgentWebSearchTool) GetFillerOk() (*HangUpToolFiller, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -147,8 +147,8 @@ func (o *VoiceAgentWebSearchTool) HasFiller() bool {
 	return false
 }
 
-// SetFiller gets a reference to the given NullableStaticToolFiller and assigns it to the Filler field.
-func (o *VoiceAgentWebSearchTool) SetFiller(v StaticToolFiller) {
+// SetFiller gets a reference to the given NullableHangUpToolFiller and assigns it to the Filler field.
+func (o *VoiceAgentWebSearchTool) SetFiller(v HangUpToolFiller) {
 	o.Filler.Set(&v)
 }
 // SetFillerNil sets the value for Filler to be an explicit nil

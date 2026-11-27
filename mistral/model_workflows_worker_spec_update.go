@@ -19,9 +19,12 @@ var _ MappedNullable = &WorkflowsWorkerSpecUpdate{}
 
 // WorkflowsWorkerSpecUpdate struct for WorkflowsWorkerSpecUpdate
 type WorkflowsWorkerSpecUpdate struct {
+	// Deprecated alias of 'repository_url' for a GitHub repository. Set only 'repository_url'.
 	GithubUrl NullableString `json:"github_url,omitempty"`
+	// Rebuild the worker from this repository, on GitHub or the git server, dropping 'archive_id'.
+	RepositoryUrl NullableString `json:"repository_url,omitempty"`
 	Revision NullableString `json:"revision,omitempty"`
-	// Rebuild the worker from this archive, dropping 'github_url' and 'revision'. Sending 'github_url' instead moves it back to a repository.
+	// Rebuild the worker from this archive, dropping 'repository_url' and 'revision'. Sending 'repository_url' instead moves it back to a repository.
 	ArchiveId NullableString `json:"archive_id,omitempty"`
 	// Backend-specific configuration for the Mistral Cloud backend.
 	BackendSpec NullableDeploymentMistralCloudBackendSpec `json:"backend_spec,omitempty"`
@@ -86,6 +89,48 @@ func (o *WorkflowsWorkerSpecUpdate) SetGithubUrlNil() {
 // UnsetGithubUrl ensures that no value is present for GithubUrl, not even an explicit nil
 func (o *WorkflowsWorkerSpecUpdate) UnsetGithubUrl() {
 	o.GithubUrl.Unset()
+}
+
+// GetRepositoryUrl returns the RepositoryUrl field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *WorkflowsWorkerSpecUpdate) GetRepositoryUrl() string {
+	if o == nil || IsNil(o.RepositoryUrl.Get()) {
+		var ret string
+		return ret
+	}
+	return *o.RepositoryUrl.Get()
+}
+
+// GetRepositoryUrlOk returns a tuple with the RepositoryUrl field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *WorkflowsWorkerSpecUpdate) GetRepositoryUrlOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.RepositoryUrl.Get(), o.RepositoryUrl.IsSet()
+}
+
+// HasRepositoryUrl returns a boolean if a field has been set.
+func (o *WorkflowsWorkerSpecUpdate) HasRepositoryUrl() bool {
+	if o != nil && o.RepositoryUrl.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetRepositoryUrl gets a reference to the given NullableString and assigns it to the RepositoryUrl field.
+func (o *WorkflowsWorkerSpecUpdate) SetRepositoryUrl(v string) {
+	o.RepositoryUrl.Set(&v)
+}
+// SetRepositoryUrlNil sets the value for RepositoryUrl to be an explicit nil
+func (o *WorkflowsWorkerSpecUpdate) SetRepositoryUrlNil() {
+	o.RepositoryUrl.Set(nil)
+}
+
+// UnsetRepositoryUrl ensures that no value is present for RepositoryUrl, not even an explicit nil
+func (o *WorkflowsWorkerSpecUpdate) UnsetRepositoryUrl() {
+	o.RepositoryUrl.Unset()
 }
 
 // GetRevision returns the Revision field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -259,6 +304,9 @@ func (o WorkflowsWorkerSpecUpdate) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if o.GithubUrl.IsSet() {
 		toSerialize["github_url"] = o.GithubUrl.Get()
+	}
+	if o.RepositoryUrl.IsSet() {
+		toSerialize["repository_url"] = o.RepositoryUrl.Get()
 	}
 	if o.Revision.IsSet() {
 		toSerialize["revision"] = o.Revision.Get()

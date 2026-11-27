@@ -21,10 +21,10 @@ var _ MappedNullable = &ToolCall{}
 
 // ToolCall struct for ToolCall
 type ToolCall struct {
-	Id *string `json:"id,omitempty"`
 	Type *ToolTypes `json:"type,omitempty"`
 	Function FunctionCall `json:"function"`
 	Index *int32 `json:"index,omitempty"`
+	Id *string `json:"id,omitempty"`
 }
 
 type _ToolCall ToolCall
@@ -35,8 +35,6 @@ type _ToolCall ToolCall
 // will change when the set of required properties is changed
 func NewToolCall(function FunctionCall) *ToolCall {
 	this := ToolCall{}
-	var id string = "null"
-	this.Id = &id
 	var type_ ToolTypes = TOOLTYPES_FUNCTION
 	this.Type = &type_
 	this.Function = function
@@ -50,45 +48,11 @@ func NewToolCall(function FunctionCall) *ToolCall {
 // but it doesn't guarantee that properties required by API are set
 func NewToolCallWithDefaults() *ToolCall {
 	this := ToolCall{}
-	var id string = "null"
-	this.Id = &id
 	var type_ ToolTypes = TOOLTYPES_FUNCTION
 	this.Type = &type_
 	var index int32 = 0
 	this.Index = &index
 	return &this
-}
-
-// GetId returns the Id field value if set, zero value otherwise.
-func (o *ToolCall) GetId() string {
-	if o == nil || IsNil(o.Id) {
-		var ret string
-		return ret
-	}
-	return *o.Id
-}
-
-// GetIdOk returns a tuple with the Id field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *ToolCall) GetIdOk() (*string, bool) {
-	if o == nil || IsNil(o.Id) {
-		return nil, false
-	}
-	return o.Id, true
-}
-
-// HasId returns a boolean if a field has been set.
-func (o *ToolCall) HasId() bool {
-	if o != nil && !IsNil(o.Id) {
-		return true
-	}
-
-	return false
-}
-
-// SetId gets a reference to the given string and assigns it to the Id field.
-func (o *ToolCall) SetId(v string) {
-	o.Id = &v
 }
 
 // GetType returns the Type field value if set, zero value otherwise.
@@ -179,6 +143,38 @@ func (o *ToolCall) SetIndex(v int32) {
 	o.Index = &v
 }
 
+// GetId returns the Id field value if set, zero value otherwise.
+func (o *ToolCall) GetId() string {
+	if o == nil || IsNil(o.Id) {
+		var ret string
+		return ret
+	}
+	return *o.Id
+}
+
+// GetIdOk returns a tuple with the Id field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ToolCall) GetIdOk() (*string, bool) {
+	if o == nil || IsNil(o.Id) {
+		return nil, false
+	}
+	return o.Id, true
+}
+
+// HasId returns a boolean if a field has been set.
+func (o *ToolCall) HasId() bool {
+	if o != nil && !IsNil(o.Id) {
+		return true
+	}
+
+	return false
+}
+
+// SetId gets a reference to the given string and assigns it to the Id field.
+func (o *ToolCall) SetId(v string) {
+	o.Id = &v
+}
+
 func (o ToolCall) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -189,15 +185,15 @@ func (o ToolCall) MarshalJSON() ([]byte, error) {
 
 func (o ToolCall) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.Id) {
-		toSerialize["id"] = o.Id
-	}
 	if !IsNil(o.Type) {
 		toSerialize["type"] = o.Type
 	}
 	toSerialize["function"] = o.Function
 	if !IsNil(o.Index) {
 		toSerialize["index"] = o.Index
+	}
+	if !IsNil(o.Id) {
+		toSerialize["id"] = o.Id
 	}
 	return toSerialize, nil
 }

@@ -18,24 +18,24 @@ import (
 
 // ToolChoice2 Controls which (if any) tool is called by the model. `none` means the model will not call any tool and instead generates a message. `auto` means the model can pick between generating a message or calling one or more tools. `any` or `required` means the model must call one or more tools. Specifying a particular tool via `{\"type\": \"function\", \"function\": {\"name\": \"my_function\"}}` forces the model to call that tool.
 type ToolChoice2 struct {
-	ToolChoice *ToolChoice
+	NamedToolChoice *NamedToolChoice
 	ToolChoiceEnum *ToolChoiceEnum
 }
 
 // Unmarshal JSON data into any of the pointers in the struct
 func (dst *ToolChoice2) UnmarshalJSON(data []byte) error {
 	var err error
-	// try to unmarshal JSON data into ToolChoice
-	err = json.Unmarshal(data, &dst.ToolChoice);
+	// try to unmarshal JSON data into NamedToolChoice
+	err = json.Unmarshal(data, &dst.NamedToolChoice);
 	if err == nil {
-		jsonToolChoice, _ := json.Marshal(dst.ToolChoice)
-		if string(jsonToolChoice) == "{}" { // empty struct
-			dst.ToolChoice = nil
+		jsonNamedToolChoice, _ := json.Marshal(dst.NamedToolChoice)
+		if string(jsonNamedToolChoice) == "{}" { // empty struct
+			dst.NamedToolChoice = nil
 		} else {
-			return nil // data stored in dst.ToolChoice, return on the first match
+			return nil // data stored in dst.NamedToolChoice, return on the first match
 		}
 	} else {
-		dst.ToolChoice = nil
+		dst.NamedToolChoice = nil
 	}
 
 	// try to unmarshal JSON data into ToolChoiceEnum
@@ -56,8 +56,8 @@ func (dst *ToolChoice2) UnmarshalJSON(data []byte) error {
 
 // Marshal data from the first non-nil pointers in the struct to JSON
 func (src ToolChoice2) MarshalJSON() ([]byte, error) {
-	if src.ToolChoice != nil {
-		return json.Marshal(&src.ToolChoice)
+	if src.NamedToolChoice != nil {
+		return json.Marshal(&src.NamedToolChoice)
 	}
 
 	if src.ToolChoiceEnum != nil {

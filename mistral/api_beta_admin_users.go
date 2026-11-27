@@ -245,8 +245,9 @@ func (r ApiUsersApiAdminUsersDeactivateUserRequest) Execute() (*DeactivateUserOU
 /*
 UsersApiAdminUsersDeactivateUser Deactivate User
 
-Deactivate a user whose email address is on one of the Organization's verified domains: remove them from
-every organization they belong to, which revokes their API keys, and end their sessions.
+Deactivate a user whose email address is on one of the Organization's verified domains: end their sessions,
+delete their API keys and release their seats. Their memberships, groups and roles are kept, so that
+`POST /users/{user_id}/reactivate` can give their access back.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param userId User ID.
@@ -452,7 +453,9 @@ func (r ApiUsersApiAdminUsersDeleteUserRequest) Execute() (*DeleteOUT, *http.Res
 /*
 UsersApiAdminUsersDeleteUser Delete User
 
-Remove a member from the Organization.
+Remove a member from the Organization, whatever their account status.
+
+Members whose email is on one of the Organization's verified domains cannot be removed: deactivate them instead.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param userId User ID.
@@ -654,7 +657,7 @@ func (r ApiUsersApiAdminUsersGetUserRequest) Execute() (*AdminUserOUT, *http.Res
 /*
 UsersApiAdminUsersGetUser Get User
 
-Get details for an Organization member.
+Get details for an Organization member, including deactivated and blocked members.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param userId User ID.
@@ -744,12 +747,144 @@ func (a *BetaAdminUsersAPIService) UsersApiAdminUsersGetUserExecute(r ApiUsersAp
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+type ApiUsersApiAdminUsersGetUserWorkspacesRequest struct {
+	ctx context.Context
+	ApiService *BetaAdminUsersAPIService
+	userId string
+	page *int32
+	pageSize *int32
+}
+
+// Page number to return.
+func (r ApiUsersApiAdminUsersGetUserWorkspacesRequest) Page(page int32) ApiUsersApiAdminUsersGetUserWorkspacesRequest {
+	r.page = &page
+	return r
+}
+
+// Maximum number of results per page.
+func (r ApiUsersApiAdminUsersGetUserWorkspacesRequest) PageSize(pageSize int32) ApiUsersApiAdminUsersGetUserWorkspacesRequest {
+	r.pageSize = &pageSize
+	return r
+}
+
+func (r ApiUsersApiAdminUsersGetUserWorkspacesRequest) Execute() (*AdminUserWorkspacesOUT, *http.Response, error) {
+	return r.ApiService.UsersApiAdminUsersGetUserWorkspacesExecute(r)
+}
+
+/*
+UsersApiAdminUsersGetUserWorkspaces Get User Workspaces
+
+List the Workspaces an Organization member belongs to, with their roles.
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param userId User ID.
+ @return ApiUsersApiAdminUsersGetUserWorkspacesRequest
+*/
+func (a *BetaAdminUsersAPIService) UsersApiAdminUsersGetUserWorkspaces(ctx context.Context, userId string) ApiUsersApiAdminUsersGetUserWorkspacesRequest {
+	return ApiUsersApiAdminUsersGetUserWorkspacesRequest{
+		ApiService: a,
+		ctx: ctx,
+		userId: userId,
+	}
+}
+
+// Execute executes the request
+//  @return AdminUserWorkspacesOUT
+func (a *BetaAdminUsersAPIService) UsersApiAdminUsersGetUserWorkspacesExecute(r ApiUsersApiAdminUsersGetUserWorkspacesRequest) (*AdminUserWorkspacesOUT, *http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *AdminUserWorkspacesOUT
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BetaAdminUsersAPIService.UsersApiAdminUsersGetUserWorkspaces")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/admin/users/{user_id}/workspaces"
+	localVarPath = strings.Replace(localVarPath, "{"+"user_id"+"}", url.PathEscape(parameterValueToString(r.userId, "userId")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	if r.page != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "page", r.page, "form", "")
+	} else {
+		var defaultValue int32 = 1
+		parameterAddToHeaderOrQuery(localVarQueryParams, "page", defaultValue, "form", "")
+		r.page = &defaultValue
+	}
+	if r.pageSize != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "page_size", r.pageSize, "form", "")
+	} else {
+		var defaultValue int32 = 25
+		parameterAddToHeaderOrQuery(localVarQueryParams, "page_size", defaultValue, "form", "")
+		r.pageSize = &defaultValue
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
 type ApiUsersApiAdminUsersGetUsersRequest struct {
 	ctx context.Context
 	ApiService *BetaAdminUsersAPIService
 	page *int32
 	pageSize *int32
 	email *string
+	includeInactive *bool
 }
 
 // Page number to return.
@@ -767,6 +902,12 @@ func (r ApiUsersApiAdminUsersGetUsersRequest) PageSize(pageSize int32) ApiUsersA
 // Email address to filter users and invitations.
 func (r ApiUsersApiAdminUsersGetUsersRequest) Email(email string) ApiUsersApiAdminUsersGetUsersRequest {
 	r.email = &email
+	return r
+}
+
+// Also return deactivated and blocked members.
+func (r ApiUsersApiAdminUsersGetUsersRequest) IncludeInactive(includeInactive bool) ApiUsersApiAdminUsersGetUsersRequest {
+	r.includeInactive = &includeInactive
 	return r
 }
 
@@ -826,6 +967,13 @@ func (a *BetaAdminUsersAPIService) UsersApiAdminUsersGetUsersExecute(r ApiUsersA
 	}
 	if r.email != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "email", r.email, "form", "")
+	}
+	if r.includeInactive != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "include_inactive", r.includeInactive, "form", "")
+	} else {
+		var defaultValue bool = false
+		parameterAddToHeaderOrQuery(localVarQueryParams, "include_inactive", defaultValue, "form", "")
+		r.includeInactive = &defaultValue
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -954,6 +1102,110 @@ func (a *BetaAdminUsersAPIService) UsersApiAdminUsersInviteUsersExecute(r ApiUse
 	}
 	// body params
 	localVarPostBody = r.organizationInviteIN
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiUsersApiAdminUsersReactivateUserRequest struct {
+	ctx context.Context
+	ApiService *BetaAdminUsersAPIService
+	userId string
+}
+
+func (r ApiUsersApiAdminUsersReactivateUserRequest) Execute() (*ReactivateUserOUT, *http.Response, error) {
+	return r.ApiService.UsersApiAdminUsersReactivateUserExecute(r)
+}
+
+/*
+UsersApiAdminUsersReactivateUser Reactivate User
+
+Reactivate a deactivated user whose email address is on one of the Organization's verified domains: give
+them their access back, with their seats when free ones remain.
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param userId User ID.
+ @return ApiUsersApiAdminUsersReactivateUserRequest
+*/
+func (a *BetaAdminUsersAPIService) UsersApiAdminUsersReactivateUser(ctx context.Context, userId string) ApiUsersApiAdminUsersReactivateUserRequest {
+	return ApiUsersApiAdminUsersReactivateUserRequest{
+		ApiService: a,
+		ctx: ctx,
+		userId: userId,
+	}
+}
+
+// Execute executes the request
+//  @return ReactivateUserOUT
+func (a *BetaAdminUsersAPIService) UsersApiAdminUsersReactivateUserExecute(r ApiUsersApiAdminUsersReactivateUserRequest) (*ReactivateUserOUT, *http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodPost
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *ReactivateUserOUT
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BetaAdminUsersAPIService.UsersApiAdminUsersReactivateUser")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/admin/users/{user_id}/reactivate"
+	localVarPath = strings.Replace(localVarPath, "{"+"user_id"+"}", url.PathEscape(parameterValueToString(r.userId, "userId")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err

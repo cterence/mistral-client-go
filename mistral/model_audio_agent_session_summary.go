@@ -30,6 +30,7 @@ type AudioAgentSessionSummary struct {
 	Duration NullableInt32 `json:"duration,omitempty"`
 	// Set when the session came in over telephony.
 	PhoneNumberId NullableString `json:"phone_number_id,omitempty"`
+	BridgeMetadata NullableAmazonConnectContact `json:"bridge_metadata,omitempty"`
 }
 
 type _AudioAgentSessionSummary AudioAgentSessionSummary
@@ -227,6 +228,48 @@ func (o *AudioAgentSessionSummary) UnsetPhoneNumberId() {
 	o.PhoneNumberId.Unset()
 }
 
+// GetBridgeMetadata returns the BridgeMetadata field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *AudioAgentSessionSummary) GetBridgeMetadata() AmazonConnectContact {
+	if o == nil || IsNil(o.BridgeMetadata.Get()) {
+		var ret AmazonConnectContact
+		return ret
+	}
+	return *o.BridgeMetadata.Get()
+}
+
+// GetBridgeMetadataOk returns a tuple with the BridgeMetadata field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *AudioAgentSessionSummary) GetBridgeMetadataOk() (*AmazonConnectContact, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.BridgeMetadata.Get(), o.BridgeMetadata.IsSet()
+}
+
+// HasBridgeMetadata returns a boolean if a field has been set.
+func (o *AudioAgentSessionSummary) HasBridgeMetadata() bool {
+	if o != nil && o.BridgeMetadata.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetBridgeMetadata gets a reference to the given NullableAmazonConnectContact and assigns it to the BridgeMetadata field.
+func (o *AudioAgentSessionSummary) SetBridgeMetadata(v AmazonConnectContact) {
+	o.BridgeMetadata.Set(&v)
+}
+// SetBridgeMetadataNil sets the value for BridgeMetadata to be an explicit nil
+func (o *AudioAgentSessionSummary) SetBridgeMetadataNil() {
+	o.BridgeMetadata.Set(nil)
+}
+
+// UnsetBridgeMetadata ensures that no value is present for BridgeMetadata, not even an explicit nil
+func (o *AudioAgentSessionSummary) UnsetBridgeMetadata() {
+	o.BridgeMetadata.Unset()
+}
+
 func (o AudioAgentSessionSummary) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -247,6 +290,9 @@ func (o AudioAgentSessionSummary) ToMap() (map[string]interface{}, error) {
 	}
 	if o.PhoneNumberId.IsSet() {
 		toSerialize["phone_number_id"] = o.PhoneNumberId.Get()
+	}
+	if o.BridgeMetadata.IsSet() {
+		toSerialize["bridge_metadata"] = o.BridgeMetadata.Get()
 	}
 	return toSerialize, nil
 }

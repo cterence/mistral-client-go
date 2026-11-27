@@ -27,6 +27,7 @@ const (
 	WEBHOOKPROVIDER_LINEAR WebhookProvider = "linear"
 	WEBHOOKPROVIDER_MICROSOFT WebhookProvider = "microsoft"
 	WEBHOOKPROVIDER_ASHBY WebhookProvider = "ashby"
+	WEBHOOKPROVIDER_WHATSAPP WebhookProvider = "whatsapp"
 	WEBHOOKPROVIDER_CUSTOM WebhookProvider = "custom"
 )
 
@@ -39,6 +40,7 @@ var AllowedWebhookProviderEnumValues = []WebhookProvider{
 	"linear",
 	"microsoft",
 	"ashby",
+	"whatsapp",
 	"custom",
 }
 

@@ -22,7 +22,6 @@ var _ MappedNullable = &ResponsesFunctionCallArgumentsDoneEvent{}
 type ResponsesFunctionCallArgumentsDoneEvent struct {
 	Arguments string `json:"arguments"`
 	ItemId string `json:"item_id"`
-	Name string `json:"name"`
 	OutputIndex int32 `json:"output_index"`
 	SequenceNumber int32 `json:"sequence_number"`
 	Type string `json:"type"`
@@ -35,11 +34,10 @@ type _ResponsesFunctionCallArgumentsDoneEvent ResponsesFunctionCallArgumentsDone
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewResponsesFunctionCallArgumentsDoneEvent(arguments string, itemId string, name string, outputIndex int32, sequenceNumber int32, type_ string) *ResponsesFunctionCallArgumentsDoneEvent {
+func NewResponsesFunctionCallArgumentsDoneEvent(arguments string, itemId string, outputIndex int32, sequenceNumber int32, type_ string) *ResponsesFunctionCallArgumentsDoneEvent {
 	this := ResponsesFunctionCallArgumentsDoneEvent{}
 	this.Arguments = arguments
 	this.ItemId = itemId
-	this.Name = name
 	this.OutputIndex = outputIndex
 	this.SequenceNumber = sequenceNumber
 	this.Type = type_
@@ -100,30 +98,6 @@ func (o *ResponsesFunctionCallArgumentsDoneEvent) GetItemIdOk() (*string, bool) 
 // SetItemId sets field value
 func (o *ResponsesFunctionCallArgumentsDoneEvent) SetItemId(v string) {
 	o.ItemId = v
-}
-
-// GetName returns the Name field value
-func (o *ResponsesFunctionCallArgumentsDoneEvent) GetName() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.Name
-}
-
-// GetNameOk returns a tuple with the Name field value
-// and a boolean to check if the value has been set.
-func (o *ResponsesFunctionCallArgumentsDoneEvent) GetNameOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Name, true
-}
-
-// SetName sets field value
-func (o *ResponsesFunctionCallArgumentsDoneEvent) SetName(v string) {
-	o.Name = v
 }
 
 // GetOutputIndex returns the OutputIndex field value
@@ -210,7 +184,6 @@ func (o ResponsesFunctionCallArgumentsDoneEvent) ToMap() (map[string]interface{}
 	toSerialize := map[string]interface{}{}
 	toSerialize["arguments"] = o.Arguments
 	toSerialize["item_id"] = o.ItemId
-	toSerialize["name"] = o.Name
 	toSerialize["output_index"] = o.OutputIndex
 	toSerialize["sequence_number"] = o.SequenceNumber
 	toSerialize["type"] = o.Type
@@ -229,7 +202,6 @@ func (o *ResponsesFunctionCallArgumentsDoneEvent) UnmarshalJSON(data []byte) (er
 	requiredProperties := []string{
 		"arguments",
 		"item_id",
-		"name",
 		"output_index",
 		"sequence_number",
 		"type",
@@ -264,7 +236,6 @@ func (o *ResponsesFunctionCallArgumentsDoneEvent) UnmarshalJSON(data []byte) (er
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "arguments")
 		delete(additionalProperties, "item_id")
-		delete(additionalProperties, "name")
 		delete(additionalProperties, "output_index")
 		delete(additionalProperties, "sequence_number")
 		delete(additionalProperties, "type")

@@ -894,6 +894,7 @@ type ApiGetWorkflowRegistrationsV1WorkflowsRegistrationsGetRequest struct {
 	archived *bool
 	withWorkflow *bool
 	availableInChatAssistant *bool
+	excludeTags *[]string
 	limit *int32
 	cursor *string
 }
@@ -949,6 +950,12 @@ func (r ApiGetWorkflowRegistrationsV1WorkflowsRegistrationsGetRequest) WithWorkf
 // Whether to only return workflows available in chat assistant
 func (r ApiGetWorkflowRegistrationsV1WorkflowsRegistrationsGetRequest) AvailableInChatAssistant(availableInChatAssistant bool) ApiGetWorkflowRegistrationsV1WorkflowsRegistrationsGetRequest {
 	r.availableInChatAssistant = &availableInChatAssistant
+	return r
+}
+
+// Exclude registrations of workflows tagged with any of the listed tags.
+func (r ApiGetWorkflowRegistrationsV1WorkflowsRegistrationsGetRequest) ExcludeTags(excludeTags []string) ApiGetWorkflowRegistrationsV1WorkflowsRegistrationsGetRequest {
+	r.excludeTags = &excludeTags
 	return r
 }
 
@@ -1042,6 +1049,17 @@ func (a *WorkflowsAPIService) GetWorkflowRegistrationsV1WorkflowsRegistrationsGe
 	}
 	if r.availableInChatAssistant != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "available_in_chat_assistant", r.availableInChatAssistant, "form", "")
+	}
+	if r.excludeTags != nil {
+		t := *r.excludeTags
+		if reflect.TypeOf(t).Kind() == reflect.Slice {
+			s := reflect.ValueOf(t)
+			for i := 0; i < s.Len(); i++ {
+				parameterAddToHeaderOrQuery(localVarQueryParams, "exclude_tags", s.Index(i).Interface(), "form", "multi")
+			}
+		} else {
+			parameterAddToHeaderOrQuery(localVarQueryParams, "exclude_tags", t, "form", "multi")
+		}
 	}
 	if r.limit != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "form", "")
@@ -1240,6 +1258,7 @@ type ApiGetWorkflowsV1WorkflowsGetRequest struct {
 	deploymentStatus *string
 	archived *bool
 	tags *[]string
+	excludeTags *[]string
 	sortBy *string
 	order *string
 	cursor *string
@@ -1287,6 +1306,12 @@ func (r ApiGetWorkflowsV1WorkflowsGetRequest) Archived(archived bool) ApiGetWork
 // Filter to workflows tagged with all listed tags (AND).
 func (r ApiGetWorkflowsV1WorkflowsGetRequest) Tags(tags []string) ApiGetWorkflowsV1WorkflowsGetRequest {
 	r.tags = &tags
+	return r
+}
+
+// Exclude workflows tagged with any of the listed tags.
+func (r ApiGetWorkflowsV1WorkflowsGetRequest) ExcludeTags(excludeTags []string) ApiGetWorkflowsV1WorkflowsGetRequest {
+	r.excludeTags = &excludeTags
 	return r
 }
 
@@ -1406,6 +1431,17 @@ func (a *WorkflowsAPIService) GetWorkflowsV1WorkflowsGetExecute(r ApiGetWorkflow
 			}
 		} else {
 			parameterAddToHeaderOrQuery(localVarQueryParams, "tags", t, "form", "multi")
+		}
+	}
+	if r.excludeTags != nil {
+		t := *r.excludeTags
+		if reflect.TypeOf(t).Kind() == reflect.Slice {
+			s := reflect.ValueOf(t)
+			for i := 0; i < s.Len(); i++ {
+				parameterAddToHeaderOrQuery(localVarQueryParams, "exclude_tags", s.Index(i).Interface(), "form", "multi")
+			}
+		} else {
+			parameterAddToHeaderOrQuery(localVarQueryParams, "exclude_tags", t, "form", "multi")
 		}
 	}
 	if r.sortBy != nil {

@@ -114,6 +114,20 @@ func Test_mistral_BetaAdminUsersAPIService(t *testing.T) {
 
 	})
 
+	t.Run("Test BetaAdminUsersAPIService UsersApiAdminUsersGetUserWorkspaces", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		var userId string
+
+		resp, httpRes, err := apiClient.BetaAdminUsersAPI.UsersApiAdminUsersGetUserWorkspaces(context.Background(), userId).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
 	t.Run("Test BetaAdminUsersAPIService UsersApiAdminUsersGetUsers", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
@@ -131,6 +145,20 @@ func Test_mistral_BetaAdminUsersAPIService(t *testing.T) {
 		t.Skip("skip test")  // remove to run test
 
 		resp, httpRes, err := apiClient.BetaAdminUsersAPI.UsersApiAdminUsersInviteUsers(context.Background()).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
+	t.Run("Test BetaAdminUsersAPIService UsersApiAdminUsersReactivateUser", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		var userId string
+
+		resp, httpRes, err := apiClient.BetaAdminUsersAPI.UsersApiAdminUsersReactivateUser(context.Background(), userId).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)

@@ -357,3 +357,132 @@ func (a *AudioSessionsAPIService) GetSessionV1AudioSessionsSessionIdGetExecute(r
 
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
+
+type ApiUpdateSessionV1AudioSessionsSessionIdPatchRequest struct {
+	ctx context.Context
+	ApiService *AudioSessionsAPIService
+	sessionId string
+	audioSessionUpdateRequest *AudioSessionUpdateRequest
+}
+
+func (r ApiUpdateSessionV1AudioSessionsSessionIdPatchRequest) AudioSessionUpdateRequest(audioSessionUpdateRequest AudioSessionUpdateRequest) ApiUpdateSessionV1AudioSessionsSessionIdPatchRequest {
+	r.audioSessionUpdateRequest = &audioSessionUpdateRequest
+	return r
+}
+
+func (r ApiUpdateSessionV1AudioSessionsSessionIdPatchRequest) Execute() (*AudioSessionUpdateResponse, *http.Response, error) {
+	return r.ApiService.UpdateSessionV1AudioSessionsSessionIdPatchExecute(r)
+}
+
+/*
+UpdateSessionV1AudioSessionsSessionIdPatch Update a live agent session
+
+Update the instructions, tools or turn handling of a live session.
+
+The agent applies the update at its next turn boundary, so it is not yet
+applied when this returns.
+The agent's `session_updated` and `session_update_failed` webhooks report
+the outcome to your server.
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param sessionId
+ @return ApiUpdateSessionV1AudioSessionsSessionIdPatchRequest
+*/
+func (a *AudioSessionsAPIService) UpdateSessionV1AudioSessionsSessionIdPatch(ctx context.Context, sessionId string) ApiUpdateSessionV1AudioSessionsSessionIdPatchRequest {
+	return ApiUpdateSessionV1AudioSessionsSessionIdPatchRequest{
+		ApiService: a,
+		ctx: ctx,
+		sessionId: sessionId,
+	}
+}
+
+// Execute executes the request
+//  @return AudioSessionUpdateResponse
+func (a *AudioSessionsAPIService) UpdateSessionV1AudioSessionsSessionIdPatchExecute(r ApiUpdateSessionV1AudioSessionsSessionIdPatchRequest) (*AudioSessionUpdateResponse, *http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodPatch
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *AudioSessionUpdateResponse
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AudioSessionsAPIService.UpdateSessionV1AudioSessionsSessionIdPatch")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/audio/sessions/{session_id}"
+	localVarPath = strings.Replace(localVarPath, "{"+"session_id"+"}", url.PathEscape(parameterValueToString(r.sessionId, "sessionId")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.audioSessionUpdateRequest == nil {
+		return localVarReturnValue, nil, reportError("audioSessionUpdateRequest is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.audioSessionUpdateRequest
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 422 {
+			var v HTTPValidationError
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}

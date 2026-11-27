@@ -25,6 +25,8 @@ type PipelineResult struct {
 	TraceId string `json:"trace_id" validate:"regexp=^[0-9a-f]{32}$"`
 	SpanId string `json:"span_id" validate:"regexp=^[0-9a-f]{16}$"`
 	SpanName string `json:"span_name"`
+	OperationName string `json:"operation_name"`
+	ToolName string `json:"tool_name"`
 	DurationNs int32 `json:"duration_ns"`
 	EvaluatedAt time.Time `json:"evaluated_at"`
 	JudgeScores map[string]float32 `json:"judge_scores"`
@@ -38,11 +40,13 @@ type _PipelineResult PipelineResult
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewPipelineResult(traceId string, spanId string, spanName string, durationNs int32, evaluatedAt time.Time, judgeScores map[string]float32, judgeLabels map[string]string, judgeExplanations map[string]string) *PipelineResult {
+func NewPipelineResult(traceId string, spanId string, spanName string, operationName string, toolName string, durationNs int32, evaluatedAt time.Time, judgeScores map[string]float32, judgeLabels map[string]string, judgeExplanations map[string]string) *PipelineResult {
 	this := PipelineResult{}
 	this.TraceId = traceId
 	this.SpanId = spanId
 	this.SpanName = spanName
+	this.OperationName = operationName
+	this.ToolName = toolName
 	this.DurationNs = durationNs
 	this.EvaluatedAt = evaluatedAt
 	this.JudgeScores = judgeScores
@@ -129,6 +133,54 @@ func (o *PipelineResult) GetSpanNameOk() (*string, bool) {
 // SetSpanName sets field value
 func (o *PipelineResult) SetSpanName(v string) {
 	o.SpanName = v
+}
+
+// GetOperationName returns the OperationName field value
+func (o *PipelineResult) GetOperationName() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.OperationName
+}
+
+// GetOperationNameOk returns a tuple with the OperationName field value
+// and a boolean to check if the value has been set.
+func (o *PipelineResult) GetOperationNameOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.OperationName, true
+}
+
+// SetOperationName sets field value
+func (o *PipelineResult) SetOperationName(v string) {
+	o.OperationName = v
+}
+
+// GetToolName returns the ToolName field value
+func (o *PipelineResult) GetToolName() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.ToolName
+}
+
+// GetToolNameOk returns a tuple with the ToolName field value
+// and a boolean to check if the value has been set.
+func (o *PipelineResult) GetToolNameOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.ToolName, true
+}
+
+// SetToolName sets field value
+func (o *PipelineResult) SetToolName(v string) {
+	o.ToolName = v
 }
 
 // GetDurationNs returns the DurationNs field value
@@ -264,6 +316,8 @@ func (o PipelineResult) ToMap() (map[string]interface{}, error) {
 	toSerialize["trace_id"] = o.TraceId
 	toSerialize["span_id"] = o.SpanId
 	toSerialize["span_name"] = o.SpanName
+	toSerialize["operation_name"] = o.OperationName
+	toSerialize["tool_name"] = o.ToolName
 	toSerialize["duration_ns"] = o.DurationNs
 	toSerialize["evaluated_at"] = o.EvaluatedAt
 	toSerialize["judge_scores"] = o.JudgeScores
@@ -280,6 +334,8 @@ func (o *PipelineResult) UnmarshalJSON(data []byte) (err error) {
 		"trace_id",
 		"span_id",
 		"span_name",
+		"operation_name",
+		"tool_name",
 		"duration_ns",
 		"evaluated_at",
 		"judge_scores",

@@ -15,67 +15,63 @@ import (
 	"fmt"
 )
 
-// Roles the model 'Roles'
-type Roles string
 
-// List of Roles
-const (
-	ROLES_SYSTEM Roles = "system"
-	ROLES_USER Roles = "user"
-	ROLES_ASSISTANT Roles = "assistant"
-	ROLES_TOOL Roles = "tool"
-)
-
-// All allowed values of Roles enum
-var AllowedRolesEnumValues = []Roles{
-	"system",
-	"user",
-	"assistant",
-	"tool",
+// Roles Role values to assign. Mutually exclusive with 'role_names'.
+type Roles struct {
+	ArrayOfStaticOrganizationRoles *[]StaticOrganizationRoles
+	ArrayOfUserRole *[]UserRole
 }
 
-func (v *Roles) UnmarshalJSON(src []byte) error {
-	var value string
-	err := json.Unmarshal(src, &value)
-	if err != nil {
-		return err
+// Unmarshal JSON data into any of the pointers in the struct
+func (dst *Roles) UnmarshalJSON(data []byte) error {
+	var err error
+	// this object is nullable so check if the payload is null or empty string
+	if string(data) == "" || string(data) == "{}" {
+		return nil
 	}
-	enumTypeValue := Roles(value)
-	for _, existing := range AllowedRolesEnumValues {
-		if existing == enumTypeValue {
-			*v = enumTypeValue
-			return nil
+
+	// try to unmarshal JSON data into ArrayOfStaticOrganizationRoles
+	err = json.Unmarshal(data, &dst.ArrayOfStaticOrganizationRoles);
+	if err == nil {
+		jsonArrayOfStaticOrganizationRoles, _ := json.Marshal(dst.ArrayOfStaticOrganizationRoles)
+		if string(jsonArrayOfStaticOrganizationRoles) == "{}" { // empty struct
+			dst.ArrayOfStaticOrganizationRoles = nil
+		} else {
+			return nil // data stored in dst.ArrayOfStaticOrganizationRoles, return on the first match
 		}
-	}
-
-	return fmt.Errorf("%+v is not a valid Roles", value)
-}
-
-// NewRolesFromValue returns a pointer to a valid Roles
-// for the value passed as argument, or an error if the value passed is not allowed by the enum
-func NewRolesFromValue(v string) (*Roles, error) {
-	ev := Roles(v)
-	if ev.IsValid() {
-		return &ev, nil
 	} else {
-		return nil, fmt.Errorf("invalid value '%v' for Roles: valid values are %v", v, AllowedRolesEnumValues)
+		dst.ArrayOfStaticOrganizationRoles = nil
 	}
-}
 
-// IsValid return true if the value is valid for the enum, false otherwise
-func (v Roles) IsValid() bool {
-	for _, existing := range AllowedRolesEnumValues {
-		if existing == v {
-			return true
+	// try to unmarshal JSON data into ArrayOfUserRole
+	err = json.Unmarshal(data, &dst.ArrayOfUserRole);
+	if err == nil {
+		jsonArrayOfUserRole, _ := json.Marshal(dst.ArrayOfUserRole)
+		if string(jsonArrayOfUserRole) == "{}" { // empty struct
+			dst.ArrayOfUserRole = nil
+		} else {
+			return nil // data stored in dst.ArrayOfUserRole, return on the first match
 		}
+	} else {
+		dst.ArrayOfUserRole = nil
 	}
-	return false
+
+	return fmt.Errorf("data failed to match schemas in anyOf(Roles)")
 }
 
-// Ptr returns reference to Roles value
-func (v Roles) Ptr() *Roles {
-	return &v
+// Marshal data from the first non-nil pointers in the struct to JSON
+func (src Roles) MarshalJSON() ([]byte, error) {
+	if src.ArrayOfStaticOrganizationRoles != nil {
+		return json.Marshal(&src.ArrayOfStaticOrganizationRoles)
+	}
+
+	if src.ArrayOfUserRole != nil {
+		return json.Marshal(&src.ArrayOfUserRole)
+	}
+
+	return nil, nil // no data in anyOf schemas
 }
+
 
 type NullableRoles struct {
 	value *Roles
@@ -112,4 +108,5 @@ func (v *NullableRoles) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
 

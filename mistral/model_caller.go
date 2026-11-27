@@ -18,8 +18,8 @@ import (
 
 // Caller struct for Caller
 type Caller struct {
-	ResponsesFunctionCallOutputCallerDirect *ResponsesFunctionCallOutputCallerDirect
-	ResponsesFunctionCallOutputCallerProgram *ResponsesFunctionCallOutputCallerProgram
+	ResponsesCallerDirect *ResponsesCallerDirect
+	ResponsesCallerProgram *ResponsesCallerProgram
 }
 
 // Unmarshal JSON data into any of the pointers in the struct
@@ -30,30 +30,30 @@ func (dst *Caller) UnmarshalJSON(data []byte) error {
 		return nil
 	}
 
-	// try to unmarshal JSON data into ResponsesFunctionCallOutputCallerDirect
-	err = json.Unmarshal(data, &dst.ResponsesFunctionCallOutputCallerDirect);
+	// try to unmarshal JSON data into ResponsesCallerDirect
+	err = json.Unmarshal(data, &dst.ResponsesCallerDirect);
 	if err == nil {
-		jsonResponsesFunctionCallOutputCallerDirect, _ := json.Marshal(dst.ResponsesFunctionCallOutputCallerDirect)
-		if string(jsonResponsesFunctionCallOutputCallerDirect) == "{}" { // empty struct
-			dst.ResponsesFunctionCallOutputCallerDirect = nil
+		jsonResponsesCallerDirect, _ := json.Marshal(dst.ResponsesCallerDirect)
+		if string(jsonResponsesCallerDirect) == "{}" { // empty struct
+			dst.ResponsesCallerDirect = nil
 		} else {
-			return nil // data stored in dst.ResponsesFunctionCallOutputCallerDirect, return on the first match
+			return nil // data stored in dst.ResponsesCallerDirect, return on the first match
 		}
 	} else {
-		dst.ResponsesFunctionCallOutputCallerDirect = nil
+		dst.ResponsesCallerDirect = nil
 	}
 
-	// try to unmarshal JSON data into ResponsesFunctionCallOutputCallerProgram
-	err = json.Unmarshal(data, &dst.ResponsesFunctionCallOutputCallerProgram);
+	// try to unmarshal JSON data into ResponsesCallerProgram
+	err = json.Unmarshal(data, &dst.ResponsesCallerProgram);
 	if err == nil {
-		jsonResponsesFunctionCallOutputCallerProgram, _ := json.Marshal(dst.ResponsesFunctionCallOutputCallerProgram)
-		if string(jsonResponsesFunctionCallOutputCallerProgram) == "{}" { // empty struct
-			dst.ResponsesFunctionCallOutputCallerProgram = nil
+		jsonResponsesCallerProgram, _ := json.Marshal(dst.ResponsesCallerProgram)
+		if string(jsonResponsesCallerProgram) == "{}" { // empty struct
+			dst.ResponsesCallerProgram = nil
 		} else {
-			return nil // data stored in dst.ResponsesFunctionCallOutputCallerProgram, return on the first match
+			return nil // data stored in dst.ResponsesCallerProgram, return on the first match
 		}
 	} else {
-		dst.ResponsesFunctionCallOutputCallerProgram = nil
+		dst.ResponsesCallerProgram = nil
 	}
 
 	return fmt.Errorf("data failed to match schemas in anyOf(Caller)")
@@ -61,12 +61,12 @@ func (dst *Caller) UnmarshalJSON(data []byte) error {
 
 // Marshal data from the first non-nil pointers in the struct to JSON
 func (src Caller) MarshalJSON() ([]byte, error) {
-	if src.ResponsesFunctionCallOutputCallerDirect != nil {
-		return json.Marshal(&src.ResponsesFunctionCallOutputCallerDirect)
+	if src.ResponsesCallerDirect != nil {
+		return json.Marshal(&src.ResponsesCallerDirect)
 	}
 
-	if src.ResponsesFunctionCallOutputCallerProgram != nil {
-		return json.Marshal(&src.ResponsesFunctionCallOutputCallerProgram)
+	if src.ResponsesCallerProgram != nil {
+		return json.Marshal(&src.ResponsesCallerProgram)
 	}
 
 	return nil, nil // no data in anyOf schemas

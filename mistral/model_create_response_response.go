@@ -28,7 +28,7 @@ type CreateResponseResponse struct {
 	Metadata map[string]string `json:"metadata,omitempty"`
 	Model string `json:"model"`
 	Object string `json:"object"`
-	Output []Output1Inner `json:"output"`
+	Output []OutputInner `json:"output"`
 	ParallelToolCalls bool `json:"parallel_tool_calls"`
 	Temperature NullableFloat32 `json:"temperature,omitempty"`
 	ToolChoice ToolChoice `json:"tool_choice"`
@@ -59,7 +59,7 @@ type _CreateResponseResponse CreateResponseResponse
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCreateResponseResponse(id string, createdAt float32, model string, object string, output []Output1Inner, parallelToolCalls bool, toolChoice ToolChoice, tools []ToolsInner) *CreateResponseResponse {
+func NewCreateResponseResponse(id string, createdAt float32, model string, object string, output []OutputInner, parallelToolCalls bool, toolChoice ToolChoice, tools []ToolsInner) *CreateResponseResponse {
 	this := CreateResponseResponse{}
 	this.Id = id
 	this.CreatedAt = createdAt
@@ -336,9 +336,9 @@ func (o *CreateResponseResponse) SetObject(v string) {
 }
 
 // GetOutput returns the Output field value
-func (o *CreateResponseResponse) GetOutput() []Output1Inner {
+func (o *CreateResponseResponse) GetOutput() []OutputInner {
 	if o == nil {
-		var ret []Output1Inner
+		var ret []OutputInner
 		return ret
 	}
 
@@ -347,7 +347,7 @@ func (o *CreateResponseResponse) GetOutput() []Output1Inner {
 
 // GetOutputOk returns a tuple with the Output field value
 // and a boolean to check if the value has been set.
-func (o *CreateResponseResponse) GetOutputOk() ([]Output1Inner, bool) {
+func (o *CreateResponseResponse) GetOutputOk() ([]OutputInner, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -355,7 +355,7 @@ func (o *CreateResponseResponse) GetOutputOk() ([]Output1Inner, bool) {
 }
 
 // SetOutput sets field value
-func (o *CreateResponseResponse) SetOutput(v []Output1Inner) {
+func (o *CreateResponseResponse) SetOutput(v []OutputInner) {
 	o.Output = v
 }
 

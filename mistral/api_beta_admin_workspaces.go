@@ -27,11 +27,11 @@ type ApiUsersApiAdminWorkspacesAddOrUpdateUsersWorkspacesRequest struct {
 	ctx context.Context
 	ApiService *BetaAdminWorkspacesAPIService
 	workspaceUuid string
-	adminWorkspaceMemberIN *AdminWorkspaceMemberIN
+	adminWorkspaceMemberUpsertIN *AdminWorkspaceMemberUpsertIN
 }
 
-func (r ApiUsersApiAdminWorkspacesAddOrUpdateUsersWorkspacesRequest) AdminWorkspaceMemberIN(adminWorkspaceMemberIN AdminWorkspaceMemberIN) ApiUsersApiAdminWorkspacesAddOrUpdateUsersWorkspacesRequest {
-	r.adminWorkspaceMemberIN = &adminWorkspaceMemberIN
+func (r ApiUsersApiAdminWorkspacesAddOrUpdateUsersWorkspacesRequest) AdminWorkspaceMemberUpsertIN(adminWorkspaceMemberUpsertIN AdminWorkspaceMemberUpsertIN) ApiUsersApiAdminWorkspacesAddOrUpdateUsersWorkspacesRequest {
+	r.adminWorkspaceMemberUpsertIN = &adminWorkspaceMemberUpsertIN
 	return r
 }
 
@@ -43,6 +43,10 @@ func (r ApiUsersApiAdminWorkspacesAddOrUpdateUsersWorkspacesRequest) Execute() (
 UsersApiAdminWorkspacesAddOrUpdateUsersWorkspaces Add Or Update Users Workspaces
 
 Add or update Workspace members.
+
+For each member, either set its roles with `roles` or `role_names`, which replaces all the roles it has in
+the Workspace, or change them with `add_roles`/`add_role_names` and `remove_roles`/`remove_role_names`,
+which keeps its other roles. Users who are not yet members are added with the given roles.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param workspaceUuid Workspace ID.
@@ -77,8 +81,8 @@ func (a *BetaAdminWorkspacesAPIService) UsersApiAdminWorkspacesAddOrUpdateUsersW
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.adminWorkspaceMemberIN == nil {
-		return localVarReturnValue, nil, reportError("adminWorkspaceMemberIN is required and must be specified")
+	if r.adminWorkspaceMemberUpsertIN == nil {
+		return localVarReturnValue, nil, reportError("adminWorkspaceMemberUpsertIN is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -99,7 +103,7 @@ func (a *BetaAdminWorkspacesAPIService) UsersApiAdminWorkspacesAddOrUpdateUsersW
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.adminWorkspaceMemberIN
+	localVarPostBody = r.adminWorkspaceMemberUpsertIN
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -549,6 +553,151 @@ func (a *BetaAdminWorkspacesAPIService) UsersApiAdminWorkspacesGetWorkspacesExec
 	}
 	if r.search != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "search", r.search, "form", "")
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiUsersApiAdminWorkspacesListWorkspaceUsersRequest struct {
+	ctx context.Context
+	ApiService *BetaAdminWorkspacesAPIService
+	workspaceUuid string
+	page *int32
+	pageSize *int32
+	includeInactive *bool
+}
+
+// Page number to return.
+func (r ApiUsersApiAdminWorkspacesListWorkspaceUsersRequest) Page(page int32) ApiUsersApiAdminWorkspacesListWorkspaceUsersRequest {
+	r.page = &page
+	return r
+}
+
+// Maximum number of results per page.
+func (r ApiUsersApiAdminWorkspacesListWorkspaceUsersRequest) PageSize(pageSize int32) ApiUsersApiAdminWorkspacesListWorkspaceUsersRequest {
+	r.pageSize = &pageSize
+	return r
+}
+
+// Whether to include deactivated and blocked members.
+func (r ApiUsersApiAdminWorkspacesListWorkspaceUsersRequest) IncludeInactive(includeInactive bool) ApiUsersApiAdminWorkspacesListWorkspaceUsersRequest {
+	r.includeInactive = &includeInactive
+	return r
+}
+
+func (r ApiUsersApiAdminWorkspacesListWorkspaceUsersRequest) Execute() (*AdminWorkspaceUsersOUT, *http.Response, error) {
+	return r.ApiService.UsersApiAdminWorkspacesListWorkspaceUsersExecute(r)
+}
+
+/*
+UsersApiAdminWorkspacesListWorkspaceUsers List Workspace Users
+
+List the members of a Workspace, direct or through a group, with their roles.
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param workspaceUuid Workspace ID.
+ @return ApiUsersApiAdminWorkspacesListWorkspaceUsersRequest
+*/
+func (a *BetaAdminWorkspacesAPIService) UsersApiAdminWorkspacesListWorkspaceUsers(ctx context.Context, workspaceUuid string) ApiUsersApiAdminWorkspacesListWorkspaceUsersRequest {
+	return ApiUsersApiAdminWorkspacesListWorkspaceUsersRequest{
+		ApiService: a,
+		ctx: ctx,
+		workspaceUuid: workspaceUuid,
+	}
+}
+
+// Execute executes the request
+//  @return AdminWorkspaceUsersOUT
+func (a *BetaAdminWorkspacesAPIService) UsersApiAdminWorkspacesListWorkspaceUsersExecute(r ApiUsersApiAdminWorkspacesListWorkspaceUsersRequest) (*AdminWorkspaceUsersOUT, *http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *AdminWorkspaceUsersOUT
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BetaAdminWorkspacesAPIService.UsersApiAdminWorkspacesListWorkspaceUsers")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/admin/workspaces/{workspace_uuid}/users"
+	localVarPath = strings.Replace(localVarPath, "{"+"workspace_uuid"+"}", url.PathEscape(parameterValueToString(r.workspaceUuid, "workspaceUuid")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	if r.page != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "page", r.page, "form", "")
+	} else {
+		var defaultValue int32 = 1
+		parameterAddToHeaderOrQuery(localVarQueryParams, "page", defaultValue, "form", "")
+		r.page = &defaultValue
+	}
+	if r.pageSize != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "page_size", r.pageSize, "form", "")
+	} else {
+		var defaultValue int32 = 25
+		parameterAddToHeaderOrQuery(localVarQueryParams, "page_size", defaultValue, "form", "")
+		r.pageSize = &defaultValue
+	}
+	if r.includeInactive != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "include_inactive", r.includeInactive, "form", "")
+	} else {
+		var defaultValue bool = false
+		parameterAddToHeaderOrQuery(localVarQueryParams, "include_inactive", defaultValue, "form", "")
+		r.includeInactive = &defaultValue
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}

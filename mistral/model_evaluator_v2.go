@@ -37,6 +37,9 @@ type EvaluatorV2 struct {
 	Direction NullableString `json:"direction,omitempty"`
 	MinValue NullableFloat32 `json:"min_value,omitempty"`
 	MaxValue NullableFloat32 `json:"max_value,omitempty"`
+	Display []DisplaySpec `json:"display,omitempty"`
+	Goals []GoalSpec `json:"goals,omitempty"`
+	MetricDirections []MetricDirectionSpec `json:"metric_directions,omitempty"`
 }
 
 type _EvaluatorV2 EvaluatorV2
@@ -541,6 +544,105 @@ func (o *EvaluatorV2) UnsetMaxValue() {
 	o.MaxValue.Unset()
 }
 
+// GetDisplay returns the Display field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *EvaluatorV2) GetDisplay() []DisplaySpec {
+	if o == nil {
+		var ret []DisplaySpec
+		return ret
+	}
+	return o.Display
+}
+
+// GetDisplayOk returns a tuple with the Display field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *EvaluatorV2) GetDisplayOk() ([]DisplaySpec, bool) {
+	if o == nil || IsNil(o.Display) {
+		return nil, false
+	}
+	return o.Display, true
+}
+
+// HasDisplay returns a boolean if a field has been set.
+func (o *EvaluatorV2) HasDisplay() bool {
+	if o != nil && !IsNil(o.Display) {
+		return true
+	}
+
+	return false
+}
+
+// SetDisplay gets a reference to the given []DisplaySpec and assigns it to the Display field.
+func (o *EvaluatorV2) SetDisplay(v []DisplaySpec) {
+	o.Display = v
+}
+
+// GetGoals returns the Goals field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *EvaluatorV2) GetGoals() []GoalSpec {
+	if o == nil {
+		var ret []GoalSpec
+		return ret
+	}
+	return o.Goals
+}
+
+// GetGoalsOk returns a tuple with the Goals field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *EvaluatorV2) GetGoalsOk() ([]GoalSpec, bool) {
+	if o == nil || IsNil(o.Goals) {
+		return nil, false
+	}
+	return o.Goals, true
+}
+
+// HasGoals returns a boolean if a field has been set.
+func (o *EvaluatorV2) HasGoals() bool {
+	if o != nil && !IsNil(o.Goals) {
+		return true
+	}
+
+	return false
+}
+
+// SetGoals gets a reference to the given []GoalSpec and assigns it to the Goals field.
+func (o *EvaluatorV2) SetGoals(v []GoalSpec) {
+	o.Goals = v
+}
+
+// GetMetricDirections returns the MetricDirections field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *EvaluatorV2) GetMetricDirections() []MetricDirectionSpec {
+	if o == nil {
+		var ret []MetricDirectionSpec
+		return ret
+	}
+	return o.MetricDirections
+}
+
+// GetMetricDirectionsOk returns a tuple with the MetricDirections field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *EvaluatorV2) GetMetricDirectionsOk() ([]MetricDirectionSpec, bool) {
+	if o == nil || IsNil(o.MetricDirections) {
+		return nil, false
+	}
+	return o.MetricDirections, true
+}
+
+// HasMetricDirections returns a boolean if a field has been set.
+func (o *EvaluatorV2) HasMetricDirections() bool {
+	if o != nil && !IsNil(o.MetricDirections) {
+		return true
+	}
+
+	return false
+}
+
+// SetMetricDirections gets a reference to the given []MetricDirectionSpec and assigns it to the MetricDirections field.
+func (o *EvaluatorV2) SetMetricDirections(v []MetricDirectionSpec) {
+	o.MetricDirections = v
+}
+
 func (o EvaluatorV2) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -579,6 +681,15 @@ func (o EvaluatorV2) ToMap() (map[string]interface{}, error) {
 	}
 	if o.MaxValue.IsSet() {
 		toSerialize["max_value"] = o.MaxValue.Get()
+	}
+	if o.Display != nil {
+		toSerialize["display"] = o.Display
+	}
+	if o.Goals != nil {
+		toSerialize["goals"] = o.Goals
+	}
+	if o.MetricDirections != nil {
+		toSerialize["metric_directions"] = o.MetricDirections
 	}
 	return toSerialize, nil
 }

@@ -23,7 +23,7 @@ var _ MappedNullable = &TransferCallTool{}
 type TransferCallTool struct {
 	Type *string `json:"type,omitempty"`
 	Destinations []TransferTarget `json:"destinations"`
-	Filler NullableStaticToolFiller `json:"filler,omitempty"`
+	Filler NullableHangUpToolFiller `json:"filler,omitempty"`
 }
 
 type _TransferCallTool TransferCallTool
@@ -107,9 +107,9 @@ func (o *TransferCallTool) SetDestinations(v []TransferTarget) {
 }
 
 // GetFiller returns the Filler field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *TransferCallTool) GetFiller() StaticToolFiller {
+func (o *TransferCallTool) GetFiller() HangUpToolFiller {
 	if o == nil || IsNil(o.Filler.Get()) {
-		var ret StaticToolFiller
+		var ret HangUpToolFiller
 		return ret
 	}
 	return *o.Filler.Get()
@@ -118,7 +118,7 @@ func (o *TransferCallTool) GetFiller() StaticToolFiller {
 // GetFillerOk returns a tuple with the Filler field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *TransferCallTool) GetFillerOk() (*StaticToolFiller, bool) {
+func (o *TransferCallTool) GetFillerOk() (*HangUpToolFiller, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -134,8 +134,8 @@ func (o *TransferCallTool) HasFiller() bool {
 	return false
 }
 
-// SetFiller gets a reference to the given NullableStaticToolFiller and assigns it to the Filler field.
-func (o *TransferCallTool) SetFiller(v StaticToolFiller) {
+// SetFiller gets a reference to the given NullableHangUpToolFiller and assigns it to the Filler field.
+func (o *TransferCallTool) SetFiller(v HangUpToolFiller) {
 	o.Filler.Set(&v)
 }
 // SetFillerNil sets the value for Filler to be an explicit nil

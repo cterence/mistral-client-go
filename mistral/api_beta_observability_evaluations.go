@@ -17,6 +17,7 @@ import (
 	"net/http"
 	"net/url"
 	"strings"
+	"time"
 )
 
 
@@ -834,6 +835,8 @@ type ApiListPipelinesV1ObservabilityPipelinesGetRequest struct {
 	ctx context.Context
 	ApiService *BetaObservabilityEvaluationsAPIService
 	enabled *bool
+	from *time.Time
+	to *time.Time
 	pageSize *int32
 	page *int32
 	q *string
@@ -841,6 +844,16 @@ type ApiListPipelinesV1ObservabilityPipelinesGetRequest struct {
 
 func (r ApiListPipelinesV1ObservabilityPipelinesGetRequest) Enabled(enabled bool) ApiListPipelinesV1ObservabilityPipelinesGetRequest {
 	r.enabled = &enabled
+	return r
+}
+
+func (r ApiListPipelinesV1ObservabilityPipelinesGetRequest) From(from time.Time) ApiListPipelinesV1ObservabilityPipelinesGetRequest {
+	r.from = &from
+	return r
+}
+
+func (r ApiListPipelinesV1ObservabilityPipelinesGetRequest) To(to time.Time) ApiListPipelinesV1ObservabilityPipelinesGetRequest {
+	r.to = &to
 	return r
 }
 
@@ -901,6 +914,12 @@ func (a *BetaObservabilityEvaluationsAPIService) ListPipelinesV1ObservabilityPip
 
 	if r.enabled != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "enabled", r.enabled, "form", "")
+	}
+	if r.from != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "from", r.from, "form", "")
+	}
+	if r.to != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "to", r.to, "form", "")
 	}
 	if r.pageSize != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "page_size", r.pageSize, "form", "")

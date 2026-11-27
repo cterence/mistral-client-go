@@ -385,11 +385,11 @@ func (a *ClassifiersAPIService) ClassificationsV1ClassificationsPostExecute(r Ap
 type ApiModerationsV1ModerationsPostRequest struct {
 	ctx context.Context
 	ApiService *ClassifiersAPIService
-	classificationRequest *ClassificationRequest
+	moderationRequest *ModerationRequest
 }
 
-func (r ApiModerationsV1ModerationsPostRequest) ClassificationRequest(classificationRequest ClassificationRequest) ApiModerationsV1ModerationsPostRequest {
-	r.classificationRequest = &classificationRequest
+func (r ApiModerationsV1ModerationsPostRequest) ModerationRequest(moderationRequest ModerationRequest) ApiModerationsV1ModerationsPostRequest {
+	r.moderationRequest = &moderationRequest
 	return r
 }
 
@@ -432,8 +432,8 @@ func (a *ClassifiersAPIService) ModerationsV1ModerationsPostExecute(r ApiModerat
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.classificationRequest == nil {
-		return localVarReturnValue, nil, reportError("classificationRequest is required and must be specified")
+	if r.moderationRequest == nil {
+		return localVarReturnValue, nil, reportError("moderationRequest is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -454,7 +454,7 @@ func (a *ClassifiersAPIService) ModerationsV1ModerationsPostExecute(r ApiModerat
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.classificationRequest
+	localVarPostBody = r.moderationRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err

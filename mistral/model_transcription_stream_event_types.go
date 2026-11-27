@@ -24,6 +24,10 @@ const (
 	TRANSCRIPTIONSTREAMEVENTTYPES_TRANSCRIPTION_SEGMENT TranscriptionStreamEventTypes = "transcription.segment"
 	TRANSCRIPTIONSTREAMEVENTTYPES_TRANSCRIPTION_TEXT_DELTA TranscriptionStreamEventTypes = "transcription.text.delta"
 	TRANSCRIPTIONSTREAMEVENTTYPES_TRANSCRIPTION_DONE TranscriptionStreamEventTypes = "transcription.done"
+	TRANSCRIPTIONSTREAMEVENTTYPES_TURN_START TranscriptionStreamEventTypes = "turn.start"
+	TRANSCRIPTIONSTREAMEVENTTYPES_TURN_EAGER_END TranscriptionStreamEventTypes = "turn.eager_end"
+	TRANSCRIPTIONSTREAMEVENTTYPES_TURN_RESUME TranscriptionStreamEventTypes = "turn.resume"
+	TRANSCRIPTIONSTREAMEVENTTYPES_TURN_END TranscriptionStreamEventTypes = "turn.end"
 )
 
 // All allowed values of TranscriptionStreamEventTypes enum
@@ -32,6 +36,10 @@ var AllowedTranscriptionStreamEventTypesEnumValues = []TranscriptionStreamEventT
 	"transcription.segment",
 	"transcription.text.delta",
 	"transcription.done",
+	"turn.start",
+	"turn.eager_end",
+	"turn.resume",
+	"turn.end",
 }
 
 func (v *TranscriptionStreamEventTypes) UnmarshalJSON(src []byte) error {

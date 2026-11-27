@@ -16,7 +16,7 @@ import (
 )
 
 
-// Input1 Chat to classify
+// Input1 Chat to classify.
 type Input1 struct {
 	ArrayOfMessagesInner *[]MessagesInner
 	ArrayOfArrayOfMessagesInner *[][]MessagesInner

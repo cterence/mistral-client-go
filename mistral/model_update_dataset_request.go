@@ -21,6 +21,7 @@ var _ MappedNullable = &UpdateDatasetRequest{}
 type UpdateDatasetRequest struct {
 	Name NullableString `json:"name,omitempty"`
 	Description NullableString `json:"description,omitempty"`
+	Metadata map[string]*interface{} `json:"metadata,omitempty"`
 }
 
 // NewUpdateDatasetRequest instantiates a new UpdateDatasetRequest object
@@ -124,6 +125,39 @@ func (o *UpdateDatasetRequest) UnsetDescription() {
 	o.Description.Unset()
 }
 
+// GetMetadata returns the Metadata field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *UpdateDatasetRequest) GetMetadata() map[string]*interface{} {
+	if o == nil {
+		var ret map[string]*interface{}
+		return ret
+	}
+	return o.Metadata
+}
+
+// GetMetadataOk returns a tuple with the Metadata field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *UpdateDatasetRequest) GetMetadataOk() (map[string]*interface{}, bool) {
+	if o == nil || IsNil(o.Metadata) {
+		return map[string]*interface{}{}, false
+	}
+	return o.Metadata, true
+}
+
+// HasMetadata returns a boolean if a field has been set.
+func (o *UpdateDatasetRequest) HasMetadata() bool {
+	if o != nil && !IsNil(o.Metadata) {
+		return true
+	}
+
+	return false
+}
+
+// SetMetadata gets a reference to the given map[string]*interface{} and assigns it to the Metadata field.
+func (o *UpdateDatasetRequest) SetMetadata(v map[string]*interface{}) {
+	o.Metadata = v
+}
+
 func (o UpdateDatasetRequest) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -139,6 +173,9 @@ func (o UpdateDatasetRequest) ToMap() (map[string]interface{}, error) {
 	}
 	if o.Description.IsSet() {
 		toSerialize["description"] = o.Description.Get()
+	}
+	if o.Metadata != nil {
+		toSerialize["metadata"] = o.Metadata
 	}
 	return toSerialize, nil
 }

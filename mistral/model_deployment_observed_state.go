@@ -28,6 +28,7 @@ type DeploymentObservedState struct {
 	LastSeen NullableTime `json:"last_seen,omitempty"`
 	DeployedRevision NullableString `json:"deployed_revision,omitempty"`
 	Generation NullableInt32 `json:"generation,omitempty"`
+	LastPhaseChangedAt NullableTime `json:"last_phase_changed_at,omitempty"`
 	BuildState NullableDeploymentBuildState `json:"build_state,omitempty"`
 }
 
@@ -372,6 +373,48 @@ func (o *DeploymentObservedState) UnsetGeneration() {
 	o.Generation.Unset()
 }
 
+// GetLastPhaseChangedAt returns the LastPhaseChangedAt field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *DeploymentObservedState) GetLastPhaseChangedAt() time.Time {
+	if o == nil || IsNil(o.LastPhaseChangedAt.Get()) {
+		var ret time.Time
+		return ret
+	}
+	return *o.LastPhaseChangedAt.Get()
+}
+
+// GetLastPhaseChangedAtOk returns a tuple with the LastPhaseChangedAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *DeploymentObservedState) GetLastPhaseChangedAtOk() (*time.Time, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.LastPhaseChangedAt.Get(), o.LastPhaseChangedAt.IsSet()
+}
+
+// HasLastPhaseChangedAt returns a boolean if a field has been set.
+func (o *DeploymentObservedState) HasLastPhaseChangedAt() bool {
+	if o != nil && o.LastPhaseChangedAt.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetLastPhaseChangedAt gets a reference to the given NullableTime and assigns it to the LastPhaseChangedAt field.
+func (o *DeploymentObservedState) SetLastPhaseChangedAt(v time.Time) {
+	o.LastPhaseChangedAt.Set(&v)
+}
+// SetLastPhaseChangedAtNil sets the value for LastPhaseChangedAt to be an explicit nil
+func (o *DeploymentObservedState) SetLastPhaseChangedAtNil() {
+	o.LastPhaseChangedAt.Set(nil)
+}
+
+// UnsetLastPhaseChangedAt ensures that no value is present for LastPhaseChangedAt, not even an explicit nil
+func (o *DeploymentObservedState) UnsetLastPhaseChangedAt() {
+	o.LastPhaseChangedAt.Unset()
+}
+
 // GetBuildState returns the BuildState field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *DeploymentObservedState) GetBuildState() DeploymentBuildState {
 	if o == nil || IsNil(o.BuildState.Get()) {
@@ -447,6 +490,9 @@ func (o DeploymentObservedState) ToMap() (map[string]interface{}, error) {
 	}
 	if o.Generation.IsSet() {
 		toSerialize["generation"] = o.Generation.Get()
+	}
+	if o.LastPhaseChangedAt.IsSet() {
+		toSerialize["last_phase_changed_at"] = o.LastPhaseChangedAt.Get()
 	}
 	if o.BuildState.IsSet() {
 		toSerialize["build_state"] = o.BuildState.Get()

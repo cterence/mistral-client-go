@@ -24,6 +24,7 @@ type ScalarStatisticValue struct {
 	Type *string `json:"type,omitempty"`
 	Id string `json:"id"`
 	Value NullableFloat32 `json:"value,omitempty"`
+	SampleCount NullableInt32 `json:"sample_count,omitempty"`
 }
 
 type _ScalarStatisticValue ScalarStatisticValue
@@ -148,6 +149,48 @@ func (o *ScalarStatisticValue) UnsetValue() {
 	o.Value.Unset()
 }
 
+// GetSampleCount returns the SampleCount field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *ScalarStatisticValue) GetSampleCount() int32 {
+	if o == nil || IsNil(o.SampleCount.Get()) {
+		var ret int32
+		return ret
+	}
+	return *o.SampleCount.Get()
+}
+
+// GetSampleCountOk returns a tuple with the SampleCount field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *ScalarStatisticValue) GetSampleCountOk() (*int32, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.SampleCount.Get(), o.SampleCount.IsSet()
+}
+
+// HasSampleCount returns a boolean if a field has been set.
+func (o *ScalarStatisticValue) HasSampleCount() bool {
+	if o != nil && o.SampleCount.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetSampleCount gets a reference to the given NullableInt32 and assigns it to the SampleCount field.
+func (o *ScalarStatisticValue) SetSampleCount(v int32) {
+	o.SampleCount.Set(&v)
+}
+// SetSampleCountNil sets the value for SampleCount to be an explicit nil
+func (o *ScalarStatisticValue) SetSampleCountNil() {
+	o.SampleCount.Set(nil)
+}
+
+// UnsetSampleCount ensures that no value is present for SampleCount, not even an explicit nil
+func (o *ScalarStatisticValue) UnsetSampleCount() {
+	o.SampleCount.Unset()
+}
+
 func (o ScalarStatisticValue) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -164,6 +207,9 @@ func (o ScalarStatisticValue) ToMap() (map[string]interface{}, error) {
 	toSerialize["id"] = o.Id
 	if o.Value.IsSet() {
 		toSerialize["value"] = o.Value.Get()
+	}
+	if o.SampleCount.IsSet() {
+		toSerialize["sample_count"] = o.SampleCount.Get()
 	}
 	return toSerialize, nil
 }

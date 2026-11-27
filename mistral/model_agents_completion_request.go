@@ -46,7 +46,8 @@ type AgentsCompletionRequest struct {
 	TopPromptLogprobs NullableInt32 `json:"top_prompt_logprobs,omitempty"`
 	// Number of completions to return for each request, input tokens are only billed once.
 	N NullableInt32 `json:"n,omitempty"`
-	// Enable users to specify expected results, optimizing response times by leveraging known or predictable content. This approach is especially effective for updating text documents or code files with minimal changes, reducing latency while maintaining high-quality results.
+	// Deprecated: the API accepts this field but ignores it, and it will be removed in a future major version.
+	// Deprecated
 	Prediction *Prediction `json:"prediction,omitempty"`
 	ParallelToolCalls *bool `json:"parallel_tool_calls,omitempty"`
 	ReasoningEffort NullableReasoningEffort `json:"reasoning_effort,omitempty"`
@@ -829,6 +830,7 @@ func (o *AgentsCompletionRequest) UnsetN() {
 }
 
 // GetPrediction returns the Prediction field value if set, zero value otherwise.
+// Deprecated
 func (o *AgentsCompletionRequest) GetPrediction() Prediction {
 	if o == nil || IsNil(o.Prediction) {
 		var ret Prediction
@@ -839,6 +841,7 @@ func (o *AgentsCompletionRequest) GetPrediction() Prediction {
 
 // GetPredictionOk returns a tuple with the Prediction field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// Deprecated
 func (o *AgentsCompletionRequest) GetPredictionOk() (*Prediction, bool) {
 	if o == nil || IsNil(o.Prediction) {
 		return nil, false
@@ -856,6 +859,7 @@ func (o *AgentsCompletionRequest) HasPrediction() bool {
 }
 
 // SetPrediction gets a reference to the given Prediction and assigns it to the Prediction field.
+// Deprecated
 func (o *AgentsCompletionRequest) SetPrediction(v Prediction) {
 	o.Prediction = &v
 }

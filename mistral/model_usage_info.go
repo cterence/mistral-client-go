@@ -25,6 +25,7 @@ type UsageInfo struct {
 	CompletionTokens int32 `json:"completion_tokens"`
 	TotalTokens int32 `json:"total_tokens"`
 	PromptAudioSeconds NullableInt32 `json:"prompt_audio_seconds,omitempty"`
+	PromptTokensDetails NullablePromptTokensDetails `json:"prompt_tokens_details,omitempty"`
 	// The service tier at which the request was processed: standard or priority.
 	ServiceTier NullableString `json:"service_tier,omitempty"`
 }
@@ -171,6 +172,48 @@ func (o *UsageInfo) UnsetPromptAudioSeconds() {
 	o.PromptAudioSeconds.Unset()
 }
 
+// GetPromptTokensDetails returns the PromptTokensDetails field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *UsageInfo) GetPromptTokensDetails() PromptTokensDetails {
+	if o == nil || IsNil(o.PromptTokensDetails.Get()) {
+		var ret PromptTokensDetails
+		return ret
+	}
+	return *o.PromptTokensDetails.Get()
+}
+
+// GetPromptTokensDetailsOk returns a tuple with the PromptTokensDetails field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *UsageInfo) GetPromptTokensDetailsOk() (*PromptTokensDetails, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.PromptTokensDetails.Get(), o.PromptTokensDetails.IsSet()
+}
+
+// HasPromptTokensDetails returns a boolean if a field has been set.
+func (o *UsageInfo) HasPromptTokensDetails() bool {
+	if o != nil && o.PromptTokensDetails.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetPromptTokensDetails gets a reference to the given NullablePromptTokensDetails and assigns it to the PromptTokensDetails field.
+func (o *UsageInfo) SetPromptTokensDetails(v PromptTokensDetails) {
+	o.PromptTokensDetails.Set(&v)
+}
+// SetPromptTokensDetailsNil sets the value for PromptTokensDetails to be an explicit nil
+func (o *UsageInfo) SetPromptTokensDetailsNil() {
+	o.PromptTokensDetails.Set(nil)
+}
+
+// UnsetPromptTokensDetails ensures that no value is present for PromptTokensDetails, not even an explicit nil
+func (o *UsageInfo) UnsetPromptTokensDetails() {
+	o.PromptTokensDetails.Unset()
+}
+
 // GetServiceTier returns the ServiceTier field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *UsageInfo) GetServiceTier() string {
 	if o == nil || IsNil(o.ServiceTier.Get()) {
@@ -228,6 +271,9 @@ func (o UsageInfo) ToMap() (map[string]interface{}, error) {
 	toSerialize["total_tokens"] = o.TotalTokens
 	if o.PromptAudioSeconds.IsSet() {
 		toSerialize["prompt_audio_seconds"] = o.PromptAudioSeconds.Get()
+	}
+	if o.PromptTokensDetails.IsSet() {
+		toSerialize["prompt_tokens_details"] = o.PromptTokensDetails.Get()
 	}
 	if o.ServiceTier.IsSet() {
 		toSerialize["service_tier"] = o.ServiceTier.Get()

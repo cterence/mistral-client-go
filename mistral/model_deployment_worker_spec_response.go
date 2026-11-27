@@ -24,6 +24,8 @@ type DeploymentWorkerSpecResponse struct {
 	// GitHub repository the worker builds from. Empty for a worker built from an archive.
 	GithubUrl string `json:"github_url"`
 	Type *string `json:"type,omitempty"`
+	// Repository the worker builds from, on GitHub or the git server, if any.
+	RepositoryUrl NullableString `json:"repository_url,omitempty"`
 	Revision NullableString `json:"revision,omitempty"`
 	// Archive the worker builds from, if any.
 	ArchiveId NullableString `json:"archive_id,omitempty"`
@@ -112,6 +114,48 @@ func (o *DeploymentWorkerSpecResponse) HasType() bool {
 // SetType gets a reference to the given string and assigns it to the Type field.
 func (o *DeploymentWorkerSpecResponse) SetType(v string) {
 	o.Type = &v
+}
+
+// GetRepositoryUrl returns the RepositoryUrl field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *DeploymentWorkerSpecResponse) GetRepositoryUrl() string {
+	if o == nil || IsNil(o.RepositoryUrl.Get()) {
+		var ret string
+		return ret
+	}
+	return *o.RepositoryUrl.Get()
+}
+
+// GetRepositoryUrlOk returns a tuple with the RepositoryUrl field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *DeploymentWorkerSpecResponse) GetRepositoryUrlOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.RepositoryUrl.Get(), o.RepositoryUrl.IsSet()
+}
+
+// HasRepositoryUrl returns a boolean if a field has been set.
+func (o *DeploymentWorkerSpecResponse) HasRepositoryUrl() bool {
+	if o != nil && o.RepositoryUrl.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetRepositoryUrl gets a reference to the given NullableString and assigns it to the RepositoryUrl field.
+func (o *DeploymentWorkerSpecResponse) SetRepositoryUrl(v string) {
+	o.RepositoryUrl.Set(&v)
+}
+// SetRepositoryUrlNil sets the value for RepositoryUrl to be an explicit nil
+func (o *DeploymentWorkerSpecResponse) SetRepositoryUrlNil() {
+	o.RepositoryUrl.Set(nil)
+}
+
+// UnsetRepositoryUrl ensures that no value is present for RepositoryUrl, not even an explicit nil
+func (o *DeploymentWorkerSpecResponse) UnsetRepositoryUrl() {
+	o.RepositoryUrl.Unset()
 }
 
 // GetRevision returns the Revision field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -352,6 +396,9 @@ func (o DeploymentWorkerSpecResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize["github_url"] = o.GithubUrl
 	if !IsNil(o.Type) {
 		toSerialize["type"] = o.Type
+	}
+	if o.RepositoryUrl.IsSet() {
+		toSerialize["repository_url"] = o.RepositoryUrl.Get()
 	}
 	if o.Revision.IsSet() {
 		toSerialize["revision"] = o.Revision.Get()

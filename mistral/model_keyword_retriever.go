@@ -23,6 +23,7 @@ var _ MappedNullable = &KeywordRetriever{}
 type KeywordRetriever struct {
 	TopK *int32 `json:"top_k,omitempty"`
 	Type *string `json:"type,omitempty"`
+	// The query string from which to match keywords: at most 20 whitespace-separated words.
 	Query string `json:"query"`
 	Operator *string `json:"operator,omitempty"`
 	Filter NullableKeywordRetrieverFilter `json:"filter,omitempty"`

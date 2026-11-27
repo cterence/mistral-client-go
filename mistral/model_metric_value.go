@@ -12,6 +12,7 @@ package mistral
 
 import (
 	"encoding/json"
+	"time"
 	"fmt"
 )
 
@@ -20,6 +21,7 @@ import (
 type MetricValue struct {
 	Float32 *float32
 	Int32 *int32
+	TimeTime *time.Time
 }
 
 // Unmarshal JSON data into any of the pointers in the struct
@@ -56,6 +58,19 @@ func (dst *MetricValue) UnmarshalJSON(data []byte) error {
 		dst.Int32 = nil
 	}
 
+	// try to unmarshal JSON data into TimeTime
+	err = json.Unmarshal(data, &dst.TimeTime);
+	if err == nil {
+		jsonTimeTime, _ := json.Marshal(dst.TimeTime)
+		if string(jsonTimeTime) == "{}" { // empty struct
+			dst.TimeTime = nil
+		} else {
+			return nil // data stored in dst.TimeTime, return on the first match
+		}
+	} else {
+		dst.TimeTime = nil
+	}
+
 	return fmt.Errorf("data failed to match schemas in anyOf(MetricValue)")
 }
 
@@ -67,6 +82,10 @@ func (src MetricValue) MarshalJSON() ([]byte, error) {
 
 	if src.Int32 != nil {
 		return json.Marshal(&src.Int32)
+	}
+
+	if src.TimeTime != nil {
+		return json.Marshal(&src.TimeTime)
 	}
 
 	return nil, nil // no data in anyOf schemas

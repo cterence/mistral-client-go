@@ -19,7 +19,6 @@ import (
 // VoiceAgentEvent - struct for VoiceAgentEvent
 type VoiceAgentEvent struct {
 	VoiceAgentErrorEvent *VoiceAgentErrorEvent
-	VoiceAgentSessionUpdatedEvent *VoiceAgentSessionUpdatedEvent
 	VoiceAgentStateChangedEvent *VoiceAgentStateChangedEvent
 	VoiceAgentToolCallEndedEvent *VoiceAgentToolCallEndedEvent
 	VoiceAgentToolCallStartedEvent *VoiceAgentToolCallStartedEvent
@@ -30,13 +29,6 @@ type VoiceAgentEvent struct {
 func VoiceAgentErrorEventAsVoiceAgentEvent(v *VoiceAgentErrorEvent) VoiceAgentEvent {
 	return VoiceAgentEvent{
 		VoiceAgentErrorEvent: v,
-	}
-}
-
-// VoiceAgentSessionUpdatedEventAsVoiceAgentEvent is a convenience function that returns VoiceAgentSessionUpdatedEvent wrapped in VoiceAgentEvent
-func VoiceAgentSessionUpdatedEventAsVoiceAgentEvent(v *VoiceAgentSessionUpdatedEvent) VoiceAgentEvent {
-	return VoiceAgentEvent{
-		VoiceAgentSessionUpdatedEvent: v,
 	}
 }
 
@@ -88,23 +80,6 @@ func (dst *VoiceAgentEvent) UnmarshalJSON(data []byte) error {
 		}
 	} else {
 		dst.VoiceAgentErrorEvent = nil
-	}
-
-	// try to unmarshal data into VoiceAgentSessionUpdatedEvent
-	err = newStrictDecoder(data).Decode(&dst.VoiceAgentSessionUpdatedEvent)
-	if err == nil {
-		jsonVoiceAgentSessionUpdatedEvent, _ := json.Marshal(dst.VoiceAgentSessionUpdatedEvent)
-		if string(jsonVoiceAgentSessionUpdatedEvent) == "{}" { // empty struct
-			dst.VoiceAgentSessionUpdatedEvent = nil
-		} else {
-			if err = validator.Validate(dst.VoiceAgentSessionUpdatedEvent); err != nil {
-				dst.VoiceAgentSessionUpdatedEvent = nil
-			} else {
-				match++
-			}
-		}
-	} else {
-		dst.VoiceAgentSessionUpdatedEvent = nil
 	}
 
 	// try to unmarshal data into VoiceAgentStateChangedEvent
@@ -178,7 +153,6 @@ func (dst *VoiceAgentEvent) UnmarshalJSON(data []byte) error {
 	if match > 1 { // more than 1 match
 		// reset to nil
 		dst.VoiceAgentErrorEvent = nil
-		dst.VoiceAgentSessionUpdatedEvent = nil
 		dst.VoiceAgentStateChangedEvent = nil
 		dst.VoiceAgentToolCallEndedEvent = nil
 		dst.VoiceAgentToolCallStartedEvent = nil
@@ -200,10 +174,6 @@ func (dst *VoiceAgentEvent) UnmarshalJSON(data []byte) error {
 func (src VoiceAgentEvent) MarshalJSON() ([]byte, error) {
 	if src.VoiceAgentErrorEvent != nil {
 		return json.Marshal(&src.VoiceAgentErrorEvent)
-	}
-
-	if src.VoiceAgentSessionUpdatedEvent != nil {
-		return json.Marshal(&src.VoiceAgentSessionUpdatedEvent)
 	}
 
 	if src.VoiceAgentStateChangedEvent != nil {
@@ -234,10 +204,6 @@ func (obj *VoiceAgentEvent) GetActualInstance() (interface{}) {
 		return obj.VoiceAgentErrorEvent
 	}
 
-	if obj.VoiceAgentSessionUpdatedEvent != nil {
-		return obj.VoiceAgentSessionUpdatedEvent
-	}
-
 	if obj.VoiceAgentStateChangedEvent != nil {
 		return obj.VoiceAgentStateChangedEvent
 	}
@@ -262,10 +228,6 @@ func (obj *VoiceAgentEvent) GetActualInstance() (interface{}) {
 func (obj VoiceAgentEvent) GetActualInstanceValue() (interface{}) {
 	if obj.VoiceAgentErrorEvent != nil {
 		return *obj.VoiceAgentErrorEvent
-	}
-
-	if obj.VoiceAgentSessionUpdatedEvent != nil {
-		return *obj.VoiceAgentSessionUpdatedEvent
 	}
 
 	if obj.VoiceAgentStateChangedEvent != nil {

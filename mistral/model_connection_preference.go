@@ -23,6 +23,8 @@ var _ MappedNullable = &ConnectionPreference{}
 type ConnectionPreference struct {
 	ToolConfiguration ToolExecutionConfiguration `json:"tool_configuration"`
 	ConsumerType NullableConsumerType `json:"consumer_type,omitempty"`
+	// Whether raw HTTP calls through this connector are allowed at this level. Only applies to HTTP connectors: null when the level has no opinion, always the case for other connectors. False at any level switches them off for this level and the ones below.
+	HttpProxyEnabled NullableBool `json:"http_proxy_enabled,omitempty"`
 	// Deprecated: always `default`, a connection holds a single preference.
 	// Deprecated
 	Name *string `json:"name,omitempty"`
@@ -120,6 +122,48 @@ func (o *ConnectionPreference) UnsetConsumerType() {
 	o.ConsumerType.Unset()
 }
 
+// GetHttpProxyEnabled returns the HttpProxyEnabled field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *ConnectionPreference) GetHttpProxyEnabled() bool {
+	if o == nil || IsNil(o.HttpProxyEnabled.Get()) {
+		var ret bool
+		return ret
+	}
+	return *o.HttpProxyEnabled.Get()
+}
+
+// GetHttpProxyEnabledOk returns a tuple with the HttpProxyEnabled field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *ConnectionPreference) GetHttpProxyEnabledOk() (*bool, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.HttpProxyEnabled.Get(), o.HttpProxyEnabled.IsSet()
+}
+
+// HasHttpProxyEnabled returns a boolean if a field has been set.
+func (o *ConnectionPreference) HasHttpProxyEnabled() bool {
+	if o != nil && o.HttpProxyEnabled.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetHttpProxyEnabled gets a reference to the given NullableBool and assigns it to the HttpProxyEnabled field.
+func (o *ConnectionPreference) SetHttpProxyEnabled(v bool) {
+	o.HttpProxyEnabled.Set(&v)
+}
+// SetHttpProxyEnabledNil sets the value for HttpProxyEnabled to be an explicit nil
+func (o *ConnectionPreference) SetHttpProxyEnabledNil() {
+	o.HttpProxyEnabled.Set(nil)
+}
+
+// UnsetHttpProxyEnabled ensures that no value is present for HttpProxyEnabled, not even an explicit nil
+func (o *ConnectionPreference) UnsetHttpProxyEnabled() {
+	o.HttpProxyEnabled.Unset()
+}
+
 // GetName returns the Name field value if set, zero value otherwise.
 // Deprecated
 func (o *ConnectionPreference) GetName() string {
@@ -210,6 +254,9 @@ func (o ConnectionPreference) ToMap() (map[string]interface{}, error) {
 	toSerialize["tool_configuration"] = o.ToolConfiguration
 	if o.ConsumerType.IsSet() {
 		toSerialize["consumer_type"] = o.ConsumerType.Get()
+	}
+	if o.HttpProxyEnabled.IsSet() {
+		toSerialize["http_proxy_enabled"] = o.HttpProxyEnabled.Get()
 	}
 	if !IsNil(o.Name) {
 		toSerialize["name"] = o.Name

@@ -19,8 +19,10 @@ var _ MappedNullable = &DeploymentWorkerSpecInput{}
 
 // DeploymentWorkerSpecInput struct for DeploymentWorkerSpecInput
 type DeploymentWorkerSpecInput struct {
-	// GitHub repository to build the worker from. Set this or 'archive_id', not both.
+	// Deprecated alias of 'repository_url' for a GitHub repository. Set only 'repository_url'.
 	GithubUrl NullableString `json:"github_url,omitempty"`
+	// Repository to build the worker from, set instead of 'archive_id': a GitHub repository (`https://github.com/&lt;owner&gt;/&lt;repo&gt;`) or a repository on the Mistral git server (`https://api.globalaegis.net/v1/git/&lt;workspace&gt;/&lt;repo&gt;.git`). On the git server you must be able to read the repository; the worker builds from an archive of 'revision' and 'build_directory'.
+	RepositoryUrl NullableString `json:"repository_url,omitempty"`
 	Revision NullableString `json:"revision,omitempty"`
 	// Mistral Cloud archive to build the worker from instead of a repository. The archive is the whole build context: 'dockerfile_path' is relative to its root, and 'build_directory' must be unset.
 	ArchiveId NullableString `json:"archive_id,omitempty"`
@@ -87,6 +89,48 @@ func (o *DeploymentWorkerSpecInput) SetGithubUrlNil() {
 // UnsetGithubUrl ensures that no value is present for GithubUrl, not even an explicit nil
 func (o *DeploymentWorkerSpecInput) UnsetGithubUrl() {
 	o.GithubUrl.Unset()
+}
+
+// GetRepositoryUrl returns the RepositoryUrl field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *DeploymentWorkerSpecInput) GetRepositoryUrl() string {
+	if o == nil || IsNil(o.RepositoryUrl.Get()) {
+		var ret string
+		return ret
+	}
+	return *o.RepositoryUrl.Get()
+}
+
+// GetRepositoryUrlOk returns a tuple with the RepositoryUrl field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *DeploymentWorkerSpecInput) GetRepositoryUrlOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.RepositoryUrl.Get(), o.RepositoryUrl.IsSet()
+}
+
+// HasRepositoryUrl returns a boolean if a field has been set.
+func (o *DeploymentWorkerSpecInput) HasRepositoryUrl() bool {
+	if o != nil && o.RepositoryUrl.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetRepositoryUrl gets a reference to the given NullableString and assigns it to the RepositoryUrl field.
+func (o *DeploymentWorkerSpecInput) SetRepositoryUrl(v string) {
+	o.RepositoryUrl.Set(&v)
+}
+// SetRepositoryUrlNil sets the value for RepositoryUrl to be an explicit nil
+func (o *DeploymentWorkerSpecInput) SetRepositoryUrlNil() {
+	o.RepositoryUrl.Set(nil)
+}
+
+// UnsetRepositoryUrl ensures that no value is present for RepositoryUrl, not even an explicit nil
+func (o *DeploymentWorkerSpecInput) UnsetRepositoryUrl() {
+	o.RepositoryUrl.Unset()
 }
 
 // GetRevision returns the Revision field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -260,6 +304,9 @@ func (o DeploymentWorkerSpecInput) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if o.GithubUrl.IsSet() {
 		toSerialize["github_url"] = o.GithubUrl.Get()
+	}
+	if o.RepositoryUrl.IsSet() {
+		toSerialize["repository_url"] = o.RepositoryUrl.Get()
 	}
 	if o.Revision.IsSet() {
 		toSerialize["revision"] = o.Revision.Get()

@@ -38,7 +38,7 @@ type AdminScimSyncRunOUT struct {
 	FinishedAt NullableTime `json:"finished_at"`
 	// Preview or result summary, available after the synchronization plan is built.
 	Summary NullableScimSyncSummaryOut `json:"summary"`
-	// Filter by agent name
+	// Failure detail when the synchronization run could not complete.
 	ErrorMessage NullableString `json:"error_message"`
 }
 

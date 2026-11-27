@@ -26,23 +26,34 @@ type CreateWebhook struct {
 	OwnerType *TriggersOwnerType `json:"owner_type,omitempty"`
 	// Human-readable name for this webhook
 	Name string `json:"name"`
+	// What this webhook is used for
+	Description NullableString `json:"description,omitempty"`
 	// Signing secret provided by the third-party provider
 	Secret NullableString `json:"secret,omitempty"`
 	// Encryption key used to decrypt webhook payloads
 	EncryptionKey NullableString `json:"encryption_key,omitempty"`
+	// Token the provider echoes back when verifying the URL. Required for WhatsApp (paste the same value in the Verify token field of the Meta App Dashboard), forbidden for other providers
+	UrlVerificationToken NullableString `json:"url_verification_token,omitempty"`
 	ExpiresAt NullableTime `json:"expires_at,omitempty"`
 	SignatureHashAlgorithm NullableWebhookSignatureHashAlgorithm `json:"signature_hash_algorithm,omitempty"`
 	SignatureHeaderName NullableString `json:"signature_header_name,omitempty"`
+	// Maximum allowed drift in seconds between the signed timestamp and reception time, eg 300
 	ValidityPeriodSecond NullableInt32 `json:"validity_period_second,omitempty"`
 	// Regex to extract signature, eg sha256=(.*)
 	SignatureExtractorRegex NullableString `json:"signature_extractor_regex,omitempty"`
+	// Regex to extract the timestamp from the rendered timestamp_pattern (the signature header by default), used as {timestamp}, eg t=([^,]+). Defaults to the whole value when timestamp_pattern is set
 	TimestampExtractorRegex NullableString `json:"timestamp_extractor_regex,omitempty"`
+	// Pattern for the timestamp used as {timestamp}, with {body.&lt;path&gt;} and {headers.&lt;Header-Name&gt;} placeholders, eg {headers.X-Slack-Request-Timestamp} or {body.webhookTimestamp}. Defaults to the signature header when timestamp_extractor_regex is set
+	TimestampPattern NullableString `json:"timestamp_pattern,omitempty"`
 	// Pattern for signature payload, eg {body} or {timestamp}.{body}
 	SignaturePayloadPattern NullableString `json:"signature_payload_pattern,omitempty"`
 	SignatureEncoding NullableWebhookSignatureEncoding `json:"signature_encoding,omitempty"`
+	// HTTP status code returned for accepted deliveries, eg 200
 	SuccessStatusCode NullableInt32 `json:"success_status_code,omitempty"`
-	// Path to extract event type, eg body.type or headers.X-GitHub-Event
-	EventTypePath NullableString `json:"event_type_path,omitempty"`
+	// Pattern for the event type, with {body.&lt;path&gt;} and {headers.&lt;Header-Name&gt;} placeholders, eg {body.type} or {headers.X-GitHub-Event}
+	EventTypePattern NullableString `json:"event_type_pattern,omitempty"`
+	// Pattern for a unique event identifier used to deduplicate deliveries, with {body.&lt;path&gt;} and {headers.&lt;Header-Name&gt;} placeholders, eg {body.id} or {body.event_id}.{headers.X-Delivery-Id}. Defaults to a hash of the request body
+	EventIdPattern NullableString `json:"event_id_pattern,omitempty"`
 }
 
 type _CreateWebhook CreateWebhook
@@ -150,6 +161,48 @@ func (o *CreateWebhook) SetName(v string) {
 	o.Name = v
 }
 
+// GetDescription returns the Description field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *CreateWebhook) GetDescription() string {
+	if o == nil || IsNil(o.Description.Get()) {
+		var ret string
+		return ret
+	}
+	return *o.Description.Get()
+}
+
+// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *CreateWebhook) GetDescriptionOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.Description.Get(), o.Description.IsSet()
+}
+
+// HasDescription returns a boolean if a field has been set.
+func (o *CreateWebhook) HasDescription() bool {
+	if o != nil && o.Description.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetDescription gets a reference to the given NullableString and assigns it to the Description field.
+func (o *CreateWebhook) SetDescription(v string) {
+	o.Description.Set(&v)
+}
+// SetDescriptionNil sets the value for Description to be an explicit nil
+func (o *CreateWebhook) SetDescriptionNil() {
+	o.Description.Set(nil)
+}
+
+// UnsetDescription ensures that no value is present for Description, not even an explicit nil
+func (o *CreateWebhook) UnsetDescription() {
+	o.Description.Unset()
+}
+
 // GetSecret returns the Secret field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *CreateWebhook) GetSecret() string {
 	if o == nil || IsNil(o.Secret.Get()) {
@@ -232,6 +285,48 @@ func (o *CreateWebhook) SetEncryptionKeyNil() {
 // UnsetEncryptionKey ensures that no value is present for EncryptionKey, not even an explicit nil
 func (o *CreateWebhook) UnsetEncryptionKey() {
 	o.EncryptionKey.Unset()
+}
+
+// GetUrlVerificationToken returns the UrlVerificationToken field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *CreateWebhook) GetUrlVerificationToken() string {
+	if o == nil || IsNil(o.UrlVerificationToken.Get()) {
+		var ret string
+		return ret
+	}
+	return *o.UrlVerificationToken.Get()
+}
+
+// GetUrlVerificationTokenOk returns a tuple with the UrlVerificationToken field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *CreateWebhook) GetUrlVerificationTokenOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.UrlVerificationToken.Get(), o.UrlVerificationToken.IsSet()
+}
+
+// HasUrlVerificationToken returns a boolean if a field has been set.
+func (o *CreateWebhook) HasUrlVerificationToken() bool {
+	if o != nil && o.UrlVerificationToken.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetUrlVerificationToken gets a reference to the given NullableString and assigns it to the UrlVerificationToken field.
+func (o *CreateWebhook) SetUrlVerificationToken(v string) {
+	o.UrlVerificationToken.Set(&v)
+}
+// SetUrlVerificationTokenNil sets the value for UrlVerificationToken to be an explicit nil
+func (o *CreateWebhook) SetUrlVerificationTokenNil() {
+	o.UrlVerificationToken.Set(nil)
+}
+
+// UnsetUrlVerificationToken ensures that no value is present for UrlVerificationToken, not even an explicit nil
+func (o *CreateWebhook) UnsetUrlVerificationToken() {
+	o.UrlVerificationToken.Unset()
 }
 
 // GetExpiresAt returns the ExpiresAt field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -486,6 +581,48 @@ func (o *CreateWebhook) UnsetTimestampExtractorRegex() {
 	o.TimestampExtractorRegex.Unset()
 }
 
+// GetTimestampPattern returns the TimestampPattern field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *CreateWebhook) GetTimestampPattern() string {
+	if o == nil || IsNil(o.TimestampPattern.Get()) {
+		var ret string
+		return ret
+	}
+	return *o.TimestampPattern.Get()
+}
+
+// GetTimestampPatternOk returns a tuple with the TimestampPattern field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *CreateWebhook) GetTimestampPatternOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.TimestampPattern.Get(), o.TimestampPattern.IsSet()
+}
+
+// HasTimestampPattern returns a boolean if a field has been set.
+func (o *CreateWebhook) HasTimestampPattern() bool {
+	if o != nil && o.TimestampPattern.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetTimestampPattern gets a reference to the given NullableString and assigns it to the TimestampPattern field.
+func (o *CreateWebhook) SetTimestampPattern(v string) {
+	o.TimestampPattern.Set(&v)
+}
+// SetTimestampPatternNil sets the value for TimestampPattern to be an explicit nil
+func (o *CreateWebhook) SetTimestampPatternNil() {
+	o.TimestampPattern.Set(nil)
+}
+
+// UnsetTimestampPattern ensures that no value is present for TimestampPattern, not even an explicit nil
+func (o *CreateWebhook) UnsetTimestampPattern() {
+	o.TimestampPattern.Unset()
+}
+
 // GetSignaturePayloadPattern returns the SignaturePayloadPattern field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *CreateWebhook) GetSignaturePayloadPattern() string {
 	if o == nil || IsNil(o.SignaturePayloadPattern.Get()) {
@@ -612,46 +749,88 @@ func (o *CreateWebhook) UnsetSuccessStatusCode() {
 	o.SuccessStatusCode.Unset()
 }
 
-// GetEventTypePath returns the EventTypePath field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *CreateWebhook) GetEventTypePath() string {
-	if o == nil || IsNil(o.EventTypePath.Get()) {
+// GetEventTypePattern returns the EventTypePattern field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *CreateWebhook) GetEventTypePattern() string {
+	if o == nil || IsNil(o.EventTypePattern.Get()) {
 		var ret string
 		return ret
 	}
-	return *o.EventTypePath.Get()
+	return *o.EventTypePattern.Get()
 }
 
-// GetEventTypePathOk returns a tuple with the EventTypePath field value if set, nil otherwise
+// GetEventTypePatternOk returns a tuple with the EventTypePattern field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *CreateWebhook) GetEventTypePathOk() (*string, bool) {
+func (o *CreateWebhook) GetEventTypePatternOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return o.EventTypePath.Get(), o.EventTypePath.IsSet()
+	return o.EventTypePattern.Get(), o.EventTypePattern.IsSet()
 }
 
-// HasEventTypePath returns a boolean if a field has been set.
-func (o *CreateWebhook) HasEventTypePath() bool {
-	if o != nil && o.EventTypePath.IsSet() {
+// HasEventTypePattern returns a boolean if a field has been set.
+func (o *CreateWebhook) HasEventTypePattern() bool {
+	if o != nil && o.EventTypePattern.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetEventTypePath gets a reference to the given NullableString and assigns it to the EventTypePath field.
-func (o *CreateWebhook) SetEventTypePath(v string) {
-	o.EventTypePath.Set(&v)
+// SetEventTypePattern gets a reference to the given NullableString and assigns it to the EventTypePattern field.
+func (o *CreateWebhook) SetEventTypePattern(v string) {
+	o.EventTypePattern.Set(&v)
 }
-// SetEventTypePathNil sets the value for EventTypePath to be an explicit nil
-func (o *CreateWebhook) SetEventTypePathNil() {
-	o.EventTypePath.Set(nil)
+// SetEventTypePatternNil sets the value for EventTypePattern to be an explicit nil
+func (o *CreateWebhook) SetEventTypePatternNil() {
+	o.EventTypePattern.Set(nil)
 }
 
-// UnsetEventTypePath ensures that no value is present for EventTypePath, not even an explicit nil
-func (o *CreateWebhook) UnsetEventTypePath() {
-	o.EventTypePath.Unset()
+// UnsetEventTypePattern ensures that no value is present for EventTypePattern, not even an explicit nil
+func (o *CreateWebhook) UnsetEventTypePattern() {
+	o.EventTypePattern.Unset()
+}
+
+// GetEventIdPattern returns the EventIdPattern field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *CreateWebhook) GetEventIdPattern() string {
+	if o == nil || IsNil(o.EventIdPattern.Get()) {
+		var ret string
+		return ret
+	}
+	return *o.EventIdPattern.Get()
+}
+
+// GetEventIdPatternOk returns a tuple with the EventIdPattern field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *CreateWebhook) GetEventIdPatternOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.EventIdPattern.Get(), o.EventIdPattern.IsSet()
+}
+
+// HasEventIdPattern returns a boolean if a field has been set.
+func (o *CreateWebhook) HasEventIdPattern() bool {
+	if o != nil && o.EventIdPattern.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetEventIdPattern gets a reference to the given NullableString and assigns it to the EventIdPattern field.
+func (o *CreateWebhook) SetEventIdPattern(v string) {
+	o.EventIdPattern.Set(&v)
+}
+// SetEventIdPatternNil sets the value for EventIdPattern to be an explicit nil
+func (o *CreateWebhook) SetEventIdPatternNil() {
+	o.EventIdPattern.Set(nil)
+}
+
+// UnsetEventIdPattern ensures that no value is present for EventIdPattern, not even an explicit nil
+func (o *CreateWebhook) UnsetEventIdPattern() {
+	o.EventIdPattern.Unset()
 }
 
 func (o CreateWebhook) MarshalJSON() ([]byte, error) {
@@ -669,11 +848,17 @@ func (o CreateWebhook) ToMap() (map[string]interface{}, error) {
 		toSerialize["owner_type"] = o.OwnerType
 	}
 	toSerialize["name"] = o.Name
+	if o.Description.IsSet() {
+		toSerialize["description"] = o.Description.Get()
+	}
 	if o.Secret.IsSet() {
 		toSerialize["secret"] = o.Secret.Get()
 	}
 	if o.EncryptionKey.IsSet() {
 		toSerialize["encryption_key"] = o.EncryptionKey.Get()
+	}
+	if o.UrlVerificationToken.IsSet() {
+		toSerialize["url_verification_token"] = o.UrlVerificationToken.Get()
 	}
 	if o.ExpiresAt.IsSet() {
 		toSerialize["expires_at"] = o.ExpiresAt.Get()
@@ -693,6 +878,9 @@ func (o CreateWebhook) ToMap() (map[string]interface{}, error) {
 	if o.TimestampExtractorRegex.IsSet() {
 		toSerialize["timestamp_extractor_regex"] = o.TimestampExtractorRegex.Get()
 	}
+	if o.TimestampPattern.IsSet() {
+		toSerialize["timestamp_pattern"] = o.TimestampPattern.Get()
+	}
 	if o.SignaturePayloadPattern.IsSet() {
 		toSerialize["signature_payload_pattern"] = o.SignaturePayloadPattern.Get()
 	}
@@ -702,8 +890,11 @@ func (o CreateWebhook) ToMap() (map[string]interface{}, error) {
 	if o.SuccessStatusCode.IsSet() {
 		toSerialize["success_status_code"] = o.SuccessStatusCode.Get()
 	}
-	if o.EventTypePath.IsSet() {
-		toSerialize["event_type_path"] = o.EventTypePath.Get()
+	if o.EventTypePattern.IsSet() {
+		toSerialize["event_type_pattern"] = o.EventTypePattern.Get()
+	}
+	if o.EventIdPattern.IsSet() {
+		toSerialize["event_id_pattern"] = o.EventIdPattern.Get()
 	}
 	return toSerialize, nil
 }

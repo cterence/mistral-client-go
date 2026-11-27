@@ -50,6 +50,8 @@ type ScheduleDefinitionOutput struct {
 	WorkflowName string `json:"workflow_name"`
 	// Name of the deployment this schedule targets.
 	DeploymentName NullableString `json:"deployment_name,omitempty"`
+	// ID of the user who created the schedule.
+	UserId NullableString `json:"user_id,omitempty"`
 	// Whether the schedule is currently paused.
 	Paused bool `json:"paused"`
 	// Human-readable note associated with the current pause or resume state.
@@ -569,6 +571,48 @@ func (o *ScheduleDefinitionOutput) UnsetDeploymentName() {
 	o.DeploymentName.Unset()
 }
 
+// GetUserId returns the UserId field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *ScheduleDefinitionOutput) GetUserId() string {
+	if o == nil || IsNil(o.UserId.Get()) {
+		var ret string
+		return ret
+	}
+	return *o.UserId.Get()
+}
+
+// GetUserIdOk returns a tuple with the UserId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *ScheduleDefinitionOutput) GetUserIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.UserId.Get(), o.UserId.IsSet()
+}
+
+// HasUserId returns a boolean if a field has been set.
+func (o *ScheduleDefinitionOutput) HasUserId() bool {
+	if o != nil && o.UserId.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetUserId gets a reference to the given NullableString and assigns it to the UserId field.
+func (o *ScheduleDefinitionOutput) SetUserId(v string) {
+	o.UserId.Set(&v)
+}
+// SetUserIdNil sets the value for UserId to be an explicit nil
+func (o *ScheduleDefinitionOutput) SetUserIdNil() {
+	o.UserId.Set(nil)
+}
+
+// UnsetUserId ensures that no value is present for UserId, not even an explicit nil
+func (o *ScheduleDefinitionOutput) UnsetUserId() {
+	o.UserId.Unset()
+}
+
 // GetPaused returns the Paused field value
 func (o *ScheduleDefinitionOutput) GetPaused() bool {
 	if o == nil {
@@ -746,6 +790,9 @@ func (o ScheduleDefinitionOutput) ToMap() (map[string]interface{}, error) {
 	toSerialize["workflow_name"] = o.WorkflowName
 	if o.DeploymentName.IsSet() {
 		toSerialize["deployment_name"] = o.DeploymentName.Get()
+	}
+	if o.UserId.IsSet() {
+		toSerialize["user_id"] = o.UserId.Get()
 	}
 	toSerialize["paused"] = o.Paused
 	if o.Note.IsSet() {

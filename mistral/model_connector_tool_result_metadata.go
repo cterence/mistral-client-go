@@ -20,8 +20,7 @@ var _ MappedNullable = &ConnectorToolResultMetadata{}
 // ConnectorToolResultMetadata MCP-specific result metadata (isError, structuredContent, _meta).
 type ConnectorToolResultMetadata struct {
 	IsError *bool `json:"isError,omitempty"`
-	// Output JSON schema of the query's model
-	StructuredContent map[string]interface{} `json:"structuredContent,omitempty"`
+	StructuredContent NullableAnyOf `json:"structuredContent,omitempty"`
 	Meta map[string]interface{} `json:"_meta,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
@@ -82,36 +81,45 @@ func (o *ConnectorToolResultMetadata) SetIsError(v bool) {
 }
 
 // GetStructuredContent returns the StructuredContent field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *ConnectorToolResultMetadata) GetStructuredContent() map[string]interface{} {
-	if o == nil {
-		var ret map[string]interface{}
+func (o *ConnectorToolResultMetadata) GetStructuredContent() AnyOf {
+	if o == nil || IsNil(o.StructuredContent.Get()) {
+		var ret AnyOf
 		return ret
 	}
-	return o.StructuredContent
+	return *o.StructuredContent.Get()
 }
 
 // GetStructuredContentOk returns a tuple with the StructuredContent field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *ConnectorToolResultMetadata) GetStructuredContentOk() (map[string]interface{}, bool) {
-	if o == nil || IsNil(o.StructuredContent) {
-		return map[string]interface{}{}, false
+func (o *ConnectorToolResultMetadata) GetStructuredContentOk() (*AnyOf, bool) {
+	if o == nil {
+		return nil, false
 	}
-	return o.StructuredContent, true
+	return o.StructuredContent.Get(), o.StructuredContent.IsSet()
 }
 
 // HasStructuredContent returns a boolean if a field has been set.
 func (o *ConnectorToolResultMetadata) HasStructuredContent() bool {
-	if o != nil && !IsNil(o.StructuredContent) {
+	if o != nil && o.StructuredContent.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetStructuredContent gets a reference to the given map[string]interface{} and assigns it to the StructuredContent field.
-func (o *ConnectorToolResultMetadata) SetStructuredContent(v map[string]interface{}) {
-	o.StructuredContent = v
+// SetStructuredContent gets a reference to the given NullableAnyOf and assigns it to the StructuredContent field.
+func (o *ConnectorToolResultMetadata) SetStructuredContent(v AnyOf) {
+	o.StructuredContent.Set(&v)
+}
+// SetStructuredContentNil sets the value for StructuredContent to be an explicit nil
+func (o *ConnectorToolResultMetadata) SetStructuredContentNil() {
+	o.StructuredContent.Set(nil)
+}
+
+// UnsetStructuredContent ensures that no value is present for StructuredContent, not even an explicit nil
+func (o *ConnectorToolResultMetadata) UnsetStructuredContent() {
+	o.StructuredContent.Unset()
 }
 
 // GetMeta returns the Meta field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -160,8 +168,8 @@ func (o ConnectorToolResultMetadata) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.IsError) {
 		toSerialize["isError"] = o.IsError
 	}
-	if o.StructuredContent != nil {
-		toSerialize["structuredContent"] = o.StructuredContent
+	if o.StructuredContent.IsSet() {
+		toSerialize["structuredContent"] = o.StructuredContent.Get()
 	}
 	if o.Meta != nil {
 		toSerialize["_meta"] = o.Meta

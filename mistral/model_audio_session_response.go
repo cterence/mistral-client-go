@@ -27,6 +27,7 @@ type AudioSessionResponse struct {
 	NumParticipants int32 `json:"num_participants"`
 	CreatedAt time.Time `json:"created_at"`
 	PhoneCall NullableAudioSessionPhoneCall `json:"phone_call,omitempty"`
+	BridgeMetadata NullableAmazonConnectContact `json:"bridge_metadata,omitempty"`
 	// The turns of the conversation, or null while no transcript has been recorded for this session yet.
 	Transcripts []AudioSessionResponseTranscriptsInner `json:"transcripts,omitempty"`
 }
@@ -192,6 +193,48 @@ func (o *AudioSessionResponse) UnsetPhoneCall() {
 	o.PhoneCall.Unset()
 }
 
+// GetBridgeMetadata returns the BridgeMetadata field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *AudioSessionResponse) GetBridgeMetadata() AmazonConnectContact {
+	if o == nil || IsNil(o.BridgeMetadata.Get()) {
+		var ret AmazonConnectContact
+		return ret
+	}
+	return *o.BridgeMetadata.Get()
+}
+
+// GetBridgeMetadataOk returns a tuple with the BridgeMetadata field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *AudioSessionResponse) GetBridgeMetadataOk() (*AmazonConnectContact, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.BridgeMetadata.Get(), o.BridgeMetadata.IsSet()
+}
+
+// HasBridgeMetadata returns a boolean if a field has been set.
+func (o *AudioSessionResponse) HasBridgeMetadata() bool {
+	if o != nil && o.BridgeMetadata.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetBridgeMetadata gets a reference to the given NullableAmazonConnectContact and assigns it to the BridgeMetadata field.
+func (o *AudioSessionResponse) SetBridgeMetadata(v AmazonConnectContact) {
+	o.BridgeMetadata.Set(&v)
+}
+// SetBridgeMetadataNil sets the value for BridgeMetadata to be an explicit nil
+func (o *AudioSessionResponse) SetBridgeMetadataNil() {
+	o.BridgeMetadata.Set(nil)
+}
+
+// UnsetBridgeMetadata ensures that no value is present for BridgeMetadata, not even an explicit nil
+func (o *AudioSessionResponse) UnsetBridgeMetadata() {
+	o.BridgeMetadata.Unset()
+}
+
 // GetTranscripts returns the Transcripts field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *AudioSessionResponse) GetTranscripts() []AudioSessionResponseTranscriptsInner {
 	if o == nil {
@@ -241,6 +284,9 @@ func (o AudioSessionResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize["created_at"] = o.CreatedAt
 	if o.PhoneCall.IsSet() {
 		toSerialize["phone_call"] = o.PhoneCall.Get()
+	}
+	if o.BridgeMetadata.IsSet() {
+		toSerialize["bridge_metadata"] = o.BridgeMetadata.Get()
 	}
 	if o.Transcripts != nil {
 		toSerialize["transcripts"] = o.Transcripts

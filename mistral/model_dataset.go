@@ -30,7 +30,9 @@ type Dataset struct {
 	Slug string `json:"slug"`
 	Description string `json:"description"`
 	OwnerId string `json:"owner_id"`
+	OwnerType *PrincipalType `json:"owner_type,omitempty"`
 	WorkspaceId string `json:"workspace_id"`
+	Metadata map[string]*interface{} `json:"metadata,omitempty"`
 }
 
 type _Dataset Dataset
@@ -49,6 +51,8 @@ func NewDataset(id string, createdAt time.Time, updatedAt time.Time, deletedAt N
 	this.Slug = slug
 	this.Description = description
 	this.OwnerId = ownerId
+	var ownerType PrincipalType = PRINCIPALTYPE_USER
+	this.OwnerType = &ownerType
 	this.WorkspaceId = workspaceId
 	return &this
 }
@@ -58,6 +62,8 @@ func NewDataset(id string, createdAt time.Time, updatedAt time.Time, deletedAt N
 // but it doesn't guarantee that properties required by API are set
 func NewDatasetWithDefaults() *Dataset {
 	this := Dataset{}
+	var ownerType PrincipalType = PRINCIPALTYPE_USER
+	this.OwnerType = &ownerType
 	return &this
 }
 
@@ -255,6 +261,38 @@ func (o *Dataset) SetOwnerId(v string) {
 	o.OwnerId = v
 }
 
+// GetOwnerType returns the OwnerType field value if set, zero value otherwise.
+func (o *Dataset) GetOwnerType() PrincipalType {
+	if o == nil || IsNil(o.OwnerType) {
+		var ret PrincipalType
+		return ret
+	}
+	return *o.OwnerType
+}
+
+// GetOwnerTypeOk returns a tuple with the OwnerType field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Dataset) GetOwnerTypeOk() (*PrincipalType, bool) {
+	if o == nil || IsNil(o.OwnerType) {
+		return nil, false
+	}
+	return o.OwnerType, true
+}
+
+// HasOwnerType returns a boolean if a field has been set.
+func (o *Dataset) HasOwnerType() bool {
+	if o != nil && !IsNil(o.OwnerType) {
+		return true
+	}
+
+	return false
+}
+
+// SetOwnerType gets a reference to the given PrincipalType and assigns it to the OwnerType field.
+func (o *Dataset) SetOwnerType(v PrincipalType) {
+	o.OwnerType = &v
+}
+
 // GetWorkspaceId returns the WorkspaceId field value
 func (o *Dataset) GetWorkspaceId() string {
 	if o == nil {
@@ -279,6 +317,38 @@ func (o *Dataset) SetWorkspaceId(v string) {
 	o.WorkspaceId = v
 }
 
+// GetMetadata returns the Metadata field value if set, zero value otherwise.
+func (o *Dataset) GetMetadata() map[string]*interface{} {
+	if o == nil || IsNil(o.Metadata) {
+		var ret map[string]*interface{}
+		return ret
+	}
+	return o.Metadata
+}
+
+// GetMetadataOk returns a tuple with the Metadata field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Dataset) GetMetadataOk() (map[string]*interface{}, bool) {
+	if o == nil || IsNil(o.Metadata) {
+		return map[string]*interface{}{}, false
+	}
+	return o.Metadata, true
+}
+
+// HasMetadata returns a boolean if a field has been set.
+func (o *Dataset) HasMetadata() bool {
+	if o != nil && !IsNil(o.Metadata) {
+		return true
+	}
+
+	return false
+}
+
+// SetMetadata gets a reference to the given map[string]*interface{} and assigns it to the Metadata field.
+func (o *Dataset) SetMetadata(v map[string]*interface{}) {
+	o.Metadata = v
+}
+
 func (o Dataset) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -297,7 +367,13 @@ func (o Dataset) ToMap() (map[string]interface{}, error) {
 	toSerialize["slug"] = o.Slug
 	toSerialize["description"] = o.Description
 	toSerialize["owner_id"] = o.OwnerId
+	if !IsNil(o.OwnerType) {
+		toSerialize["owner_type"] = o.OwnerType
+	}
 	toSerialize["workspace_id"] = o.WorkspaceId
+	if !IsNil(o.Metadata) {
+		toSerialize["metadata"] = o.Metadata
+	}
 	return toSerialize, nil
 }
 

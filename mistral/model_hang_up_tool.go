@@ -20,7 +20,7 @@ var _ MappedNullable = &HangUpTool{}
 // HangUpTool struct for HangUpTool
 type HangUpTool struct {
 	Type *string `json:"type,omitempty"`
-	Filler NullableStaticToolFiller `json:"filler,omitempty"`
+	Filler NullableHangUpToolFiller `json:"filler,omitempty"`
 }
 
 // NewHangUpTool instantiates a new HangUpTool object
@@ -77,9 +77,9 @@ func (o *HangUpTool) SetType(v string) {
 }
 
 // GetFiller returns the Filler field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *HangUpTool) GetFiller() StaticToolFiller {
+func (o *HangUpTool) GetFiller() HangUpToolFiller {
 	if o == nil || IsNil(o.Filler.Get()) {
-		var ret StaticToolFiller
+		var ret HangUpToolFiller
 		return ret
 	}
 	return *o.Filler.Get()
@@ -88,7 +88,7 @@ func (o *HangUpTool) GetFiller() StaticToolFiller {
 // GetFillerOk returns a tuple with the Filler field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *HangUpTool) GetFillerOk() (*StaticToolFiller, bool) {
+func (o *HangUpTool) GetFillerOk() (*HangUpToolFiller, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -104,8 +104,8 @@ func (o *HangUpTool) HasFiller() bool {
 	return false
 }
 
-// SetFiller gets a reference to the given NullableStaticToolFiller and assigns it to the Filler field.
-func (o *HangUpTool) SetFiller(v StaticToolFiller) {
+// SetFiller gets a reference to the given NullableHangUpToolFiller and assigns it to the Filler field.
+func (o *HangUpTool) SetFiller(v HangUpToolFiller) {
 	o.Filler.Set(&v)
 }
 // SetFillerNil sets the value for Filler to be an explicit nil

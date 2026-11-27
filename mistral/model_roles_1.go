@@ -18,8 +18,8 @@ import (
 
 // Roles1 Role values to assign. Mutually exclusive with 'role_names'.
 type Roles1 struct {
-	ArrayOfStaticOrganizationRoles *[]StaticOrganizationRoles
-	ArrayOfUserRole *[]UserRole
+	ArrayOfStaticWorkspaceRoles *[]StaticWorkspaceRoles
+	ArrayOfWorkspaceRole *[]WorkspaceRole
 }
 
 // Unmarshal JSON data into any of the pointers in the struct
@@ -30,30 +30,30 @@ func (dst *Roles1) UnmarshalJSON(data []byte) error {
 		return nil
 	}
 
-	// try to unmarshal JSON data into ArrayOfStaticOrganizationRoles
-	err = json.Unmarshal(data, &dst.ArrayOfStaticOrganizationRoles);
+	// try to unmarshal JSON data into ArrayOfStaticWorkspaceRoles
+	err = json.Unmarshal(data, &dst.ArrayOfStaticWorkspaceRoles);
 	if err == nil {
-		jsonArrayOfStaticOrganizationRoles, _ := json.Marshal(dst.ArrayOfStaticOrganizationRoles)
-		if string(jsonArrayOfStaticOrganizationRoles) == "{}" { // empty struct
-			dst.ArrayOfStaticOrganizationRoles = nil
+		jsonArrayOfStaticWorkspaceRoles, _ := json.Marshal(dst.ArrayOfStaticWorkspaceRoles)
+		if string(jsonArrayOfStaticWorkspaceRoles) == "{}" { // empty struct
+			dst.ArrayOfStaticWorkspaceRoles = nil
 		} else {
-			return nil // data stored in dst.ArrayOfStaticOrganizationRoles, return on the first match
+			return nil // data stored in dst.ArrayOfStaticWorkspaceRoles, return on the first match
 		}
 	} else {
-		dst.ArrayOfStaticOrganizationRoles = nil
+		dst.ArrayOfStaticWorkspaceRoles = nil
 	}
 
-	// try to unmarshal JSON data into ArrayOfUserRole
-	err = json.Unmarshal(data, &dst.ArrayOfUserRole);
+	// try to unmarshal JSON data into ArrayOfWorkspaceRole
+	err = json.Unmarshal(data, &dst.ArrayOfWorkspaceRole);
 	if err == nil {
-		jsonArrayOfUserRole, _ := json.Marshal(dst.ArrayOfUserRole)
-		if string(jsonArrayOfUserRole) == "{}" { // empty struct
-			dst.ArrayOfUserRole = nil
+		jsonArrayOfWorkspaceRole, _ := json.Marshal(dst.ArrayOfWorkspaceRole)
+		if string(jsonArrayOfWorkspaceRole) == "{}" { // empty struct
+			dst.ArrayOfWorkspaceRole = nil
 		} else {
-			return nil // data stored in dst.ArrayOfUserRole, return on the first match
+			return nil // data stored in dst.ArrayOfWorkspaceRole, return on the first match
 		}
 	} else {
-		dst.ArrayOfUserRole = nil
+		dst.ArrayOfWorkspaceRole = nil
 	}
 
 	return fmt.Errorf("data failed to match schemas in anyOf(Roles1)")
@@ -61,12 +61,12 @@ func (dst *Roles1) UnmarshalJSON(data []byte) error {
 
 // Marshal data from the first non-nil pointers in the struct to JSON
 func (src Roles1) MarshalJSON() ([]byte, error) {
-	if src.ArrayOfStaticOrganizationRoles != nil {
-		return json.Marshal(&src.ArrayOfStaticOrganizationRoles)
+	if src.ArrayOfStaticWorkspaceRoles != nil {
+		return json.Marshal(&src.ArrayOfStaticWorkspaceRoles)
 	}
 
-	if src.ArrayOfUserRole != nil {
-		return json.Marshal(&src.ArrayOfUserRole)
+	if src.ArrayOfWorkspaceRole != nil {
+		return json.Marshal(&src.ArrayOfWorkspaceRole)
 	}
 
 	return nil, nil // no data in anyOf schemas

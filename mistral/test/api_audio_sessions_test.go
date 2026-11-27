@@ -61,4 +61,18 @@ func Test_mistral_AudioSessionsAPIService(t *testing.T) {
 
 	})
 
+	t.Run("Test AudioSessionsAPIService UpdateSessionV1AudioSessionsSessionIdPatch", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		var sessionId string
+
+		resp, httpRes, err := apiClient.AudioSessionsAPI.UpdateSessionV1AudioSessionsSessionIdPatch(context.Background(), sessionId).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
 }

@@ -300,7 +300,7 @@ func (r ApiConnectorCreateCredentialsV1Request) Execute() (*MessageResponse, *ht
 /*
 ConnectorCreateCredentialsV1 Create consumer credentials for a connector.
 
-Create consumer credentials for a given connector and consumer scope (organization, workspace, user)
+Create consumer credentials for a given connector and consumer scope (workspace, user)
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param connectorIdOrName
@@ -382,6 +382,17 @@ func (a *BetaConnectorsAPIService) ConnectorCreateCredentialsV1Execute(r ApiConn
 		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 401 {
+			var v ConnectorErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 422 {
 			var v HTTPValidationError
@@ -502,6 +513,17 @@ func (a *BetaConnectorsAPIService) ConnectorCreateV1Execute(r ApiConnectorCreate
 		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v ConnectorErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 422 {
 			var v HTTPValidationError
@@ -1024,7 +1046,7 @@ func (r ApiConnectorGetAuthUrlV1Request) CredentialsTitle(credentialsTitle strin
 	return r
 }
 
-// Only valid with method_type&#x3D;oauth2. When true, returns a GitHub App installation URL (https://github.com/apps/&lt;slug&gt;/installations/new) if the connector has the proper configuration The Github application needs to have &#39;Request user authorization (OAuth) during installation&#39; enabled to perform the proper auth loop.
+// Only valid with method_type&#x3D;oauth2. When true, returns a GitHub App installation URL (https://github.com/apps/&amp;lt;slug&amp;gt;/installations/new) if the connector has the proper configuration The Github application needs to have &#39;Request user authorization (OAuth) during installation&#39; enabled to perform the proper auth loop.
 func (r ApiConnectorGetAuthUrlV1Request) GithubInstallationLink(githubInstallationLink bool) ApiConnectorGetAuthUrlV1Request {
 	r.githubInstallationLink = &githubInstallationLink
 	return r
@@ -2663,6 +2685,17 @@ func (a *BetaConnectorsAPIService) ConnectorUpdateCredentialsExecute(r ApiConnec
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		if localVarHTTPResponse.StatusCode == 401 {
+			var v ConnectorErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
 		if localVarHTTPResponse.StatusCode == 422 {
 			var v HTTPValidationError
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
@@ -2786,6 +2819,17 @@ func (a *BetaConnectorsAPIService) ConnectorUpdateV1Execute(r ApiConnectorUpdate
 		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v ConnectorErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 422 {
 			var v HTTPValidationError

@@ -25,8 +25,6 @@ type AdminUserGroupIn struct {
 	Name string `json:"name"`
 	// Optional description of the user group.
 	Description NullableString `json:"description,omitempty"`
-	// UUIDs of existing groups to nest this new group inside. Omit or pass an empty list to create a top-level group.
-	ParentGroupIds []string `json:"parent_group_ids,omitempty"`
 }
 
 type _AdminUserGroupIn AdminUserGroupIn
@@ -115,38 +113,6 @@ func (o *AdminUserGroupIn) UnsetDescription() {
 	o.Description.Unset()
 }
 
-// GetParentGroupIds returns the ParentGroupIds field value if set, zero value otherwise.
-func (o *AdminUserGroupIn) GetParentGroupIds() []string {
-	if o == nil || IsNil(o.ParentGroupIds) {
-		var ret []string
-		return ret
-	}
-	return o.ParentGroupIds
-}
-
-// GetParentGroupIdsOk returns a tuple with the ParentGroupIds field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *AdminUserGroupIn) GetParentGroupIdsOk() ([]string, bool) {
-	if o == nil || IsNil(o.ParentGroupIds) {
-		return nil, false
-	}
-	return o.ParentGroupIds, true
-}
-
-// HasParentGroupIds returns a boolean if a field has been set.
-func (o *AdminUserGroupIn) HasParentGroupIds() bool {
-	if o != nil && !IsNil(o.ParentGroupIds) {
-		return true
-	}
-
-	return false
-}
-
-// SetParentGroupIds gets a reference to the given []string and assigns it to the ParentGroupIds field.
-func (o *AdminUserGroupIn) SetParentGroupIds(v []string) {
-	o.ParentGroupIds = v
-}
-
 func (o AdminUserGroupIn) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -160,9 +126,6 @@ func (o AdminUserGroupIn) ToMap() (map[string]interface{}, error) {
 	toSerialize["name"] = o.Name
 	if o.Description.IsSet() {
 		toSerialize["description"] = o.Description.Get()
-	}
-	if !IsNil(o.ParentGroupIds) {
-		toSerialize["parent_group_ids"] = o.ParentGroupIds
 	}
 	return toSerialize, nil
 }

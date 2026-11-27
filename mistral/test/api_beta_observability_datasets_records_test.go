@@ -60,20 +60,6 @@ func Test_mistral_BetaObservabilityDatasetsRecordsAPIService(t *testing.T) {
 
 	})
 
-	t.Run("Test BetaObservabilityDatasetsRecordsAPIService JudgeDatasetRecordV1ObservabilityDatasetRecordsDatasetRecordIdLiveJudgingPost", func(t *testing.T) {
-
-		t.Skip("skip test")  // remove to run test
-
-		var datasetRecordId string
-
-		resp, httpRes, err := apiClient.BetaObservabilityDatasetsRecordsAPI.JudgeDatasetRecordV1ObservabilityDatasetRecordsDatasetRecordIdLiveJudgingPost(context.Background(), datasetRecordId).Execute()
-
-		require.Nil(t, err)
-		require.NotNil(t, resp)
-		assert.Equal(t, 200, httpRes.StatusCode)
-
-	})
-
 	t.Run("Test BetaObservabilityDatasetsRecordsAPIService UpdateDatasetRecordPayloadV1ObservabilityDatasetRecordsDatasetRecordIdPayloadPut", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test

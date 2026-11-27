@@ -23,7 +23,7 @@ var _ MappedNullable = &OrganizationMemberCreate{}
 type OrganizationMemberCreate struct {
 	// Simplified role names to assign. Mutually exclusive with 'roles'.
 	RoleNames []string `json:"role_names,omitempty"`
-	Roles NullableRoles1 `json:"roles,omitempty"`
+	Roles NullableRoles `json:"roles,omitempty"`
 	// Deprecated single role name, kept for backward compatibility. Mutually exclusive with 'role'.
 	RoleName NullableString `json:"role_name,omitempty"`
 	// Deprecated legacy single role value, kept for backward compatibility. Mutually exclusive with 'role_name'.
@@ -95,9 +95,9 @@ func (o *OrganizationMemberCreate) SetRoleNames(v []string) {
 }
 
 // GetRoles returns the Roles field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *OrganizationMemberCreate) GetRoles() Roles1 {
+func (o *OrganizationMemberCreate) GetRoles() Roles {
 	if o == nil || IsNil(o.Roles.Get()) {
-		var ret Roles1
+		var ret Roles
 		return ret
 	}
 	return *o.Roles.Get()
@@ -106,7 +106,7 @@ func (o *OrganizationMemberCreate) GetRoles() Roles1 {
 // GetRolesOk returns a tuple with the Roles field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *OrganizationMemberCreate) GetRolesOk() (*Roles1, bool) {
+func (o *OrganizationMemberCreate) GetRolesOk() (*Roles, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -122,8 +122,8 @@ func (o *OrganizationMemberCreate) HasRoles() bool {
 	return false
 }
 
-// SetRoles gets a reference to the given NullableRoles1 and assigns it to the Roles field.
-func (o *OrganizationMemberCreate) SetRoles(v Roles1) {
+// SetRoles gets a reference to the given NullableRoles and assigns it to the Roles field.
+func (o *OrganizationMemberCreate) SetRoles(v Roles) {
 	o.Roles.Set(&v)
 }
 // SetRolesNil sets the value for Roles to be an explicit nil

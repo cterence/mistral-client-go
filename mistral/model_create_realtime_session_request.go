@@ -24,6 +24,8 @@ type CreateRealtimeSessionRequest struct {
 	Purpose *string `json:"purpose,omitempty"`
 	Model string `json:"model"`
 	TtlSeconds NullableInt32 `json:"ttl_seconds,omitempty"`
+	// Request metadata applied to the realtime session, as if sent in the `x-metadata` header.
+	Metadata map[string]interface{} `json:"metadata,omitempty"`
 }
 
 type _CreateRealtimeSessionRequest CreateRealtimeSessionRequest
@@ -148,6 +150,39 @@ func (o *CreateRealtimeSessionRequest) UnsetTtlSeconds() {
 	o.TtlSeconds.Unset()
 }
 
+// GetMetadata returns the Metadata field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *CreateRealtimeSessionRequest) GetMetadata() map[string]interface{} {
+	if o == nil {
+		var ret map[string]interface{}
+		return ret
+	}
+	return o.Metadata
+}
+
+// GetMetadataOk returns a tuple with the Metadata field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *CreateRealtimeSessionRequest) GetMetadataOk() (map[string]interface{}, bool) {
+	if o == nil || IsNil(o.Metadata) {
+		return map[string]interface{}{}, false
+	}
+	return o.Metadata, true
+}
+
+// HasMetadata returns a boolean if a field has been set.
+func (o *CreateRealtimeSessionRequest) HasMetadata() bool {
+	if o != nil && !IsNil(o.Metadata) {
+		return true
+	}
+
+	return false
+}
+
+// SetMetadata gets a reference to the given map[string]interface{} and assigns it to the Metadata field.
+func (o *CreateRealtimeSessionRequest) SetMetadata(v map[string]interface{}) {
+	o.Metadata = v
+}
+
 func (o CreateRealtimeSessionRequest) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -164,6 +199,9 @@ func (o CreateRealtimeSessionRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize["model"] = o.Model
 	if o.TtlSeconds.IsSet() {
 		toSerialize["ttl_seconds"] = o.TtlSeconds.Get()
+	}
+	if o.Metadata != nil {
+		toSerialize["metadata"] = o.Metadata
 	}
 	return toSerialize, nil
 }

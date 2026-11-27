@@ -53,7 +53,8 @@ type ChatCompletionRequest struct {
 	TopPromptLogprobs NullableInt32 `json:"top_prompt_logprobs,omitempty"`
 	// Number of completions to return for each request, input tokens are only billed once.
 	N NullableInt32 `json:"n,omitempty"`
-	// Enable users to specify expected results, optimizing response times by leveraging known or predictable content. This approach is especially effective for updating text documents or code files with minimal changes, reducing latency while maintaining high-quality results.
+	// Deprecated: the API accepts this field but ignores it, and it will be removed in a future major version.
+	// Deprecated
 	Prediction *Prediction `json:"prediction,omitempty"`
 	// Whether to enable parallel function calling during tool use, when enabled the model can call multiple tools in parallel.
 	ParallelToolCalls *bool `json:"parallel_tool_calls,omitempty"`
@@ -949,6 +950,7 @@ func (o *ChatCompletionRequest) UnsetN() {
 }
 
 // GetPrediction returns the Prediction field value if set, zero value otherwise.
+// Deprecated
 func (o *ChatCompletionRequest) GetPrediction() Prediction {
 	if o == nil || IsNil(o.Prediction) {
 		var ret Prediction
@@ -959,6 +961,7 @@ func (o *ChatCompletionRequest) GetPrediction() Prediction {
 
 // GetPredictionOk returns a tuple with the Prediction field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// Deprecated
 func (o *ChatCompletionRequest) GetPredictionOk() (*Prediction, bool) {
 	if o == nil || IsNil(o.Prediction) {
 		return nil, false
@@ -976,6 +979,7 @@ func (o *ChatCompletionRequest) HasPrediction() bool {
 }
 
 // SetPrediction gets a reference to the given Prediction and assigns it to the Prediction field.
+// Deprecated
 func (o *ChatCompletionRequest) SetPrediction(v Prediction) {
 	o.Prediction = &v
 }

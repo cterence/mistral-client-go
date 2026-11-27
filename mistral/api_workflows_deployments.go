@@ -25,6 +25,128 @@ import (
 // WorkflowsDeploymentsAPIService WorkflowsDeploymentsAPI service
 type WorkflowsDeploymentsAPIService service
 
+type ApiCreateDeploymentArchiveV1WorkflowsDeploymentsArchivesPostRequest struct {
+	ctx context.Context
+	ApiService *WorkflowsDeploymentsAPIService
+	createDeploymentArchiveRequest *CreateDeploymentArchiveRequest
+}
+
+func (r ApiCreateDeploymentArchiveV1WorkflowsDeploymentsArchivesPostRequest) CreateDeploymentArchiveRequest(createDeploymentArchiveRequest CreateDeploymentArchiveRequest) ApiCreateDeploymentArchiveV1WorkflowsDeploymentsArchivesPostRequest {
+	r.createDeploymentArchiveRequest = &createDeploymentArchiveRequest
+	return r
+}
+
+func (r ApiCreateDeploymentArchiveV1WorkflowsDeploymentsArchivesPostRequest) Execute() (*DeploymentArchiveUploadResponse, *http.Response, error) {
+	return r.ApiService.CreateDeploymentArchiveV1WorkflowsDeploymentsArchivesPostExecute(r)
+}
+
+/*
+CreateDeploymentArchiveV1WorkflowsDeploymentsArchivesPost Create Deployment Archive
+
+Create an empty archive, with a signed URL to upload the tarball a managed deployment builds from.
+
+PUT the gzipped tar to `upload_url` with `upload_headers`, then pass `archive_id` in the spec on create or update.
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiCreateDeploymentArchiveV1WorkflowsDeploymentsArchivesPostRequest
+*/
+func (a *WorkflowsDeploymentsAPIService) CreateDeploymentArchiveV1WorkflowsDeploymentsArchivesPost(ctx context.Context) ApiCreateDeploymentArchiveV1WorkflowsDeploymentsArchivesPostRequest {
+	return ApiCreateDeploymentArchiveV1WorkflowsDeploymentsArchivesPostRequest{
+		ApiService: a,
+		ctx: ctx,
+	}
+}
+
+// Execute executes the request
+//  @return DeploymentArchiveUploadResponse
+func (a *WorkflowsDeploymentsAPIService) CreateDeploymentArchiveV1WorkflowsDeploymentsArchivesPostExecute(r ApiCreateDeploymentArchiveV1WorkflowsDeploymentsArchivesPostRequest) (*DeploymentArchiveUploadResponse, *http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodPost
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *DeploymentArchiveUploadResponse
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "WorkflowsDeploymentsAPIService.CreateDeploymentArchiveV1WorkflowsDeploymentsArchivesPost")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/workflows/deployments/archives"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.createDeploymentArchiveRequest == nil {
+		return localVarReturnValue, nil, reportError("createDeploymentArchiveRequest is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.createDeploymentArchiveRequest
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 422 {
+			var v HTTPValidationError
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
 type ApiCreateDeploymentV1WorkflowsDeploymentsPostRequest struct {
 	ctx context.Context
 	ApiService *WorkflowsDeploymentsAPIService
@@ -1041,6 +1163,10 @@ func (a *WorkflowsDeploymentsAPIService) ListDeploymentsV1WorkflowsDeploymentsGe
 	}
 	if r.limit != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "form", "")
+	} else {
+		var defaultValue int32 = 100
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", defaultValue, "form", "")
+		r.limit = &defaultValue
 	}
 	if r.cursor != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "cursor", r.cursor, "form", "")

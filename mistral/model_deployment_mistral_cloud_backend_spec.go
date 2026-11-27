@@ -24,7 +24,7 @@ type DeploymentMistralCloudBackendSpec struct {
 	BuildDirectory NullableString `json:"build_directory,omitempty"`
 	// Path to the Dockerfile, relative to 'build_directory'. Defaults to 'Dockerfile'.
 	DockerfilePath NullableString `json:"dockerfile_path,omitempty"`
-	// Secrets to bind to the worker, as 'secret:workspace:<NAME>' references. Each is available during build and run: as a Dockerfile build arg (declare a matching 'ARG') and as an env var. On update, the field carries the complete set: send the full list to rebind, an empty list to unbind all, omit it to leave the bindings unchanged.
+	// Secrets to bind to the worker, as 'secret:workspace:&lt;NAME&gt;' references. Each is available during build and run: as a Dockerfile build arg (declare a matching 'ARG') and as an env var. On update, the field carries the complete set: send the full list to rebind, an empty list to unbind all, omit it to leave the bindings unchanged.
 	Secrets []DeploymentSecretBinding `json:"secrets,omitempty"`
 }
 

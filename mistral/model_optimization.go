@@ -27,6 +27,7 @@ type Optimization struct {
 	UpdatedAt time.Time `json:"updated_at"`
 	DeletedAt NullableTime `json:"deleted_at"`
 	CreatorId string `json:"creator_id"`
+	CreatorType *PrincipalType `json:"creator_type,omitempty"`
 	ProjectId string `json:"project_id"`
 	EvaluationId NullableString `json:"evaluation_id,omitempty"`
 	Name string `json:"name"`
@@ -55,6 +56,8 @@ func NewOptimization(id string, createdAt time.Time, updatedAt time.Time, delete
 	this.UpdatedAt = updatedAt
 	this.DeletedAt = deletedAt
 	this.CreatorId = creatorId
+	var creatorType PrincipalType = PRINCIPALTYPE_USER
+	this.CreatorType = &creatorType
 	this.ProjectId = projectId
 	this.Name = name
 	this.Algorithm = algorithm
@@ -68,6 +71,8 @@ func NewOptimization(id string, createdAt time.Time, updatedAt time.Time, delete
 // but it doesn't guarantee that properties required by API are set
 func NewOptimizationWithDefaults() *Optimization {
 	this := Optimization{}
+	var creatorType PrincipalType = PRINCIPALTYPE_USER
+	this.CreatorType = &creatorType
 	return &this
 }
 
@@ -191,6 +196,38 @@ func (o *Optimization) GetCreatorIdOk() (*string, bool) {
 // SetCreatorId sets field value
 func (o *Optimization) SetCreatorId(v string) {
 	o.CreatorId = v
+}
+
+// GetCreatorType returns the CreatorType field value if set, zero value otherwise.
+func (o *Optimization) GetCreatorType() PrincipalType {
+	if o == nil || IsNil(o.CreatorType) {
+		var ret PrincipalType
+		return ret
+	}
+	return *o.CreatorType
+}
+
+// GetCreatorTypeOk returns a tuple with the CreatorType field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Optimization) GetCreatorTypeOk() (*PrincipalType, bool) {
+	if o == nil || IsNil(o.CreatorType) {
+		return nil, false
+	}
+	return o.CreatorType, true
+}
+
+// HasCreatorType returns a boolean if a field has been set.
+func (o *Optimization) HasCreatorType() bool {
+	if o != nil && !IsNil(o.CreatorType) {
+		return true
+	}
+
+	return false
+}
+
+// SetCreatorType gets a reference to the given PrincipalType and assigns it to the CreatorType field.
+func (o *Optimization) SetCreatorType(v PrincipalType) {
+	o.CreatorType = &v
 }
 
 // GetProjectId returns the ProjectId field value
@@ -636,6 +673,9 @@ func (o Optimization) ToMap() (map[string]interface{}, error) {
 	toSerialize["updated_at"] = o.UpdatedAt
 	toSerialize["deleted_at"] = o.DeletedAt.Get()
 	toSerialize["creator_id"] = o.CreatorId
+	if !IsNil(o.CreatorType) {
+		toSerialize["creator_type"] = o.CreatorType
+	}
 	toSerialize["project_id"] = o.ProjectId
 	if o.EvaluationId.IsSet() {
 		toSerialize["evaluation_id"] = o.EvaluationId.Get()

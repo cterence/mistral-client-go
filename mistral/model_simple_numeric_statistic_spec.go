@@ -19,9 +19,10 @@ import (
 // checks if the SimpleNumericStatisticSpec type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &SimpleNumericStatisticSpec{}
 
-// SimpleNumericStatisticSpec A scalar numeric reduction with no parameters (``avg``/``sum``/``min``/``max``/``std``/``count``).
+// SimpleNumericStatisticSpec A scalar numeric reduction (``avg``/``sum``/``min``/``max``/``std``/``count``).  ``weight_key`` (``avg`` only) turns the mean into a weighted mean, ``sum(w * x) / sum(w)``, where each score's weight ``w`` is read from its ``metadata`` under that key. Scores whose weight is missing, non-numeric or negative are left out of that statistic.
 type SimpleNumericStatisticSpec struct {
 	Kind string `json:"kind"`
+	WeightKey NullableString `json:"weight_key,omitempty"`
 	Goal NullableGoalSpec `json:"goal,omitempty"`
 }
 
@@ -67,6 +68,48 @@ func (o *SimpleNumericStatisticSpec) GetKindOk() (*string, bool) {
 // SetKind sets field value
 func (o *SimpleNumericStatisticSpec) SetKind(v string) {
 	o.Kind = v
+}
+
+// GetWeightKey returns the WeightKey field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *SimpleNumericStatisticSpec) GetWeightKey() string {
+	if o == nil || IsNil(o.WeightKey.Get()) {
+		var ret string
+		return ret
+	}
+	return *o.WeightKey.Get()
+}
+
+// GetWeightKeyOk returns a tuple with the WeightKey field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *SimpleNumericStatisticSpec) GetWeightKeyOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.WeightKey.Get(), o.WeightKey.IsSet()
+}
+
+// HasWeightKey returns a boolean if a field has been set.
+func (o *SimpleNumericStatisticSpec) HasWeightKey() bool {
+	if o != nil && o.WeightKey.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetWeightKey gets a reference to the given NullableString and assigns it to the WeightKey field.
+func (o *SimpleNumericStatisticSpec) SetWeightKey(v string) {
+	o.WeightKey.Set(&v)
+}
+// SetWeightKeyNil sets the value for WeightKey to be an explicit nil
+func (o *SimpleNumericStatisticSpec) SetWeightKeyNil() {
+	o.WeightKey.Set(nil)
+}
+
+// UnsetWeightKey ensures that no value is present for WeightKey, not even an explicit nil
+func (o *SimpleNumericStatisticSpec) UnsetWeightKey() {
+	o.WeightKey.Unset()
 }
 
 // GetGoal returns the Goal field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -122,6 +165,9 @@ func (o SimpleNumericStatisticSpec) MarshalJSON() ([]byte, error) {
 func (o SimpleNumericStatisticSpec) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["kind"] = o.Kind
+	if o.WeightKey.IsSet() {
+		toSerialize["weight_key"] = o.WeightKey.Get()
+	}
 	if o.Goal.IsSet() {
 		toSerialize["goal"] = o.Goal.Get()
 	}

@@ -24,6 +24,8 @@ type UpdateInvocationBody struct {
 	// The name of the update to request
 	Name string `json:"name"`
 	Input NullableInput4 `json:"input,omitempty"`
+	// Cleartext technical values (ids, flags) for the code this call runs, read with `get_call_context()`. Not covered by payload encryption: never put customer content here.
+	CallContext map[string]SignalInvocationBodyCallContextValue `json:"call_context,omitempty"`
 }
 
 type _UpdateInvocationBody UpdateInvocationBody
@@ -112,6 +114,39 @@ func (o *UpdateInvocationBody) UnsetInput() {
 	o.Input.Unset()
 }
 
+// GetCallContext returns the CallContext field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *UpdateInvocationBody) GetCallContext() map[string]SignalInvocationBodyCallContextValue {
+	if o == nil {
+		var ret map[string]SignalInvocationBodyCallContextValue
+		return ret
+	}
+	return o.CallContext
+}
+
+// GetCallContextOk returns a tuple with the CallContext field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *UpdateInvocationBody) GetCallContextOk() (map[string]SignalInvocationBodyCallContextValue, bool) {
+	if o == nil || IsNil(o.CallContext) {
+		return map[string]SignalInvocationBodyCallContextValue{}, false
+	}
+	return o.CallContext, true
+}
+
+// HasCallContext returns a boolean if a field has been set.
+func (o *UpdateInvocationBody) HasCallContext() bool {
+	if o != nil && !IsNil(o.CallContext) {
+		return true
+	}
+
+	return false
+}
+
+// SetCallContext gets a reference to the given map[string]SignalInvocationBodyCallContextValue and assigns it to the CallContext field.
+func (o *UpdateInvocationBody) SetCallContext(v map[string]SignalInvocationBodyCallContextValue) {
+	o.CallContext = v
+}
+
 func (o UpdateInvocationBody) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -125,6 +160,9 @@ func (o UpdateInvocationBody) ToMap() (map[string]interface{}, error) {
 	toSerialize["name"] = o.Name
 	if o.Input.IsSet() {
 		toSerialize["input"] = o.Input.Get()
+	}
+	if o.CallContext != nil {
+		toSerialize["call_context"] = o.CallContext
 	}
 	return toSerialize, nil
 }
